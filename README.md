@@ -13,7 +13,7 @@ This repo contains the research project as part of ETC5543 for **Yiwen Zhang**.
 1. Find related literatures. Some to consider are:
   - [`rtrends`](https://cran.r-project.org/web/packages/rtrends/rtrends.pdf) - although it's not clear to me this is doing anything particularly striking.
   - [`adjustedcranlogs`](https://github.com/tylermorganwall/adjustedcranlogs). It looks like sub-samples some CRAN packages and takes a certain quantile to subtract the download count. 
-  = [`packageRank`](https://github.com/lindbrook/packageRank). Also see [intro post](https://blog.r-hub.io/2020/05/11/packagerank-intro/) which is really well written!
+  - [`packageRank`](https://github.com/lindbrook/packageRank). Also see [intro post](https://blog.r-hub.io/2020/05/11/packagerank-intro/) which is really well written!
   - [`cranlogs`](https://github.com/r-hub/cranlogs) - to download the summary download data. 
   - [`cran.stats`](https://github.com/arunsrinivasan/cran.stats)
   - [`dlstats`](https://github.com/GuangchuangYu/dlstats)

@@ -3,3 +3,4 @@ tab:nice-tab
 intro
 analysis
 summary
+helpful-tips
