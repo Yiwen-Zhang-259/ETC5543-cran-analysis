@@ -17,7 +17,7 @@
 	
 	6. Emi introduces the TODO file and the MINUTES file. The former is used to record the to do things each week and the latter is used to record the content of meeting each week, but after discussion, we think use issue to record the to do things is better. And we can post message or I can receive Emi's questions through that.
 	
-	7. Emi teach me how to generate the online book of this project in Github, and tells me that the output of this project can be one online book, one html or pdf book to be submitted and the shiny app.
+	7. Emi teaches me how to generate the online book of this project in Github, and tells me that the output of this project can be one online book, one html or pdf book to be submitted and the shiny app.
 	
 	8. Then, Emi explains the requirements of this ETC5543 course again. 
 	
