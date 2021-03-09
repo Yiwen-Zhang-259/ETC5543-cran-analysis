@@ -1,6 +1,6 @@
 fig:nice-fig
 tab:nice-tab
 intro
+helpful-tips
 analysis
 summary
-helpful-tips
