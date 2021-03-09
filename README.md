@@ -7,7 +7,7 @@ This repo contains the research project as part of ETC5543 for **Yiwen Zhang**.
 
 1. Extend existing R Shiny app (found [here](https://github.com/emitanaka/shinyctv)). The app contains interactive analysis of CRAN download logs and textual analysis of the title and descriptions of packages by the CRAN Task View.
 1. Exploratory data analysis of CRAN download logs. Some obvious trends include a drop in download counts over the weekend and a spike when there is an update in the CRAN. Some questions to ask are:
-  - Are older packages more downloaded? Does this mean that even if a better R package comes along then the
+  - Are older packages more downloaded? Does this mean that even if a better R package comes along then it takes a while before the download picks up for it?
   - How does an update to R affect download?
   - The download counts are inflated due to bots and mirror downloads. How to adjust the download counts?
 1. Find related literatures. Some to consider are:
