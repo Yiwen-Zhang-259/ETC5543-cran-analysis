@@ -8,5 +8,5 @@
 
 ## Mon 08/03/2021
 
-- [ ] Study emitanaka/shinyctv first
+- [X] Study emitanaka/shinyctv first
 - [X] Create repo for project
