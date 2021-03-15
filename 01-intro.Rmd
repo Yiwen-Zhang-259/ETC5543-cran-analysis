@@ -41,7 +41,9 @@ This package can also be used to get the total number of download logs first, bu
 
 - [`dlstats`](https://github.com/GuangchuangYu/dlstats)
 
+
 - [`pkgsearch`](https://github.com/r-hub/pkgsearch/)
+This is a package used to query packages in multiple dimensions. First, users can search by the usage of the package, and `pkgsearch` will return the results with popular packages before less frequently used ones. Or there is a `CRAN package search` addin in menu, with which users can search packages by clicking easily. And it can publish the version history of certain package or display the recent trending packages in detail. Besides, it can provide the latest releases or archivals. Moreover, the search server uses the stems of the words in the indexed metadata, and the search phrase. In this way, the deceleration result will not be affected by the grammar of spelling and tense, which increases the fault tolerance rate and become more user-friendly. At this point, there is also a functional extension, that is, the search engine prefers matching whole phrases over single words.This means that it will consider more about the meaning of the entire search term than match a word, which makes the results more accurate. For example, the search phrase “permutation test” will rank coin higher than testthat, even though testthat is a much better result for the single word “test”. And it uses weighted scoring to show the ranking of the results, which includes reverse dependencies, matching degree of title and description and the number of downloads. Finally, it also provides ASCII folding for easy retrieval. In general, this is a comprehensive, practical and interesting search package.
 
 - [`Visualize.CRAN.Downloads`](https://cran.r-project.org/web/packages/Visualize.CRAN.Downloads/vignettes/Visualize.CRAN.Downloads.html)
 
