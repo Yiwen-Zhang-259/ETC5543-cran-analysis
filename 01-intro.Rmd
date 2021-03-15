@@ -37,6 +37,7 @@ We already know that the main function of `cranlogs` is to show the total number
 
 
 - [`cran.stats`](https://github.com/arunsrinivasan/cran.stats)
+This package can also be used to get the total number of download logs first, but it is different from the previous package in that it gets seasonal data, such as annual, monthly and weekly. Besides, packages can have dependencies with each other, which means when a package is downloaded, its dependent package is also downloaded. But this will cause a problem, that is, when users download a package with its dependent package also downloaded, the download logs may not reflect the actual popularity of that dependent package. Therefore, another function of this package can solve this problem well by identifying and subtracting the downloads due to it's dependent packages. Also, there is one function used to plot direct downloads and downloads due to dependencies separately.
 
 - [`dlstats`](https://github.com/GuangchuangYu/dlstats)
 
