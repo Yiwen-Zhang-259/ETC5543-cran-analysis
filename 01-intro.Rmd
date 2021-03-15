@@ -27,7 +27,9 @@ This is a package used for simple analysis of download logs from the CRAN RStudi
 (4) merge CRAN download logs with county names
 (5) provide sample formatted CRAN logs
 
-- [`packageRank`](https://github.com/lindbrook/packageRank). Also see [intro post](https://blog.r-hub.io/2020/05/11/packagerank-intro/) which is really well written!
+- [`packageRank`](https://github.com/lindbrook/packageRank).
+It is also a package that relies on package `cranlog` and extends its functionality.It can publish the total download logs from CRAN with a more user-friendly interface and providing generic R `plot()` methods to make visualization easy. Also, many package creators are very concerned about the popularity of their packages, and this package `packageRank` can show the percentage of packages with less downloads. Furthermore, when we count the download logs, the exact thing we want is the number of times the package has been completely downloaded. In fact, we often encounter some wrongly sized download records, that is to say, users only download a part of the normal sized package. One is called "medium", the other is "small", which exists either as a part of pair with a full download or one of triplet with a "medium" and a full downloads. In order to deal with this, the creator filters the "small" entries that are less 1000 bytes and use triplet-specific filter to do with the "medium" entries.
+
 
 - [`cranlogs`](https://github.com/r-hub/cranlogs) - to download the summary download data. 
 It is a R package used to publish the total download logs from CRAN mirror in last day, last week or even a specific time range, for one package or several packages. And it can used to figure out the top downloaded packages in a time.
@@ -68,5 +70,6 @@ knitr::kable(
   booktabs = TRUE
 )
 ```
+
 
 You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].
