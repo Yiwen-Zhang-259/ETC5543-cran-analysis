@@ -12,18 +12,20 @@ This is the introduction for this project. Before that, I would like to introduc
 
 - CRAN mirror : It is a website containing differently located servers, which aims to facilitate people from different regions and countries to access CRAN more smoothly and quickly. And each server is called a mirror.
 
-And then we come to the related literatures, which are as followed:
- 1.Package "adjustedcranlogs"
-
 
 
 ## rtrends
 
-rtrends  bla bla
+And then we come to the related literatures, which are as followed:
 
-[`rtrends`](https://cran.r-project.org/web/packages/rtrends/rtrends.pdf) - although it's not clear to me this is doing anything particularly striking.
+- [`rtrends`](https://cran.r-project.org/web/packages/rtrends/rtrends.pdf)
+This is a package used for simple analysis of download logs from the CRAN RStudio Mirror, which contains one dataset and five functions. It's mainly functions are:
 
-
+(1) abstract all CRAN download logs for a specific date
+(2) abstract CRAN download logs for a specific package
+(3) abstract CRAN download logs for a several package in a range of dates
+(4) merge CRAN download logs with county names
+(5) provide sample formatted CRAN logs
 
 - [`adjustedcranlogs`](https://github.com/tylermorganwall/adjustedcranlogs). It looks like sub-samples some CRAN packages and takes a certain quantile to subtract the download count. 
 - [`packageRank`](https://github.com/lindbrook/packageRank). Also see [intro post](https://blog.r-hub.io/2020/05/11/packagerank-intro/) which is really well written!
