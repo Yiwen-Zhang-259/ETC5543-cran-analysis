@@ -1,6 +1,7 @@
 fig:nice-fig
 tab:nice-tab
 intro
+rtrends
 helpful-tips
 analysis
 summary

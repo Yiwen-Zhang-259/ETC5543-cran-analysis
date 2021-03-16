@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2021-03-09" />
+<meta name="date" content="2021-03-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="analysis.html"/>
-<script src="libs/header-attrs-2.6.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,13 +50,13 @@
 
 
 
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -117,7 +117,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
 <body>
@@ -130,20 +129,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">A Minimal Book Example</a></li>
-
-<li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#helpful-tips"><i class="fa fa-check"></i><b>1.1</b> Helpful tips</a></li>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#rtrends"><i class="fa fa-check"></i><b>1.1</b> rtrends</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#helpful-tips"><i class="fa fa-check"></i><b>1.2</b> Helpful tips</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>2</b> Analysis</a></li>
 <li class="chapter" data-level="3" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>3</b> Summary</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
 </ul>
 
       </nav>
@@ -163,23 +157,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="intro" class="section level1" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p>The literatures of interest are:</p>
+<p>This is the introduction for this project. Before that, I would like to introduce some terms involved in this project.</p>
 <ul>
-<li><a href="https://cran.r-project.org/web/packages/rtrends/rtrends.pdf"><code>rtrends</code></a> - although it’s not clear to me this is doing anything particularly striking.</li>
-<li><a href="https://github.com/tylermorganwall/adjustedcranlogs"><code>adjustedcranlogs</code></a>. It looks like sub-samples some CRAN packages and takes a certain quantile to subtract the download count.</li>
-<li><a href="https://github.com/lindbrook/packageRank"><code>packageRank</code></a>. Also see <a href="https://blog.r-hub.io/2020/05/11/packagerank-intro/">intro post</a> which is really well written!</li>
-<li><a href="https://github.com/r-hub/cranlogs"><code>cranlogs</code></a> - to download the summary download data.</li>
-<li><a href="https://github.com/arunsrinivasan/cran.stats"><code>cran.stats</code></a></li>
-<li><a href="https://github.com/GuangchuangYu/dlstats"><code>dlstats</code></a></li>
-<li><a href="https://github.com/r-hub/pkgsearch/"><code>pkgsearch</code></a></li>
-<li><a href="https://cran.r-project.org/web/packages/Visualize.CRAN.Downloads/vignettes/Visualize.CRAN.Downloads.html"><code>Visualize.CRAN.Downloads</code></a></li>
+<li><p>R language : R is a language and environment for statistical computing and graphics which can be extended easily via packages and provide an Open Source route to participation in statistical methodology. It is available as Free Software under the term of the Free Software Foundation’s GNU General Public License<span class="citation">(<a href="references.html#ref-gnu" role="doc-biblioref"><span>“The GNU Operating System and the Free Software Movement”</span> 1991</a>)</span>.</p></li>
+<li><p>R Studio : It is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management.</p></li>
+<li><p>R Packages : They are collections of functions and data sets developed by the community. They increase the power of R by improving existing base R functionalities, or by adding new ones.</p></li>
+<li><p>CRAN : It is a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R.</p></li>
+<li><p>CRAN mirror : It is a website containing differently located servers, which aims to facilitate people from different regions and countries to access CRAN more smoothly and quickly. And each server is called a mirror.</p></li>
+<li><p>API : It is the abbreviation of Application Programming Interface, which is a software intermediary that allows two applications to talk to each other.</p></li>
 </ul>
-<div id="helpful-tips" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Helpful tips</h2>
+<div id="rtrends" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> rtrends</h2>
+<p>And then we come to the related literatures, which are as followed:</p>
+<ul>
+<li><a href="https://cran.r-project.org/web/packages/rtrends/rtrends.pdf"><code>rtrends</code></a>
+This is a package used for simple analysis of download logs from the CRAN RStudio Mirror, which contains one dataset and five functions. It’s mainly functions are:</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>abstract all CRAN download logs for a specific date</li>
+<li>abstract CRAN download logs for a specific package</li>
+<li>abstract CRAN download logs for a several package in a range of dates</li>
+<li>merge CRAN download logs with county names</li>
+<li>provide sample formatted CRAN logs</li>
+</ol>
+<ul>
+<li><p><a href="https://github.com/lindbrook/packageRank"><code>packageRank</code></a>.
+It is also a package that relies on package <code>cranlog</code> and extends its functionality.It can publish the total download logs from CRAN with a more user-friendly interface and providing generic R <code>plot()</code> methods to make visualization easy. Also, many package creators are very concerned about the popularity of their packages, and this package <code>packageRank</code> can show the percentage of packages with less downloads. Furthermore, when we count the download logs, the exact thing we want is the number of times the package has been completely downloaded. In fact, we often encounter some wrongly sized download records, that is to say, users only download a part of the normal sized package. One is called “medium,” the other is “small,” which exists either as a part of pair with a full download or one of triplet with a “medium” and a full downloads. In order to deal with this, the creator filters the “small” entries that are less 1000 bytes and use triplet-specific filter to do with the “medium” entries.</p></li>
+<li><p><a href="https://github.com/r-hub/cranlogs"><code>cranlogs</code></a> - to download the summary download data.
+It is a R package used to publish the total download logs from CRAN mirror in last day, last week or even a specific time range, for one package or several packages. And it can used to figure out the top downloaded packages in a time.</p></li>
+<li><p><a href="https://github.com/tylermorganwall/adjustedcranlogs"><code>adjustedcranlogs</code></a>.
+We already know that the main function of <code>cranlogs</code> is to show the total number of download logs, but in practice, so the statistics of that will face the following problems: including the number of shared download logs, the same user downloads the same package again for some reason, and when a package is updated, the number of download logs will surge. Due to that, <code>adjustedcranlogs</code> is a wrapper around the <code>cranlogs</code> package that removes these three types of download logs. Therefore, using the data processed by this package to plot, we will find that the fluctuation of the download logs will be smaller.</p></li>
+<li><p><a href="https://github.com/arunsrinivasan/cran.stats"><code>cran.stats</code></a>
+This package can also be used to get the total number of download logs first, but it is different from the previous package in that it gets seasonal data, such as annual, monthly and weekly. Besides, packages can have dependencies with each other, which means when a package is downloaded, its dependent package is also downloaded. But this will cause a problem, that is, when users download a package with its dependent package also downloaded, the download logs may not reflect the actual popularity of that dependent package. Therefore, another function of this package can solve this problem well by identifying and subtracting the downloads due to it’s dependent packages. Also, there is one function used to plot direct downloads and downloads due to dependencies separately.</p></li>
+<li><p><a href="https://github.com/GuangchuangYu/dlstats"><code>dlstats</code></a></p></li>
+<li><p><a href="https://github.com/r-hub/pkgsearch/"><code>pkgsearch</code></a>
+This is a package used to query packages in multiple dimensions. First, users can search by the usage of the package, and <code>pkgsearch</code> will return the results with popular packages before less frequently used ones. Or there is a <code>CRAN package search</code> addin in menu, with which users can search packages by clicking easily. And it can publish the version history of certain package or display the recent trending packages in detail. Besides, it can provide the latest releases or archivals. Moreover, the search server uses the stems of the words in the indexed metadata, and the search phrase. In this way, the deceleration result will not be affected by the grammar of spelling and tense, which increases the fault tolerance rate and become more user-friendly. At this point, there is also a functional extension, that is, the search engine prefers matching whole phrases over single words.This means that it will consider more about the meaning of the entire search term than match a word, which makes the results more accurate. For example, the search phrase “permutation test” will rank coin higher than testthat, even though testthat is a much better result for the single word “test.” And it uses weighted scoring to show the ranking of the results, which includes reverse dependencies, matching degree of title and description and the number of downloads. Finally, it also provides ASCII folding for easy retrieval. In general, this is a comprehensive, practical and interesting search package.</p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/Visualize.CRAN.Downloads/vignettes/Visualize.CRAN.Downloads.html"><code>Visualize.CRAN.Downloads</code></a>
+This package provides a variety of methods and different types of presentation to visualize the downloads of packages, including static plots, interactive plots and comparison plot. These visualizations mainly focus on the single or comparative study of package downloads in a certain period of time. It includes the change of daily download volume with time, the change of cumulative total download volume, the fluctuation of average download volume and download volume within the standard deviation. In addition, it also provides many function options for splitting or combining figures to make visualization as comprehensive and flexible as possible.</p></li>
+</ul>
+</div>
+<div id="helpful-tips" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Helpful tips</h2>
 <p>You can label chapter and section titles using <code>{#label}</code> after them, e.g., we can reference Chapter <a href="intro.html#intro">1</a>. If you do not manually label them, there will be automatic labels anyway, e.g., Chapter <a href="#methods"><strong>??</strong></a>.</p>
 <p>Figures and tables with captions will be placed in <code>figure</code> and <code>table</code> environments, respectively.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1"></a><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">.1</span>, <span class="fl">.1</span>))</span>
-<span id="cb1-2"><a href="intro.html#cb1-2"></a><span class="kw">plot</span>(pressure, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>, <span class="dt">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, .<span class="dv">1</span>, .<span class="dv">1</span>))</span>
+<span id="cb1-2"><a href="intro.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pressure, <span class="at">type =</span> <span class="st">&#39;b&#39;</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:nice-fig"></span>
 <img src="bookdown-demo_files/figure-html/nice-fig-1.png" alt="Here is a nice figure!" width="80%" />
 <p class="caption">
@@ -187,10 +209,10 @@ Figure 1.1: Here is a nice figure!
 </p>
 </div>
 <p>Reference a figure by its code chunk label with the <code>fig:</code> prefix, e.g., see Figure <a href="intro.html#fig:nice-fig">1.1</a>. Similarly, you can reference tables generated from <code>knitr::kable()</code>, e.g., see Table <a href="intro.html#tab:nice-tab">1.1</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1"></a>knitr<span class="op">::</span><span class="kw">kable</span>(</span>
-<span id="cb2-2"><a href="intro.html#cb2-2"></a>  <span class="kw">head</span>(iris, <span class="dv">20</span>), <span class="dt">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,</span>
-<span id="cb2-3"><a href="intro.html#cb2-3"></a>  <span class="dt">booktabs =</span> <span class="ot">TRUE</span></span>
-<span id="cb2-4"><a href="intro.html#cb2-4"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb2-2"><a href="intro.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(iris, <span class="dv">20</span>), <span class="at">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,</span>
+<span id="cb2-3"><a href="intro.html#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> <span class="cn">TRUE</span></span>
+<span id="cb2-4"><a href="intro.html#cb2-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:nice-tab">Table 1.1: </span>Here is a nice table!</caption>
 <thead>
@@ -345,17 +367,8 @@ Figure 1.1: Here is a nice figure!
 </tr>
 </tbody>
 </table>
-<p>You can write citations, too. For example, we are using the <strong>bookdown</strong> package <span class="citation">(Xie <a href="#ref-R-bookdown" role="doc-biblioref">2020</a>)</span> in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015" role="doc-biblioref">2015</a>)</span>.</p>
+<p>You can write citations, too. For example, we are using the <strong>bookdown</strong> package <span class="citation">(<a href="references.html#ref-R-bookdown" role="doc-biblioref">Xie 2020</a>)</span> in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(<a href="references.html#ref-xie2015" role="doc-biblioref">Xie 2015</a>)</span>.</p>
 
-</div>
-</div>
-<h3>References</h3>
-<div id="refs" class="references">
-<div id="ref-xie2015">
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.name/knitr/">http://yihui.name/knitr/</a>.</p>
-</div>
-<div id="ref-R-bookdown">
-<p>Xie, Yihui. 2020. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.</p>
 </div>
 </div>
             </section>
@@ -395,8 +408,8 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-intro.Rmd",
-"text": "Edit"
+"link": null,
+"text": null
 },
 "history": {
 "link": null,
