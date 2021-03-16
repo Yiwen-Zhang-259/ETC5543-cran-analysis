@@ -30,7 +30,7 @@ This week, Emi and I talked about things as followed:
 
 This week, Emi and I talked about things as followed:
 
-1. I first share what I have done on shiny app. The specific things I have done include : 
+1. I first shared what I had done on shiny app. The specific things I have done include : 
    (1) I try to improve the layout of the app and try to figure out the way to speed up the data loading process.(but actually the way I used is wrong
    (2) I read all the related literatures and write summaries on this, so I share the interesting I learned from these packages
    
@@ -40,4 +40,6 @@ This week, Emi and I talked about things as followed:
 
 4. Emi told me dig deeper into the three most interesting packages `packageRank`, `adjustedcranlogs` and `pkgsearch` to figure out the specific method (i.e. the specific mathematical method) they used to achieve their goals. Also thinking about how could I do this? Is there some better way? Or could I extend the exist functions?
 
-5. Emi helps me with the gitbook issue to make it possible for me to generate the remote site book on github.
+5. Emi helped me with the gitbook issue to make it possible for me to generate the remote site book on github.
+
+6. Emi also reminded me that remember to commit regularly and do spend enough time on this project.
