@@ -26,3 +26,18 @@ This week, Emi and I talked about things as followed:
 10. Finally, we decided that every Tuesday is our regular meeting time.
 
 
+## Tue 9 Mar 2021
+
+This week, Emi and I talked about things as followed:
+
+1. I first share what I have done on shiny app. The specific things I have done include : 
+   (1) I try to improve the layout of the app and try to figure out the way to speed up the data loading process.(but actually the way I used is wrong
+   (2) I read all the related literatures and write summaries on this, so I share the interesting I learned from these packages
+   
+2. Emi told me the method to make the data loading faster by download a part of the whole data into the local computer first then everytime users need to use the data, they don't have to read it from the website every time. I will try to complete this this week.
+
+3. Emi told me that I should make the interactive table more complicated by linking package name to its downlod log plot.
+
+4. Emi told me dig deeper into the three most interesting packages `packageRank`, `adjustedcranlogs` and `pkgsearch` to figure out the specific method (i.e. the specific mathematical method) they used to achieve their goals. Also thinking about how could I do this? Is there some better way? Or could I extend the exist functions?
+
+5. Emi helps me with the gitbook issue to make it possible for me to generate the remote site book on github.
