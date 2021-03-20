@@ -1,5 +1,10 @@
 # Introduction {#intro}
 
+
+R is a widely used programming language, and also a free software environment for statistical calculation and mapping analysis. R is popular among statisticians and data analysts, with being widely used in statistical software development and data analysis. In the process of using R, we need to extend its functions with the help of R packages, so R packages have become an indispensable part when people use R to work and study. R packages can be downloaded from CRAN, a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R. It is precisely because R package is so important and basic for users of R, we will be quite concerned about everything about package. On the one hand, Some users of R are also developers of R packages, therefore, these people may be concerned about the download amount and popularity of their packages. For ordinary users of R, when they want to choose a suitable package for a certain job, for example, they want to do Bayesian analysis, and there are many packages with this function, then they would want to know which packages are the most popular or practical. Based on this, the purpose of this project is to analyze and explore the packages download on CRAN, and try to provide one or more methods to modify the download amount of packages or help users and developers better understand the download amount pattern.
+
+
+
 This is the introduction for this project. Before that, I would like to introduce some terms involved in this project.
 
 - R language : R is a language and environment for statistical computing and graphics which can be extended easily via packages and provide an Open Source route to participation in statistical methodology. It is available as Free Software under the term of the Free Software Foundation’s GNU General Public License[@gnu].
@@ -13,6 +18,7 @@ This is the introduction for this project. Before that, I would like to introduc
 - CRAN mirror : It is a website containing differently located servers, which aims to facilitate people from different regions and countries to access CRAN more smoothly and quickly. And each server is called a mirror.
 
 - API : It is the abbreviation of Application Programming Interface, which is a software intermediary that allows two applications to talk to each other. 
+
 
 ## rtrends
 
