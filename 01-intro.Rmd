@@ -40,7 +40,12 @@ It is also a package that relies on package `cranlog` and extends its functional
 It is a R package used to publish the total download logs from CRAN mirror in last day, last week or even a specific time range, for one package or several packages. And it can used to figure out the top downloaded packages in a time.
 
 - [`adjustedcranlogs`](https://github.com/tylermorganwall/adjustedcranlogs). 
-We already know that the main function of `cranlogs` is to show the total number of download logs, but in practice, so the statistics of that will face the following problems: including the number of shared download logs, the same user downloads the same package again for some reason, and when a package is updated, the number of download logs will surge. Due to that, `adjustedcranlogs` is a wrapper around the `cranlogs` package that removes these three types of download logs. Therefore, using the data processed by this package to plot, we will find that the fluctuation of the download logs will be smaller.
+We already know that the main function of `cranlogs` is to show the total number of download logs, but in practice, so the statistics of that will face the following problems: including the number of shared download logs, the same user downloads the same package again for some reason, and when a package is updated, the number of download logs will surge. Due to that, `adjustedcranlogs` is a wrapper around the `cranlogs` package that removes these two types of download logs. Therefore, using the data processed by this package to plot, we will find that the fluctuation of the download logs will be smaller.
+The only function inside this package is `adj_cran_downloads()`, which returns a data frame showing the adjusted downloads, adjusted total downloads, shared minimum downloads, and package update information.
+
+The specific method is as follows:
+This package mainly removes two types of downloads, one is the spike in downloads due to automatic re-downloads, the other is CRAN mirrors associated with a package update. First, it will find out the minimum download amount of a package, and then subtract the minimum download amount from the original download amount obtained through `cranlogs::cran_downloads` function to get an adjusted download amount. And in order to remove the spike, it uses two discriminant process: first, it determines whether a certain day is an update day, if so, it has value TRUE, if not, it has value FALSE. Then it determines that if two consecutive days are update days for the same package, if so, the median of the adjusted load per day of this package would be used as the daily download amount of each of these two days. 
+
 
 
 - [`cran.stats`](https://github.com/arunsrinivasan/cran.stats)
