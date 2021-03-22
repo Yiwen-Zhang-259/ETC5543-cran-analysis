@@ -35,6 +35,27 @@ This is a package used for simple analysis of download logs from the CRAN RStudi
 - [`packageRank`](https://github.com/lindbrook/packageRank).
 It is also a package that relies on package `cranlog` and extends its functionality.It can publish the total download logs from CRAN with a more user-friendly interface and providing generic R `plot()` methods to make visualization easy. Also, many package creators are very concerned about the popularity of their packages, and this package `packageRank` can show the percentage of packages with less downloads. Furthermore, when we count the download logs, the exact thing we want is the number of times the package has been completely downloaded. In fact, we often encounter some wrongly sized download records, that is to say, users only download a part of the normal sized package. One is called "medium", the other is "small", which exists either as a part of pair with a full download or one of triplet with a "medium" and a full downloads. In order to deal with this, the creator filters the "small" entries that are less 1000 bytes and use triplet-specific filter to do with the "medium" entries.
 
+Generally speaking, the function of this package is divided into two directions, one is to calculate the rank percentile, the other is to filter invalid package downloads. In addition, a series of visualization methods are provided. Here, I will mainly explain how the above two functions are brought about.
+
+(1) Computing the rank percentile
+
+This package computes rank percentile for a single package's one-day download. First of all, find out the sum of the downloads of all packages whose daily downloads are smaller than that of this package, and record it as A, and get the downloads of all packages from Bioconductor on this day, record it as B, then divide A by B. We would get the rank percentage of this package in this way.
+
+(2) Filtering invalid downloads
+
+There are five types filtering functions inside this package:
+
+`ip.filter` : it is used to remove campaigns of those IP address that has downloaded the same package for too many times. And the 'to many times' is set to 10. And the statistical method used here is k-means clustering.
+
+`triplet.filter` : reduce the triplets to a single observation... (to be added)
+
+`small.filter` : it is used to remove entries smaller than 1000 bytes. Why 1000 bytes?  Because this is even smaller than the smallest-sizes package in CRAN named 'source.gist'. In other words, packages smaller than this size are "small" packages that should be removed. 
+
+`sequence.filter` : removes logs that is of past versions. When people download the historical version of a package, they may be more interested in CRAN than in the package itself.
+
+`size.filter` : removes entries smaller than a package’s binary or source file. (to be added...)
+
+
 
 - [`cranlogs`](https://github.com/r-hub/cranlogs) - to download the summary download data. 
 It is a R package used to publish the total download logs from CRAN mirror in last day, last week or even a specific time range, for one package or several packages. And it can used to figure out the top downloaded packages in a time.
