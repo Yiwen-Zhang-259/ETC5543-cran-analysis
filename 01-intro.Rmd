@@ -47,15 +47,15 @@ There are five types filtering functions inside this package:
 
 `ip.filter` : it is used to remove campaigns of those IP address that has downloaded the same package for too many times. And the 'to many times' is set to 10. And the statistical method used here is k-means clustering.
 
-`triplet.filter` : reduce the triplets to a single observation... (to be added)
+`triplet.filter` : reduce the triplets to a single observation. 
 
 `small.filter` : it is used to remove entries smaller than 1000 bytes. Why 1000 bytes?  Because this is even smaller than the smallest-sizes package in CRAN named 'source.gist'. In other words, packages smaller than this size are "small" packages that should be removed. 
 
 `sequence.filter` : removes logs that is of past versions. When people download the historical version of a package, they may be more interested in CRAN than in the package itself.
 
-`size.filter` : removes entries smaller than a package’s binary or source file. (to be added...)
+`size.filter` : filter and removes entries smaller than a package’s binary or source file. 
 
-
+Here, I have an idea of whether it can be extended to the multi-day download rank percentile of a single package, or the single day download rank percentile of multiple packages, or the multi-day download rank percentile of multiple packages.
 
 - [`cranlogs`](https://github.com/r-hub/cranlogs) - to download the summary download data. 
 It is a R package used to publish the total download logs from CRAN mirror in last day, last week or even a specific time range, for one package or several packages. And it can used to figure out the top downloaded packages in a time.
