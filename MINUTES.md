@@ -26,7 +26,7 @@ This week, Emi and I talked about things as followed:
 10. Finally, we decided that every Tuesday is our regular meeting time.
 
 
-## Tue 9 Mar 2021
+## Tue 16 Mar 2021
 
 This week, Emi and I talked about things as followed:
 
@@ -43,3 +43,31 @@ This week, Emi and I talked about things as followed:
 5. Emi helped me with the gitbook issue to make it possible for me to generate the remote site book on github.
 
 6. Emi also reminded me that remember to commit regularly and do spend enough time on this project.
+
+
+## Tue 23 Mar 2021
+
+This week, Emi and I talked about things as followed:
+
+1. Emi correct my misunderstanding of the related literature (for what are these packages used for).
+
+2. Emi told me that we should focus on our title : 'The evolution of R'.
+DETAILS: R started 1993, and `tidverse` is very popular from its start. The R community is quite different to the initial one, so look into how things has   changed is a good idea. And we should try to figure out that how the evolution happend. As a part of that, I can take on the package ranking. In other words, how has the package ranking changed over time? 
+
+Some packages's downloads may increase linearly, others may not. By looking into the insights of these may help find something.
+
+Another direction is analysing how has the statistics changed over time for many R package developers are statisticians.
+
+3. Emi sends me a paper on analysis for Github repo popularity as an example. So in my case, maybe I can looking on what areas are people interested in.
+   Emi also suggests me refer to this paper to think about my analysis. And Emi said I can classify packages by doing clustering analysis. i.e. the classify the packages by their speed of growth, such as high growth and slow growth.
+   
+   Emi suggests me just go though top 15 packages for it's hard to do with all.
+   
+4. But there is a problem that the data available in CRAN is just begin from 2012, so there are not enough for us. So maybe I can't see the popularity, but I can see what packages exsit. That means I can figure out what sort of things people did before 2012, and what they have done after 2012.
+
+5. So I can figure out what are top 15 packages from the available date from 2012 and have a look at how this changes every day.
+
+6. Emi thinks that popular packages are probably larges rows around all of `tidyverse` packages, for they are dependent packages and people just downloaded these with purpose for downloading the `tidyverse`.
+
+7. Emi advices me to create a model to describe what happende across time rather than doing predictions.
+   
