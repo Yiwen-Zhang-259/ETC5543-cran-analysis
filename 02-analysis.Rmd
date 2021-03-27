@@ -1,3 +1,98 @@
 # Analysis
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(pkgsearch)
+library(jsonlite)
+```
+
+```{r readcran}
+url <- "http://cran.rstudio.com/web/packages/packages.rds"
+db <- readRDS(url(url)) %>% 
+  as.data.frame()
+```
+
+```{r}
+# to find the top 15 downloaded packages
+db <- db %>%
+  group_by(Package) 
+
+```
+
+```{r  top15pkg-ld}
+resp <- curl::curl_fetch_memory("http://cranlogs.r-pkg.org/top/last-day/15")
+cnt <- rawToChar(resp$content)
+Encoding(cnt) <- "UTF-8"
+tb <- fromJSON(cnt, simplifyDataFrame = TRUE)$downloads
+names(tb) <- c("package", "count")
+  
+cran_top15_downloaded_ld <- tibble::as_tibble(tb)
+```
+
+```{r top15ld-plot}
+cran_top15_downloaded_ld %>%
+  ggplot(aes(x = package, y = count)) +
+  geom_col() +
+  scale_x_discrete(limits = c("rlang", "lifecycle", "vctrs","dplyr","ggplot2","jsonlite","tibble","pillar","glue","sf","magrittr","xfun","withr","tidyselect","cli")) +
+  labs(
+       title = "Top 15 downloaded packages last day") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"))
+```
+
+```{r  top15pkg-lw}
+resp1 <- curl::curl_fetch_memory("http://cranlogs.r-pkg.org/top/last-week/15")
+cnt1 <- rawToChar(resp1$content)
+Encoding(cnt1) <- "UTF-8"
+tb1 <- fromJSON(cnt1, simplifyDataFrame = TRUE)$downloads
+names(tb1) <- c("package", "count")
+  
+cran_top15_downloaded_lw <- tibble::as_tibble(tb1)
+```
+
+```{r top15lw-plot}
+cran_top15_downloaded_lw %>%
+  ggplot(aes(x = package, y = count)) +
+  geom_col() +
+  scale_x_discrete(limits = c("ggplot2", "sf", "jsonlite","rlang","lifecycle","vctrs","dplyr","devtools","tibble","pillar","glue","rgl","V8","rgeos","cpp11")) +
+  labs(
+       title = "Top 15 downloaded packages last week") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"))
+```
+
+```{r  top15pkg-lm}
+resp2 <- curl::curl_fetch_memory("http://cranlogs.r-pkg.org/top/last-month/15")
+cnt2 <- rawToChar(resp2$content)
+Encoding(cnt2) <- "UTF-8"
+tb2 <- fromJSON(cnt2, simplifyDataFrame = TRUE)$downloads
+names(tb2) <- c("package", "count")
+  
+cran_top15_downloaded_lm <- tibble::as_tibble(tb2)
+```
+
+```{r top15lm-plot}
+cran_top15_downloaded_lm %>%
+  ggplot(aes(x = package, y = count)) +
+  geom_col() +
+  scale_x_discrete(limits = c("rlang", "ggplot2", "dplyr","vctrs","lifecycle","jsonlite","tibble","pillar","sf","glue","xfun","withr","tidyselect","cli","magrittr")) +
+  labs(
+       title = "Top 15 downloaded packages last month") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"))
+```
+
+```{r}
+
+```
 
