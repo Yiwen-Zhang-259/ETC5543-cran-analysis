@@ -48,7 +48,8 @@ cran_top15_downloaded_ld$package = factor(cran_top15_downloaded_ld$package,cran_
   theme(panel.grid.major = element_blank()) +
   theme(
   axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"))
+  axis.title=element_text(size=12,face="bold"),
+  axis.text.x = element_text(angle = 55, hjust = 1))
 ```
 
 ```{r  top15pkg-lw}
@@ -76,7 +77,8 @@ cran_top15_downloaded_lw$package = factor(cran_top15_downloaded_lw$package,cran_
   theme(panel.grid.major = element_blank()) +
   theme(
   axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"))
+  axis.title=element_text(size=12,face="bold"),
+  axis.text.x = element_text(angle = 55, hjust = 1))
 ```
 
 ```{r  top15pkg-lm}
@@ -104,7 +106,8 @@ cran_top15_downloaded_lm$package = factor(cran_top15_downloaded_lm$package,cran_
   theme(panel.grid.major = element_blank()) +
   theme(
   axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"))
+  axis.title=element_text(size=12,face="bold"),
+  axis.text.x = element_text(angle = 55, hjust = 1))
 ```
 
 ```{r}
