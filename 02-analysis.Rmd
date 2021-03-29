@@ -1,7 +1,7 @@
 # Analysis
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(pkgsearch)
 library(jsonlite)
@@ -15,8 +15,10 @@ db <- readRDS(url(url)) %>%
 
 ```{r}
 # to find the top 15 downloaded packages
-db <- db %>%
-  group_by(Package) 
+db1 <- db %>%
+  group_by(Package) %>%
+  mutate(Package = as.numeric(Package)) %>%
+  summarise(total = sum(Package))
 
 ```
 
@@ -31,10 +33,15 @@ cran_top15_downloaded_ld <- tibble::as_tibble(tb)
 ```
 
 ```{r top15ld-plot}
-cran_top15_downloaded_ld %>%
-  ggplot(aes(x = package, y = count)) +
-  geom_col() +
-  scale_x_discrete(limits = c("rlang", "lifecycle", "vctrs","dplyr","ggplot2","jsonlite","tibble","pillar","glue","sf","magrittr","xfun","withr","tidyselect","cli")) +
+cran_top15_downloaded_ld <- cran_top15_downloaded_ld %>%
+  arrange(count) 
+
+cran_top15_downloaded_ld$package <- as.vector(cran_top15_downloaded_ld$package) #get rid of factors
+cran_top15_downloaded_ld$package = factor(cran_top15_downloaded_ld$package,cran_top15_downloaded_ld$package) #add ordered factors back
+
+  ggplot(data = cran_top15_downloaded_ld) +
+  geom_bar(stat="identity", aes(x = package, y = count)) +
+  #scale_x_discrete(limits = c("rlang", "lifecycle", "vctrs","dplyr","ggplot2","jsonlite","tibble","pillar","glue","sf","magrittr","xfun","withr","tidyselect","cli")) +
   labs(
        title = "Top 15 downloaded packages last day") +
   theme_minimal()  +
@@ -55,10 +62,14 @@ cran_top15_downloaded_lw <- tibble::as_tibble(tb1)
 ```
 
 ```{r top15lw-plot}
-cran_top15_downloaded_lw %>%
-  ggplot(aes(x = package, y = count)) +
-  geom_col() +
-  scale_x_discrete(limits = c("ggplot2", "sf", "jsonlite","rlang","lifecycle","vctrs","dplyr","devtools","tibble","pillar","glue","rgl","V8","rgeos","cpp11")) +
+cran_top15_downloaded_lw <- cran_top15_downloaded_lw %>%
+  arrange(count) 
+
+cran_top15_downloaded_lw$package <- as.vector(cran_top15_downloaded_lw$package) #get rid of factors
+cran_top15_downloaded_lw$package = factor(cran_top15_downloaded_lw$package,cran_top15_downloaded_lw$package) #add ordered factors back
+
+  ggplot(data = cran_top15_downloaded_lw) +
+  geom_bar(stat="identity", aes(x = package, y = count)) +
   labs(
        title = "Top 15 downloaded packages last week") +
   theme_minimal()  +
@@ -79,10 +90,14 @@ cran_top15_downloaded_lm <- tibble::as_tibble(tb2)
 ```
 
 ```{r top15lm-plot}
-cran_top15_downloaded_lm %>%
-  ggplot(aes(x = package, y = count)) +
-  geom_col() +
-  scale_x_discrete(limits = c("rlang", "ggplot2", "dplyr","vctrs","lifecycle","jsonlite","tibble","pillar","sf","glue","xfun","withr","tidyselect","cli","magrittr")) +
+cran_top15_downloaded_lm <- cran_top15_downloaded_lm %>%
+  arrange(count) 
+
+cran_top15_downloaded_lm$package <- as.vector(cran_top15_downloaded_lm$package) #get rid of factors
+cran_top15_downloaded_lm$package = factor(cran_top15_downloaded_lm$package,cran_top15_downloaded_lm$package) #add ordered factors back
+
+  ggplot(data = cran_top15_downloaded_lm) +
+  geom_bar(stat="identity", aes(x = package, y = count)) +
   labs(
        title = "Top 15 downloaded packages last month") +
   theme_minimal()  +
