@@ -71,3 +71,15 @@ Another direction is analysing how has the statistics changed over time for many
 
 7. Emi advices me to create a model to describe what happende across time rather than doing predictions.
    
+
+## Tue 30 Mar 2021
+
+This week, Emi Hien, and I talked about things as followed:
+
+1. I report what I did last week.
+
+2. Emi told me that I should extract the number of updates of packages. And plot to compare the downloads against the number of updates of certain package.
+
+3. Emi told me to look at the type of the top 15 packages.
+
+4. 
