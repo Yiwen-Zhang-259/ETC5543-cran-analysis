@@ -82,4 +82,24 @@ This week, Emi Hien, and I talked about things as followed:
 
 3. Emi told me to look at the type of the top 15 packages.
 
-4. 
+4. Emi told me that I can filter the package holding by R studio (which means the copyright author is R studio), and minus them from the popular group to see which packages owned by individual developer are really popular.
+
+5. Emi said the earlier a package is released, the more downloads it would have (the reason is that people don't like to adapt something new).
+
+6. Emi told me to find when did the `R Package` come out.
+
+7. Hien said I can take a look at the change log.
+
+8. Besides the package maintained by R studio, Emi told me that I can focus on these whose author is 'core people', for these people are also likely to have higher downloaded packages.
+
+9. Hien told me that watch out for people both on main list and secondary list.
+
+10. In comclusion, I should make three subsets : packages owned by R studio, packages owned by people on the 'contributor list' and the rest of others. And when I do top 15, I should facet the packages according to which group they are in. 
+
+11. Emi told me make plot 'the total downlodas' vs 'the number of updates' (In general, we expect that the more updates, the more download counts)
+
+12. Emi and Hien told me that when I write report, I can talk about that why some packages have higher download count? Maybe bacause they have more commits, and more commits often comes with more advertisements or indicates the high quality of this packages.
+
+13. Emi told me that when I do top 15, I can first find how many of them are on github (by checking the url) and extact the number of the commits of particular package. (a assumption the one that has github version would have more dowloads for it probably has high quality.
+
+14. Hien said another interesting analysis can be looking at the productivity of certain group.
