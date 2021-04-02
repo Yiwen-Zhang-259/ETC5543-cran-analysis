@@ -8,42 +8,44 @@ library(jsonlite)
 ```
 
 ```{r readcran}
-url <- "http://cran.rstudio.com/web/packages/packages.rds"
-db <- readRDS(url(url)) %>% 
-  as.data.frame()
+#url <- "http://cran.rstudio.com/web/packages/packages.rds"
+#db <- readRDS(url(url)) %>% 
+ # as.data.frame()
+
+cran2012_10_01 <- read_csv("data/2012-10-01 (1).csv")
+cran2013_10_01 <- read_csv("data/2013-10-01.csv")
+cran2014_10_01 <- read_csv("data/2014-10-01.csv")
+cran2015_10_01 <- read_csv("data/2015-10-01.csv")
+cran2016_10_01 <- read_csv("data/2016-10-01.csv")
+cran2017_10_01 <- read_csv("data/2017-10-01.csv")
+cran2018_10_01 <- read_csv("data/2018-10-01.csv")
+cran2019_10_01 <- read_csv("data/2019-10-01.csv")
+
+save(cran2012_10_01, file=here::here("data/cran2012_10_01.rda"))
+save(cran2013_10_01, file=here::here("data/cran2013_10_01.rda"))
+save(cran2014_10_01, file=here::here("data/cran2014_10_01.rda"))
+save(cran2015_10_01, file=here::here("data/cran2015_10_01.rda"))
+save(cran2016_10_01, file=here::here("data/cran2016_10_01.rda"))
+save(cran2017_10_01, file=here::here("data/cran2017_10_01.rda"))
+save(cran2018_10_01, file=here::here("data/cran2018_10_01.rda"))
+save(cran2019_10_01, file=here::here("data/cran2019_10_01.rda"))
 ```
 
-```{r}
-# to find the top 15 downloaded packages
-db1 <- db %>%
-  group_by(Package) %>%
-  mutate(Package = as.numeric(Package)) %>%
-  summarise(total = sum(Package))
-
-```
-
-```{r  top15pkg-ld}
-resp <- curl::curl_fetch_memory("http://cranlogs.r-pkg.org/top/last-day/15")
-cnt <- rawToChar(resp$content)
-Encoding(cnt) <- "UTF-8"
-tb <- fromJSON(cnt, simplifyDataFrame = TRUE)$downloads
-names(tb) <- c("package", "count")
+```{r  cran20121001}
+cran2012_1001 <- cran2012_10_01 %>%
+  drop_na() %>%
+  count(package) %>%
+  arrange(desc(n)) %>%
+  head(15) 
   
-cran_top15_downloaded_ld <- tibble::as_tibble(tb)
-```
+cran2012_1001$package <- as.vector(cran2012_1001$package) #get rid of factors
 
-```{r top15ld-plot}
-cran_top15_downloaded_ld <- cran_top15_downloaded_ld %>%
-  arrange(count) 
+cran2012_1001$package = factor(cran2012_1001$package,cran2012_1001$package)
 
-cran_top15_downloaded_ld$package <- as.vector(cran_top15_downloaded_ld$package) #get rid of factors
-cran_top15_downloaded_ld$package = factor(cran_top15_downloaded_ld$package,cran_top15_downloaded_ld$package) #add ordered factors back
-
-  ggplot(data = cran_top15_downloaded_ld) +
-  geom_bar(stat="identity", aes(x = package, y = count)) +
-  #scale_x_discrete(limits = c("rlang", "lifecycle", "vctrs","dplyr","ggplot2","jsonlite","tibble","pillar","glue","sf","magrittr","xfun","withr","tidyselect","cli")) +
+p1 <- ggplot(data = cran2012_1001) +
+  geom_bar(stat="identity", aes(x = package, y = n)) +
   labs(
-       title = "Top 15 downloaded packages last day") +
+       title = "Top 15 downloaded packages on 2012-10-01") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -52,27 +54,21 @@ cran_top15_downloaded_ld$package = factor(cran_top15_downloaded_ld$package,cran_
   axis.text.x = element_text(angle = 55, hjust = 1))
 ```
 
-```{r  top15pkg-lw}
-resp1 <- curl::curl_fetch_memory("http://cranlogs.r-pkg.org/top/last-week/15")
-cnt1 <- rawToChar(resp1$content)
-Encoding(cnt1) <- "UTF-8"
-tb1 <- fromJSON(cnt1, simplifyDataFrame = TRUE)$downloads
-names(tb1) <- c("package", "count")
+```{r cran20131001}
+cran2013_1001 <- cran2013_10_01 %>%
+  drop_na() %>%
+  count(package) %>%
+  arrange(desc(n)) %>%
+  head(15) 
   
-cran_top15_downloaded_lw <- tibble::as_tibble(tb1)
-```
+cran2013_1001$package <- as.vector(cran2013_1001$package) #get rid of factors
 
-```{r top15lw-plot}
-cran_top15_downloaded_lw <- cran_top15_downloaded_lw %>%
-  arrange(count) 
+cran2013_1001$package = factor(cran2013_1001$package,cran2013_1001$package)
 
-cran_top15_downloaded_lw$package <- as.vector(cran_top15_downloaded_lw$package) #get rid of factors
-cran_top15_downloaded_lw$package = factor(cran_top15_downloaded_lw$package,cran_top15_downloaded_lw$package) #add ordered factors back
-
-  ggplot(data = cran_top15_downloaded_lw) +
-  geom_bar(stat="identity", aes(x = package, y = count)) +
+ p2 <- ggplot(data = cran2013_1001) +
+  geom_bar(stat="identity", aes(x = package, y = n)) +
   labs(
-       title = "Top 15 downloaded packages last week") +
+       title = "Top 15 downloaded packages on 2013-10-01") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -81,27 +77,21 @@ cran_top15_downloaded_lw$package = factor(cran_top15_downloaded_lw$package,cran_
   axis.text.x = element_text(angle = 55, hjust = 1))
 ```
 
-```{r  top15pkg-lm}
-resp2 <- curl::curl_fetch_memory("http://cranlogs.r-pkg.org/top/last-month/15")
-cnt2 <- rawToChar(resp2$content)
-Encoding(cnt2) <- "UTF-8"
-tb2 <- fromJSON(cnt2, simplifyDataFrame = TRUE)$downloads
-names(tb2) <- c("package", "count")
+```{r cran20141001}
+cran2014_1001 <- cran2014_10_01 %>%
+  drop_na() %>%
+  count(package) %>%
+  arrange(desc(n)) %>%
+  head(15) 
   
-cran_top15_downloaded_lm <- tibble::as_tibble(tb2)
-```
+cran2014_1001$package <- as.vector(cran2014_1001$package) #get rid of factors
 
-```{r top15lm-plot}
-cran_top15_downloaded_lm <- cran_top15_downloaded_lm %>%
-  arrange(count) 
+cran2014_1001$package = factor(cran2014_1001$package,cran2014_1001$package)
 
-cran_top15_downloaded_lm$package <- as.vector(cran_top15_downloaded_lm$package) #get rid of factors
-cran_top15_downloaded_lm$package = factor(cran_top15_downloaded_lm$package,cran_top15_downloaded_lm$package) #add ordered factors back
-
-  ggplot(data = cran_top15_downloaded_lm) +
-  geom_bar(stat="identity", aes(x = package, y = count)) +
+p3 <- ggplot(data = cran2014_1001) +
+  geom_bar(stat="identity", aes(x = package, y = n)) +
   labs(
-       title = "Top 15 downloaded packages last month") +
+       title = "Top 15 downloaded packages on 2014-10-01") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -110,7 +100,149 @@ cran_top15_downloaded_lm$package = factor(cran_top15_downloaded_lm$package,cran_
   axis.text.x = element_text(angle = 55, hjust = 1))
 ```
 
-```{r}
+```{r cran20151001}
+cran2015_1001 <- cran2015_10_01 %>%
+  drop_na() %>%
+  count(package) %>%
+  arrange(desc(n)) %>%
+  head(15) 
+  
+cran2015_1001$package <- as.vector(cran2015_1001$package) #get rid of factors
 
+cran2015_1001$package = factor(cran2015_1001$package,cran2015_1001$package)
+
+p4 <- ggplot(data = cran2015_1001) +
+  geom_bar(stat="identity", aes(x = package, y = n)) +
+  labs(
+       title = "Top 15 downloaded packages on 2015-10-01") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  axis.text.x = element_text(angle = 55, hjust = 1))
+```
+
+```{r cran20161001}
+cran2016_1001 <- cran2016_10_01 %>%
+  drop_na() %>%
+  count(package) %>%
+  arrange(desc(n)) %>%
+  head(15) 
+  
+cran2016_1001$package <- as.vector(cran2016_1001$package) #get rid of factors
+
+cran2016_1001$package = factor(cran2016_1001$package,cran2016_1001$package)
+
+p5 <- ggplot(data = cran2016_1001) +
+  geom_bar(stat="identity", aes(x = package, y = n)) +
+  labs(
+       title = "Top 15 downloaded packages on 2016-10-01") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  axis.text.x = element_text(angle = 55, hjust = 1))
+```
+
+```{r cran20171001}
+cran2017_1001 <- cran2017_10_01 %>%
+  drop_na() %>%
+  count(package) %>%
+  arrange(desc(n)) %>%
+  head(15) 
+  
+cran2017_1001$package <- as.vector(cran2017_1001$package) #get rid of factors
+
+cran2017_1001$package = factor(cran2017_1001$package,cran2017_1001$package)
+
+p6 <- ggplot(data = cran2017_1001) +
+  geom_bar(stat="identity", aes(x = package, y = n)) +
+  labs(
+       title = "Top 15 downloaded packages on 2017-10-01") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  axis.text.x = element_text(angle = 55, hjust = 1))
+```
+
+```{r cran20181001}
+cran2018_1001 <- cran2018_10_01 %>%
+  drop_na() %>%
+  count(package) %>%
+  arrange(desc(n)) %>%
+  head(15) 
+  
+cran2018_1001$package <- as.vector(cran2018_1001$package) #get rid of factors
+
+cran2018_1001$package = factor(cran2018_1001$package,cran2018_1001$package)
+
+p7 <- ggplot(data = cran2018_1001) +
+  geom_bar(stat="identity", aes(x = package, y = n)) +
+  labs(
+       title = "Top 15 downloaded packages on 2018-10-01") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  axis.text.x = element_text(angle = 55, hjust = 1))
+```
+
+```{r cran20191001}
+cran2019_1001 <- cran2019_10_01 %>%
+  drop_na() %>%
+  count(package) %>%
+  arrange(desc(n)) %>%
+  head(15) 
+  
+cran2019_1001$package <- as.vector(cran2019_1001$package) #get rid of factors
+
+cran2019_1001$package = factor(cran2019_1001$package,cran2019_1001$package)
+
+p8 <- ggplot(data = cran2019_1001) +
+  geom_bar(stat="identity", aes(x = package, y = n)) +
+  labs(
+       title = "Top 15 downloaded packages on 2019-10-01") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  axis.text.x = element_text(angle = 55, hjust = 1))
+```
+
+
+```{r compareby2year}
+g1 <- ggplotGrob(p1)
+g2 <- ggplotGrob(p2)
+g12 <- rbind(g1, g2, size = "first")
+g12$widths <- unit.pmax(g1$widths, g2$widths)
+grid.newpage()
+grid.draw(g12)
+
+g3 <- ggplotGrob(p3)
+g4 <- ggplotGrob(p4)
+g34 <- rbind(g3, g4, size = "first")
+g34$widths <- unit.pmax(g3$widths, g4$widths)
+grid.newpage()
+grid.draw(g34)
+
+g5 <- ggplotGrob(p5)
+g6 <- ggplotGrob(p6)
+g56 <- rbind(g5, g6, size = "first")
+g56$widths <- unit.pmax(g5$widths, g6$widths)
+grid.newpage()
+grid.draw(g56)
+
+g7 <- ggplotGrob(p7)
+g8 <- ggplotGrob(p8)
+g78 <- rbind(g7, g8, size = "first")
+g78$widths <- unit.pmax(g7$widths, g8$widths)
+grid.newpage()
+grid.draw(g78)
 ```
 
