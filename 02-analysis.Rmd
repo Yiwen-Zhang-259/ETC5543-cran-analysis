@@ -7,6 +7,8 @@ library(pkgsearch)
 library(jsonlite)
 library(grid)
 library(cranlogs)
+library(ctv)
+library(lubridate)
 ```
 
 ## Daily top 15 downloaded packages 
@@ -328,7 +330,9 @@ grid.draw(g78)
 
 ## Compare last two years' downloads with the release date
 
-```{r fcst-fbl}
+It can be seen from Figure \@ref(fig:fcst-fbl) that although package `fable` is older than `forecast`, its download count is much less than that of `forecast`.
+
+```{r fcst-fbl, fig.align = 'center', fig.cap="The older package 'fable' has less download count than that of package 'forecast'."}
 forecast <- cran_downloads(package = "forecast", from = "2018-04-01", to = "2020-04-01") %>%
   summarise(package = package, count = sum(count)) %>%
   head(1)
@@ -337,16 +341,16 @@ fable <- cran_downloads(package = "fable", from = "2018-04-01", to = "2020-04-01
   summarise(package = package, count = sum(count)) %>%
   head(1)
 
-release_date <- c("2021-03-11","2021-02-03")
 
 fcst_fble <- rbind(forecast,fable) %>%
   group_by(package) 
 
-fcst_fble <- cbind(fcst_fble,release_date) %>%
-  rename(release_date = ...3) 
+fcst_fble <- as.data.frame(fcst_fble)
 
-fcst_fble <- fcst_fble %>%
-  select(package, count, release_date)
+release_date <- c("2021-03-11","2021-02-03")
+
+fcst_fble <- cbind(fcst_fble,release_date) 
+
 
 fcst_fble %>%
   ggplot(aes(x = release_date, y = count,fill = package)) +
@@ -361,5 +365,78 @@ fcst_fble %>%
   axis.title=element_text(size=12,face="bold"),
   plot.title = element_text(h = 0.5),
   plot.subtitle = element_text(h = 0.5))
+```
+
+
+Let's have a look at the bayesian packages used for general model fitting. It can be seen from Figure \@ref(fig:bayesian) that the most downloaded packages are two with relatively late release dates : `arm` and `loo`. Then the two packages `bayesm` and `mcmc` with the earliest release date were moderately downloaded. At the same time, we can also notice that the package with the smallest downloads named `nimble` also comes from the relatively recent date.
+
+Therefore, in this type of packages, we can say that the later the release date, the higher the download volume of the package. But there are still some special cases. That is even if the release date is later, the download volume is still not ideal, which may be due to other reasons.
+
+```{r bayesian,fig.align = 'center', fig.cap="last two years' downloads with the release date for bayesian general model fitting packages."}
+# select eight packages on Bayesian general model fitting, after filtering, seven left.
+bayesian <- tibble(package = c("arm","BACCO","bayesm","LaplacesDemon","loo","MCMCpack","mcmc","nimble")) %>%
+     filter(!(package %in% pkg_20maintainer$package)) %>%
+     filter(!(package %in% pkg_secondary$package)) %>%
+     filter(!(package %in% pkg_rstusio$package)) 
+
+arm <- cran_downloads(package = "arm", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+bayesm <- cran_downloads(package = "bayesm", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+LaplacesDemon <- cran_downloads(package = "LaplacesDemon", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+loo <- cran_downloads(package = "loo", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+MCMCpack <- cran_downloads(package = "MCMCpack", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+mcmc <- cran_downloads(package = "mcmc", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+nimble <- cran_downloads(package = "nimble", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+
+bayesian7 <- rbind(arm,bayesm,LaplacesDemon,loo,MCMCpack,mcmc,nimble) %>%
+  group_by(package) 
+
+bayesian7 <- as.data.frame(bayesian7)
+
+release_date <- c("2020-07-27","2019-10-15","2020-02-06","2020-12-09","2021-01-20","2020-03-21","	2020-11-23")
+
+bayesian7 <- cbind(bayesian7,release_date) 
+
+bayesian7 <- bayesian7 %>%
+  mutate(release_date = ymd(release_date))
+
+#bayesian7$release_date <- factor(bayesian7$release_date, levels=c("2019-10-15", "2020-02-06", #"2020-03-21","2020-07-27","2020-11-23","2020-12-09","2021-01-20"))
+
+bayesian7 %>%
+  ggplot(aes(x = release_date, y = count,fill = package)) +
+  geom_bar(stat = "identity") +
+    labs( y = 'Download count',
+          x = 'Relsease date',
+    title = "Last two years' downloads with the release date",
+    subtitle = "for bayesian packages") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5),
+  axis.text.x = element_text(angle = 30, hjust = 1)) 
+
 ```
 
