@@ -33,43 +33,82 @@ save(cran2018_10_01, file=here::here("data/cran2018_10_01.rda"))
 save(cran2019_10_01, file=here::here("data/cran2019_10_01.rda"))
 ```
 
-```{r}
+```{r rstudiolist}
 # filter the packages maintained by R studio
 
 pkg_rstusio <- db %>%
   filter(grepl('RStudio', Author)) %>%
-  select(Package)
-  
-pkg_rstusio <- lapply(pkg_rstusio,list)
+  select(Package) %>%
+  rename(package = Package)
 
 ```
 
-```{r}
+```{r contributorlist}
 # filter the packages whose author is from R core group or on the secondary list
 
 pkg_secondary <- db %>%
   filter(grepl('Douglas Bates|John Chambers|Peter Dalgaard|Robert Gentleman|Kurt Hornik|Ross Ihaka|Tomas Kalibera|Michael Lawrence|Friedrich Leisch|Uwe Ligges|Thomas Lumley|Martin Maechler|Martin Morgan|Paul Murrell|Brian Ripley|Deepayan Sarkar|Duncan Temple Lang|Luke Tierney|Simon Urbanek|Martyn Plummer', Author))%>%
   filter(!grepl('Guido Masarotto|Duncan Murdoch|Henrik Bengtsson|Roger Bivand|Ben Bolker|David Brahm|Vince Carey|Saikat DebRoy|Matt Dowle|Dirk Eddelbuettel|Claus Ekstrom|John Fox|Paul Gilbert|Yu Gong|Gabor Grothendieck|Frank E Harrell Jr|Peter M. Haverty|Torsten Hothorn|Robert King|Kjetil Kjernsmo|Roger Koenker|Philippe Lambert|Jan de Leeuw|Jim Lindsey|Patrick Lindsey|Catherine Loader| Gordon Maclean|Arni Magnusson|John Maindonald|David Meyer|Ei-ji Nakama|Jens Oehlschägel|Steve Oncley|Richard O’Keefe|Hubert Palme|Roger D. Peng|José C. Pinheiro|Tony Plate|Anthony Rossini| Jonathan Rougier|Petr Savicky|Günther Sawitzki|Marc Schwartz|Arun Srinivasan|Detlef Steuer|Bill Simpson|Gordon Smyth|Adrian Trapletti|Terry Therneau|Rolf Turner|Bill Venables|Gregory R. Warnes| Andreas Weingessel|Morten Welinder|James Wettenhall|Simon Wood|and Achim Zeileis', Author)) %>%
-  select(Package)
+  select(Package) %>%
+  rename(package = Package)
 
-pkg_secondary <- lapply(pkg_secondary,list)
 ```
 
-```{r}
+```{r top20activelist}
 # filter the packages developed by top 20 prolific maintainers
-pkg_20maintainer <- db %>%
-  filter(grepl('Hadley Wickham|Yihui Xie|Dirk Eddelbuettel|Jeroen Ooms|Achim Zeileis|Scott Chamberlain|Gabor Csardi|Jeroen Ooms|ORPHANED|Thomas J. Leeper|Bob Rudis|Henrik Bengtsson|Kurt Hornik|Oliver Keyes|Martin Maechler|Richard Cotton|Robin K. S. Hankin|Simon Urbanek|Kirill Muller|Torsten Hothorn|Paul Gilbert', Author)) %>%
-  select(Package)
-
-pkg_20maintainer <- lapply(pkg_20maintainer,list)
+pkg_20maintainer <- db %>% 
+  filter(stringr::str_detect(Author, 'Hadley Wickham|Yihui Xie|Dirk Eddelbuettel|Jeroen Ooms|Achim Zeileis|Scott Chamberlain|Gabor Csardi|Jeroen Ooms|ORPHANED|Thomas J. Leeper|Bob Rudis|Henrik Bengtsson|Kurt Hornik|Oliver Keyes|Martin Maechler|Richard Cotton|Robin K. S. Hankin|Simon Urbanek|Kirill Muller|Torsten Hothorn|Paul Gilbert') )%>%
+  select(Package) %>%
+  rename(package = Package)
 ```
 
-```{r}
-cran_package_history("")
+```{r filterlist}
+# exclude the packages in the above three lists
+cran2019_10_01_new <- cran2019_10_01 %>%
+     filter(!(package %in% pkg_20maintainer$package)) %>%
+     filter(!(package %in% pkg_secondary$package)) %>%
+     filter(!(package %in% pkg_rstusio$package)) 
+
+cran2018_10_01_new <- cran2018_10_01 %>%
+     filter(!(package %in% pkg_20maintainer$package)) %>%
+     filter(!(package %in% pkg_secondary$package)) %>%
+     filter(!(package %in% pkg_rstusio$package)) 
+
+
+cran2017_10_01_new <- cran2017_10_01 %>%
+     filter(!(package %in% pkg_20maintainer$package)) %>%
+     filter(!(package %in% pkg_secondary$package)) %>%
+     filter(!(package %in% pkg_rstusio$package)) 
+
+cran2016_10_01_new <- cran2016_10_01 %>%
+     filter(!(package %in% pkg_20maintainer$package)) %>%
+     filter(!(package %in% pkg_secondary$package)) %>%
+     filter(!(package %in% pkg_rstusio$package)) 
+
+cran2015_10_01_new <- cran2015_10_01 %>%
+     filter(!(package %in% pkg_20maintainer$package)) %>%
+     filter(!(package %in% pkg_secondary$package)) %>%
+     filter(!(package %in% pkg_rstusio$package)) 
+
+cran2014_10_01_new <- cran2014_10_01 %>%
+     filter(!(package %in% pkg_20maintainer$package)) %>%
+     filter(!(package %in% pkg_secondary$package)) %>%
+     filter(!(package %in% pkg_rstusio$package)) 
+
+cran2013_10_01_new <- cran2013_10_01 %>%
+     filter(!(package %in% pkg_20maintainer$package)) %>%
+     filter(!(package %in% pkg_secondary$package)) %>%
+     filter(!(package %in% pkg_rstusio$package)) 
+
+cran2012_10_01_new <- cran2012_10_01 %>%
+     filter(!(package %in% pkg_20maintainer$package)) %>%
+     filter(!(package %in% pkg_secondary$package)) %>%
+     filter(!(package %in% pkg_rstusio$package)) 
 ```
+
 
 ```{r  cran20121001}
-cran2012_1001 <- cran2012_10_01 %>%
+cran2012_1001 <- cran2012_10_01_new %>%
   drop_na() %>%
   count(package) %>%
   arrange(desc(n)) %>%
@@ -91,8 +130,9 @@ p1 <- ggplot(data = cran2012_1001) +
   axis.text.x = element_text(angle = 55, hjust = 1))
 ```
 
+
 ```{r cran20131001}
-cran2013_1001 <- cran2013_10_01 %>%
+cran2013_1001 <- cran2013_10_01_new %>%
   drop_na() %>%
   count(package) %>%
   arrange(desc(n)) %>%
@@ -115,7 +155,7 @@ cran2013_1001$package = factor(cran2013_1001$package,cran2013_1001$package)
 ```
 
 ```{r cran20141001}
-cran2014_1001 <- cran2014_10_01 %>%
+cran2014_1001 <- cran2014_10_01_new %>%
   drop_na() %>%
   count(package) %>%
   arrange(desc(n)) %>%
@@ -138,7 +178,7 @@ p3 <- ggplot(data = cran2014_1001) +
 ```
 
 ```{r cran20151001}
-cran2015_1001 <- cran2015_10_01 %>%
+cran2015_1001 <- cran2015_10_01_new %>%
   drop_na() %>%
   count(package) %>%
   arrange(desc(n)) %>%
@@ -161,7 +201,7 @@ p4 <- ggplot(data = cran2015_1001) +
 ```
 
 ```{r cran20161001}
-cran2016_1001 <- cran2016_10_01 %>%
+cran2016_1001 <- cran2016_10_01_new %>%
   drop_na() %>%
   count(package) %>%
   arrange(desc(n)) %>%
@@ -184,7 +224,7 @@ p5 <- ggplot(data = cran2016_1001) +
 ```
 
 ```{r cran20171001}
-cran2017_1001 <- cran2017_10_01 %>%
+cran2017_1001 <- cran2017_10_01_new %>%
   drop_na() %>%
   count(package) %>%
   arrange(desc(n)) %>%
@@ -207,7 +247,7 @@ p6 <- ggplot(data = cran2017_1001) +
 ```
 
 ```{r cran20181001}
-cran2018_1001 <- cran2018_10_01 %>%
+cran2018_1001 <- cran2018_10_01_new %>%
   drop_na() %>%
   count(package) %>%
   arrange(desc(n)) %>%
@@ -230,7 +270,7 @@ p7 <- ggplot(data = cran2018_1001) +
 ```
 
 ```{r cran20191001}
-cran2019_1001 <- cran2019_10_01 %>%
+cran2019_1001 <- cran2019_10_01_new %>%
   drop_na() %>%
   count(package) %>%
   arrange(desc(n)) %>%
@@ -254,6 +294,7 @@ p8 <- ggplot(data = cran2019_1001) +
 
 
 ```{r compareby2year}
+# display the daily top 15 popular packages on 10-01 of each year from 2012 to 2019
 g1 <- ggplotGrob(p1)
 g2 <- ggplotGrob(p2)
 g12 <- rbind(g1, g2, size = "first")
