@@ -339,11 +339,11 @@ grid.draw(g78)
 
 ## Compare last two years' downloads with the release date
 
-1. `fable` vs `forecaset`
+1. Pakcges for Time Series Analysis
 
-It can be seen from Figure \@ref(fig:fcst-fbl) that although package `fable` is older than `forecast`, its download count is much less than that of `forecast`.
+It can be seen from Figure \@ref(fig:timeseries) that although package `fable` is older than `forecast`, its download count is much less than that of `forecast`.
 
-```{r fcst-fbl, fig.align = 'center', fig.cap="The older package 'fable' has less download count than that of package 'forecast'."}
+```{r timeseries, fig.align = 'center', fig.cap="The older package 'fable' has less download count than that of package 'forecast'."}
 forecast <- cran_downloads(package = "forecast", from = "2018-04-01", to = "2020-04-01") %>%
   summarise(package = package, count = sum(count)) %>%
   head(1)
@@ -352,30 +352,69 @@ fable <- cran_downloads(package = "fable", from = "2018-04-01", to = "2020-04-01
   summarise(package = package, count = sum(count)) %>%
   head(1)
 
+zoo <- cran_downloads(package = "zoo", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
 
-fcst_fble <- rbind(forecast,fable) %>%
+tsibble <- cran_downloads(package = "tsibble", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+slider <- cran_downloads(package = "slider", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+tbrf <- cran_downloads(package = "tbrf", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+roll <- cran_downloads(package = "roll ", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+runner  <- cran_downloads(package = "runner", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+runstats  <- cran_downloads(package = "runstats", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+tsutils  <- cran_downloads(package = "tsutils", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+feasts  <- cran_downloads(package = "feasts", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+
+timeseries <- rbind(forecast,fable,zoo,tsibble,slider,tbrf,roll,runner,runstats,tsutils,feasts) %>%
   group_by(package) 
 
-fcst_fble <- as.data.frame(fcst_fble)
+timeseries <- as.data.frame(timeseries)
 
-release_date <- c("2021-03-11","2021-02-03")
-
-fcst_fble <- cbind(fcst_fble,release_date) 
+release_date <- c("2021-03-11","2021-02-03","2021-03-09","2021-02-20","2021-03-23","2020-04-09","2020-07-13","2021-02-22","2019-11-14","2020-02-06","2021-03-22")
 
 
-fcst_fble %>%
+timeseries <- cbind(timeseries,release_date) 
+
+
+timeseries %>%
   ggplot(aes(x = release_date, y = count,fill = package)) +
   geom_bar(stat = "identity") +
     labs( y = 'Download count',
     title = "Last two years' downloads with the release date",
     subtitle = "between fable and forecast") +
+  scale_y_sqrt() + # to change the scale of y axis
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
   axis.text=element_text(size=10),
   axis.title=element_text(size=12,face="bold"),
   plot.title = element_text(h = 0.5),
-  plot.subtitle = element_text(h = 0.5))
+  plot.subtitle = element_text(h = 0.5),
+  axis.text.x = element_text(angle = 55, hjust = 1))
 ```
 
 2. Bayesian packages for general model fitting
@@ -447,8 +486,7 @@ bayesian7 %>%
   axis.text=element_text(size=10),
   axis.title=element_text(size=12,face="bold"),
   plot.title = element_text(h = 0.5),
-  plot.subtitle = element_text(h = 0.5),
-  axis.text.x = element_text(angle = 30, hjust = 1)) 
+  plot.subtitle = element_text(h = 0.5)) 
 
 ```
 
@@ -495,13 +533,13 @@ eco_lm %>%
           x = 'Relsease date',
     title = "Last two years' downloads with the release date",
     subtitle = "for econometrics packages") +
+  scale_y_sqrt() +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
   axis.text=element_text(size=10),
   axis.title=element_text(size=12,face="bold"),
   plot.title = element_text(h = 0.5),
-  plot.subtitle = element_text(h = 0.5),
-  axis.text.x = element_text(angle = 30, hjust = 1)) 
+  plot.subtitle = element_text(h = 0.5)) 
 
 ```
