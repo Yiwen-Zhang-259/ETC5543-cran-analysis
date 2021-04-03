@@ -6,8 +6,10 @@ library(tidyverse)
 library(pkgsearch)
 library(jsonlite)
 library(grid)
-
+library(cranlogs)
 ```
+
+## Daily top 15 downloaded packages 
 
 ```{r readcran}
 url <- "http://cran.rstudio.com/web/packages/packages.rds"
@@ -322,5 +324,42 @@ g78 <- rbind(g7, g8, size = "first")
 g78$widths <- unit.pmax(g7$widths, g8$widths)
 grid.newpage()
 grid.draw(g78)
+```
+
+## Compare last two years' downloads with the release date
+
+```{r fcst-fbl}
+forecast <- cran_downloads(package = "forecast", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+fable <- cran_downloads(package = "fable", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+release_date <- c("2021-03-11","2021-02-03")
+
+fcst_fble <- rbind(forecast,fable) %>%
+  group_by(package) 
+
+fcst_fble <- cbind(fcst_fble,release_date) %>%
+  rename(release_date = ...3) 
+
+fcst_fble <- fcst_fble %>%
+  select(package, count, release_date)
+
+fcst_fble %>%
+  ggplot(aes(x = release_date, y = count,fill = package)) +
+  geom_bar(stat = "identity") +
+    labs( y = 'Download count',
+    title = "Last two years' downloads with the release date",
+    subtitle = "between fable and forecast") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5))
 ```
 
