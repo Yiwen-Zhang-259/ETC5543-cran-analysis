@@ -18,23 +18,32 @@ url <- "http://cran.rstudio.com/web/packages/packages.rds"
 db <- readRDS(url(url)) %>% 
 as.data.frame()
 
-cran2012_10_01 <- read_csv("data/2012-10-01 (1).csv")
-cran2013_10_01 <- read_csv("data/2013-10-01.csv")
-cran2014_10_01 <- read_csv("data/2014-10-01.csv")
-cran2015_10_01 <- read_csv("data/2015-10-01.csv")
-cran2016_10_01 <- read_csv("data/2016-10-01.csv")
-cran2017_10_01 <- read_csv("data/2017-10-01.csv")
-cran2018_10_01 <- read_csv("data/2018-10-01.csv")
-cran2019_10_01 <- read_csv("data/2019-10-01.csv")
+#cran2012_10_01 <- read_csv("data/2012-10-01 (1).csv")
+#cran2013_10_01 <- read_csv("data/2013-10-01.csv")
+#cran2014_10_01 <- read_csv("data/2014-10-01.csv")
+#cran2015_10_01 <- read_csv("data/2015-10-01.csv")
+#cran2016_10_01 <- read_csv("data/2016-10-01.csv")
+#cran2017_10_01 <- read_csv("data/2017-10-01.csv")
+#cran2018_10_01 <- read_csv("data/2018-10-01.csv")
+#cran2019_10_01 <- read_csv("data/2019-10-01.csv")
 
-save(cran2012_10_01, file=here::here("data/cran2012_10_01.rda"))
-save(cran2013_10_01, file=here::here("data/cran2013_10_01.rda"))
-save(cran2014_10_01, file=here::here("data/cran2014_10_01.rda"))
-save(cran2015_10_01, file=here::here("data/cran2015_10_01.rda"))
-save(cran2016_10_01, file=here::here("data/cran2016_10_01.rda"))
-save(cran2017_10_01, file=here::here("data/cran2017_10_01.rda"))
-save(cran2018_10_01, file=here::here("data/cran2018_10_01.rda"))
-save(cran2019_10_01, file=here::here("data/cran2019_10_01.rda"))
+#save(cran2012_10_01, file=here::here("data/cran2012_10_01.rda"))
+#save(cran2013_10_01, file=here::here("data/cran2013_10_01.rda"))
+#save(cran2014_10_01, file=here::here("data/cran2014_10_01.rda"))
+#save(cran2015_10_01, file=here::here("data/cran2015_10_01.rda"))
+#save(cran2016_10_01, file=here::here("data/cran2016_10_01.rda"))
+#save(cran2017_10_01, file=here::here("data/cran2017_10_01.rda"))
+#save(cran2018_10_01, file=here::here("data/cran2018_10_01.rda"))
+#save(cran2019_10_01, file=here::here("data/cran2019_10_01.rda"))
+
+load("data/cran2012_10_01.rda")
+load("data/cran2013_10_01.rda")
+load("data/cran2014_10_01.rda")
+load("data/cran2015_10_01.rda")
+load("data/cran2016_10_01.rda")
+load("data/cran2017_10_01.rda")
+load("data/cran2018_10_01.rda")
+load("data/cran2019_10_01.rda")
 ```
 
 ```{r rstudiolist}
@@ -330,6 +339,8 @@ grid.draw(g78)
 
 ## Compare last two years' downloads with the release date
 
+1. `fable` vs `forecaset`
+
 It can be seen from Figure \@ref(fig:fcst-fbl) that although package `fable` is older than `forecast`, its download count is much less than that of `forecast`.
 
 ```{r fcst-fbl, fig.align = 'center', fig.cap="The older package 'fable' has less download count than that of package 'forecast'."}
@@ -367,6 +378,7 @@ fcst_fble %>%
   plot.subtitle = element_text(h = 0.5))
 ```
 
+2. Bayesian packages for general model fitting
 
 Let's have a look at the bayesian packages used for general model fitting. It can be seen from Figure \@ref(fig:bayesian) that the most downloaded packages are two with relatively late release dates : `arm` and `loo`. Then the two packages `bayesm` and `mcmc` with the earliest release date were moderately downloaded. At the same time, we can also notice that the package with the smallest downloads named `nimble` also comes from the relatively recent date.
 
@@ -440,3 +452,56 @@ bayesian7 %>%
 
 ```
 
+3. Econometrics for basic linear regression
+
+In order to test whether this is the case in other areas, let's turn our attention to econometrics packages for basic linear regression. 
+
+It can be seen from Figure \@ref(fig:eco-lm) that the latest package `sandwich` has the highest downloads, while the downloads of `nonnest2` with the earliest release date is much lower than it.
+
+This is very similar to Bayesian's case, that is, the latest packages tend to have higher downloads, with some special cases, such as the release date of packages whose downloads is highest or lowest may be in the middle position.
+
+```{r eco-lm,fig.align = 'center', fig.cap="The latest package 'sandwich` has the highest downloads."}
+# select eight packages on Econometrics basic linear regression, after filtering, three left.
+eco_lm <- tibble(package = c("lmtest","sandwich ","nonnest2","pscl","skedastic")) %>%
+     filter(!(package %in% pkg_20maintainer$package)) %>%
+     filter(!(package %in% pkg_secondary$package)) %>%
+     filter(!(package %in% pkg_rstusio$package)) 
+
+sandwich <- cran_downloads(package = "sandwich", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+nonnest2 <- cran_downloads(package = "nonnest2", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+skedastic <- cran_downloads(package = "skedastic", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+eco_lm <- rbind(sandwich,nonnest2,skedastic) %>%
+  group_by(package) 
+
+eco_lm <- as.data.frame(eco_lm)
+
+release_date <- c("2020-10-02","2020-07-05","2020-08-28")
+
+eco_lm <- cbind(eco_lm,release_date) 
+
+eco_lm %>%
+  ggplot(aes(x = release_date, y = count,fill = package)) +
+  geom_bar(stat = "identity") +
+    labs( y = 'Download count',
+          x = 'Relsease date',
+    title = "Last two years' downloads with the release date",
+    subtitle = "for econometrics packages") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5),
+  axis.text.x = element_text(angle = 30, hjust = 1)) 
+
+```
