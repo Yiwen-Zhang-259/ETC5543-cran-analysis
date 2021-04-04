@@ -547,3 +547,99 @@ eco_lm %>%
   plot.subtitle = element_text(h = 0.5)) 
 
 ```
+
+4. trending packages
+
+For trending packages, Figure \@ref(fig:trendingpkg) shows that the most downloaded package `proxy` is released on 2021-03-05, a quite new date, while the second downloaded `ncdf4` is released on a relatively past date 2019-10-23. In addition, the downloads of packages released before February 2020 is generally higher than later ones. 
+
+```{r trendingpkg,fig.align = 'center', fig.cap="The highest downloaded package 'proxy' is released on 2021-03-05."}
+# find the top 15 trending packages and filter, 13 left
+trendpkg <- cran_trending() %>%
+  head(15) %>%
+  filter(!(package %in% pkg_20maintainer$package)) %>%
+  filter(!(package %in% pkg_secondary$package)) %>%
+  filter(!(package %in% pkg_rstusio$package)) 
+
+ncdf4 <- cran_downloads(package = "ncdf4", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+tree.interpreter <- cran_downloads(package = "tree.interpreter", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+spatstat.linnet <- cran_downloads(package = "spatstat.linnet", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+spatstat.core <- cran_downloads(package = "spatstat.core", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+geospark <- cran_downloads(package = "geospark", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+	
+spatstat.geom <- cran_downloads(package = "spatstat.geom", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+uplift <- cran_downloads(package = "uplift", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+proxy <- cran_downloads(package = "proxy", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+spatstat.sparse <- cran_downloads(package = "spatstat.sparse", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+compareGroups <- cran_downloads(package = "compareGroups", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+	
+botor <- cran_downloads(package = "botor", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+clickstream <- cran_downloads(package = "clickstream", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+ClickClust <- cran_downloads(package = "ClickClust", from = "2018-04-01", to = "2020-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+trendpkg <- rbind(ncdf4,tree.interpreter,spatstat.linnet,spatstat.core,geospark,	
+spatstat.geom,uplift,proxy,spatstat.sparse,compareGroups,botor,clickstream,	
+ClickClust) %>%
+  group_by(package) 
+
+trendpkg <- as.data.frame(trendpkg)
+
+release_date <- c("2019-10-23","2020-02-05","2021-03-28","2021-03-23","2020-03-02","2021-03-22","2014-03-17","2021-03-05","2021-03-16","2021-03-29","2020-02-16","2020-01-30","2016-10-23")
+
+trendpkg <- cbind(trendpkg,release_date) 
+
+trendpkg %>%
+  ggplot(aes(x = release_date, y = count,fill = package)) +
+  geom_bar(stat = "identity") +
+    labs( y = 'Download count',
+          x = 'Relsease date',
+    title = "Last two years' downloads with the release date",
+    subtitle = "for top 13 trending packages") +
+  scale_y_sqrt() +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5),
+  axis.text.x = element_text(angle = 55, hjust = 1)) 
+
+```
+In conclusion, I'm surprised to find it's not that the earlier the package is released, the more downloads it has. It may be higher than the later packages in general, but the difference is not significant. And the most downloaded packages are almost from the latest date, which is reflected in bayesian, econometrics, time series and top trending packages.
