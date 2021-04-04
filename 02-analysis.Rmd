@@ -9,6 +9,8 @@ library(grid)
 library(cranlogs)
 library(ctv)
 library(lubridate)
+library(rvest)
+library(htmltools)
 ```
 
 ## Daily top 15 downloaded packages 
@@ -646,3 +648,73 @@ trendpkg %>%
 ```
 
 In conclusion, I'm surprised to find it's not that the earlier the package is released, the more downloads it has. It may be higher than the later packages in general, but the difference is not significant. And the most downloaded packages are almost from the latest date, which is reflected in bayesian, econometrics, time series and top trending packages.
+
+## compare packages with similar release date
+
+I would like to compare packages released on the same date (i.e. April 1st), so I compare the daily downloads of these packages for 04-02.
+
+By looking into Figure \@ref(fig:pkg0401), we could know that the most downloaded package released on 04-01 is `datetimeutils`, and the second one is `berryFunctions`.
+
+```{r}
+# Store web url
+#crandate <- read_html("https://cran.r-project.org/web/packages/available_packages_by_date.html")
+
+#Scrape the website for the movie rating
+
+#date <- crandate %>% 
+  #html_nodes("tr:nth-child(2) td:nth-child(1)") %>%
+  #html_text() 
+
+#package <- crandate %>% 
+  #html_nodes("tr:nth-child(2) a") %>%
+  #html_text()
+
+#pkg_similar_date <- data.frame(date, package)
+```
+
+```{r pkg0401, fig.align = 'center', fig.cap="The highest downloaded package 'proxy' is released on 2021-03-05."}
+package_0401 <- c("backbone","bbdetection","berryFunctions","bootImpute","ChineseNames","chromoMap","cocktailApp","datetimeutils","deepdive","diversityForest","DLMtool","ecb","EValue","fungible","GetDFPData","gh","insight","LAWBL","mapping","marqLevAlg","microbial","mockcpp","mrbayes","muhaz","NetOrigin","NMOF","PDE","ProcData","PSweight","rbiorxiv","relevance","remotes","rmcorr","samc","scam","sigminer","sisireg","smcfcs","textutils","tsBSS") %>%
+  as.data.frame() %>%
+  rename(package_0401,package = .)
+
+package_0401 <- package_0401 %>%
+  filter(!(package %in% pkg_20maintainer$package)) %>%
+  filter(!(package %in% pkg_secondary$package)) %>%
+  filter(!(package %in% pkg_rstusio$package)) %>%
+  head(15)
+
+backbone <- cran_downloads(package = "backbone")
+bbdetection <- cran_downloads(package = "bbdetection")
+berryFunctions <- cran_downloads(package = "berryFunctions")
+bootImpute <- cran_downloads(package = "bootImpute")
+chromoMap <- cran_downloads(package = "chromoMap")
+cocktailApp <- cran_downloads(package = "cocktailApp")
+datetimeutils <- cran_downloads(package = "datetimeutils")
+deepdive <- cran_downloads(package = "deepdive")
+diversityForest <- cran_downloads(package = "diversityForest")
+DLMtool <- cran_downloads(package = "DLMtool")
+ecb <- cran_downloads(package = "ecb")
+fungible <- cran_downloads(package = "fungible")
+GetDFPData <- cran_downloads(package = "GetDFPData")
+
+package_0401 <- rbind(backbone,bbdetection,berryFunctions,bootImpute,chromoMap,cocktailApp,datetimeutils,deepdive,diversityForest,DLMtool,ecb,fungible,GetDFPData) %>%
+  group_by(package)
+
+package_0401 %>%
+  ggplot(aes(x = package, y = count)) +
+  geom_bar(stat = "identity") +
+    labs( y = 'Package',
+          x = 'Download count',
+    title = "The daily downloads of packages released on 04-01",
+    subtitle = "on 04-02") +
+  scale_y_sqrt() +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5),
+  axis.text.x = element_text(angle = 55, hjust = 1)) 
+```
+
