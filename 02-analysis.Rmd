@@ -339,9 +339,11 @@ grid.draw(g78)
 
 ## Compare last two years' downloads with the release date
 
-1. Pakcges for Time Series Analysis
+1. Packages for Time Series Analysis
 
 It can be seen from Figure \@ref(fig:timeseries) that although package `fable` is older than `forecast`, its download count is much less than that of `forecast`.
+
+And we could see that the most downloaded package is `zoo` published on 2021-03-09, and next is `forecast`. So we can see that among time series packages, the two packages with the highest downloads have relatively new release dates. At the same time, we also notice that the number of downloads of package `slider` with the latest release date is not ideal. This may be because it is too new, few people know about it, and people are used to the old package and probably tend not to use the new one.
 
 ```{r timeseries, fig.align = 'center', fig.cap="The older package 'fable' has less download count than that of package 'forecast'."}
 forecast <- cran_downloads(package = "forecast", from = "2018-04-01", to = "2020-04-01") %>%
