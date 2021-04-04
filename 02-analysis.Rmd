@@ -339,6 +339,8 @@ grid.draw(g78)
 
 ## Compare last two years' downloads with the release date
 
+In our common cognition, we think that the earlier a package is released, the more people will know about it, and thus the more downloads it will have. However, packages related to different topics cannot be directly compared, because it is possible that the total download amount of packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, I selected three domain packages through CRAN task view, calculated their respective downloads in the previous two years, and found their release dates for comparison.
+
 1. Packages for Time Series Analysis
 
 It can be seen from Figure \@ref(fig:timeseries) that although package `fable` is older than `forecast`, its download count is much less than that of `forecast`.
@@ -642,4 +644,5 @@ trendpkg %>%
   axis.text.x = element_text(angle = 55, hjust = 1)) 
 
 ```
+
 In conclusion, I'm surprised to find it's not that the earlier the package is released, the more downloads it has. It may be higher than the later packages in general, but the difference is not significant. And the most downloaded packages are almost from the latest date, which is reflected in bayesian, econometrics, time series and top trending packages.
