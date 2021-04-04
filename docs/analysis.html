@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2021-03-22" />
+<meta name="date" content="2021-04-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,7 +135,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#rtrends"><i class="fa fa-check"></i><b>1.1</b> rtrends</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#helpful-tips"><i class="fa fa-check"></i><b>1.2</b> Helpful tips</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>2</b> Analysis</a></li>
+<li class="chapter" data-level="2" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>2</b> Analysis</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="analysis.html"><a href="analysis.html#daily-top-15-downloaded-packages"><i class="fa fa-check"></i><b>2.1</b> Daily top 15 downloaded packages</a></li>
+<li class="chapter" data-level="2.2" data-path="analysis.html"><a href="analysis.html#compare-last-two-years-downloads-with-the-release-date"><i class="fa fa-check"></i><b>2.2</b> Compare last two years’ downloads with the release date</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>3</b> Summary</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -157,7 +161,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="analysis" class="section level1" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Analysis</h1>
+<div id="daily-top-15-downloaded-packages" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Daily top 15 downloaded packages</h2>
+<p><img src="bookdown-demo_files/figure-html/compareby2year-1.png" width="672" /><img src="bookdown-demo_files/figure-html/compareby2year-2.png" width="672" /><img src="bookdown-demo_files/figure-html/compareby2year-3.png" width="672" /><img src="bookdown-demo_files/figure-html/compareby2year-4.png" width="672" /></p>
+</div>
+<div id="compare-last-two-years-downloads-with-the-release-date" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Compare last two years’ downloads with the release date</h2>
+<ol style="list-style-type: decimal">
+<li>Packages for Time Series Analysis</li>
+</ol>
+<p>It can be seen from Figure <a href="analysis.html#fig:timeseries">2.1</a> that although package <code>fable</code> is older than <code>forecast</code>, its download count is much less than that of <code>forecast</code>.</p>
+<p>And we could see that the most downloaded package is <code>zoo</code> published on 2021-03-09, and next is <code>forecast</code>. So we can see that among time series packages, the two packages with the highest downloads have relatively new release dates. At the same time, we also notice that the number of downloads of package <code>slider</code> with the latest release date is not ideal. This may be because it is too new, few people know about it, and people are used to the old package and probably tend not to use the new one.</p>
+<p>p.s. very interesting point : the most downloaded <code>zoo</code> does not have a github version, while the second downloaded <code>forecast</code> does have one.</p>
+<div class="figure" style="text-align: center"><span id="fig:timeseries"></span>
+<img src="bookdown-demo_files/figure-html/timeseries-1.png" alt="The older package 'fable' has less download count than that of package 'forecast'." width="672" />
+<p class="caption">
+Figure 2.1: The older package ‘fable’ has less download count than that of package ‘forecast.’
+</p>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>Bayesian packages for general model fitting</li>
+</ol>
+<p>Let’s have a look at the bayesian packages used for general model fitting. It can be seen from Figure <a href="analysis.html#fig:bayesian">2.2</a> that the most downloaded packages are two with relatively late release dates : <code>arm</code> and <code>loo</code>. Then the two packages <code>bayesm</code> and <code>mcmc</code> with the earliest release date were moderately downloaded. At the same time, we can also notice that the package with the smallest downloads named <code>nimble</code> also comes from the relatively recent date.</p>
+<p>Therefore, in this type of packages, we can say that the later the release date, the higher the download volume of the package. But there are still some special cases. That is even if the release date is later, the download volume is still not ideal, which may be due to other reasons.</p>
+<div class="figure" style="text-align: center"><span id="fig:bayesian"></span>
+<img src="bookdown-demo_files/figure-html/bayesian-1.png" alt="last two years' downloads with the release date for bayesian general model fitting packages." width="672" />
+<p class="caption">
+Figure 2.2: last two years’ downloads with the release date for bayesian general model fitting packages.
+</p>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>Econometrics for basic linear regression</li>
+</ol>
+<p>In order to test whether this is the case in other areas, let’s turn our attention to econometrics packages for basic linear regression.</p>
+<p>It can be seen from Figure <a href="analysis.html#fig:eco-lm">2.3</a> that the latest package <code>sandwich</code> has the highest downloads, while the downloads of <code>nonnest2</code> with the earliest release date is much lower than it.</p>
+<p>This is very similar to Bayesian’s case, that is, the latest packages tend to have higher downloads, with some special cases, such as the release date of packages whose downloads is highest or lowest may be in the middle position.</p>
+<div class="figure" style="text-align: center"><span id="fig:eco-lm"></span>
+<img src="bookdown-demo_files/figure-html/eco-lm-1.png" alt="The latest package 'sandwich` has the highest downloads." width="672" />
+<p class="caption">
+Figure 2.3: The latest package ’sandwich` has the highest downloads.
+</p>
+</div>
 
+</div>
 </div>
             </section>
 

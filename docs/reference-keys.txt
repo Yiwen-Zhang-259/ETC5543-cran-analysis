@@ -1,7 +1,12 @@
 fig:nice-fig
 tab:nice-tab
+fig:timeseries
+fig:bayesian
+fig:eco-lm
 intro
 rtrends
 helpful-tips
 analysis
+daily-top-15-downloaded-packages
+compare-last-two-years-downloads-with-the-release-date
 summary

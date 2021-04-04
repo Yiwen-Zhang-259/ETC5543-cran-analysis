@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2021-03-22" />
+<meta name="date" content="2021-04-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -135,7 +135,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#rtrends"><i class="fa fa-check"></i><b>1.1</b> rtrends</a></li>
 <li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#helpful-tips"><i class="fa fa-check"></i><b>1.2</b> Helpful tips</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>2</b> Analysis</a></li>
+<li class="chapter" data-level="2" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>2</b> Analysis</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="analysis.html"><a href="analysis.html#daily-top-15-downloaded-packages"><i class="fa fa-check"></i><b>2.1</b> Daily top 15 downloaded packages</a></li>
+<li class="chapter" data-level="2.2" data-path="analysis.html"><a href="analysis.html#compare-last-two-years-downloads-with-the-release-date"><i class="fa fa-check"></i><b>2.2</b> Compare last two years’ downloads with the release date</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>3</b> Summary</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -157,8 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="intro" class="section level1" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
-<p>R is a widely used programming language, and also a free software environment for statistical calculation and mapping analysis. R is popular among statisticians and data analysts, with being widely used in statistical software development and data analysis. In the process of using R, we need to extend its functions with the help of R packages, so R packages have become an indispensable part when people use R to work and study. R packages can be downloaded from CRAN, a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R. It is precisely because R package is so important and basic for users of R, we will be quite concerned about everything about package. On the one hand, Some users of R are also developers of R packages, therefore, these people may be concerned about the download amount and popularity of their packages. For ordinary users of R, when they want to choose a suitable package for a certain job, for example, they want to do Bayesian analysis, and there are many packages with this function, then they would want to know which packages are the most popular or practical. Based on this, the purpose of this project is to analyze and explore the packages download on CRAN, and try to provide one or more methods to modify the download amount of packages or help users and developers better understand the download amount pattern.</p>
-<p>As mentioned above, we often care about the popularity of R packages, then a question would come naturally: how to measure what is popular and what is unpopular? For example, if a package has been downloaded 10000 times, can we infer that it is popular? The answer is obviously no, because popularity is a relative concept, which needs to be reflected in comparison. In order to answer this question, some scholars have provided methods for reference, which will be introduced in the following part. What’s more, let’s extend it to this question. If a package has 10000 downloads, and it ranks in the top 10 among all packages of the same type, does that necessarily reflect its true popularity? The answer is obviously no as well, because in the 10000 downloads, there may be reloaded counts, share download counts and download counts from dependent packages. We usually think that the real popularity of a package should be the sum of the single downloads of different users, which can reflect the user coverage of this package. And this problem was also solved by a scholar that will be mentioned later. And so on, there are many thinking and analysis dimensions about CRAN analysis, which will be an interesting and practical exploration.</p>
+<p>R is a widely used programming language, and also a free software environment for statistical calculation and mapping analysis, which is popular among statisticians and data analysts, with being widely used in statistical software development and data analysis. In the process of using R, we need to extend its functions with the help of R packages, so R packages have become an indispensable part when people use R to work and study.Due to that, both users and developers are concerned about the download amount and popularity of R packages that can be downloaded from CRAN, a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R. Based on this, researchers have started to study the popularity of R packages from CRAN. For example, a package <code>adjustedcranlogs</code> finds that there are spike in downloads due to automatic re-downloads and package update, and it also provides a method to remove these download logs. And package <code>packageRank</code> provides a way to compute the rank percentile for packages and filter the invalid downloads including small and medium size logs. What’s more, there are also some packages such as <code>pkgsearch</code> and <code>Visualize.CRAN.Downloads</code> providing some visualization methods to explore the package download trend or for convenient searching. As for us, we investigated the historical data of CRAN dowload logs and found that… (to be added)</p>
 <p>Next, I would like to introduce some terms involved in this project.</p>
 <ul>
 <li><p>R language : R is a language and environment for statistical computing and graphics which can be extended easily via packages and provide an Open Source route to participation in statistical methodology. It is available as Free Software under the term of the Free Software Foundation’s GNU General Public License<span class="citation">(<a href="references.html#ref-gnu" role="doc-biblioref"><span>“The GNU Operating System and the Free Software Movement”</span> 1991</a>)</span>.</p></li>
@@ -170,54 +173,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <div id="rtrends" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> rtrends</h2>
-<p>And then we come to the related literatures, which are as followed:</p>
-<ul>
-<li><a href="https://cran.r-project.org/web/packages/rtrends/rtrends.pdf"><code>rtrends</code></a>
-This is a package used for simple analysis of download logs from the CRAN RStudio Mirror, which contains one dataset and five functions. It’s mainly functions are:</li>
-</ul>
-<ol style="list-style-type: decimal">
-<li>abstract all CRAN download logs for a specific date</li>
-<li>abstract CRAN download logs for a specific package</li>
-<li>abstract CRAN download logs for a several package in a range of dates</li>
-<li>merge CRAN download logs with county names</li>
-<li>provide sample formatted CRAN logs</li>
-</ol>
-<ul>
-<li><a href="https://github.com/lindbrook/packageRank"><code>packageRank</code></a>.
-It is also a package that relies on package <code>cranlog</code> and extends its functionality.It can publish the total download logs from CRAN with a more user-friendly interface and providing generic R <code>plot()</code> methods to make visualization easy. Also, many package creators are very concerned about the popularity of their packages, and this package <code>packageRank</code> can show the percentage of packages with less downloads. Furthermore, when we count the download logs, the exact thing we want is the number of times the package has been completely downloaded. In fact, we often encounter some wrongly sized download records, that is to say, users only download a part of the normal sized package. One is called “medium,” the other is “small,” which exists either as a part of pair with a full download or one of triplet with a “medium” and a full downloads. In order to deal with this, the creator filters the “small” entries that are less 1000 bytes and use triplet-specific filter to do with the “medium” entries.</li>
-</ul>
-<p>Generally speaking, the function of this package is divided into two directions, one is to calculate the rank percentile, the other is to filter invalid package downloads. In addition, a series of visualization methods are provided. Here, I will mainly explain how the above two functions are brought about.</p>
-<ol style="list-style-type: decimal">
-<li>Computing the rank percentile</li>
-</ol>
-<p>This package computes rank percentile for a single package’s one-day download. First of all, find out the sum of the downloads of all packages whose daily downloads are smaller than that of this package, and record it as A, and get the downloads of all packages from Bioconductor on this day, record it as B, then divide A by B. We would get the rank percentage of this package in this way.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Filtering invalid downloads</li>
-</ol>
-<p>There are five types filtering functions inside this package:</p>
-<p><code>ip.filter</code> : it is used to remove campaigns of those IP address that has downloaded the same package for too many times. And the ‘to many times’ is set to 10. And the statistical method used here is k-means clustering.</p>
-<p><code>triplet.filter</code> : reduce the triplets to a single observation… (to be added)</p>
-<p><code>small.filter</code> : it is used to remove entries smaller than 1000 bytes. Why 1000 bytes? Because this is even smaller than the smallest-sizes package in CRAN named ‘source.gist.’ In other words, packages smaller than this size are “small” packages that should be removed.</p>
-<p><code>sequence.filter</code> : removes logs that is of past versions. When people download the historical version of a package, they may be more interested in CRAN than in the package itself.</p>
-<p><code>size.filter</code> : removes entries smaller than a package’s binary or source file. (to be added…)</p>
-<ul>
-<li><p><a href="https://github.com/r-hub/cranlogs"><code>cranlogs</code></a> - to download the summary download data.
-It is a R package used to publish the total download logs from CRAN mirror in last day, last week or even a specific time range, for one package or several packages. And it can used to figure out the top downloaded packages in a time.</p></li>
-<li><p><a href="https://github.com/tylermorganwall/adjustedcranlogs"><code>adjustedcranlogs</code></a>.
-We already know that the main function of <code>cranlogs</code> is to show the total number of download logs, but in practice, so the statistics of that will face the following problems: including the number of shared download logs, the same user downloads the same package again for some reason, and when a package is updated, the number of download logs will surge. Due to that, <code>adjustedcranlogs</code> is a wrapper around the <code>cranlogs</code> package that removes these two types of download logs. Therefore, using the data processed by this package to plot, we will find that the fluctuation of the download logs will be smaller.
-The only function inside this package is <code>adj_cran_downloads()</code>, which returns a data frame showing the adjusted downloads, adjusted total downloads, shared minimum downloads, and package update information.</p></li>
-</ul>
-<p>The specific method is as follows:
-This package mainly removes two types of downloads, one is the spike in downloads due to automatic re-downloads, the other is CRAN mirrors associated with a package update. First, it will find out the minimum download amount of a package, and then subtract the minimum download amount from the original download amount obtained through <code>cranlogs::cran_downloads</code> function to get an adjusted download amount. And in order to remove the spike, it uses two discriminant process: first, it determines whether a certain day is an update day, if so, it has value TRUE, if not, it has value FALSE. Then it determines that if two consecutive days are update days for the same package, if so, the median of the adjusted load per day of this package would be used as the daily download amount of each of these two days.</p>
-<ul>
-<li><p><a href="https://github.com/arunsrinivasan/cran.stats"><code>cran.stats</code></a>
-This package can also be used to get the total number of download logs first, but it is different from the previous package in that it gets seasonal data, such as annual, monthly and weekly. Besides, packages can have dependencies with each other, which means when a package is downloaded, its dependent package is also downloaded. But this will cause a problem, that is, when users download a package with its dependent package also downloaded, the download logs may not reflect the actual popularity of that dependent package. Therefore, another function of this package can solve this problem well by identifying and subtracting the downloads due to it’s dependent packages. Also, there is one function used to plot direct downloads and downloads due to dependencies separately.</p></li>
-<li><p><a href="https://github.com/GuangchuangYu/dlstats"><code>dlstats</code></a></p></li>
-<li><p><a href="https://github.com/r-hub/pkgsearch/"><code>pkgsearch</code></a>
-This is a package used to query packages in multiple dimensions. First, users can search by the usage of the package, and <code>pkgsearch</code> will return the results with popular packages before less frequently used ones. Or there is a <code>CRAN package search</code> addin in menu, with which users can search packages by clicking easily. And it can publish the version history of certain package or display the recent trending packages in detail. Besides, it can provide the latest releases or archivals. Moreover, the search server uses the stems of the words in the indexed metadata, and the search phrase. In this way, the deceleration result will not be affected by the grammar of spelling and tense, which increases the fault tolerance rate and become more user-friendly. At this point, there is also a functional extension, that is, the search engine prefers matching whole phrases over single words.This means that it will consider more about the meaning of the entire search term than match a word, which makes the results more accurate. For example, the search phrase “permutation test” will rank coin higher than testthat, even though testthat is a much better result for the single word “test.” And it uses weighted scoring to show the ranking of the results, which includes reverse dependencies, matching degree of title and description and the number of downloads. Finally, it also provides ASCII folding for easy retrieval. In general, this is a comprehensive, practical and interesting search package.</p></li>
-<li><p><a href="https://cran.r-project.org/web/packages/Visualize.CRAN.Downloads/vignettes/Visualize.CRAN.Downloads.html"><code>Visualize.CRAN.Downloads</code></a>
-This package provides a variety of methods and different types of presentation to visualize the downloads of packages, including static plots, interactive plots and comparison plot. These visualizations mainly focus on the single or comparative study of package downloads in a certain period of time. It includes the change of daily download volume with time, the change of cumulative total download volume, the fluctuation of average download volume and download volume within the standard deviation. In addition, it also provides many function options for splitting or combining figures to make visualization as comprehensive and flexible as possible.</p></li>
-</ul>
+<p>the purpose of this project is to analyze and explore the packages download on CRAN, and try to provide one or more methods to modify the download amount of packages or help users and developers better understand the download amount pattern.</p>
 </div>
 <div id="helpful-tips" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> Helpful tips</h2>
