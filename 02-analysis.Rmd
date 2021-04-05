@@ -720,6 +720,8 @@ package_0401 %>%
 
 ## Compare increase rate of fable and forecast
 
+To compare the increase rate of `fable` and `forecast`, I use the daily downloads of both packages from 2021-02-03 to 2021-04-02 and compute the daily growth  download rate. The reason I choose this period of time is that `fable` is published on CRAN from 2021-02-03.
+
 ```{r}
 fable <- cran_downloads(package = "fable", from = "2021-02-03", to = "2021-04-02") 
 
