@@ -74,7 +74,7 @@ Another direction is analysing how has the statistics changed over time for many
 
 ## Tue 30 Mar 2021
 
-This week, Emi Hien, and I talked about things as followed:
+This week, Emi, Hien, and I talked about things as followed:
 
 1. I report what I did last week.
 
@@ -103,3 +103,18 @@ This week, Emi Hien, and I talked about things as followed:
 13. Emi told me that when I do top 15, I can first find how many of them are on github (by checking the url) and extact the number of the commits of particular package. (a assumption the one that has github version would have more dowloads for it probably has high quality.
 
 14. Hien said another interesting analysis can be looking at the productivity of certain group.
+
+
+## Tue 06 April 2021
+
+This week, Emi, Hien, and I talked about things as followed:
+
+1. I report what I did last week.
+
+3. Emi told me to get commits from github by using github API and show me an example.
+
+5. Emi said I should divide the 'filtering list' to make it more clear.
+
+6. Hien suggested me to use weighed moving average to replace the daily increase rate of packages.
+
+7. Emi told me to replace the wrong release date with the right oldest one.
