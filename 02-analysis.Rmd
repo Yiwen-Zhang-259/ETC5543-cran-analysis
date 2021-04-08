@@ -11,6 +11,13 @@ library(ctv)
 library(lubridate)
 library(rvest)
 library(htmltools)
+#install.packages("jsonlite")
+library(jsonlite)
+#install.packages("httpuv")
+library(httpuv)
+#install.packages("httr")
+library(httr)
+
 ```
 
 ## Daily top 15 downloaded packages 
@@ -59,13 +66,16 @@ pkg_rstusio <- db %>%
 ```
 
 ```{r contributorlist}
-# filter the packages whose author is from R core group or on the secondary list
+# filter the packages whose author is from R core group
+
+pkg_core <- db %>%
+  filter(grepl('Douglas Bates|John Chambers|Peter Dalgaard|Robert Gentleman|Kurt Hornik|Ross Ihaka|Tomas Kalibera|Michael Lawrence|Friedrich Leisch|Uwe Ligges|Thomas Lumley|Martin Maechler|Martin Morgan|Paul Murrell|Brian Ripley|Deepayan Sarkar|Duncan Temple Lang|Luke Tierney|Simon Urbanek|Martyn Plummer|', Author))
 
 pkg_secondary <- db %>%
-  filter(grepl('Douglas Bates|John Chambers|Peter Dalgaard|Robert Gentleman|Kurt Hornik|Ross Ihaka|Tomas Kalibera|Michael Lawrence|Friedrich Leisch|Uwe Ligges|Thomas Lumley|Martin Maechler|Martin Morgan|Paul Murrell|Brian Ripley|Deepayan Sarkar|Duncan Temple Lang|Luke Tierney|Simon Urbanek|Martyn Plummer', Author))%>%
   filter(!grepl('Guido Masarotto|Duncan Murdoch|Henrik Bengtsson|Roger Bivand|Ben Bolker|David Brahm|Vince Carey|Saikat DebRoy|Matt Dowle|Dirk Eddelbuettel|Claus Ekstrom|John Fox|Paul Gilbert|Yu Gong|Gabor Grothendieck|Frank E Harrell Jr|Peter M. Haverty|Torsten Hothorn|Robert King|Kjetil Kjernsmo|Roger Koenker|Philippe Lambert|Jan de Leeuw|Jim Lindsey|Patrick Lindsey|Catherine Loader| Gordon Maclean|Arni Magnusson|John Maindonald|David Meyer|Ei-ji Nakama|Jens Oehlschägel|Steve Oncley|Richard O’Keefe|Hubert Palme|Roger D. Peng|José C. Pinheiro|Tony Plate|Anthony Rossini| Jonathan Rougier|Petr Savicky|Günther Sawitzki|Marc Schwartz|Arun Srinivasan|Detlef Steuer|Bill Simpson|Gordon Smyth|Adrian Trapletti|Terry Therneau|Rolf Turner|Bill Venables|Gregory R. Warnes| Andreas Weingessel|Morten Welinder|James Wettenhall|Simon Wood|and Achim Zeileis', Author)) %>%
   select(Package) %>%
   rename(package = Package)
+
 
 ```
 
@@ -75,6 +85,16 @@ pkg_20maintainer <- db %>%
   filter(stringr::str_detect(Author, 'Hadley Wickham|Yihui Xie|Dirk Eddelbuettel|Jeroen Ooms|Achim Zeileis|Scott Chamberlain|Gabor Csardi|Jeroen Ooms|ORPHANED|Thomas J. Leeper|Bob Rudis|Henrik Bengtsson|Kurt Hornik|Oliver Keyes|Martin Maechler|Richard Cotton|Robin K. S. Hankin|Simon Urbanek|Kirill Muller|Torsten Hothorn|Paul Gilbert') )%>%
   select(Package) %>%
   rename(package = Package)
+
+# filter the packages developed by other R studio related authors
+
+pkg_r_related <- db %>%
+  filter(stringr::str_detect(Author, 'Hadley Wickham|Yihui Xie|Gabor Csardi|Winston Chang|Andrie de Vries|Alison Presmanes Hill|Mara Averick|Cole Arendt|Daniel Falbel|Garrick Aden-Buie|Garrett Grolemund|Gary|Joe Cheng|Jennifer (Jenny) Bryan|Jim Hester|J.J. Allaire|Jonathan|Joshua Spiewak|Dan Buch|Richard Iannone|Ralf Stubner|Tyler Finethy|Melissa Barca|Kevin Ushey|Javier Luraschi|Karl Feinauer|Charles Teague|Maria Semple|adamconroy|Ricardo Andrade|Steve Nolen|Randy Lai|Jeffrey Horner|Jan Marvin Garbuszus|Justace Clutter|Josh Paulson|Mike Bessuille|Jeffrey Arnold|Paul Kaefer|Jim Hester|Dirk Schumacher|
+Philipp A.|Fabian Mundt|Fabian Mundt|boB Rudis|Asher|Henrik Bengtsson|James Lamb|rich-rstudio|Andrie de Vries|Iñaki Ucar|Mark Brown|Hiroaki Yutani|Dean Attali|Matthias Mailänder|Bruno Tremblay|Ian|John Blischak|Chris von Csefalvay|Jeroen Ooms|
+Daniel Gromer|Kirill Müller|Jan Gleixner|Alexander Grueneberg|Darío Hereñú|Aron Atkins|harupiko|Barret Schloerke|James Arnold|Giuseppe Casalicchio|Fredric Johansson|Curtis Kephart|reudismam|Jeff Allen|Yuri Niyazov|Sean Kross|Carl A. B. Pearson|
+Peter Glerup Ericson|Diomidis Spinellis|Paul Menzel|Lincoln Mullen|Colin Gillespie|Masafumi Okada|Øystein Sørensen|Matthew Grogan|Scott Kostyshak|Marcus Kinsella|rhinopotamus|Daiki Katsuragawa|Michael Steinbaugh|Jari Karppinen|Roy Storey|Kristofer Rye|Erin|Ben Torvaney|Pol Mesalles|Sainath Adapa|Vladimir Panfilov|Christian Brueffer|Julien Barnier|') )%>%
+  select(Package) %>%
+  rename(package = Package)
 ```
 
 ```{r filterlist}
@@ -82,58 +102,74 @@ pkg_20maintainer <- db %>%
 cran2019_10_01_new <- cran2019_10_01 %>%
      filter(!(package %in% pkg_20maintainer$package)) %>%
      filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) 
+     filter(!(package %in% pkg_rstusio$package)) %>%
+     filter(!(package %in% pkg_core$package)) %>%
+     filter(!(package %in% pkg_r_related$package))
 
 cran2018_10_01_new <- cran2018_10_01 %>%
      filter(!(package %in% pkg_20maintainer$package)) %>%
      filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) 
+     filter(!(package %in% pkg_rstusio$package)) %>%
+     filter(!(package %in% pkg_core$package)) %>%
+     filter(!(package %in% pkg_r_related$package))
 
 
 cran2017_10_01_new <- cran2017_10_01 %>%
      filter(!(package %in% pkg_20maintainer$package)) %>%
      filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) 
+     filter(!(package %in% pkg_rstusio$package)) %>%
+     filter(!(package %in% pkg_core$package)) %>%
+     filter(!(package %in% pkg_r_related$package))
 
 cran2016_10_01_new <- cran2016_10_01 %>%
      filter(!(package %in% pkg_20maintainer$package)) %>%
      filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) 
+     filter(!(package %in% pkg_rstusio$package)) %>%
+     filter(!(package %in% pkg_core$package)) %>%
+     filter(!(package %in% pkg_r_related$package))
 
 cran2015_10_01_new <- cran2015_10_01 %>%
      filter(!(package %in% pkg_20maintainer$package)) %>%
      filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) 
+     filter(!(package %in% pkg_rstusio$package)) %>%
+     filter(!(package %in% pkg_core$package)) %>%
+     filter(!(package %in% pkg_r_related$package))
 
 cran2014_10_01_new <- cran2014_10_01 %>%
      filter(!(package %in% pkg_20maintainer$package)) %>%
      filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) 
+     filter(!(package %in% pkg_rstusio$package)) %>%
+     filter(!(package %in% pkg_core$package)) %>%
+     filter(!(package %in% pkg_r_related$package))
 
 cran2013_10_01_new <- cran2013_10_01 %>%
      filter(!(package %in% pkg_20maintainer$package)) %>%
      filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) 
+     filter(!(package %in% pkg_rstusio$package)) %>%
+     filter(!(package %in% pkg_core$package)) %>%
+     filter(!(package %in% pkg_r_related$package))
 
-cran2012_10_01_new <- cran2012_10_01 %>%
-     filter(!(package %in% pkg_20maintainer$package)) %>%
-     filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) 
+#cran2012_10_01_new <- cran2012_10_01 %>%
+     #filter(!(package %in% pkg_20maintainer$package)) %>%
+     #filter(!(package %in% pkg_secondary$package)) %>%
+     #filter(!(package %in% pkg_rstusio$package)) %>%
+     #filter(!(package %in% pkg_core$package)) %>%
+     #filter(!(package %in% pkg_r_related$package))
 ```
 
 
 ```{r  cran20121001}
-cran2012_1001 <- cran2012_10_01_new %>%
-  drop_na() %>%
-  count(package) %>%
-  arrange(desc(n)) %>%
-  head(15) 
+#cran2012_1001 <- cran2012_10_01_new %>%
+  #drop_na() %>%
+  #count(package) %>%
+  #arrange(desc(n)) %>%
+ # head(15) 
   
-cran2012_1001$package <- as.vector(cran2012_1001$package) #get rid of factors
+#cran2012_1001$package <- as.vector(cran2012_1001$package) #get rid of factors
 
-cran2012_1001$package = factor(cran2012_1001$package,cran2012_1001$package)
+#cran2012_1001$package = factor(cran2012_1001$package,cran2012_1001$package)
 
-p1 <- ggplot(data = cran2012_1001) +
+#p1 <- ggplot(data = cran2012_1001) +
   geom_bar(stat="identity", aes(x = package, y = n)) +
   labs(
        title = "Top 15 downloaded packages on 2012-10-01") +
@@ -310,12 +346,12 @@ p8 <- ggplot(data = cran2019_1001) +
 
 ```{r compareby2year}
 # display the daily top 15 popular packages on 10-01 of each year from 2012 to 2019
-g1 <- ggplotGrob(p1)
+#g1 <- ggplotGrob(p1)
 g2 <- ggplotGrob(p2)
-g12 <- rbind(g1, g2, size = "first")
-g12$widths <- unit.pmax(g1$widths, g2$widths)
+#g12 <- rbind(g1, g2, size = "first")
+#g12$widths <- unit.pmax(g1$widths, g2$widths)
 grid.newpage()
-grid.draw(g12)
+grid.draw(g2)
 
 g3 <- ggplotGrob(p3)
 g4 <- ggplotGrob(p4)
@@ -402,7 +438,7 @@ timeseries <- rbind(forecast,fable,zoo,tsibble,slider,tbrf,roll,runner,runstats,
 
 timeseries <- as.data.frame(timeseries)
 
-release_date <- c("2021-03-11","2021-02-03","2021-03-09","2021-02-20","2021-03-23","2020-04-09","2020-07-13","2021-02-22","2019-11-14","2020-02-06","2021-03-22")
+release_date <- c("2009-09-07","2021-02-03","2021-03-09","2021-02-20","2021-03-23","2020-04-09","2020-07-13","2021-02-22","2019-11-14","2020-02-06","2021-03-22")
 
 
 timeseries <- cbind(timeseries,release_date) 
@@ -413,7 +449,7 @@ timeseries %>%
   geom_bar(stat = "identity") +
     labs( y = 'Download count',
     title = "Last two years' downloads with the release date",
-    subtitle = "between fable and forecast") +
+    subtitle = "between for time series packages") +
   scale_y_sqrt() + # to change the scale of y axis
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
@@ -436,7 +472,9 @@ Therefore, in this type of packages, we can say that the later the release date,
 bayesian <- tibble(package = c("arm","BACCO","bayesm","LaplacesDemon","loo","MCMCpack","mcmc","nimble")) %>%
      filter(!(package %in% pkg_20maintainer$package)) %>%
      filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) 
+     filter(!(package %in% pkg_rstusio$package)) %>%
+     filter(!(package %in% pkg_core$package)) %>%
+     filter(!(package %in% pkg_r_related$package))
 
 arm <- cran_downloads(package = "arm", from = "2018-04-01", to = "2020-04-01") %>%
   summarise(package = package, count = sum(count)) %>%
@@ -678,10 +716,12 @@ package_0401 <- c("backbone","bbdetection","berryFunctions","bootImpute","Chines
   rename(package_0401,package = .)
 
 package_0401 <- package_0401 %>%
-  filter(!(package %in% pkg_20maintainer$package)) %>%
-  filter(!(package %in% pkg_secondary$package)) %>%
-  filter(!(package %in% pkg_rstusio$package)) %>%
-  head(15)
+     filter(!(package %in% pkg_20maintainer$package)) %>%
+     filter(!(package %in% pkg_secondary$package)) %>%
+     filter(!(package %in% pkg_rstusio$package)) %>%
+     filter(!(package %in% pkg_core$package)) %>%
+     filter(!(package %in% pkg_r_related$package))
+     head(15)
 
 backbone <- cran_downloads(package = "backbone")
 bbdetection <- cran_downloads(package = "bbdetection")
@@ -800,4 +840,72 @@ fbl_fcst %>%
 ```
 
 
+## compare download logs with the number of commits
+
+```{r}
+# function used to get the number of commits from github page
+get_commits <- function(pkg){
+  
+  commits <- pkg %>% 
+  html_nodes(xpath = "//*[@id='repo-content-pjax-container']/div/div[2]/div[1]/div[2]/div[1]/div/div[4]/ul/li/a") %>%
+  html_text()
+
+package <- pkg %>% 
+  html_nodes(xpath = "//*[@id='js-repo-pjax-container']/div[1]/div[1]/div/h1/strong/a") %>%
+  html_text()
+
+glue <- data.frame(commits,packages)
+
+return(glue)
+
+}
+
+# six packages from top 15 on 2019-10-01
+glue <- read_html("https://github.com/tidyverse/glue")
+backports <- read_html("https://github.com/r-lib/backports")
+fansi <- read_html("https://github.com/brodieG/fansi")
+R6 <- read_html("https://github.com/r-lib/R6/")
+stringi <- read_html("https://github.com/gagolews/stringi")
+munsell <- read_html("https://github.com/cwickham/munsell/")
+
+
+glue <- get_commits(glue)
+backports <- get_commits(backports)
+fansi <- get_commits(fansi)
+R6 <- get_commits(R6)
+stringi <- get_commits(stringi)
+munsell <- get_commits(munsell)
+
+commits_191001 <- rbind(glue,backports,fansi,R6,stringi,munsell)
+
+# to get the last two years' total downloads
+glue <- cran_downloads(package = "glue", from = "2019-04-01", to = "2021-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+backports <- cran_downloads(package = "backports", from = "2019-04-01", to = "2021-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+fansi <- cran_downloads(package = "fansi", from = "2019-04-01", to = "2021-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+R6 <- cran_downloads(package = "R6", from = "2019-04-01", to = "2021-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+stringi <- cran_downloads(package = "stringi", from = "2019-04-01", to = "2021-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+munsell <- cran_downloads(package = "munsell", from = "2019-04-01", to = "2021-04-01") %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+
+counts_191001 <- rbind(glue,backports,fansi,R6,stringi,munsell)
+
+commits_count_191001 <- full_join(commits_191001,counts_191001, by = "package")
+
+```
 
