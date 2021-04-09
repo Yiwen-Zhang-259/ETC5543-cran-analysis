@@ -787,68 +787,63 @@ package_0401 %>%
   axis.text.x = element_text(angle = 55, hjust = 1)) 
 ```
 
-## Compare increase rate of fable and forecast
-
-To compare the increase rate of `fable` and `forecast`, I use the daily downloads of both packages from 2021-02-03 to 2021-04-02 and compute the daily growth  download rate. The reason I choose this period of time is that `fable` is published on CRAN from 2021-02-03.
-
-It can be seen from Figure \@ref(fig:fbl-fcst) that generally speaking, the daily download rate of `forecast` is more stable than that of `fable`. And the daily download rate of package `fable` grew significantly before March 1, while `forecast` increased more moderately. From March 1 to March 15, both packages show decrease in download rate, and `forecast` decreased faster while `forecast` decreased slower.
-After March 15, the daily download rates of the two packages continued to decline at a similar rate.
-
-Therefore, we can also see that although `forecast` has more downloads than `fable` in the past two years, the growth rate of `forecast`'s single day downloads is significantly lower than `fable`'s, from February 3, 2021 to March 1, 2021. It shows that although the total download amount of the old package may be larger, the growth rate of the new package from the same topic may be higher than that of the old one in a period of time, which may be near the release date or the update date of the new package.
-
-```{r fbl-fcst, pkg0401, fig.align = 'center', fig.cap="fable grew significantly before March 1."}
-
-date3 <- "2021-02-06"
-date4 <- "2021-04-02"
-
-
-fable <- cran_downloads(package = "fable", from = date3, to = date4) # to get the weighed 7-MA later, set the start day on Saturday
-
-forecast <- cran_downloads(package = "forecast", from = date3, to = date4) 
-
-#compute the daily change compared to the last day
-fable_lag <- fable %>%
-  mutate(behind = lag(count)) %>%
-  mutate(increase = (count - behind)/behind)
-  
-forecast_lag <- forecast %>%
-  mutate(behind = lag(count)) %>%
-  mutate(increase = (count - behind)/behind)
-
-fbl_fcst <- full_join(fable_lag,forecast_lag,by = "date") %>%
-  mutate(date = as.Date(date))
-
-colors <- c('fable' = 'darkblue', 'forecast' = 'red')
-
-fbl_fcst %>%
-  ggplot() +
-  geom_smooth(aes(x = date,y = increase.x,colour = "fable"),position = "identity",se = FALSE) +
-  geom_smooth(aes(x = date,y = increase.y,colour = "forecast"),position = "identity",se = FALSE) +
-  labs( y = 'Date',
-        x = 'Incease rate',
-    title = "Daily download increase rate between fable and forecast") +
-  theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  plot.title = element_text(h = 0.5)) 
-  
-```
-
 
 ## Compare moving average of fable and forecast
 
-7-MA can be used to estimate the trend-cycle of daily data with a weekly seasonality.
+Let's have a look at package `fable` and `forecast`. They are two closely related packages, for `fable` is the recently released tidy version of `forecast`. It can be seen from Figure \@ref(fig:daily-fbl) and Figure \@ref(fig:daily-fcst) that the time series plots of them both show strong weekly seasonality, which means the downloads tend to be higher in week days and thus lower on weekends. 
 
-```{r ff-ma, fig.align = 'center', fig.cap="fable grew significantly before March 1."}
+In order to estimate the trend-cycle and how do they change over time, I consider the weighed 7 moving average. That is, it calculates the weighted average for every seven consecutive time series with the following weights : [1/15,2/15,1/5,1/5,1/5,2/15,1/15]. And this will reduce the weight of weekends with low download volume, and the weight of weekdays with high download volume will be higher, which will reduce the seasonality as much as possible.
+
+
+```{r trans-ff}
 # transform the daily download of 'fable' to time series table
 fable <- fable %>%
   as_tsibble(index = date) 
 
 forecast <- forecast %>%
   as_tsibble(index = date) 
+```
 
+```{r daily-fbl, fig.align = 'center', fig.cap="Fable's daily downloads shows a seasonal pattern."}
+fable %>%
+  autoplot(count) +
+   labs( y = 'Daily download count',
+          x = 'Date',
+    title = "The daily downloads of fable",
+    subtitle = "from 2021-02-06 to 2021-04-02") +
+  scale_y_sqrt() +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5)) 
+  
+```
+
+
+```{r  daily-fcst, fig.align = 'center', fig.cap="Fable's daily downloads shows a seasonal pattern."}
+forecast %>%
+  autoplot(count) +
+   labs(  y = 'Daily download count',
+          x = 'Date',
+    title = "The daily downloads of forecast",
+    subtitle = "from 2021-02-06 to 2021-04-02") +
+  scale_y_sqrt() +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5)) 
+```
+
+
+Figure \@ref(fig:ff-ma) shows that in addition to `forecast`'s download volume is much higher than `fable`'s, the two of them have a very similar moving average pattern. But the change of `fable` is more stable than `forecast`, which shows that `fable` is more trending than `forecast` during this period of time.
+
+```{r ff-ma, fig.align = 'center', fig.cap="fable grew significantly before March 1."}
 # use 3x5 MA can get a weighed 7 MA of [1/15,2/15,1/5,1/5,1/5,2/15,1/15]
 fable_ma <- fable %>%
   mutate(
