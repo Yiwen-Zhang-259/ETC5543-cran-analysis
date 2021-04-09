@@ -21,6 +21,8 @@ library(ctv)
 library(purrr)
 library(kableExtra)
 library(packageRank)
+library(fpp3)
+library(slider)
 ```
 
 ## Daily top 15 downloaded packages 
@@ -789,53 +791,21 @@ package_0401 %>%
 
 To compare the increase rate of `fable` and `forecast`, I use the daily downloads of both packages from 2021-02-03 to 2021-04-02 and compute the daily growth  download rate. The reason I choose this period of time is that `fable` is published on CRAN from 2021-02-03.
 
-```{r}
-fable <- cran_downloads(package = "fable", from = "2021-02-03", to = "2021-04-02") 
-
-fable_past <- fable %>%
-  summarise(package = package, avg_count = mean(count)) %>% # get the average daily count for past 8 weeks
-  head(1) 
-
-fable_now <- cran_downloads(package = "fable", from = "2021-04-02", to = "2021-04-03")
-
-fable_past <- fable_past %>%
-  mutate(increase = (fable_now$count[2] - avg_count)/avg_count * 100)
-
-forecast <- cran_downloads(package = "forecast", from = "2021-02-03", to = "2021-04-02") 
-
-forecast_past <- forecast %>%
-  summarise(package = package, avg_count = mean(count)) %>% # get the average daily count for past 8 weeks
-  head(1) 
-
-forecast_now <- cran_downloads(package = "forecast", from = "2021-04-02", to = "2021-04-03")
-
-forecast_past <- forecast_past %>%
-  mutate(increase = (forecast_now$count[2] - avg_count)/avg_count * 100)
-
-fcst_fbl <- rbind(fable_past,forecast_past)
-
-fcst_fbl %>%
-  ggplot(aes(x = package, y = increase)) +
-  geom_bar(stat = "identity") +
-    labs( y = 'Package',
-          x = 'Incease date',
-    title = "The incease rate of fable and forecast") +
-  scale_y_sqrt() +
-  theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  plot.title = element_text(h = 0.5)) 
-
-```
-
 It can be seen from Figure \@ref(fig:fbl-fcst) that generally speaking, the daily download rate of `forecast` is more stable than that of `fable`. And the daily download rate of package `fable` grew significantly before March 1, while `forecast` increased more moderately. From March 1 to March 15, both packages show decrease in download rate, and `forecast` decreased faster while `forecast` decreased slower.
 After March 15, the daily download rates of the two packages continued to decline at a similar rate.
 
 Therefore, we can also see that although `forecast` has more downloads than `fable` in the past two years, the growth rate of `forecast`'s single day downloads is significantly lower than `fable`'s, from February 3, 2021 to March 1, 2021. It shows that although the total download amount of the old package may be larger, the growth rate of the new package from the same topic may be higher than that of the old one in a period of time, which may be near the release date or the update date of the new package.
 
 ```{r fbl-fcst, pkg0401, fig.align = 'center', fig.cap="fable grew significantly before March 1."}
+
+date3 <- "2021-02-06"
+date4 <- "2021-04-02"
+
+
+fable <- cran_downloads(package = "fable", from = date3, to = date4) # to get the weighed 7-MA later, set the start day on Saturday
+
+forecast <- cran_downloads(package = "forecast", from = date3, to = date4) 
+
 #compute the daily change compared to the last day
 fable_lag <- fable %>%
   mutate(behind = lag(count)) %>%
@@ -865,6 +835,75 @@ fbl_fcst %>%
   plot.title = element_text(h = 0.5)) 
   
 ```
+
+
+## Compare moving average of fable and forecast
+
+7-MA can be used to estimate the trend-cycle of daily data with a weekly seasonality.
+
+```{r ff-ma, fig.align = 'center', fig.cap="fable grew significantly before March 1."}
+# transform the daily download of 'fable' to time series table
+fable <- fable %>%
+  as_tsibble(index = date) 
+
+forecast <- forecast %>%
+  as_tsibble(index = date) 
+
+# use 3x5 MA can get a weighed 7 MA of [1/15,2/15,1/5,1/5,1/5,2/15,1/15]
+fable_ma <- fable %>%
+  mutate(
+    `5-MA` = slider::slide_dbl(count, mean,
+                .before = 2, .after = 2, .complete = TRUE),
+    `3x5-MA` = slider::slide_dbl(`5-MA`, mean,
+                .before = 1, .after = 1, .complete = TRUE)
+    )
+
+colors <- c('fable' = '#D55E00', 'forecast' = 'violetred4')
+
+p_fbl <- fable_ma %>%
+  autoplot(count, color = "gray") +
+  geom_line(aes(y = `3x5-MA`,colour = 'fable')) +
+  labs( 
+  title = "Weighed moving average of fable and forecast",
+  subtitle = "from 2021-02-06 to 2021-04-02") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title.x=element_blank(),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5)) 
+
+
+
+forecast_ma <- forecast %>%
+  mutate(
+    `5-MA` = slider::slide_dbl(count, mean,
+                .before = 2, .after = 2, .complete = TRUE),
+    `3x5-MA` = slider::slide_dbl(`5-MA`, mean,
+                .before = 1, .after = 1, .complete = TRUE)
+    )
+
+p_fcst <- forecast_ma %>%
+  autoplot(count, color = "gray") +
+  geom_line(aes(y = `3x5-MA`,colour = 'forecast')) +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold")) 
+
+
+g_fbl <- ggplotGrob(p_fbl)
+g_fcst <- ggplotGrob(p_fcst)
+gff <- rbind(g_fbl, g_fcst, size = "first")
+gff$widths <- unit.pmax(g_fbl$widths, g_fcst$widths)
+grid.newpage()
+grid.draw(gff)
+
+```
+
 
 
 ## compare download logs with the number of commits
