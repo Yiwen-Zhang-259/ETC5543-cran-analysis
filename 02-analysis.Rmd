@@ -175,15 +175,15 @@ cran2013_10_01_new <- cran2013_10_01 %>%
 #cran2012_1001$package = factor(cran2012_1001$package,cran2012_1001$package)
 
 #p1 <- ggplot(data = cran2012_1001) +
-  geom_bar(stat="identity", aes(x = package, y = n)) +
-  labs(
-       title = "Top 15 downloaded packages on 2012-10-01") +
-  theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  axis.text.x = element_text(angle = 55, hjust = 1))
+  #geom_bar(stat="identity", aes(x = package, y = n)) +
+  #labs(
+       #title = "Top 15 downloaded packages on 2012-10-01") +
+  #theme_minimal()  +
+  #theme(panel.grid.major = element_blank()) +
+  #theme(
+  #axis.text=element_text(size=10),
+  #axis.title=element_text(size=12,face="bold"),
+  #axis.text.x = element_text(angle = 55, hjust = 1))
 ```
 
 
@@ -740,16 +740,17 @@ By looking into Figure \@ref(fig:pkg0401), we could know that the most downloade
 ```
 
 ```{r pkg0401, fig.align = 'center', fig.cap="The highest downloaded package 'proxy' is released on 2021-03-05."}
+
 package_0401 <- c("backbone","bbdetection","berryFunctions","bootImpute","ChineseNames","chromoMap","cocktailApp","datetimeutils","deepdive","diversityForest","DLMtool","ecb","EValue","fungible","GetDFPData","gh","insight","LAWBL","mapping","marqLevAlg","microbial","mockcpp","mrbayes","muhaz","NetOrigin","NMOF","PDE","ProcData","PSweight","rbiorxiv","relevance","remotes","rmcorr","samc","scam","sigminer","sisireg","smcfcs","textutils","tsBSS") %>%
-  as.data.frame() %>%
-  rename(package_0401,package = .)
+  as.data.frame() 
+  
 
 package_0401 <- package_0401 %>%
-     filter(!(package %in% pkg_20maintainer$package)) %>%
-     filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) %>%
-     filter(!(package %in% pkg_core$package)) %>%
-     filter(!(package %in% pkg_r_related$package))
+     filter(!(package_0401 %in% pkg_20maintainer$package)) %>%
+     filter(!(package_0401 %in% pkg_secondary$package)) %>%
+     filter(!(package_0401 %in% pkg_rstusio$package)) %>%
+     filter(!(package_0401 %in% pkg_core$package)) %>%
+     filter(!(package_0401 %in% pkg_r_related$package))
      head(15)
 
 backbone <- cran_downloads(package = "backbone")
@@ -970,3 +971,111 @@ commits_count_191001 <- full_join(commits_191001,counts_191001, by = "package")
 
 ```
 
+```{r}
+library(glue)
+library(jsonlite)
+username <- "dpprdan"
+base <- "https://api.github.com/users"
+
+gh_nfollowers <- read_json(glue("{base}/{username}"))$commits
+gh_nrepo <- read_json(glue("{base}/{username}"))$glue
+total_stars <- 0
+for(i in 1:ceiling(gh_nrepo / 30)) {
+  stars <- read_json(glue("{base}/{username}/repos?page={i}")) %>% 
+    map_chr(pluck, "commits") %>% 
+    as.integer() %>% 
+    sum()
+  total_stars <- total_stars + stars
+}
+```
+
+
+## compare package score with the number of updates for top 15 trending package
+
+Table \@ref(tab:pct-lowupdates) shows the top 15 trending packages these days. I will compare the number of updates of them with their package scores.
+
+```{r top15trending}
+# to find the top 15 trending packages
+pkg_trending <- cran_trending() %>%
+  head(15)
+
+pkg_trending %>%
+  kable(caption = "Top 15 trending package") %>%
+  kable_styling(bootstrap_options = c("hover", "striped")) 
+
+# find the updates of top 15 trending packages manually
+updates <- c("5","13","2","2","2","2","28","2","3","17","16","3","5","15","4") 
+
+pkg_trending_updates <- cbind(pkg_trending,updates)
+```
+
+Figure \@ref(fig:trend-updates) shows that the package with most updates is 'proxy" while the most trending one is 'fddm'. And the score of top 3 updated packages are all not very high among this group. Another interesting thing is that the updates of package `webfakes`, `tree.interpreter`, `geospark`, `uplift` and `spatstat.geom` are 2, but their scores can vary from `r pkg_trending_updates$score[15]` to `r pkg_trending_updates$score[11]`.
+
+```{r  trend-updates, fig.align = 'center', fig.cap=" The package with most updates is 'proxy" while the most trending one is 'fddm'.}
+pkg_trending_updates <- pkg_trending_updates %>%
+  mutate(score = as.numeric(score)) %>%
+  mutate(updates = as.numeric(updates)) %>%
+  arrange(desc(updates))
+
+pkg_trending_updates %>%
+  ggplot(aes(x = reorder(score, updates), y = updates)) +
+  geom_bar(position = "dodge",stat="identity",fill = '#619CFF') +
+  geom_text(aes(label= package) , position=position_dodge(width=1),hjust = 0.000001) +
+    labs( y = 'The number of updates',
+          x = 'Score',
+    title = "Package score against the update count",
+    subtitle = "for trending packages") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5)) +
+  coord_flip()
+```
+
+Furthermore, by looking into Figure \@ref(fig:updates-pattern), it can be found that the score of the package increases with the increase of the number of updates, and then decreases.
+
+Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage of trending packages whose updates are less than average is `r pct_trending_updates[2][1]`, which means more than half of the top 15 trending packages do not tend to update that frequently. This also explains why they are trending packages, because when the number of updates is too large, the score of packages will decrease.
+
+```{r updates-pattern, fig.align = 'center', fig.cap=" The package with most updates is 'proxy" while the most trending one is 'fddm'.}
+pkg_trending_updates %>%
+  mutate(score = as.numeric(score)) %>%
+  mutate(updates = as.numeric(updates)) %>%
+  ggplot(aes(x = updates, y = score)) +
+  geom_smooth(se = F) +
+  labs( y = 'Score',
+          x = 'The number of updates',
+    title = "Update counts against the package score",
+    subtitle = "for trending packages") +
+  annotate("text",y= 2200,x= 20,label="'proxy' with the highest score has 5 updates",color="red") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5))
+
+```
+
+```{r  pct-lowupdates}
+# compute the percentage of trending packages lying in the low-updated range
+
+avg_updates <- mean(as.numeric(pkg_trending_updates$updates))
+
+pkg_trending_total <- 15
+
+pct_trending_updates <- pkg_trending_updates %>%
+  mutate(updates = as.numeric(updates))  %>%
+  filter(updates < avg_updates) %>%
+  summarise(`number of packages with low updates` = length(package)) %>%
+  mutate(`percentage of packages with low updates` = (`number of packages with low updates`/pkg_trending_total)*100)
+
+pct_trending_updates%>%
+  kable(caption = "Percentage of trending packages whose updates are less than average") %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+```
+
+In conclusion, it's not that the more updates the package has, the popular it will be. In the trending package, most of the packages whose updates are lower than the average occupy the majority.
