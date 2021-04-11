@@ -902,91 +902,84 @@ grid.draw(gff)
 
 
 
-## compare download logs with the number of commits
+## compare download logs with the number of commits on master branch
 
-```{r}
-# function used to get the number of commits from github page
-get_commits <- function(pkg){
+
+```{r trending-commits}
+library(stringr)
+
+AzureStor <- GET("https://api.github.com/repos/cloudyr/AzureStor/commits?per_page=1")
+AzureRMR  <- GET("https://api.github.com/repos/Azure/AzureRMR/commits?per_page=1")
+clickstream  <- GET("https://api.github.com/repos/cran/clickstream/commits?per_page=1")
+gRc  <- GET("https://api.github.com/repos/cran/gRc/commits?per_page=1")
+fddm  <- GET("https://api.github.com/repos/rtdists/fddm/commits?per_page=1")
+js  <- GET("https://api.github.com/repos/jeroen/js/commits?per_page=1")
+spatstat.sparse  <- GET("https://api.github.com/repos/spatstat/spatstat.sparse/commits?per_page=1")
+spatstat.core  <- GET("https://api.github.com/repos/spatstat/spatstat.core/commits?per_page=1")
+
+spatstat.linnet  <- GET("https://api.github.com/repos/baddstats/spatstat.linnet/commits?per_page=1")
+webfakes  <- GET("https://api.github.com/repos/r-lib/webfakes/commits?per_page=1")
+tree.interpreter  <-GET("https://api.github.com/repos/nalzok/tree.interpreter/commits?per_page=1")
+geospark  <- GET("https://api.github.com/repos/harryprince/geospark/commits?per_page=1")
+
+
+
+
+# function used to extract commits from github page
+get_commits <- function(a) {
   
-  commits <- pkg %>% 
-  html_nodes(xpath = "//*[@id='repo-content-pjax-container']/div/div[2]/div[1]/div[2]/div[1]/div/div[4]/ul/li/a") %>%
-  html_text()
+headers(a)$link
 
-package <- pkg %>% 
-  html_nodes(xpath = "//*[@id='js-repo-pjax-container']/div[1]/div[1]/div/h1/strong/a") %>%
-  html_text()
+c <- str_split(headers(a)$link, ",") %>%
+  unlist()
 
-glue <- data.frame(commits,packages)
 
-return(glue)
+d <- c[str_detect(c,'rel=\"last\"')] 
 
+
+f <- str_sub(d, str_locate(d, '&page=')[2]+1, str_locate(d, '>')[1]-1)
+
+return(f)
+  
 }
 
-# six packages from top 15 on 2019-10-01
-glue <- read_html("https://github.com/tidyverse/glue")
-backports <- read_html("https://github.com/r-lib/backports")
-fansi <- read_html("https://github.com/brodieG/fansi")
-R6 <- read_html("https://github.com/r-lib/R6/")
-stringi <- read_html("https://github.com/gagolews/stringi")
-munsell <- read_html("https://github.com/cwickham/munsell/")
+commits <- c(get_commits(fddm),get_commits(gRc),get_commits(webfakes),get_commits(tree.interpreter),get_commits(geospark),get_commits(spatstat.core),get_commits(AzureStor),get_commits(AzureRMR),get_commits(spatstat.linnet),get_commits(js),get_commits(clickstream),get_commits(spatstat.sparse))
 
 
-glue <- get_commits(glue)
-backports <- get_commits(backports)
-fansi <- get_commits(fansi)
-R6 <- get_commits(R6)
-stringi <- get_commits(stringi)
-munsell <- get_commits(munsell)
+# to find the top 15 trending packages
+pkg_trending <- cran_trending() %>%
+  head(15)
 
-commits_191001 <- rbind(glue,backports,fansi,R6,stringi,munsell)
+# exclude the package 'proxy', 'uplift' and 'spatstat.geom' that only have read-only mirror of the CRAN github repo
+pkg_trending_filter <- pkg_trending %>%
+  filter(!(package == "proxy")) %>%
+  filter(!(package == "uplift")) %>%
+  filter(!(package == "spatstat.geom"))
 
-# to get the last two years' total downloads
-glue <- cran_downloads(package = "glue", from = "2019-04-01", to = "2021-04-01") %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-backports <- cran_downloads(package = "backports", from = "2019-04-01", to = "2021-04-01") %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-fansi <- cran_downloads(package = "fansi", from = "2019-04-01", to = "2021-04-01") %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-R6 <- cran_downloads(package = "R6", from = "2019-04-01", to = "2021-04-01") %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-stringi <- cran_downloads(package = "stringi", from = "2019-04-01", to = "2021-04-01") %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-munsell <- cran_downloads(package = "munsell", from = "2019-04-01", to = "2021-04-01") %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-counts_191001 <- rbind(glue,backports,fansi,R6,stringi,munsell)
-
-commits_count_191001 <- full_join(commits_191001,counts_191001, by = "package")
+  
+pkg_trending_commits <- cbind(pkg_trending_filter,commits)
 
 ```
 
-```{r}
-library(glue)
-library(jsonlite)
-username <- "dpprdan"
-base <- "https://api.github.com/users"
+```{r commits-pattern, fig.align = 'center', fig.cap=" The package with most updates is 'proxy" while the most trending one is 'fddm'.}
+pkg_trending_commits %>%
+  mutate(score = as.numeric(score)) %>%
+  mutate(commits = as.numeric(commits)) %>%
+  ggplot(aes(x = commits, y = score)) +
+  geom_smooth(se = F) +
+  labs( y = 'Score',
+          x = 'The number of commits',
+    title = "Commits counts against the package score",
+    subtitle = "for trending packages") +
+    annotate("text",y= 850,x= 275,label="'fddm' with the highest score has 319 commits",color="red") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5))
 
-gh_nfollowers <- read_json(glue("{base}/{username}"))$commits
-gh_nrepo <- read_json(glue("{base}/{username}"))$glue
-total_stars <- 0
-for(i in 1:ceiling(gh_nrepo / 30)) {
-  stars <- read_json(glue("{base}/{username}/repos?page={i}")) %>% 
-    map_chr(pluck, "commits") %>% 
-    as.integer() %>% 
-    sum()
-  total_stars <- total_stars + stars
-}
 ```
 
 
@@ -1076,6 +1069,11 @@ pct_trending_updates <- pkg_trending_updates %>%
 pct_trending_updates%>%
   kable(caption = "Percentage of trending packages whose updates are less than average") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
+```
+
+
+```{r}
+latest_publish <- c("2021-03-05","2021-03-16","2021-02-17","2020-01-30","2021-04-03","2021-04-06","","","","","","","","","")
 ```
 
 In conclusion, it's not that the more updates the package has, the popular it will be. In the trending package, most of the packages whose updates are lower than the average occupy the majority.
