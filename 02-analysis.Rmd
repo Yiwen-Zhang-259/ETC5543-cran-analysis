@@ -23,6 +23,7 @@ library(kableExtra)
 library(packageRank)
 library(fpp3)
 library(slider)
+library(stringr)
 ```
 
 ## Daily top 15 downloaded packages 
@@ -904,10 +905,30 @@ grid.draw(gff)
 
 ## compare download logs with the number of commits on master branch
 
+Table \@ref(tab:pct-lowupdates) shows the top 15 trending packages these days. I will compare the number of updates of them with their package scores.
 
 ```{r trending-commits}
-library(stringr)
+# to find the 100 trending packages before 4.11 and save as csv file
 
+pkg_trending <- cran_trending() 
+
+write_csv(pkg_trending,"data/pkg_trending.csv")
+
+# read top 20 trending packages
+pkg_trending <- read_csv("data/pkg_trending.csv") %>%
+  head(20)
+ 
+```
+
+```{r  trending-commits}
+# exclude the package 'proxy', 'uplift' , 'ClickClust' and 'spatstat.geom' that only have read-only mirror of the CRAN github repo, and the remaining are 15
+pkg_trending_filter <- pkg_trending %>%
+  filter(!(package == "proxy")) %>%
+  filter(!(package == "uplift")) %>%
+  filter(!(package == "spatstat.geom")) %>%
+  filter(!(package == "ClickClust"))
+
+# read url of selected trending packages
 AzureStor <- GET("https://api.github.com/repos/cloudyr/AzureStor/commits?per_page=1")
 AzureRMR  <- GET("https://api.github.com/repos/Azure/AzureRMR/commits?per_page=1")
 clickstream  <- GET("https://api.github.com/repos/cran/clickstream/commits?per_page=1")
@@ -921,8 +942,9 @@ spatstat.linnet  <- GET("https://api.github.com/repos/baddstats/spatstat.linnet/
 webfakes  <- GET("https://api.github.com/repos/r-lib/webfakes/commits?per_page=1")
 tree.interpreter  <-GET("https://api.github.com/repos/nalzok/tree.interpreter/commits?per_page=1")
 geospark  <- GET("https://api.github.com/repos/harryprince/geospark/commits?per_page=1")
-
-
+DMwR2  <-  GET("https://api.github.com/repos/ltorgo/DMwR2/commits?per_page=1")
+botor  <-  GET("https://api.github.com/repos/daroczig/botor/commits?per_page=1")
+sunburstR  <-  GET("https://api.github.com/repos/timelyportfolio/sunburstR/commits?per_page=1")
 
 
 # function used to extract commits from github page
@@ -943,25 +965,21 @@ return(f)
   
 }
 
-commits <- c(get_commits(fddm),get_commits(gRc),get_commits(webfakes),get_commits(tree.interpreter),get_commits(geospark),get_commits(spatstat.core),get_commits(AzureStor),get_commits(AzureRMR),get_commits(spatstat.linnet),get_commits(js),get_commits(clickstream),get_commits(spatstat.sparse))
+commits <- c(get_commits(fddm),get_commits(gRc),get_commits(webfakes),get_commits(tree.interpreter),get_commits(geospark),get_commits(AzureStor),get_commits(spatstat.core),get_commits(AzureRMR),get_commits(spatstat.linnet),get_commits(clickstream),get_commits(js),get_commits(spatstat.sparse),get_commits(DMwR2),get_commits(botor),get_commits(sunburstR))
 
-
-# to find the top 15 trending packages
-pkg_trending <- cran_trending() %>%
-  head(15)
-
-# exclude the package 'proxy', 'uplift' and 'spatstat.geom' that only have read-only mirror of the CRAN github repo
-pkg_trending_filter <- pkg_trending %>%
-  filter(!(package == "proxy")) %>%
-  filter(!(package == "uplift")) %>%
-  filter(!(package == "spatstat.geom"))
 
   
 pkg_trending_commits <- cbind(pkg_trending_filter,commits)
 
 ```
 
-```{r commits-pattern, fig.align = 'center', fig.cap=" The package with most updates is 'proxy" while the most trending one is 'fddm'.}
+```{r commits-tbl}
+pkg_trending_commits %>%
+  kable(caption = "15 Trending package with commits on Github") %>%
+  kable_styling(bootstrap_options = c("hover", "striped")) 
+```
+
+```{r commits-pattern, fig.align = 'center', fig.cap=" The package with most updates is 'fddm" while the most trending one is 'fddm'.}
 pkg_trending_commits %>%
   mutate(score = as.numeric(score)) %>%
   mutate(commits = as.numeric(commits)) %>%
@@ -971,7 +989,7 @@ pkg_trending_commits %>%
           x = 'The number of commits',
     title = "Commits counts against the package score",
     subtitle = "for trending packages") +
-    annotate("text",y= 850,x= 275,label="'fddm' with the highest score has 319 commits",color="red") +
+    annotate("text",y= 1300,x= 120,label="'fddm' with the highest score has 319 commits",color="red") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -985,21 +1003,15 @@ pkg_trending_commits %>%
 
 ## compare package score with the number of updates for top 15 trending package
 
-Table \@ref(tab:pct-lowupdates) shows the top 15 trending packages these days. I will compare the number of updates of them with their package scores.
 
-```{r top15trending}
-# to find the top 15 trending packages
-pkg_trending <- cran_trending() %>%
+```{r top15-updates}
+pkg_trending_15 <- pkg_trending %>%
   head(15)
 
-pkg_trending %>%
-  kable(caption = "Top 15 trending package") %>%
-  kable_styling(bootstrap_options = c("hover", "striped")) 
-
 # find the updates of top 15 trending packages manually
-updates <- c("5","13","2","2","2","2","28","2","3","17","16","3","5","15","4") 
+updates <- c("5","13","2","2","2","2","28","2","17","3","16","3","15","5","5") 
 
-pkg_trending_updates <- cbind(pkg_trending,updates)
+pkg_trending_updates <- cbind(pkg_trending_15,updates)
 ```
 
 Figure \@ref(fig:trend-updates) shows that the package with most updates is 'proxy" while the most trending one is 'fddm'. And the score of top 3 updated packages are all not very high among this group. Another interesting thing is that the updates of package `webfakes`, `tree.interpreter`, `geospark`, `uplift` and `spatstat.geom` are 2, but their scores can vary from `r pkg_trending_updates$score[15]` to `r pkg_trending_updates$score[11]`.
@@ -1073,7 +1085,9 @@ pct_trending_updates%>%
 
 
 ```{r}
-latest_publish <- c("2021-03-05","2021-03-16","2021-02-17","2020-01-30","2021-04-03","2021-04-06","","","","","","","","","")
+latest_publish <- c("2021-03-05","2021-03-16","2021-02-17","2020-01-30","2021-04-03","2021-04-06","2020-06-03","2016-10-23","2021-03-23","2021-03-28","2021-04-05","2020-02-05","2020-03-02","2014-03-17","2021-03-22")
+
+pkg_trending_latest_publish <- cbind(pkg_trending_updates,latest_publish)
 ```
 
 In conclusion, it's not that the more updates the package has, the popular it will be. In the trending package, most of the packages whose updates are lower than the average occupy the majority.
