@@ -1148,14 +1148,13 @@ pkg_trending_tail15_namelth %>%
 ```
 
 ```{r namelength}
-# to compute the percentage of  top 15 and last 15 trending packages whose name length is under total average
-
-# function used to get the name length and the percentage of packages whose name length is under total average
-avg_namelth <- function(df){
-  
+# to get the name length for all trending packages before 4.11
   pkg_trending1 <- pkg_trending %>%
   mutate(length_name = nchar(package)) %>%
   mutate(length_name = as.numeric(length_name)) 
+
+# function used to get the name length and the percentage of packages whose name length is under total average
+avg_namelth <- function(df){
     
   df1 <- df %>%
   mutate(length_name = nchar(package)) %>%
@@ -1195,6 +1194,38 @@ Table \@ref(tab:pct-lngname) shows that the average name length of last 15 packa
 ```{r pct-lngname}
 compare_trending_namelth %>%
   kable(caption = "Percentage of trending packages whose updates are less than average") %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+```
+
+```{r compute-ci}
+# to get the 95% CI of the name length
+
+# calculate the mean, sd and se
+sample.mean <- mean(pkg_trending1$length_name)
+sample.n <- length(pkg_trending1$length_name)
+sample.sd <- sd(pkg_trending1$length_name)
+sample.se <- sample.sd/sqrt(sample.n)
+
+# find t-score
+alpha <- 0.05
+degrees.freedom <- sample.n - 1
+t.score <- qt(p=alpha/2, df=degrees.freedom,lower.tail=F)
+
+margin.error <- t.score * sample.se
+
+# get the 95% CI
+lower.bound <- sample.mean - margin.error
+upper.bound <- sample.mean + margin.error
+
+namelth_CI <- cbind(lower.bound,upper.bound)
+
+```
+
+Table \@ref(tab:pct-lngname) shows the 95% confidence interval of name length for trending packages. We could know that the most suitable name length is between 7 and 9 characters.
+
+```{r namelth-ci}
+namelth_CI %>%
+  kable(caption = "95% Confidence Interval of name length for trending packages") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
