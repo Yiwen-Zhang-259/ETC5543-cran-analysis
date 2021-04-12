@@ -915,14 +915,16 @@ pkg_trending <- cran_trending()
 write_csv(pkg_trending,"data/pkg_trending.csv")
 
 # read top 20 trending packages
-pkg_trending <- read_csv("data/pkg_trending.csv") %>%
+pkg_trending <- read_csv("data/pkg_trending.csv") 
+
+pkg_trending_20 <- pkg_trending %>%
   head(20)
  
 ```
 
 ```{r  trending-commits}
 # exclude the package 'proxy', 'uplift' , 'ClickClust' and 'spatstat.geom' that only have read-only mirror of the CRAN github repo, and the remaining are 15
-pkg_trending_filter <- pkg_trending %>%
+pkg_trending_filter <- pkg_trending_20 %>%
   filter(!(package == "proxy")) %>%
   filter(!(package == "uplift")) %>%
   filter(!(package == "spatstat.geom")) %>%
@@ -1091,3 +1093,108 @@ pkg_trending_latest_publish <- cbind(pkg_trending_updates,latest_publish)
 ```
 
 In conclusion, it's not that the more updates the package has, the popular it will be. In the trending package, most of the packages whose updates are lower than the average occupy the majority.
+
+
+## compare the package name with package score for trending packages
+
+It can be seen that although the patterns of top 15 and last 15 are not the same, they all have one thing in common, that is, when the name length exceeds 8 characters, the package score will drop significantly. And when length is less than 4 characters, the score would not be ideal either.
+
+```{r  namelength-plot}
+# also use the top 15 trending packages before 4.11
+pkg_trending_15_namelth <- pkg_trending_15 %>%
+  mutate(length_name = nchar(package)) %>%
+  mutate(score = as.numeric(score)) %>%
+  mutate(length_name = as.numeric(length_name)) 
+
+# to get the last 15 trending ones
+pkg_trending_tail15 <- pkg_trending %>%
+  tail(15) 
+
+pkg_trending_tail15_namelth <- pkg_trending_tail15 %>%
+  mutate(length_name = nchar(package)) %>%
+  mutate(score = as.numeric(score)) %>%
+  mutate(length_name = as.numeric(length_name)) 
+
+pkg_trending_15_namelth %>%
+  ggplot(aes(x = length_name, y = score)) +
+  geom_smooth(se = F) +
+  labs( y = 'Score',
+        x = 'The length of package names',
+    title = "Name length against the package score",
+    subtitle = "for top 15 trending packages") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5))
+
+
+pkg_trending_tail15_namelth %>%
+  ggplot(aes(x = length_name, y = score)) +
+  geom_smooth(se = F) +
+  labs( y = 'Score',
+        x = 'The length of package names',
+    title = "Name length against the package score",
+    subtitle = "for last 15 trending packages") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5))
+```
+
+```{r namelength}
+# to compute the percentage of  top 15 and last 15 trending packages whose name length is under total average
+
+# function used to get the name length and the percentage of packages whose name length is under total average
+avg_namelth <- function(df){
+  
+  pkg_trending1 <- pkg_trending %>%
+  mutate(length_name = nchar(package)) %>%
+  mutate(length_name = as.numeric(length_name)) 
+    
+  df1 <- df %>%
+  mutate(length_name = nchar(package)) %>%
+  mutate(score = as.numeric(score)) %>%
+  mutate(length_name = as.numeric(length_name)) 
+  
+`total average name length` <- mean(pkg_trending1$length_name)
+`average name length`  <- mean(df1$length_name)
+pkg_trending_total <- length(df1$package)
+
+df2 <- df1 %>%
+  filter(length_name < `total average name length`) %>%
+  summarise(`number of short names` = length(package)) %>%
+  mutate(`percentage of short names` = (`number of short names`/pkg_trending_total)*100)
+
+df2 <- cbind(df2,`average name length`,`total average name length`)
+
+return(df2)
+  
+}
+
+
+trending_top15_namelth <- avg_namelth(pkg_trending_15) %>%
+  mutate(group = "top 15")
+
+trending_tail15_namelth <- avg_namelth(pkg_trending_tail15) %>%
+  mutate(group = "last 15")
+
+trending_all_namelth <- avg_namelth(pkg_trending) %>%
+  mutate(group = "all")
+
+compare_trending_namelth <- rbind(trending_top15_namelth,trending_tail15_namelth,trending_all_namelth)
+```
+
+Table \@ref(tab:pct-lngname) shows that the average name length of last 15 packages is more close to the total average. And over half of the packages are more likely to have names longer than average for both top 15 and last 15, but this is more significant among top 15. That means top trending packages are more likely to have longer names.
+
+```{r pct-lngname}
+compare_trending_namelth %>%
+  kable(caption = "Percentage of trending packages whose updates are less than average") %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+```
+
