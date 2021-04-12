@@ -1046,26 +1046,6 @@ Furthermore, by looking into Figure \@ref(fig:updates-pattern), it can be found 
 
 Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage of trending packages whose updates are less than average is `r pct_trending_updates[2][1]`, which means more than half of the top 15 trending packages do not tend to update that frequently. This also explains why they are trending packages, because when the number of updates is too large, the score of packages will decrease.
 
-```{r updates-pattern, fig.align = 'center', fig.cap=" The package with most updates is 'proxy" while the most trending one is 'fddm'.}
-pkg_trending_updates %>%
-  mutate(score = as.numeric(score)) %>%
-  mutate(updates = as.numeric(updates)) %>%
-  ggplot(aes(x = updates, y = score)) +
-  geom_smooth(se = F) +
-  labs( y = 'Score',
-          x = 'The number of updates',
-    title = "Update counts against the package score",
-    subtitle = "for trending packages") +
-  annotate("text",y= 2200,x= 20,label="'proxy' with the highest score has 5 updates",color="red") +
-  theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  plot.title = element_text(h = 0.5),
-  plot.subtitle = element_text(h = 0.5))
-
-```
 
 ```{r  pct-lowupdates}
 # compute the percentage of trending packages lying in the low-updated range
@@ -1086,13 +1066,76 @@ pct_trending_updates%>%
 ```
 
 
-```{r}
+It can be seen from Figure \@ref(fig:latestpublish) that most top 15 trending packages' latest publish date is after 2021, which indicates that popular packages tend to update by time to keep its activity.
+
+```{r  latestpublish,fig.align = 'center', fig.cap=" Most top 15 trending packages' latest publish date is after 2021.}
+pkg_trending_updates_low <- pkg_trending_updates %>%
+  filter(updates < avg_updates)
+
 latest_publish <- c("2021-03-05","2021-03-16","2021-02-17","2020-01-30","2021-04-03","2021-04-06","2020-06-03","2016-10-23","2021-03-23","2021-03-28","2021-04-05","2020-02-05","2020-03-02","2014-03-17","2021-03-22")
 
-pkg_trending_latest_publish <- cbind(pkg_trending_updates,latest_publish)
+first_publish <- c("2007-07-09","2018-12-25","2018-12-02","2014-02-28","2007-12-21","2020-07-10","2015-02-15","2014-04-28","2021-01-22","2021-02-05","2020-12-16","2019-10-30","2019-10-04","2014-02-01","2021-01-15")
+
+  
+pkg_trending_latest_publish <- cbind(pkg_trending_updates,latest_publish,first_publish) %>%
+  mutate(days_diff = as.numeric(difftime(latest_publish ,first_publish, units = c("days")))) %>%
+  mutate(updates_perday = updates/days_diff)
+
+pkg_trending_latest_publish %>%
+  mutate(latest_publish = ymd(latest_publish)) %>%
+  ggplot(aes(latest_publish)) +
+  geom_density() +
+  labs( 
+        x = 'Latest publish date',
+    title = "Distribution of latest publish date",
+    subtitle = "for top 15 trending packages") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5))
+```
+```{r updates-pattern, fig.align = 'center', fig.cap=" The package with most updates is 'proxy" while the most trending one is 'fddm'.}
+pkg_trending_updates %>%
+  mutate(score = as.numeric(score)) %>%
+  mutate(updates = as.numeric(updates)) %>%
+  ggplot(aes(x = updates, y = score)) +
+  geom_smooth(se = F) +
+  labs( y = 'Score',
+          x = 'The number of updates',
+    title = "Update counts against the package score",
+    subtitle = "for trending packages") +
+  annotate("text",y= 2200,x= 20,label="'proxy' with the highest score has 5 updates",color="red") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5))
 ```
 
-In conclusion, it's not that the more updates the package has, the popular it will be. In the trending package, most of the packages whose updates are lower than the average occupy the majority.
+```{r daily-updates}
+pkg_trending_latest_publish %>%
+  ggplot(aes(x = updates_perday, y = score)) +
+  geom_smooth(se = F) +
+  labs( y = 'Score',
+          x = 'The number of updates',
+    title = "Daily update counts against the package score",
+    subtitle = "for trending packages") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5))
+```
+
+
+In conclusion, it's not that the more updates the package has, the popular it will be. In the trending package, most of the packages whose updates are lower than the average occupy the majority. Therefore, we can also know that the total number of updates is not very important for the trending package. The important thing is to keep it updated.
 
 
 ## compare the package name with package score for trending packages
@@ -1115,6 +1158,13 @@ pkg_trending_tail15_namelth <- pkg_trending_tail15 %>%
   mutate(score = as.numeric(score)) %>%
   mutate(length_name = as.numeric(length_name)) 
 
+# to get the name length for all trending packages before 4.11
+  pkg_trending1 <- pkg_trending %>%
+  mutate(length_name = nchar(package)) %>%
+  mutate(score = as.numeric(score)) %>%
+  mutate(length_name = as.numeric(length_name)) 
+  
+  
 pkg_trending_15_namelth %>%
   ggplot(aes(x = length_name, y = score)) +
   geom_smooth(se = F) +
@@ -1145,13 +1195,25 @@ pkg_trending_tail15_namelth %>%
   axis.title=element_text(size=12,face="bold"),
   plot.title = element_text(h = 0.5),
   plot.subtitle = element_text(h = 0.5))
+
+pkg_trending1 %>%
+  ggplot(aes(x = length_name, y = score)) +
+  geom_smooth(se = F) +
+  labs( y = 'Score',
+        x = 'The length of package names',
+    title = "Name length against the package score",
+    subtitle = "for all trending packages") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5))
 ```
 
 ```{r namelength}
-# to get the name length for all trending packages before 4.11
-  pkg_trending1 <- pkg_trending %>%
-  mutate(length_name = nchar(package)) %>%
-  mutate(length_name = as.numeric(length_name)) 
+
 
 # function used to get the name length and the percentage of packages whose name length is under total average
 avg_namelth <- function(df){
@@ -1221,7 +1283,7 @@ namelth_CI <- cbind(lower.bound,upper.bound)
 
 ```
 
-Table \@ref(tab:pct-lngname) shows the 95% confidence interval of name length for trending packages. We could know that the most suitable name length is between 7 and 9 characters.
+Table \@ref(tab:pct-lngname) shows the 95% confidence interval of name length for trending packages. We could know that the 95% suitable name length is between 7 and 9 characters.
 
 ```{r namelth-ci}
 namelth_CI %>%
