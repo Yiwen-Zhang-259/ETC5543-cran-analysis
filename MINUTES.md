@@ -118,3 +118,22 @@ This week, Emi, Hien, and I talked about things as followed:
 6. Hien suggested me to use weighed moving average to replace the daily increase rate of packages.
 
 7. Emi told me to replace the wrong release date with the right oldest one.
+
+## Tue 13 April 2021
+
+This week, Emi and I talked about things as followed:
+
+1. I first reported what I did last week and Emi told me how to improve or adjust the code.
+
+2. Emi told me to change the code used to get updates 
+
+3. Emi told me to replace the 'package score' with 'total download logs', for comparison is better happen in the same time period, and the `cran_trending()` only 
+judge whether a package is popular according to the download amount in a short time.
+
+4. Emi told me that I should add a plot to show the daily downloads to display the fluctuation between weekdays and weekends (weekly seasonality).
+
+5. For the name length part, Emi said I ought to change the object to be packages from CRAN tack view to expand the package volume. (top 15 are too few
+
+6. Emi suggtested me that I can explore how the average name length changes over time.
+
+7. At last, Emi said I should select a angle of my report and display the key findings followed that.
