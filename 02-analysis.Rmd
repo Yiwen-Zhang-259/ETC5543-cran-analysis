@@ -65,19 +65,15 @@ load("data/cran2018_10_01.rda")
 load("data/cran2019_10_01.rda")
 ```
 
-```{r rstudiolist}
+```{r filter-list}
 # filter the packages maintained by R studio
-
 pkg_rstusio <- db %>%
   filter(grepl('RStudio', Author)) %>%
   select(Package) %>%
   rename(package = Package)
 
-```
 
-```{r contributorlist}
 # filter the packages whose author is from R core group
-
 pkg_core <- db %>%
   filter(grepl('Douglas Bates|John Chambers|Peter Dalgaard|Robert Gentleman|Kurt Hornik|Ross Ihaka|Tomas Kalibera|Michael Lawrence|Friedrich Leisch|Uwe Ligges|Thomas Lumley|Martin Maechler|Martin Morgan|Paul Murrell|Brian Ripley|Deepayan Sarkar|Duncan Temple Lang|Luke Tierney|Simon Urbanek|Martyn Plummer|', Author))
 
@@ -87,17 +83,14 @@ pkg_secondary <- db %>%
   rename(package = Package)
 
 
-```
-
-```{r top20activelist}
 # filter the packages developed by top 20 prolific maintainers
 pkg_20maintainer <- db %>% 
   filter(stringr::str_detect(Author, 'Hadley Wickham|Yihui Xie|Dirk Eddelbuettel|Jeroen Ooms|Achim Zeileis|Scott Chamberlain|Gabor Csardi|Jeroen Ooms|ORPHANED|Thomas J. Leeper|Bob Rudis|Henrik Bengtsson|Kurt Hornik|Oliver Keyes|Martin Maechler|Richard Cotton|Robin K. S. Hankin|Simon Urbanek|Kirill Muller|Torsten Hothorn|Paul Gilbert') )%>%
   select(Package) %>%
   rename(package = Package)
 
-# filter the packages developed by other R studio related authors
 
+# filter the packages developed by other R studio related authors
 pkg_r_related <- db %>%
   filter(stringr::str_detect(Author, 'Hadley Wickham|Yihui Xie|Gabor Csardi|Winston Chang|Andrie de Vries|Alison Presmanes Hill|Mara Averick|Cole Arendt|Daniel Falbel|Garrick Aden-Buie|Garrett Grolemund|Gary|Joe Cheng|Jennifer (Jenny) Bryan|Jim Hester|J.J. Allaire|Jonathan|Joshua Spiewak|Dan Buch|Richard Iannone|Ralf Stubner|Tyler Finethy|Melissa Barca|Kevin Ushey|Javier Luraschi|Karl Feinauer|Charles Teague|Maria Semple|adamconroy|Ricardo Andrade|Steve Nolen|Randy Lai|Jeffrey Horner|Jan Marvin Garbuszus|Justace Clutter|Josh Paulson|Mike Bessuille|Jeffrey Arnold|Paul Kaefer|Jim Hester|Dirk Schumacher|
 Philipp A.|Fabian Mundt|Fabian Mundt|boB Rudis|Asher|Henrik Bengtsson|James Lamb|rich-rstudio|Andrie de Vries|Iñaki Ucar|Mark Brown|Hiroaki Yutani|Dean Attali|Matthias Mailänder|Bruno Tremblay|Ian|John Blischak|Chris von Csefalvay|Jeroen Ooms|
@@ -105,90 +98,34 @@ Daniel Gromer|Kirill Müller|Jan Gleixner|Alexander Grueneberg|Darío Hereñú|A
 Peter Glerup Ericson|Diomidis Spinellis|Paul Menzel|Lincoln Mullen|Colin Gillespie|Masafumi Okada|Øystein Sørensen|Matthew Grogan|Scott Kostyshak|Marcus Kinsella|rhinopotamus|Daiki Katsuragawa|Michael Steinbaugh|Jari Karppinen|Roy Storey|Kristofer Rye|Erin|Ben Torvaney|Pol Mesalles|Sainath Adapa|Vladimir Panfilov|Christian Brueffer|Julien Barnier|') )%>%
   select(Package) %>%
   rename(package = Package)
+
 ```
+
+
+```{r filter-function}
+filter_list <- function(pkg){
+  
+  pkg <- pkg %>%
+     filter(!(package %in% pkg_20maintainer$package)) %>%
+     filter(!(package %in% pkg_secondary$package)) %>%
+     filter(!(package %in% pkg_rstusio$package)) %>%
+     filter(!(package %in% pkg_core$package)) %>%
+     filter(!(package %in% pkg_r_related$package))
+  
+  return(pkg)
+}
+```
+
 
 ```{r filterlist}
 # exclude the packages in the above three lists
-cran2019_10_01_new <- cran2019_10_01 %>%
-     filter(!(package %in% pkg_20maintainer$package)) %>%
-     filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) %>%
-     filter(!(package %in% pkg_core$package)) %>%
-     filter(!(package %in% pkg_r_related$package))
-
-cran2018_10_01_new <- cran2018_10_01 %>%
-     filter(!(package %in% pkg_20maintainer$package)) %>%
-     filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) %>%
-     filter(!(package %in% pkg_core$package)) %>%
-     filter(!(package %in% pkg_r_related$package))
-
-
-cran2017_10_01_new <- cran2017_10_01 %>%
-     filter(!(package %in% pkg_20maintainer$package)) %>%
-     filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) %>%
-     filter(!(package %in% pkg_core$package)) %>%
-     filter(!(package %in% pkg_r_related$package))
-
-cran2016_10_01_new <- cran2016_10_01 %>%
-     filter(!(package %in% pkg_20maintainer$package)) %>%
-     filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) %>%
-     filter(!(package %in% pkg_core$package)) %>%
-     filter(!(package %in% pkg_r_related$package))
-
-cran2015_10_01_new <- cran2015_10_01 %>%
-     filter(!(package %in% pkg_20maintainer$package)) %>%
-     filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) %>%
-     filter(!(package %in% pkg_core$package)) %>%
-     filter(!(package %in% pkg_r_related$package))
-
-cran2014_10_01_new <- cran2014_10_01 %>%
-     filter(!(package %in% pkg_20maintainer$package)) %>%
-     filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) %>%
-     filter(!(package %in% pkg_core$package)) %>%
-     filter(!(package %in% pkg_r_related$package))
-
-cran2013_10_01_new <- cran2013_10_01 %>%
-     filter(!(package %in% pkg_20maintainer$package)) %>%
-     filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) %>%
-     filter(!(package %in% pkg_core$package)) %>%
-     filter(!(package %in% pkg_r_related$package))
-
-#cran2012_10_01_new <- cran2012_10_01 %>%
-     #filter(!(package %in% pkg_20maintainer$package)) %>%
-     #filter(!(package %in% pkg_secondary$package)) %>%
-     #filter(!(package %in% pkg_rstusio$package)) %>%
-     #filter(!(package %in% pkg_core$package)) %>%
-     #filter(!(package %in% pkg_r_related$package))
-```
-
-
-```{r  cran20121001}
-#cran2012_1001 <- cran2012_10_01_new %>%
-  #drop_na() %>%
-  #count(package) %>%
-  #arrange(desc(n)) %>%
- # head(15) 
-  
-#cran2012_1001$package <- as.vector(cran2012_1001$package) #get rid of factors
-
-#cran2012_1001$package = factor(cran2012_1001$package,cran2012_1001$package)
-
-#p1 <- ggplot(data = cran2012_1001) +
-  #geom_bar(stat="identity", aes(x = package, y = n)) +
-  #labs(
-       #title = "Top 15 downloaded packages on 2012-10-01") +
-  #theme_minimal()  +
-  #theme(panel.grid.major = element_blank()) +
-  #theme(
-  #axis.text=element_text(size=10),
-  #axis.title=element_text(size=12,face="bold"),
-  #axis.text.x = element_text(angle = 55, hjust = 1))
+cran2019_10_01_new <- filter_list(cran2019_10_01)
+cran2018_10_01_new <- filter_list(cran2018_10_01)
+cran2017_10_01_new <- filter_list(cran2017_10_01)
+cran2016_10_01_new <- filter_list(cran2016_10_01)
+cran2015_10_01_new <- filter_list(cran2015_10_01)
+cran2014_10_01_new <- filter_list(cran2014_10_01)
+cran2013_10_01_new <- filter_list(cran2013_10_01)
 ```
 
 
@@ -439,13 +376,10 @@ Econometrics <- lapply(Econometrics, '[', 8) %>%
   as.data.frame() 
 
 Econometrics <- Econometrics %>%
-     filter(packagelist.core == "FALSE") %>%  # to filter the core package 
-     filter(!(packagelist.name %in% pkg_20maintainer$package)) %>%
-     filter(!(packagelist.name %in% pkg_secondary$package)) %>%
-     filter(!(packagelist.name %in% pkg_rstusio$package)) %>%
-     filter(!(packagelist.name %in% pkg_core$package)) %>%
-     filter(!(packagelist.name %in% pkg_r_related$package)) %>%
-     select(-packagelist.core) 
+  rename(package = packagelist.name) %>%
+  filter_list() %>%
+  filter(packagelist.core == "FALSE")%>%
+  select(-packagelist.core)
 
 
 # the packages for time series
@@ -457,14 +391,10 @@ TimeSeries <- lapply(TimeSeries, '[', 8) %>%
   as.data.frame() 
 
 TimeSeries <- TimeSeries %>%
-     filter(packagelist.core == "FALSE") %>%  # to filter the core package 
-     filter(!(packagelist.name %in% pkg_20maintainer$package)) %>%
-     filter(!(packagelist.name %in% pkg_secondary$package)) %>%
-     filter(!(packagelist.name %in% pkg_rstusio$package)) %>%
-     filter(!(packagelist.name %in% pkg_core$package)) %>%
-     filter(!(packagelist.name %in% pkg_r_related$package)) %>%
-     select(-packagelist.core)         
-
+  rename(package = packagelist.name) %>%
+  filter_list() %>%
+  filter(packagelist.core == "FALSE")%>%
+  select(-packagelist.core)
 
 # the packages for bayesian
 Bayesian <- read.ctv(system.file("ctv", "Bayesian.ctv", package = "ctv")) 
@@ -475,19 +405,15 @@ Bayesian <- lapply(Bayesian, '[', 8) %>%
   as.data.frame() 
 
 Bayesian <- Bayesian %>%
-     filter(packagelist.core == "FALSE") %>%  # to filter the core package 
-     filter(!(packagelist.name %in% pkg_20maintainer$package)) %>%
-     filter(!(packagelist.name %in% pkg_secondary$package)) %>%
-     filter(!(packagelist.name %in% pkg_rstusio$package)) %>%
-     filter(!(packagelist.name %in% pkg_core$package)) %>%
-     filter(!(packagelist.name %in% pkg_r_related$package)) %>%
-     select(-packagelist.core) 
-
+  rename(package = packagelist.name) %>%
+  filter_list() %>%
+  filter(packagelist.core == "FALSE")%>%
+  select(-packagelist.core)
 
 ```
 
 
-```{r}
+```{r eco-updates}
 packages <- c("intReg","ivbma","ivlewbel","MSBVAR","PANICr","phtt","rddapp","rddtools","rUnemploymentData","SemiParSampleSel","tsfa")
 
 earliest_updates <- function(packages){
@@ -500,14 +426,16 @@ earliest_updates <- function(packages){
   return(earliest_updates)
 }
 
-earliest_updates(packages) %>%
+econometric_realease <- earliest_updates(packages) 
+
+econometric_realease %>%
   kable(caption = "Packages of Econometric from CRAN task view with earliest release date") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 
 ```
 
 
-```{r}
+```{r timeseris-updates}
 packages <- c("autovarCore","brainwaver","cents","CommonTrend","cts","dlmodeler","FGN","fractal","fractalrock","LSTS","mafs","MAR1","MSBVAR","mvcwt","orderedLasso","pear","rbcb","rdatamarket","sae2","spectral.methods","stsm.class","TED","tsbugs","tsfa","Wats","wmtsa")
 
 earliest_updates <- function(packages){
@@ -520,12 +448,14 @@ earliest_updates <- function(packages){
   return(earliest_updates)
 }
 
-earliest_updates(packages) %>%
+timeseris_realease <- earliest_updates(packages) 
+
+timeseris_realease %>%
   kable(caption = "Packages of Timeseries from CRAN task view with earliest release date") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
-```{r}
+```{r bayesian-updates}
 packages <- c("abn","AtelieR","BayesSummaryStatLM","Bayesthresh","bclust","bisoreg","BSquare","BVS","cudaBayesreg","eco","geoRglm","glmmBUGS","MSBVAR","PAWL","profdpm","rbugs","RJaCGH")
 
 earliest_updates <- function(packages){
@@ -538,7 +468,9 @@ earliest_updates <- function(packages){
   return(earliest_updates)
 }
 
-earliest_updates(packages) %>%
+bayesian_realease <- earliest_updates(packages)
+
+bayesian_realease %>%
   kable(caption = "Packages of Bayesian from CRAN task view with earliest release date") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
@@ -552,64 +484,26 @@ And we could see that `pear`, `tsfa`, `fractalrock` and `CommonTrend` have simil
 date1 <- "2019-10-01"
 date2 <- "2020-04-01"
 
-get_total_downloads <- function(){
+get_total_downloads <- function(pkg,date1,date2){
   
-  
+  pkg <- cran_downloads(package = paste0(pkg), from = date1, to = date2) %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
   
 }
-cts <- cran_downloads(package = "cts", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
 
-MSBVAR <- cran_downloads(package = "MSBVAR", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-tsfa <- cran_downloads(package = "tsfa", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-wmtsa <- cran_downloads(package = "wmtsa", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-fractal <- cran_downloads(package = "fractal", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-FGN <- cran_downloads(package = "FGN", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-	
-rdatamarket <- cran_downloads(package = "rdatamarket", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-pear  <- cran_downloads(package = "pear", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-fractalrock  <- cran_downloads(package = "fractalrock", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-CommonTrend  <- cran_downloads(package = "CommonTrend", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-timeseries <- rbind(cts,MSBVAR,tsfa,wmtsa,fractal,FGN,rdatamarket,pear,fractalrock,CommonTrend) %>%
-  group_by(package) 
-
-timeseries <- as.data.frame(timeseries)
-
-release_date <- c("2006-06-23","2005-09-20","2006-02-11","2007-09-06","2007-09-06","2007-11-23","2011-08-23 ","2002-01-13","2009-06-08","2011-11-18")
+timeseries <- rbind(get_total_downloads("autovarCore",date1,date2),get_total_downloads("brainwaver",date1, date2),get_total_downloads("cents",date1,date2),get_total_downloads("CommonTrend",date1, date2),get_total_downloads("cts",date1, date2),get_total_downloads("dlmodeler",date1, date2),get_total_downloads("FGN",date1,date2),get_total_downloads("fractal",date1,date2),get_total_downloads("LSTS",date1, date2),get_total_downloads("mafs",date1, date2),get_total_downloads("MAR1",date1, date2),get_total_downloads("MSBVAR",date1, date2),get_total_downloads("mvcwt",date1, date2),get_total_downloads("pear",date1, date2),get_total_downloads("rbcb",date1, date2),get_total_downloads("sae2",date1, date2),get_total_downloads("stsm.class",date1, date2),get_total_downloads("TED",date1, date2),get_total_downloads("tsbugs",date1, date2),get_total_downloads("tsfa",date1, date2),get_total_downloads("Wats",date1, date2),get_total_downloads("wmtsa",date1, date2)) %>%
+  group_by(package) %>%
+  as.data.frame()
 
 
-timeseries <- cbind(timeseries,release_date) 
+timeseries <- cbind(timeseries,timeseris_realease) %>%
+  .[,-3] %>%
+  select(package, count, update)
 
 
 timeseries %>%
-  ggplot(aes(x = release_date, y = count,fill = package)) +
+  ggplot(aes(x = update, y = count,colour = package)) +
   geom_point() +
     labs( y = 'Download count',
     title = "Last half year's downloads with the release date",
@@ -633,54 +527,31 @@ Therefore, in this type of packages, we can say that the later the release date,
 
 ```{r bayesian,fig.align = 'center', fig.cap="last two years' downloads with the release date for bayesian general model fitting packages."}
 
-geoRglm <- cran_downloads(package = "geoRglm", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
+timeseries <- rbind(get_total_downloads("abn",date1,date2),get_total_downloads("AtelieR",date1, date2),get_total_downloads("BayesSummaryStatLM",date1,date2),get_total_downloads("CommonTrend",date1, date2),get_total_downloads("cts",date1, date2),get_total_downloads("dlmodeler",date1, date2),get_total_downloads("FGN",date1,date2),get_total_downloads("fractal",date1,date2),get_total_downloads("LSTS",date1, date2),get_total_downloads("mafs",date1, date2),get_total_downloads("MAR1",date1, date2),get_total_downloads("MSBVAR",date1, date2),get_total_downloads("mvcwt",date1, date2),get_total_downloads("pear",date1, date2),get_total_downloads("rbcb",date1, date2),get_total_downloads("sae2",date1, date2),get_total_downloads("stsm.class",date1, date2),get_total_downloads("TED",date1, date2),get_total_downloads("tsbugs",date1, date2),get_total_downloads("tsfa",date1, date2),get_total_downloads("Wats",date1, date2),get_total_downloads("wmtsa",date1, date2)) %>%
+  group_by(package) %>%
+  as.data.frame()
 
-RJaCGH <- cran_downloads(package = "RJaCGH", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
 
-rbugs <- cran_downloads(package = "rbugs", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
+timeseries <- cbind(timeseries,timeseris_realease) %>%
+  .[,-3] %>%
+  select(package, count, update)
 
-abn <- cran_downloads(package = "abn", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
 
-MSBVAR <- cran_downloads(package = "MSBVAR", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-growcurves <- cran_downloads(package = "growcurves", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-	
-eco <- cran_downloads(package = "eco", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-glmmBUGS  <- cran_downloads(package = "glmmBUGS", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-cudaBayesreg  <- cran_downloads(package = "cudaBayesreg", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-profdpm  <- cran_downloads(package = "profdpm", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-bayesian7 <- rbind(geoRglm,RJaCGH,rbugs,abn,MSBVAR,growcurves,eco,glmmBUGS,cudaBayesreg,profdpm) %>%
-  group_by(package) 
-
-bayesian7 <- as.data.frame(bayesian7)
-
-release_date <- c("2002-02-13","2006-07-18","2004-05-13","2011-07-26","2005-09-20","2012-03-25","2004-12-21","2008-09-09","2009-10-19","2009-11-15")
-
-bayesian7 <- cbind(bayesian7,release_date) 
+timeseries %>%
+  ggplot(aes(x = update, y = count,colour = package)) +
+  geom_point() +
+    labs( y = 'Download count',
+    title = "Last half year's downloads with the release date",
+    subtitle = "between for time series packages") +
+  scale_y_sqrt() + # to change the scale of y axis
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5),
+  axis.text.x = element_text(angle = 55, hjust = 1))
 
 
 bayesian7 %>%
