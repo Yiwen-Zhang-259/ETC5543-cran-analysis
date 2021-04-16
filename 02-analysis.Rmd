@@ -24,6 +24,10 @@ library(packageRank)
 library(fpp3)
 library(slider)
 library(stringr)
+library(lubridate)
+library(dplyr)
+library(rvest)
+library(glue)
 ```
 
 ## Daily top 15 downloaded packages 
@@ -388,16 +392,44 @@ In our common cognition, we think that the earlier a package is released, the mo
 1. Packages for Time Series Analysis
 
 
-```{r}
-# function used to get rid of 'AsIs' class attributes
-unAsIs <- function(X) {
-    if("AsIs" %in% class(X)) {
-        class(X) <- class(X)[-match("AsIs", class(X))]
-    }
-    X
+```{r get-arcvreleasedate}
+
+# function used to get archive release dates from CRAN
+get_arcvupdate_date <- function(packages){
+  pkg_url <- "https://cran.r-project.org/web/packages/{pkg}/index.html"
+  pkg_archive <- "https://cran.r-project.org/src/contrib/Archive/{pkg}/"
+  pkg_updates <- map(packages, function(pkg) {
+      
+    archive_dates <- tryCatch({ 
+        read_html(glue(pkg_archive)) %>% 
+          html_table() %>%
+          .[[1]] %>% 
+          pull(`Last modified`) %>% 
+          ymd_hm() %>% 
+          na.omit() %>% 
+          as.Date()
+      }, error = function(e) {
+        NULL
+      })
+    archive_dates
+  })
+names(pkg_updates) <- packages
+
+updates <- unlist(pkg_updates) %>% 
+  enframe("package", "update") %>% 
+  # unlist converts date to integers
+  mutate(update = as.Date(update, origin = "1970-01-01"),
+         # need to get rid of the numbers appended to pkg names
+         package = str_extract(package, paste0(packages, collapse="|"))) 
+
+return(updates)
 }
 
 
+```
+
+
+```{r getpkg}
 # the packages for econometrics
 Econometrics <- read.ctv(system.file("ctv", "Econometrics.ctv", package = "ctv")) 
 
@@ -413,10 +445,7 @@ Econometrics <- Econometrics %>%
      filter(!(packagelist.name %in% pkg_rstusio$package)) %>%
      filter(!(packagelist.name %in% pkg_core$package)) %>%
      filter(!(packagelist.name %in% pkg_r_related$package)) %>%
-     select(-packagelist.core) %>%
-     mutate(count = cran_downloads(packages = packagelist.name)) %>%
-     arrange(desc(count)) %>%
-     head(10)
+     select(-packagelist.core) 
 
 
 # the packages for time series
@@ -434,11 +463,7 @@ TimeSeries <- TimeSeries %>%
      filter(!(packagelist.name %in% pkg_rstusio$package)) %>%
      filter(!(packagelist.name %in% pkg_core$package)) %>%
      filter(!(packagelist.name %in% pkg_r_related$package)) %>%
-     select(-packagelist.core) %>%
-     mutate(count = cran_downloads(packages = packagelist.name)) %>%
-     arrange(desc(count)) %>%
-     head(10)
-                                            # when I try to filter packages according to the filtering lists, the output is none or does not change, so in this case maybe filter core is enough
+     select(-packagelist.core)         
 
 
 # the packages for bayesian
@@ -456,28 +481,65 @@ Bayesian <- Bayesian %>%
      filter(!(packagelist.name %in% pkg_rstusio$package)) %>%
      filter(!(packagelist.name %in% pkg_core$package)) %>%
      filter(!(packagelist.name %in% pkg_r_related$package)) %>%
-     select(-packagelist.core) %>%
-     mutate(count = cran_downloads(packages = packagelist.name)) %>%
-     arrange(desc(count)) %>%
-     head(10)
+     select(-packagelist.core) 
+
 
 ```
 
-```{r}
-Econometrics %>%
-  kable(caption = "Last day top 10 downloaded packages of Econometrics from CRAN task view") %>%
-  kable_styling(bootstrap_options = c("hover", "striped")) 
-```
 
 ```{r}
-TimeSeries %>%
-  kable(caption = "Last day top 10 downloaded packages of TimeSeries from CRAN task view") %>%
+packages <- c("intReg","ivbma","ivlewbel","MSBVAR","PANICr","phtt","rddapp","rddtools","rUnemploymentData","SemiParSampleSel","tsfa")
+
+earliest_updates <- function(packages){
+  
+  earliest_updates <- get_arcvupdate_date(packages) %>%
+  group_by(package) %>%
+  arrange(update, .by_group = TRUE) %>% #arrange within group
+  top_n(-1, update) # to get the earliest release date
+  
+  return(earliest_updates)
+}
+
+earliest_updates(packages) %>%
+  kable(caption = "Packages of Econometric from CRAN task view with earliest release date") %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+
+```
+
+
+```{r}
+packages <- c("autovarCore","brainwaver","cents","CommonTrend","cts","dlmodeler","FGN","fractal","fractalrock","LSTS","mafs","MAR1","MSBVAR","mvcwt","orderedLasso","pear","rbcb","rdatamarket","sae2","spectral.methods","stsm.class","TED","tsbugs","tsfa","Wats","wmtsa")
+
+earliest_updates <- function(packages){
+  
+  earliest_updates <- get_arcvupdate_date(packages) %>%
+  group_by(package) %>%
+  arrange(update, .by_group = TRUE) %>% #arrange within group
+  top_n(-1, update) # to get the earliest release date
+  
+  return(earliest_updates)
+}
+
+earliest_updates(packages) %>%
+  kable(caption = "Packages of Timeseries from CRAN task view with earliest release date") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
 ```{r}
-Bayesian %>%
-  kable(caption = "Last day top 10 downloaded packages of Bayesian from CRAN task view") %>%
+packages <- c("abn","AtelieR","BayesSummaryStatLM","Bayesthresh","bclust","bisoreg","BSquare","BVS","cudaBayesreg","eco","geoRglm","glmmBUGS","MSBVAR","PAWL","profdpm","rbugs","RJaCGH")
+
+earliest_updates <- function(packages){
+  
+  earliest_updates <- get_arcvupdate_date(packages) %>%
+  group_by(package) %>%
+  arrange(update, .by_group = TRUE) %>% #arrange within group
+  top_n(-1, update) # to get the earliest release date
+  
+  return(earliest_updates)
+}
+
+earliest_updates(packages) %>%
+  kable(caption = "Packages of Bayesian from CRAN task view with earliest release date") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
@@ -490,6 +552,11 @@ And we could see that `pear`, `tsfa`, `fractalrock` and `CommonTrend` have simil
 date1 <- "2019-10-01"
 date2 <- "2020-04-01"
 
+get_total_downloads <- function(){
+  
+  
+  
+}
 cts <- cran_downloads(package = "cts", from = date1, to = date2) %>%
   summarise(package = package, count = sum(count)) %>%
   head(1)
@@ -543,7 +610,7 @@ timeseries <- cbind(timeseries,release_date)
 
 timeseries %>%
   ggplot(aes(x = release_date, y = count,fill = package)) +
-  geom_bar(stat = "identity") +
+  geom_point() +
     labs( y = 'Download count',
     title = "Last half year's downloads with the release date",
     subtitle = "between for time series packages") +
@@ -644,7 +711,7 @@ This is quite different to Bayesian's case, that is, although the most downloade
 
 Therefore, in this case, except for the package with the highest download, the packages with the later release date are more likely to have higher downloads.
 
-```{r eco-lm,fig.align = 'center', fig.cap="The latest package 'sandwich` has the highest downloads."}
+```{r eco-lm,fig.align = 'center', fig.cap="The latest package sandwich has the highest downloads."}
 MSBVAR <- cran_downloads(package = "MSBVAR", from = date1, to = date2) %>%
   summarise(package = package, count = sum(count)) %>%
   head(1)
@@ -713,7 +780,6 @@ eco_lm %>%
 
 ```
 
-4. trending packages
 
 In conclusion, I'm surprised to find it's not that the earlier the package is released, the more downloads it has. And the most downloaded packages are often from the earlier date, which is reflected in bayesian, econometrics, time series. But packages from later date also have quite high downloads, and for econometrics packages, it shows that the later the release date, the higher the downloads.
 
@@ -796,14 +862,21 @@ Let's have a look at package `fable` and `forecast`. They are two closely relate
 
 In order to estimate the trend-cycle and how do they change over time, I consider the weighed 7 moving average. That is, it calculates the weighted average for every seven consecutive time series with the following weights : [1/15,2/15,1/5,1/5,1/5,2/15,1/15]. And this will reduce the weight of weekends with low download volume, and the weight of weekdays with high download volume will be higher, which will reduce the seasonality as much as possible.
 
+```{r}
+purrr::map_dr()
+```
+
 
 ```{r trans-ff}
 # transform the daily download of 'fable' to time series table
+fable <- cran_downloads(package = "fable")
+forecast <- cran_downloads(package = "forecast")
+
 fable <- fable %>%
-  as_tsibble(index = date) 
+  fpp3::as_tsibble(index = date) 
 
 forecast <- forecast %>%
-  as_tsibble(index = date) 
+  fpp3::as_tsibble(index = date) 
 ```
 
 ```{r daily-fbl, fig.align = 'center', fig.cap="Fable's daily downloads shows a seasonal pattern."}
@@ -849,17 +922,15 @@ Figure \@ref(fig:ff-ma) shows that in addition to `forecast`'s download volume i
 # use 3x5 MA can get a weighed 7 MA of [1/15,2/15,1/5,1/5,1/5,2/15,1/15]
 fable_ma <- fable %>%
   mutate(
-    `5-MA` = slider::slide_dbl(count, mean,
-                .before = 2, .after = 2, .complete = TRUE),
-    `3x5-MA` = slider::slide_dbl(`5-MA`, mean,
-                .before = 1, .after = 1, .complete = TRUE)
+    `7-MA` = slider::slide_dbl(count, mean,
+                .before = 3, .after = 3, .complete = TRUE)
     )
 
 colors <- c('fable' = '#D55E00', 'forecast' = 'violetred4')
 
 p_fbl <- fable_ma %>%
   autoplot(count, color = "gray") +
-  geom_line(aes(y = `3x5-MA`,colour = 'fable')) +
+  geom_line(aes(y = `7-MA`,colour = 'fable')) +
   labs( 
   title = "Weighed moving average of fable and forecast",
   subtitle = "from 2021-02-06 to 2021-04-02") +
@@ -876,15 +947,13 @@ p_fbl <- fable_ma %>%
 
 forecast_ma <- forecast %>%
   mutate(
-    `5-MA` = slider::slide_dbl(count, mean,
-                .before = 2, .after = 2, .complete = TRUE),
-    `3x5-MA` = slider::slide_dbl(`5-MA`, mean,
-                .before = 1, .after = 1, .complete = TRUE)
+    `7-MA` = slider::slide_dbl(count, mean,
+                .before = 3, .after = 3, .complete = TRUE)
     )
 
 p_fcst <- forecast_ma %>%
   autoplot(count, color = "gray") +
-  geom_line(aes(y = `3x5-MA`,colour = 'forecast')) +
+  geom_line(aes(y = `7-MA`,colour = 'forecast')) +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -903,28 +972,28 @@ grid.draw(gff)
 
 
 
-## compare download logs with the number of commits on master branch
+## compare package score with the number of commits on master branch
 
 Table \@ref(tab:pct-lowupdates) shows the top 15 trending packages these days. I will compare the number of updates of them with their package scores.
 
 ```{r trending-commits}
 # to find the 100 trending packages before 4.11 and save as csv file
 
-pkg_trending <- cran_trending() 
+#pkg_trending <- cran_trending() 
 
-write_csv(pkg_trending,"data/pkg_trending.csv")
+#write_csv(pkg_trending,"data/pkg_trending.csv")
 
 # read top 20 trending packages
 pkg_trending <- read_csv("data/pkg_trending.csv") 
 
-pkg_trending_20 <- pkg_trending %>%
-  head(20)
+pkg_trending_19 <- pkg_trending %>%
+  head(19)
  
 ```
 
-```{r  trending-commits}
+```{r  trending-commits1}
 # exclude the package 'proxy', 'uplift' , 'ClickClust' and 'spatstat.geom' that only have read-only mirror of the CRAN github repo, and the remaining are 15
-pkg_trending_filter <- pkg_trending_20 %>%
+pkg_trending_filter <- pkg_trending_19 %>%
   filter(!(package == "proxy")) %>%
   filter(!(package == "uplift")) %>%
   filter(!(package == "spatstat.geom")) %>%
@@ -981,7 +1050,7 @@ pkg_trending_commits %>%
   kable_styling(bootstrap_options = c("hover", "striped")) 
 ```
 
-```{r commits-pattern, fig.align = 'center', fig.cap=" The package with most updates is 'fddm" while the most trending one is 'fddm'.}
+```{r commits-pattern, fig.align = 'center', fig.cap= "The package with most updates is fddm while the most trending one is fddm."}
 pkg_trending_commits %>%
   mutate(score = as.numeric(score)) %>%
   mutate(commits = as.numeric(commits)) %>%
@@ -1018,7 +1087,7 @@ pkg_trending_updates <- cbind(pkg_trending_15,updates)
 
 Figure \@ref(fig:trend-updates) shows that the package with most updates is 'proxy" while the most trending one is 'fddm'. And the score of top 3 updated packages are all not very high among this group. Another interesting thing is that the updates of package `webfakes`, `tree.interpreter`, `geospark`, `uplift` and `spatstat.geom` are 2, but their scores can vary from `r pkg_trending_updates$score[15]` to `r pkg_trending_updates$score[11]`.
 
-```{r  trend-updates, fig.align = 'center', fig.cap=" The package with most updates is 'proxy" while the most trending one is 'fddm'.}
+```{r  trend-updates, fig.align = 'center', fig.cap=" The package with most updates is proxy while the most trending one is fddm."}
 pkg_trending_updates <- pkg_trending_updates %>%
   mutate(score = as.numeric(score)) %>%
   mutate(updates = as.numeric(updates)) %>%
@@ -1048,7 +1117,7 @@ Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage o
 
 
 ```{r  pct-lowupdates}
-# compute the percentage of trending packages lying in the low-updated range
+# compute the percentage of top 15 trending packages lying in the low-updated range
 
 avg_updates <- mean(as.numeric(pkg_trending_updates$updates))
 
@@ -1068,7 +1137,7 @@ pct_trending_updates%>%
 
 It can be seen from Figure \@ref(fig:latestpublish) that most top 15 trending packages' latest publish date is after 2021, which indicates that popular packages tend to update by time to keep its activity.
 
-```{r  latestpublish,fig.align = 'center', fig.cap=" Most top 15 trending packages' latest publish date is after 2021.}
+```{r  latestpublish,fig.align = 'center', fig.cap=" Most top 15 trending packages' latest publish date is after 2021."}
 pkg_trending_updates_low <- pkg_trending_updates %>%
   filter(updates < avg_updates)
 
@@ -1097,7 +1166,7 @@ pkg_trending_latest_publish %>%
   plot.title = element_text(h = 0.5),
   plot.subtitle = element_text(h = 0.5))
 ```
-```{r updates-pattern, fig.align = 'center', fig.cap=" The package with most updates is 'proxy" while the most trending one is 'fddm'.}
+```{r updates-pattern, fig.align = 'center', fig.cap=" The package with most updates is proxy while the most trending one is fddm."}
 pkg_trending_updates %>%
   mutate(score = as.numeric(score)) %>%
   mutate(updates = as.numeric(updates)) %>%
@@ -1138,7 +1207,7 @@ pkg_trending_latest_publish %>%
 In conclusion, it's not that the more updates the package has, the popular it will be. In the trending package, most of the packages whose updates are lower than the average occupy the majority. Therefore, we can also know that the total number of updates is not very important for the trending package. The important thing is to keep it updated.
 
 
-## compare the package name with package score for trending packages
+## compare the package name length with package score for trending packages
 
 It can be seen that although the patterns of top 15 and last 15 are not the same, they all have one thing in common, that is, when the name length exceeds 8 characters, the package score will drop significantly. And when length is less than 4 characters, the score would not be ideal either.
 
@@ -1213,7 +1282,6 @@ pkg_trending1 %>%
 ```
 
 ```{r namelength}
-
 
 # function used to get the name length and the percentage of packages whose name length is under total average
 avg_namelth <- function(df){
