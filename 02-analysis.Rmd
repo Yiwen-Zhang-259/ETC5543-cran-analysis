@@ -412,10 +412,12 @@ Bayesian <- Bayesian %>%
 
 ```
 
+```{r  function-earliestrelease-counts}
 
-```{r eco-updates}
-packages <- c("intReg","ivbma","ivlewbel","MSBVAR","PANICr","phtt","rddapp","rddtools","rUnemploymentData","SemiParSampleSel","tsfa")
+# function used to get the total downloads of a period of time and the eariest release date
+downloads_earliest_release <- function(packages) {
 
+# function used to get the earliest release date from CRAN
 earliest_updates <- function(packages){
   
   earliest_updates <- get_arcvupdate_date(packages) %>%
@@ -423,55 +425,79 @@ earliest_updates <- function(packages){
   arrange(update, .by_group = TRUE) %>% #arrange within group
   top_n(-1, update) # to get the earliest release date
   
-  return(earliest_updates)
 }
 
-econometric_realease <- earliest_updates(packages) 
+earliest_updates <- earliest_updates(packages)
 
-econometric_realease %>%
-  kable(caption = "Packages of Econometric from CRAN task view with earliest release date") %>%
+packages_vector <- earliest_updates$package
+
+# function used to get the total downloads of a period of time (date1 to date2)
+get_total_downloads <- function(packages_vector){
+  
+total_downloads <- map(packages_vector, function(pkg){
+  
+  pkg <- cran_downloads(package = paste0(pkg), from = date1, to = date2) %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
+  
+})
+
+ names(total_downloads) <- packages_vector
+
+downloads <- unlist(total_downloads) %>% 
+  enframe("package", "count") %>% 
+  mutate(count = as.numeric(count),
+         # need to get rid of the numbers appended to pkg names
+         package = str_extract(package, paste0(packages_vector, collapse="|")))%>%
+         na.omit()
+}
+
+downloads <- get_total_downloads(packages_vector)
+  
+downloads_release_earliest <- downloads %>%
+  as.data.frame() %>%
+  left_join(earliest_updates,by = "package")
+
+return(downloads_release_earliest)
+
+}
+```
+
+```{r eco-updates}
+
+date1 <- "2019-10-01"
+date2 <- "2020-04-01"
+packages <- Econometrics$package 
+
+econometric <- downloads_earliest_release(packages)
+
+
+econometric %>%
+  kable(caption = "Econometrics packages with earliest release date and last half year's total counts") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 
 ```
 
 
 ```{r timeseris-updates}
-packages <- c("autovarCore","brainwaver","cents","CommonTrend","cts","dlmodeler","FGN","fractal","fractalrock","LSTS","mafs","MAR1","MSBVAR","mvcwt","orderedLasso","pear","rbcb","rdatamarket","sae2","spectral.methods","stsm.class","TED","tsbugs","tsfa","Wats","wmtsa")
+packages <- TimeSeries$package 
 
-earliest_updates <- function(packages){
-  
-  earliest_updates <- get_arcvupdate_date(packages) %>%
-  group_by(package) %>%
-  arrange(update, .by_group = TRUE) %>% #arrange within group
-  top_n(-1, update) # to get the earliest release date
-  
-  return(earliest_updates)
-}
+timeseries <- downloads_earliest_release(packages)
 
-timeseris_realease <- earliest_updates(packages) 
 
-timeseris_realease %>%
-  kable(caption = "Packages of Timeseries from CRAN task view with earliest release date") %>%
+timeseries %>%
+  kable(caption = "Timeseries packages with earliest release date and last half year's total counts") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
+
 ```
 
 ```{r bayesian-updates}
-packages <- c("abn","AtelieR","BayesSummaryStatLM","Bayesthresh","bclust","bisoreg","BSquare","BVS","cudaBayesreg","eco","geoRglm","glmmBUGS","MSBVAR","PAWL","profdpm","rbugs","RJaCGH")
+packages <- Bayesian$package 
 
-earliest_updates <- function(packages){
-  
-  earliest_updates <- get_arcvupdate_date(packages) %>%
-  group_by(package) %>%
-  arrange(update, .by_group = TRUE) %>% #arrange within group
-  top_n(-1, update) # to get the earliest release date
-  
-  return(earliest_updates)
-}
+bayesian <- downloads_earliest_release(packages)
 
-bayesian_realease <- earliest_updates(packages)
-
-bayesian_realease %>%
-  kable(caption = "Packages of Bayesian from CRAN task view with earliest release date") %>%
+bayesian%>%
+  kable(caption = "Bayesian packages with earliest release date and last half year's total counts") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
@@ -481,32 +507,11 @@ And we could see that `pear`, `tsfa`, `fractalrock` and `CommonTrend` have simil
 
 ```{r timeseries, fig.align = 'center', fig.cap="The older package 'fable' has less download count than that of package 'forecast'."}
 
-date1 <- "2019-10-01"
-date2 <- "2020-04-01"
-
-get_total_downloads <- function(pkg,date1,date2){
-  
-  pkg <- cran_downloads(package = paste0(pkg), from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-  
-}
-
-timeseries <- rbind(get_total_downloads("autovarCore",date1,date2),get_total_downloads("brainwaver",date1, date2),get_total_downloads("cents",date1,date2),get_total_downloads("CommonTrend",date1, date2),get_total_downloads("cts",date1, date2),get_total_downloads("dlmodeler",date1, date2),get_total_downloads("FGN",date1,date2),get_total_downloads("fractal",date1,date2),get_total_downloads("LSTS",date1, date2),get_total_downloads("mafs",date1, date2),get_total_downloads("MAR1",date1, date2),get_total_downloads("MSBVAR",date1, date2),get_total_downloads("mvcwt",date1, date2),get_total_downloads("pear",date1, date2),get_total_downloads("rbcb",date1, date2),get_total_downloads("sae2",date1, date2),get_total_downloads("stsm.class",date1, date2),get_total_downloads("TED",date1, date2),get_total_downloads("tsbugs",date1, date2),get_total_downloads("tsfa",date1, date2),get_total_downloads("Wats",date1, date2),get_total_downloads("wmtsa",date1, date2)) %>%
-  group_by(package) %>%
-  as.data.frame()
-
-
-timeseries <- cbind(timeseries,timeseris_realease) %>%
-  .[,-3] %>%
-  select(package, count, update)
-
-
 timeseries %>%
   ggplot(aes(x = update, y = count,colour = package)) +
   geom_point() +
     labs( y = 'Download count',
-    title = "Last half year's downloads with the release date",
+    title = "Last half year's downloads with the earliest release date",
     subtitle = "between for time series packages") +
   scale_y_sqrt() + # to change the scale of y axis
   theme_minimal()  +
@@ -515,8 +520,7 @@ timeseries %>%
   axis.text=element_text(size=10),
   axis.title=element_text(size=12,face="bold"),
   plot.title = element_text(h = 0.5),
-  plot.subtitle = element_text(h = 0.5),
-  axis.text.x = element_text(angle = 55, hjust = 1))
+  plot.subtitle = element_text(h = 0.5))
 ```
 
 2. Bayesian packages for general model fitting
@@ -527,22 +531,12 @@ Therefore, in this type of packages, we can say that the later the release date,
 
 ```{r bayesian,fig.align = 'center', fig.cap="last two years' downloads with the release date for bayesian general model fitting packages."}
 
-timeseries <- rbind(get_total_downloads("abn",date1,date2),get_total_downloads("AtelieR",date1, date2),get_total_downloads("BayesSummaryStatLM",date1,date2),get_total_downloads("CommonTrend",date1, date2),get_total_downloads("cts",date1, date2),get_total_downloads("dlmodeler",date1, date2),get_total_downloads("FGN",date1,date2),get_total_downloads("fractal",date1,date2),get_total_downloads("LSTS",date1, date2),get_total_downloads("mafs",date1, date2),get_total_downloads("MAR1",date1, date2),get_total_downloads("MSBVAR",date1, date2),get_total_downloads("mvcwt",date1, date2),get_total_downloads("pear",date1, date2),get_total_downloads("rbcb",date1, date2),get_total_downloads("sae2",date1, date2),get_total_downloads("stsm.class",date1, date2),get_total_downloads("TED",date1, date2),get_total_downloads("tsbugs",date1, date2),get_total_downloads("tsfa",date1, date2),get_total_downloads("Wats",date1, date2),get_total_downloads("wmtsa",date1, date2)) %>%
-  group_by(package) %>%
-  as.data.frame()
-
-
-timeseries <- cbind(timeseries,timeseris_realease) %>%
-  .[,-3] %>%
-  select(package, count, update)
-
-
-timeseries %>%
+bayesian %>%
   ggplot(aes(x = update, y = count,colour = package)) +
   geom_point() +
     labs( y = 'Download count',
-    title = "Last half year's downloads with the release date",
-    subtitle = "between for time series packages") +
+    title = "Last half year's downloads with the earliest release date",
+    subtitle = "between for bayesian packages") +
   scale_y_sqrt() + # to change the scale of y axis
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
@@ -550,29 +544,11 @@ timeseries %>%
   axis.text=element_text(size=10),
   axis.title=element_text(size=12,face="bold"),
   plot.title = element_text(h = 0.5),
-  plot.subtitle = element_text(h = 0.5),
-  axis.text.x = element_text(angle = 55, hjust = 1))
-
-
-bayesian7 %>%
-  ggplot(aes(x = release_date, y = count,fill = package)) +
-  geom_bar(stat = "identity") +
-    labs( y = 'Download count',
-          x = 'Relsease date',
-    title = "Last two years' downloads with the release date",
-    subtitle = "for bayesian packages") +
-  theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  plot.title = element_text(h = 0.5),
-  plot.subtitle = element_text(h = 0.5),
-  axis.text.x = element_text(angle = 55, hjust = 1)) 
+  plot.subtitle = element_text(h = 0.5))
 
 ```
 
-3. Econometrics for basic linear regression
+3. Econometrics 
 
 In order to test whether this is the case in other areas, let's turn our attention to econometrics packages. 
 
@@ -583,71 +559,21 @@ This is quite different to Bayesian's case, that is, although the most downloade
 Therefore, in this case, except for the package with the highest download, the packages with the later release date are more likely to have higher downloads.
 
 ```{r eco-lm,fig.align = 'center', fig.cap="The latest package sandwich has the highest downloads."}
-MSBVAR <- cran_downloads(package = "MSBVAR", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
 
-tsfa <- cran_downloads(package = "tsfa", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-SemiParSampleSel <- cran_downloads(package = "SemiParSampleSel", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-intReg <- cran_downloads(package = "intReg", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-rUnemploymentData <- cran_downloads(package = "rUnemploymentData", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-	
-rddapp <- cran_downloads(package = "rddapp", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-	
-PANICr <- cran_downloads(package = "PANICr", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-phtt  <- cran_downloads(package = "phtt", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-rddtools  <- cran_downloads(package = "rddtools", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-ivbma  <- cran_downloads(package = "ivbma", from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-
-eco_lm <- rbind(MSBVAR,tsfa,SemiParSampleSel,intReg,rUnemploymentData,rddapp,PANICr,phtt,rddtools,ivbma) %>%
-  group_by(package) 
-
-eco_lm <- as.data.frame(eco_lm)
-
-release_date <- c("2005-09-20","2006-02-11","2012-04-30","2012-01-12","2015-01-04","2017-12-12","2014-10-24","2013-02-25","2015-07-27","2012-02-29")
-
-eco_lm <- cbind(eco_lm,release_date) 
-
-eco_lm %>%
-  ggplot(aes(x = release_date, y = count,fill = package)) +
-  geom_bar(stat = "identity") +
+bayesian %>%
+  ggplot(aes(x = update, y = count,colour = package)) +
+  geom_point() +
     labs( y = 'Download count',
-          x = 'Relsease date',
-    title = "Last half year's downloads with the release date",
-    subtitle = "for econometrics packages") +
-  scale_y_sqrt() +
+    title = "Last half year's downloads with the earliest release date",
+    subtitle = "between for econometrics packages") +
+  scale_y_sqrt() + # to change the scale of y axis
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
   axis.text=element_text(size=10),
   axis.title=element_text(size=12,face="bold"),
   plot.title = element_text(h = 0.5),
-  plot.subtitle = element_text(h = 0.5),
-  axis.text.x = element_text(angle = 55, hjust = 1)) 
+  plot.subtitle = element_text(h = 0.5))
 
 ```
 
@@ -660,71 +586,6 @@ I would like to compare packages released on the same date (i.e. April 1st, 2021
 
 By looking into Figure \@ref(fig:pkg0401), we could know that the most downloaded package released on 04-01 is `datetimeutils`, and the second one is `berryFunctions`.
 
-```{r}
-# Store web url
-#crandate <- read_html("https://cran.r-project.org/web/packages/available_packages_by_date.html")
-
-#Scrape the website for the movie rating
-
-#date <- crandate %>% 
-  #html_nodes("tr:nth-child(2) td:nth-child(1)") %>%
-  #html_text() 
-
-#package <- crandate %>% 
-  #html_nodes("tr:nth-child(2) a") %>%
-  #html_text()
-
-#pkg_similar_date <- data.frame(date, package)
-```
-
-```{r pkg0401, fig.align = 'center', fig.cap="The highest downloaded package 'proxy' is released on 2021-03-05."}
-
-package_0401 <- c("backbone","bbdetection","berryFunctions","bootImpute","ChineseNames","chromoMap","cocktailApp","datetimeutils","deepdive","diversityForest","DLMtool","ecb","EValue","fungible","GetDFPData","gh","insight","LAWBL","mapping","marqLevAlg","microbial","mockcpp","mrbayes","muhaz","NetOrigin","NMOF","PDE","ProcData","PSweight","rbiorxiv","relevance","remotes","rmcorr","samc","scam","sigminer","sisireg","smcfcs","textutils","tsBSS") %>%
-  as.data.frame() 
-  
-
-package_0401 <- package_0401 %>%
-     filter(!(package_0401 %in% pkg_20maintainer$package)) %>%
-     filter(!(package_0401 %in% pkg_secondary$package)) %>%
-     filter(!(package_0401 %in% pkg_rstusio$package)) %>%
-     filter(!(package_0401 %in% pkg_core$package)) %>%
-     filter(!(package_0401 %in% pkg_r_related$package))
-     head(15)
-
-backbone <- cran_downloads(package = "backbone")
-bbdetection <- cran_downloads(package = "bbdetection")
-berryFunctions <- cran_downloads(package = "berryFunctions")
-bootImpute <- cran_downloads(package = "bootImpute")
-chromoMap <- cran_downloads(package = "chromoMap")
-cocktailApp <- cran_downloads(package = "cocktailApp")
-datetimeutils <- cran_downloads(package = "datetimeutils")
-deepdive <- cran_downloads(package = "deepdive")
-diversityForest <- cran_downloads(package = "diversityForest")
-DLMtool <- cran_downloads(package = "DLMtool")
-ecb <- cran_downloads(package = "ecb")
-fungible <- cran_downloads(package = "fungible")
-GetDFPData <- cran_downloads(package = "GetDFPData")
-
-package_0401 <- rbind(backbone,bbdetection,berryFunctions,bootImpute,chromoMap,cocktailApp,datetimeutils,deepdive,diversityForest,DLMtool,ecb,fungible,GetDFPData) %>%
-  group_by(package)
-
-package_0401 %>%
-  ggplot(aes(x = package, y = count)) +
-  geom_bar(stat = "identity") +
-    labs( y = 'Package',
-          x = 'Download count',
-    title = "The daily downloads of packages released on 04-01",
-    subtitle = "on 04-02") +
-  scale_y_sqrt() +
-  theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  plot.title = element_text(h = 0.5),
-  plot.subtitle = element_text(h = 0.5),
-  axis.text.x = element_text(angle = 55, hjust = 1)) 
-```
 
 
 ## Compare moving average of fable and forecast
