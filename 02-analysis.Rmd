@@ -367,48 +367,41 @@ return(updates)
 
 
 ```{r getpkg}
-# the packages for econometrics
-Econometrics <- read.ctv(system.file("ctv", "Econometrics.ctv", package = "ctv")) 
 
-Econometrics <- list(Econometrics)
+# function used to get packages of  a certain topic from CRAN task view
+get_pkg_taskview <- function(topic_file){
+  
+topic_pkg <- read.ctv(system.file("ctv", paste0(topic_file), package = "ctv")) 
 
-Econometrics <- lapply(Econometrics, '[', 8) %>%
+topic_pkg <- list(topic_pkg)
+
+topic_pkg <- lapply(topic_pkg, '[', 8) %>%
   as.data.frame() 
 
-Econometrics <- Econometrics %>%
+topic_pkg <- topic_pkg %>%
   rename(package = packagelist.name) %>%
   filter_list() %>%
   filter(packagelist.core == "FALSE")%>%
   select(-packagelist.core)
+  
+}
 
 
-# the packages for time series
-TimeSeries <- read.ctv(system.file("ctv", "TimeSeries.ctv", package = "ctv")) 
+# get the packages for econometrics
+topic_file <- "Econometrics.ctv"
+Econometrics <- get_pkg_taskview(topic_file) 
 
-TimeSeries <- list(TimeSeries)
 
-TimeSeries <- lapply(TimeSeries, '[', 8) %>%
-  as.data.frame() 
 
-TimeSeries <- TimeSeries %>%
-  rename(package = packagelist.name) %>%
-  filter_list() %>%
-  filter(packagelist.core == "FALSE")%>%
-  select(-packagelist.core)
+# get the packages for time series
+topic_file <- "TimeSeries.ctv"
+TimeSeries <- get_pkg_taskview(topic_file)
 
-# the packages for bayesian
-Bayesian <- read.ctv(system.file("ctv", "Bayesian.ctv", package = "ctv")) 
 
-Bayesian <- list(Bayesian)
+# get the packages for bayesian
+topic_file <- "Bayesian.ctv"
+Bayesian <- get_pkg_taskview(topic_file)
 
-Bayesian <- lapply(Bayesian, '[', 8) %>%
-  as.data.frame() 
-
-Bayesian <- Bayesian %>%
-  rename(package = packagelist.name) %>%
-  filter_list() %>%
-  filter(packagelist.core == "FALSE")%>%
-  select(-packagelist.core)
 
 ```
 
@@ -431,7 +424,7 @@ earliest_updates <- earliest_updates(packages)
 
 packages_vector <- earliest_updates$package
 
-# function used to get the total downloads of a period of time (date1 to date2)
+# function used to get the total downloads of a period of time (date1 to date2) for several pacckages at the same time
 get_total_downloads <- function(packages_vector){
   
 total_downloads <- map(packages_vector, function(pkg){
@@ -586,6 +579,9 @@ I would like to compare packages released on the same date (i.e. April 1st, 2021
 
 By looking into Figure \@ref(fig:pkg0401), we could know that the most downloaded package released on 04-01 is `datetimeutils`, and the second one is `berryFunctions`.
 
+```{r}
+
+```
 
 
 ## Compare moving average of fable and forecast
@@ -601,14 +597,14 @@ purrr::map_dr()
 
 ```{r trans-ff}
 # transform the daily download of 'fable' to time series table
-fable <- cran_downloads(package = "fable")
-forecast <- cran_downloads(package = "forecast")
+fable <- cran_downloads(package = "fable",from = date1, to = date2)
+forecast <- cran_downloads(package = "forecast",from = date1, to = date2)
 
 fable <- fable %>%
-  fpp3::as_tsibble(index = date) 
+  as_tsibble(index = date) 
 
 forecast <- forecast %>%
-  fpp3::as_tsibble(index = date) 
+  as_tsibble(index = date) 
 ```
 
 ```{r daily-fbl, fig.align = 'center', fig.cap="Fable's daily downloads shows a seasonal pattern."}
@@ -651,7 +647,7 @@ forecast %>%
 Figure \@ref(fig:ff-ma) shows that in addition to `forecast`'s download volume is much higher than `fable`'s, the two of them have a very similar moving average pattern. But the change of `fable` is more stable than `forecast`, which shows that `fable` is more trending than `forecast` during this period of time.
 
 ```{r ff-ma, fig.align = 'center', fig.cap="fable grew significantly before March 1."}
-# use 3x5 MA can get a weighed 7 MA of [1/15,2/15,1/5,1/5,1/5,2/15,1/15]
+# use 7 MA can get a equal weighed 7 MA 
 fable_ma <- fable %>%
   mutate(
     `7-MA` = slider::slide_dbl(count, mean,
@@ -718,44 +714,24 @@ Table \@ref(tab:pct-lowupdates) shows the top 15 trending packages these days. I
 # read top 20 trending packages
 pkg_trending <- read_csv("data/pkg_trending.csv") 
 
-pkg_trending_19 <- pkg_trending %>%
-  head(19)
+pkg_trending_46 <- pkg_trending %>%
+  head(46)
  
 ```
 
-```{r  trending-commits1}
-# exclude the package 'proxy', 'uplift' , 'ClickClust' and 'spatstat.geom' that only have read-only mirror of the CRAN github repo, and the remaining are 15
-pkg_trending_filter <- pkg_trending_19 %>%
-  filter(!(package == "proxy")) %>%
-  filter(!(package == "uplift")) %>%
-  filter(!(package == "spatstat.geom")) %>%
-  filter(!(package == "ClickClust"))
+```{r function-commits}
 
-# read url of selected trending packages
-AzureStor <- GET("https://api.github.com/repos/cloudyr/AzureStor/commits?per_page=1")
-AzureRMR  <- GET("https://api.github.com/repos/Azure/AzureRMR/commits?per_page=1")
-clickstream  <- GET("https://api.github.com/repos/cran/clickstream/commits?per_page=1")
-gRc  <- GET("https://api.github.com/repos/cran/gRc/commits?per_page=1")
-fddm  <- GET("https://api.github.com/repos/rtdists/fddm/commits?per_page=1")
-js  <- GET("https://api.github.com/repos/jeroen/js/commits?per_page=1")
-spatstat.sparse  <- GET("https://api.github.com/repos/spatstat/spatstat.sparse/commits?per_page=1")
-spatstat.core  <- GET("https://api.github.com/repos/spatstat/spatstat.core/commits?per_page=1")
+# function used to extract commits on master branch on Github
+get_commits <- function(username,pkg){
 
-spatstat.linnet  <- GET("https://api.github.com/repos/baddstats/spatstat.linnet/commits?per_page=1")
-webfakes  <- GET("https://api.github.com/repos/r-lib/webfakes/commits?per_page=1")
-tree.interpreter  <-GET("https://api.github.com/repos/nalzok/tree.interpreter/commits?per_page=1")
-geospark  <- GET("https://api.github.com/repos/harryprince/geospark/commits?per_page=1")
-DMwR2  <-  GET("https://api.github.com/repos/ltorgo/DMwR2/commits?per_page=1")
-botor  <-  GET("https://api.github.com/repos/daroczig/botor/commits?per_page=1")
-sunburstR  <-  GET("https://api.github.com/repos/timelyportfolio/sunburstR/commits?per_page=1")
-
+pkg_url <- GET(glue::glue("https://api.github.com/repos/{username}/{pkg}/commits?per_page=1"))
 
 # function used to extract commits from github page
-get_commits <- function(a) {
+commits <-  function(pkg_url) {
   
-headers(a)$link
+headers(pkg_url)$link
 
-c <- str_split(headers(a)$link, ",") %>%
+c <- str_split(headers(pkg_url)$link, ",") %>%
   unlist()
 
 
@@ -764,35 +740,84 @@ d <- c[str_detect(c,'rel=\"last\"')]
 
 f <- str_sub(d, str_locate(d, '&page=')[2]+1, str_locate(d, '>')[1]-1)
 
-return(f)
-  
+  return(f)
+}
+  commits(pkg_url)
+ 
 }
 
-commits <- c(get_commits(fddm),get_commits(gRc),get_commits(webfakes),get_commits(tree.interpreter),get_commits(geospark),get_commits(AzureStor),get_commits(spatstat.core),get_commits(AzureRMR),get_commits(spatstat.linnet),get_commits(clickstream),get_commits(js),get_commits(spatstat.sparse),get_commits(DMwR2),get_commits(botor),get_commits(sunburstR))
+```
 
 
-  
+
+```{r  trending-commits1}
+# exclude the package that only have read-only mirror of the CRAN github repo, and the remaining are 30
+pkg_trending_filter <- pkg_trending_46 %>%
+  filter(!(package == "proxy")) %>%
+  filter(!(package == "uplift")) %>%
+  filter(!(package == "spatstat.geom")) %>%
+  filter(!(package == "ClickClust")) %>%
+  filter(!(package == "gRc")) %>%
+  filter(!(package == "anesrake")) %>%
+  filter(!(package == "svd")) %>%
+  filter(!(package == "textutils")) %>%
+  filter(!(package == "rgl")) %>%
+  filter(!(package == "tseries")) %>%
+  filter(!(package == "tsDyn")) %>%
+  filter(!(package == "tseriesChaos")) %>%
+  filter(!(package == "penalized")) %>%
+  filter(!(package == "mapdata")) %>%
+  filter(!(package == "plot3D")) %>%
+  filter(!(package == "ic.infer"))
+
+
+commits <- c(get_commits("rtdists","fddm"),get_commits("r-lib","webfakes"),get_commits("nalzok","tree.interpreter"),get_commits("harryprince","geospark"),get_commits("cloudyr","AzureStor"),get_commits("spatstat","spatstat.core"),get_commits("Azure","AzureRMR"),get_commits("baddstats","spatstat.linnet"),get_commits("cran","clickstream"),get_commits("jeroen","js"),get_commits("spatstat","spatstat.sparse"),get_commits("ltorgo","DMwR2"),get_commits("daroczig","botor"),get_commits("timelyportfolio","sunburstR"),get_commits("jacob-long","panelr"),get_commits("markmfredrickson","RItools"),get_commits("rlib","textshaping"),get_commits("rlib","ragg"),get_commits("DyfanJones","RAthena"),get_commits("jeroen","V8"),get_commits("timelyportfolio","d3r"),get_commits("daroczig","logger"),get_commits("dreamRs","fresh"),get_commits("nir0s","distro"),get_commits("h2oai","rsparkling"),get_commits("christophergandrud","DataCombine"),get_commits("quanteda","quanteda.textmodels"),get_commits("rstudio","bslib"),get_commits("rstudio","jquerylib"),get_commits("mclements","rstpm2"))
+
+get_commits("markmfredrickson","RItools")
+get_commits("rlib","textshaping")
+get_commits("rlib","ragg")
+get_commits("DyfanJones","RAthena")
+get_commits("jeroen","V8")
+get_commits("timelyportfolio","d3r")
+get_commits("daroczig","logger")
+get_commits("dreamRs","fresh")
+get_commits("nir0s","distro")
+get_commits("h2oai","rsparkling")
+get_commits("christophergandrud","DataCombine")
+get_commits("quanteda","quanteda.textmodels")
+get_commits("rstudio","bslib")
+get_commits("rstudio","jquerylib")
+get_commits("mclements","rstpm2")
+
+
 pkg_trending_commits <- cbind(pkg_trending_filter,commits)
+
+date1 <- "2019-10-01"
+date2 <- "2020-04-01"
+
+trending_downloads <- get_total_downloads( pkg_trending_filter$package) %>%
+              cbind(commits)
+
 
 ```
 
 ```{r commits-tbl}
-pkg_trending_commits %>%
-  kable(caption = "15 Trending package with commits on Github") %>%
+trending_downloads %>%
+  kable(caption = "Top 15 scored trending packages with commits on Github and last half year's downloads") %>%
   kable_styling(bootstrap_options = c("hover", "striped")) 
 ```
 
 ```{r commits-pattern, fig.align = 'center', fig.cap= "The package with most updates is fddm while the most trending one is fddm."}
-pkg_trending_commits %>%
-  mutate(score = as.numeric(score)) %>%
+trending_downloads %>%
+  mutate(count = as.numeric(count)) %>%
   mutate(commits = as.numeric(commits)) %>%
-  ggplot(aes(x = commits, y = score)) +
+  ggplot(aes(x = commits, y = count)) +
   geom_smooth(se = F) +
-  labs( y = 'Score',
+  labs( y = 'Total download count',
           x = 'The number of commits',
-    title = "Commits counts against the package score",
-    subtitle = "for trending packages") +
-    annotate("text",y= 1300,x= 120,label="'fddm' with the highest score has 319 commits",color="red") +
+    title = "Commits counts against download counts",
+    subtitle = "of top 50 trending packages for last half year") +
+    annotate("text",y= 28000,x= 150,label="'fddm' with the most commits has 0 downloads for last half year",color="red") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
