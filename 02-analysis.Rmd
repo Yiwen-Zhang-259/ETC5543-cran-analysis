@@ -843,8 +843,10 @@ pkg_trending_updates <- get_arcvupdate_date(packages) %>%
 
 update_counts <- update_count(packages) 
 
+# get total downloads for each package 
 total_downloads <- get_total_downloads(update_counts$package)
 
+# join data
 update_counts <- update_counts %>%
   as.data.frame() %>%
   left_join(total_downloads,by = "package")
@@ -881,27 +883,39 @@ pkg_trending_updates %>%
 ```
 
 
-Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage of trending packages whose updates are less than average is `r pct_trending_updates[2][1]`, which means more than half of the top 15 trending packages do not tend to update that frequently. This also explains why they are trending packages, because when the number of updates is too large, the score of packages will decrease.
+Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage of trending packages whose updates are less than average is `r pct_trending_updates[2][1]`, which means much more than half of the 100 trending packages do not tend to update very frequently. 
 
 
-```{r  pct-lowupdates}
+```{r  function-lowupdates}
 # compute the percentage of top 15 trending packages lying in the low-updated range
 
-avg_updates <- mean(as.numeric(pkg_trending_updates$updates))
+compute_pct_lowupdated <- function(packages){
+  
+avg_updates <- mean(as.numeric(get_updates_downloads(packages)$`number of updates`))
 
-pkg_trending_total <- 15
+pkg_trending_total <- length(packages)
 
-pct_trending_updates <- pkg_trending_updates %>%
-  mutate(updates = as.numeric(updates))  %>%
-  filter(updates < avg_updates) %>%
+pct_trending_updates <- get_updates_downloads(packages) %>%
+  mutate(`number of updates` = as.numeric(`number of updates`))  %>%
+  filter(`number of updates` < avg_updates) %>%
   summarise(`number of packages with low updates` = length(package)) %>%
   mutate(`percentage of packages with low updates` = (`number of packages with low updates`/pkg_trending_total)*100)
 
 pct_trending_updates%>%
   kable(caption = "Percentage of trending packages whose updates are less than average") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
+
+return(pct_trending_updates)
+
+}
+
 ```
 
+```{r pct-lowupdates}
+# get the percentage of packages whose update counts is under the average
+compute_pct_lowupdated(pkg_trending$package) 
+  
+```
 
 It can be seen from Figure \@ref(fig:latestpublish) that most top 15 trending packages' latest publish date is after 2021, which indicates that popular packages tend to update by time to keep its activity.
 
