@@ -439,7 +439,7 @@ total_downloads <- map(packages_vector, function(pkg){
 
 downloads <- unlist(total_downloads) %>% 
   enframe("package", "count") %>% 
-  mutate(count = as.numeric(count),
+  mutate(count = suppressWarnings(as.numeric(count)),
          # need to get rid of the numbers appended to pkg names
          package = str_extract(package, paste0(packages_vector, collapse="|")))%>%
          na.omit()
@@ -711,12 +711,35 @@ Table \@ref(tab:pct-lowupdates) shows the top 15 trending packages these days. I
 
 #write_csv(pkg_trending,"data/pkg_trending.csv")
 
-# read top 20 trending packages
+# read top 49 trending packages
 pkg_trending <- read_csv("data/pkg_trending.csv") 
 
-pkg_trending_46 <- pkg_trending %>%
-  head(46)
+pkg_trending_49 <- pkg_trending %>%
+  head(49)
  
+
+# exclude the package that only have read-only mirror of the CRAN github repo, and the remaining are 30
+pkg_trending_filter <- pkg_trending_49 %>%
+  filter(!(package == "proxy")) %>%
+  filter(!(package == "uplift")) %>%
+  filter(!(package == "spatstat.geom")) %>%
+  filter(!(package == "ClickClust")) %>%
+  filter(!(package == "gRc")) %>%
+  filter(!(package == "anesrake")) %>%
+  filter(!(package == "svd")) %>%
+  filter(!(package == "textutils")) %>%
+  filter(!(package == "rgl")) %>%
+  filter(!(package == "tseries")) %>%
+  filter(!(package == "tsDyn")) %>%
+  filter(!(package == "tseriesChaos")) %>%
+  filter(!(package == "penalized")) %>%
+  filter(!(package == "mapdata")) %>%
+  filter(!(package == "plot3D")) %>%
+  filter(!(package == "ic.infer")) %>%
+  filter(!(package == "misc3d")) %>%
+  filter(!(package == "textshaping")) %>%
+  filter(!(package == "ragg"))
+
 ```
 
 ```{r function-commits}
@@ -751,63 +774,33 @@ f <- str_sub(d, str_locate(d, '&page=')[2]+1, str_locate(d, '>')[1]-1)
 
 
 ```{r  trending-commits1}
-# exclude the package that only have read-only mirror of the CRAN github repo, and the remaining are 30
-pkg_trending_filter <- pkg_trending_46 %>%
-  filter(!(package == "proxy")) %>%
-  filter(!(package == "uplift")) %>%
-  filter(!(package == "spatstat.geom")) %>%
-  filter(!(package == "ClickClust")) %>%
-  filter(!(package == "gRc")) %>%
-  filter(!(package == "anesrake")) %>%
-  filter(!(package == "svd")) %>%
-  filter(!(package == "textutils")) %>%
-  filter(!(package == "rgl")) %>%
-  filter(!(package == "tseries")) %>%
-  filter(!(package == "tsDyn")) %>%
-  filter(!(package == "tseriesChaos")) %>%
-  filter(!(package == "penalized")) %>%
-  filter(!(package == "mapdata")) %>%
-  filter(!(package == "plot3D")) %>%
-  filter(!(package == "ic.infer"))
+
+commits <- c(get_commits("rtdists","fddm"),get_commits("r-lib","webfakes"),get_commits("nalzok","tree.interpreter"),get_commits("harryprince","geospark"),get_commits("cloudyr","AzureStor"),get_commits("spatstat","spatstat.core"),get_commits("Azure","AzureRMR"),get_commits("baddstats","spatstat.linnet"),get_commits("cran","clickstream"),get_commits("jeroen","js"),get_commits("spatstat","spatstat.sparse"),get_commits("ltorgo","DMwR2"),get_commits("daroczig","botor"),get_commits("timelyportfolio","sunburstR"),get_commits("jacob-long","panelr"),get_commits("markmfredrickson","RItools"),get_commits("DyfanJones","RAthena"),get_commits("jeroen","V8"),get_commits("timelyportfolio","d3r"),get_commits("daroczig","logger"),get_commits("dreamRs","fresh"),get_commits("nir0s","distro"),get_commits("h2oai","rsparkling"),get_commits("christophergandrud","DataCombine"),get_commits("quanteda","quanteda.textmodels"),get_commits("rstudio","bslib"),get_commits("rstudio","jquerylib"),get_commits("mclements","rstpm2"),get_commits("KlausVigo","phangorn"),get_commits("rstudio","sass"))
 
 
-commits <- c(get_commits("rtdists","fddm"),get_commits("r-lib","webfakes"),get_commits("nalzok","tree.interpreter"),get_commits("harryprince","geospark"),get_commits("cloudyr","AzureStor"),get_commits("spatstat","spatstat.core"),get_commits("Azure","AzureRMR"),get_commits("baddstats","spatstat.linnet"),get_commits("cran","clickstream"),get_commits("jeroen","js"),get_commits("spatstat","spatstat.sparse"),get_commits("ltorgo","DMwR2"),get_commits("daroczig","botor"),get_commits("timelyportfolio","sunburstR"),get_commits("jacob-long","panelr"),get_commits("markmfredrickson","RItools"),get_commits("rlib","textshaping"),get_commits("rlib","ragg"),get_commits("DyfanJones","RAthena"),get_commits("jeroen","V8"),get_commits("timelyportfolio","d3r"),get_commits("daroczig","logger"),get_commits("dreamRs","fresh"),get_commits("nir0s","distro"),get_commits("h2oai","rsparkling"),get_commits("christophergandrud","DataCombine"),get_commits("quanteda","quanteda.textmodels"),get_commits("rstudio","bslib"),get_commits("rstudio","jquerylib"),get_commits("mclements","rstpm2"))
 
-get_commits("markmfredrickson","RItools")
-get_commits("rlib","textshaping")
-get_commits("rlib","ragg")
-get_commits("DyfanJones","RAthena")
-get_commits("jeroen","V8")
-get_commits("timelyportfolio","d3r")
-get_commits("daroczig","logger")
-get_commits("dreamRs","fresh")
-get_commits("nir0s","distro")
-get_commits("h2oai","rsparkling")
-get_commits("christophergandrud","DataCombine")
-get_commits("quanteda","quanteda.textmodels")
-get_commits("rstudio","bslib")
-get_commits("rstudio","jquerylib")
-get_commits("mclements","rstpm2")
+pkg_trending_commits <- cbind(pkg_trending_filter,commits) %>%
+  select(-score)
 
-
-pkg_trending_commits <- cbind(pkg_trending_filter,commits)
-
+# set the time range again (last half year)
 date1 <- "2019-10-01"
 date2 <- "2020-04-01"
 
-trending_downloads <- get_total_downloads( pkg_trending_filter$package) %>%
-              cbind(commits)
-
+# get last half year's total download for each package
+trending_downloads <- get_total_downloads(pkg_trending_filter$package) 
+  
+ #combine the trending commits and trending downloads 
+trending_downloads <- left_join(trending_downloads,pkg_trending_commits, by = "package")      
 
 ```
 
 ```{r commits-tbl}
 trending_downloads %>%
-  kable(caption = "Top 15 scored trending packages with commits on Github and last half year's downloads") %>%
+  kable(caption = "Top 30 scored trending packages with commits on Github and last half year's downloads") %>%
   kable_styling(bootstrap_options = c("hover", "striped")) 
 ```
 
-```{r commits-pattern, fig.align = 'center', fig.cap= "The package with most updates is fddm while the most trending one is fddm."}
+```{r commits-pattern, fig.align = 'center', fig.cap= "The package downloads of trending packages is increasing with the number of commits."}
 trending_downloads %>%
   mutate(count = as.numeric(count)) %>%
   mutate(commits = as.numeric(commits)) %>%
@@ -817,7 +810,7 @@ trending_downloads %>%
           x = 'The number of commits',
     title = "Commits counts against download counts",
     subtitle = "of top 50 trending packages for last half year") +
-    annotate("text",y= 28000,x= 150,label="'fddm' with the most commits has 0 downloads for last half year",color="red") +
+    annotate("text",y= 70000,x= 500,label="In general, more commits, more downloads.",color="red") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -833,13 +826,32 @@ trending_downloads %>%
 
 
 ```{r top15-updates}
-pkg_trending_15 <- pkg_trending %>%
-  head(15)
 
-# find the updates of top 15 trending packages manually
-updates <- c("5","13","2","2","2","2","28","2","17","3","16","3","15","5","5") 
+get_updates_downloads <- function(packages){
+  
+update_count <- function(packages){
 
-pkg_trending_updates <- cbind(pkg_trending_15,updates)
+  # get all the update dates and compute the number of updates of each package  
+pkg_trending_updates <- get_arcvupdate_date(pkg_trending_filter$package) %>%
+  group_by(package) %>%
+  count(package) %>%
+  rename(`number of updates` = n)
+
+}
+
+update_counts <- update_count(packages)
+total_downloads <- get_total_downloads(packages)
+
+update_counts <- update_counts %>%
+  as.data.frame() %>%
+  cbind(total_downloads)
+
+return(update_counts)
+
+}
+
+get_updates_downloads(pkg_trending_filter$package)
+
 ```
 
 Figure \@ref(fig:trend-updates) shows that the package with most updates is 'proxy" while the most trending one is 'fddm'. And the score of top 3 updated packages are all not very high among this group. Another interesting thing is that the updates of package `webfakes`, `tree.interpreter`, `geospark`, `uplift` and `spatstat.geom` are 2, but their scores can vary from `r pkg_trending_updates$score[15]` to `r pkg_trending_updates$score[11]`.
