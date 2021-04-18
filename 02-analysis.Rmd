@@ -809,7 +809,7 @@ trending_downloads %>%
   labs( y = 'Total download count',
           x = 'The number of commits',
     title = "Commits counts against download counts",
-    subtitle = "of top 50 trending packages for last half year") +
+    subtitle = "of top 30 trending packages for last half year") +
     annotate("text",y= 70000,x= 500,label="In general, more commits, more downloads.",color="red") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
@@ -822,65 +822,64 @@ trending_downloads %>%
 ```
 
 
-## compare package score with the number of updates for top 15 trending package
+## compare package score with the number of updates for top 30 trending package
 
 
-```{r top15-updates}
+```{r function-updates-downloads}
 
+# function used to get total updates and total downloads for a vector of packages
 get_updates_downloads <- function(packages){
   
 update_count <- function(packages){
 
+  
   # get all the update dates and compute the number of updates of each package  
-pkg_trending_updates <- get_arcvupdate_date(pkg_trending_filter$package) %>%
+pkg_trending_updates <- get_arcvupdate_date(packages) %>%
   group_by(package) %>%
   count(package) %>%
   rename(`number of updates` = n)
 
 }
 
-update_counts <- update_count(packages)
-total_downloads <- get_total_downloads(packages)
+update_counts <- update_count(packages) 
+
+total_downloads <- get_total_downloads(update_counts$package)
 
 update_counts <- update_counts %>%
   as.data.frame() %>%
-  cbind(total_downloads)
+  left_join(total_downloads,by = "package")
 
 return(update_counts)
 
 }
 
-get_updates_downloads(pkg_trending_filter$package)
 
 ```
 
-Figure \@ref(fig:trend-updates) shows that the package with most updates is 'proxy" while the most trending one is 'fddm'. And the score of top 3 updated packages are all not very high among this group. Another interesting thing is that the updates of package `webfakes`, `tree.interpreter`, `geospark`, `uplift` and `spatstat.geom` are 2, but their scores can vary from `r pkg_trending_updates$score[15]` to `r pkg_trending_updates$score[11]`.
+Figure \@ref(fig:trend-updates) shows that the number of downloads increases with the increase of update times.
 
-```{r  trend-updates, fig.align = 'center', fig.cap=" The package with most updates is proxy while the most trending one is fddm."}
-pkg_trending_updates <- pkg_trending_updates %>%
-  mutate(score = as.numeric(score)) %>%
-  mutate(updates = as.numeric(updates)) %>%
-  arrange(desc(updates))
+```{r  trend-updates, fig.align = 'center', fig.cap=" The number of downloads increases with the increase of update times."}
+pkg_trending_updates <- get_updates_downloads(pkg_trending$package) %>%
+  mutate(score = as.numeric(count)) %>%
+  mutate(updates = as.numeric(`number of updates`)) %>%
+  arrange(desc(count))
 
 pkg_trending_updates %>%
-  ggplot(aes(x = reorder(score, updates), y = updates)) +
-  geom_bar(position = "dodge",stat="identity",fill = '#619CFF') +
-  geom_text(aes(label= package) , position=position_dodge(width=1),hjust = 0.000001) +
-    labs( y = 'The number of updates',
-          x = 'Score',
-    title = "Package score against the update count",
-    subtitle = "for trending packages") +
+  ggplot(aes(x = `number of updates`, y = count)) +
+  geom_smooth(se = F) +
+    labs( x = 'The number of updates',
+          y = 'Total download count',
+    title = "Updates counts against download counts",
+    subtitle = "for 100 trending packages") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank()) +
   theme(
   axis.text=element_text(size=10),
   axis.title=element_text(size=12,face="bold"),
   plot.title = element_text(h = 0.5),
-  plot.subtitle = element_text(h = 0.5)) +
-  coord_flip()
+  plot.subtitle = element_text(h = 0.5))
 ```
 
-Furthermore, by looking into Figure \@ref(fig:updates-pattern), it can be found that the score of the package increases with the increase of the number of updates, and then decreases.
 
 Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage of trending packages whose updates are less than average is `r pct_trending_updates[2][1]`, which means more than half of the top 15 trending packages do not tend to update that frequently. This also explains why they are trending packages, because when the number of updates is too large, the score of packages will decrease.
 
