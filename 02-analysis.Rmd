@@ -28,6 +28,7 @@ library(lubridate)
 library(dplyr)
 library(rvest)
 library(glue)
+library(plyr)
 ```
 
 ## Daily top 15 downloaded packages 
@@ -103,6 +104,7 @@ Peter Glerup Ericson|Diomidis Spinellis|Paul Menzel|Lincoln Mullen|Colin Gillesp
 
 
 ```{r filter-function}
+# function used to do filtering
 filter_list <- function(pkg){
   
   pkg <- pkg %>%
@@ -129,197 +131,116 @@ cran2013_10_01_new <- filter_list(cran2013_10_01)
 ```
 
 
-```{r cran20131001}
+```{r crantop15-1319}
+# find the top 30 downloaded packages on 10.1 from 2013 to 2019
 cran2013_1001 <- cran2013_10_01_new %>%
   drop_na() %>%
   count(package) %>%
   arrange(desc(n)) %>%
-  head(15) 
+  head(15) %>%
+  select(package)
   
-cran2013_1001$package <- as.vector(cran2013_1001$package) #get rid of factors
+#cran2013_1001$package <- as.vector(cran2013_1001$package) #get rid of factors
 
-cran2013_1001$package = factor(cran2013_1001$package,cran2013_1001$package)
+#cran2013_1001$package = factor(cran2013_1001$package,cran2013_1001$package)
 
- p2 <- ggplot(data = cran2013_1001) +
-  geom_bar(stat="identity", aes(x = package, y = n)) +
-  labs(
-       title = "Top 15 downloaded packages on 2013-10-01") +
-  theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  axis.text.x = element_text(angle = 55, hjust = 1))
-```
-
-```{r cran20141001}
 cran2014_1001 <- cran2014_10_01_new %>%
   drop_na() %>%
   count(package) %>%
   arrange(desc(n)) %>%
-  head(15) 
-  
-cran2014_1001$package <- as.vector(cran2014_1001$package) #get rid of factors
+  head(15) %>%
+  select(package)
 
-cran2014_1001$package = factor(cran2014_1001$package,cran2014_1001$package)
-
-p3 <- ggplot(data = cran2014_1001) +
-  geom_bar(stat="identity", aes(x = package, y = n)) +
-  labs(
-       title = "Top 15 downloaded packages on 2014-10-01") +
-  theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  axis.text.x = element_text(angle = 55, hjust = 1))
-```
-
-```{r cran20151001}
 cran2015_1001 <- cran2015_10_01_new %>%
   drop_na() %>%
   count(package) %>%
   arrange(desc(n)) %>%
-  head(15) 
-  
-cran2015_1001$package <- as.vector(cran2015_1001$package) #get rid of factors
+  head(15) %>%
+  select(package)
 
-cran2015_1001$package = factor(cran2015_1001$package,cran2015_1001$package)
-
-p4 <- ggplot(data = cran2015_1001) +
-  geom_bar(stat="identity", aes(x = package, y = n)) +
-  labs(
-       title = "Top 15 downloaded packages on 2015-10-01") +
-  theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  axis.text.x = element_text(angle = 55, hjust = 1))
-```
-
-```{r cran20161001}
 cran2016_1001 <- cran2016_10_01_new %>%
   drop_na() %>%
   count(package) %>%
   arrange(desc(n)) %>%
-  head(15) 
-  
-cran2016_1001$package <- as.vector(cran2016_1001$package) #get rid of factors
+  head(15) %>%
+  select(package)
 
-cran2016_1001$package = factor(cran2016_1001$package,cran2016_1001$package)
-
-p5 <- ggplot(data = cran2016_1001) +
-  geom_bar(stat="identity", aes(x = package, y = n)) +
-  labs(
-       title = "Top 15 downloaded packages on 2016-10-01") +
-  theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  axis.text.x = element_text(angle = 55, hjust = 1))
-```
-
-```{r cran20171001}
 cran2017_1001 <- cran2017_10_01_new %>%
   drop_na() %>%
   count(package) %>%
   arrange(desc(n)) %>%
-  head(15) 
-  
-cran2017_1001$package <- as.vector(cran2017_1001$package) #get rid of factors
+  head(15) %>%
+  select(package)
 
-cran2017_1001$package = factor(cran2017_1001$package,cran2017_1001$package)
-
-p6 <- ggplot(data = cran2017_1001) +
-  geom_bar(stat="identity", aes(x = package, y = n)) +
-  labs(
-       title = "Top 15 downloaded packages on 2017-10-01") +
-  theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  axis.text.x = element_text(angle = 55, hjust = 1))
-```
-
-```{r cran20181001}
 cran2018_1001 <- cran2018_10_01_new %>%
   drop_na() %>%
   count(package) %>%
   arrange(desc(n)) %>%
-  head(15) 
-  
-cran2018_1001$package <- as.vector(cran2018_1001$package) #get rid of factors
+  head(15) %>%
+  select(package)
 
-cran2018_1001$package = factor(cran2018_1001$package,cran2018_1001$package)
-
-p7 <- ggplot(data = cran2018_1001) +
-  geom_bar(stat="identity", aes(x = package, y = n)) +
-  labs(
-       title = "Top 15 downloaded packages on 2018-10-01") +
-  theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  axis.text.x = element_text(angle = 55, hjust = 1))
-```
-
-```{r cran20191001}
 cran2019_1001 <- cran2019_10_01_new %>%
   drop_na() %>%
   count(package) %>%
   arrange(desc(n)) %>%
-  head(15) 
-  
-cran2019_1001$package <- as.vector(cran2019_1001$package) #get rid of factors
+  head(15) %>%
+  select(package)
 
-cran2019_1001$package = factor(cran2019_1001$package,cran2019_1001$package)
-
-p8 <- ggplot(data = cran2019_1001) +
-  geom_bar(stat="identity", aes(x = package, y = n)) +
-  labs(
-       title = "Top 15 downloaded packages on 2019-10-01") +
-  theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  axis.text.x = element_text(angle = 55, hjust = 1))
 ```
 
 
-```{r compareby2year}
-# display the daily top 15 popular packages on 10-01 of each year from 2012 to 2019
-#g1 <- ggplotGrob(p1)
-g2 <- ggplotGrob(p2)
-#g12 <- rbind(g1, g2, size = "first")
-#g12$widths <- unit.pmax(g1$widths, g2$widths)
-grid.newpage()
-grid.draw(g2)
+```{r antijoin-1319}
+# find out the new top 15 packages added each year
+a <- anti_join(cran2014_1001,cran2013_1001) 
+b <- anti_join(cran2015_1001,cran2014_1001) 
+c <- anti_join(cran2016_1001,cran2015_1001) 
+d <- anti_join(cran2017_1001,cran2016_1001) 
+e <- anti_join(cran2018_1001,cran2017_1001) 
+f <- anti_join(cran2019_1001,cran2018_1001) 
 
-g3 <- ggplotGrob(p3)
-g4 <- ggplotGrob(p4)
-g34 <- rbind(g3, g4, size = "first")
-g34$widths <- unit.pmax(g3$widths, g4$widths)
-grid.newpage()
-grid.draw(g34)
+# function used to combine data with different length 
+cbind_dif <- function(x = list()){
+    # Find max length
+    max_length <- max(unlist(lapply(x, length)))
 
-g5 <- ggplotGrob(p5)
-g6 <- ggplotGrob(p6)
-g56 <- rbind(g5, g6, size = "first")
-g56$widths <- unit.pmax(g5$widths, g6$widths)
-grid.newpage()
-grid.draw(g56)
+    # Set length of each vector as
+    res <- lapply(x, function(x){
+        length(x) <- max_length
+        return(x)
+    })
 
-g7 <- ggplotGrob(p7)
-g8 <- ggplotGrob(p8)
-g78 <- rbind(g7, g8, size = "first")
-g78$widths <- unit.pmax(g7$widths, g8$widths)
-grid.newpage()
-grid.draw(g78)
+    return(as.data.frame(res))
+}
+
+pkg_change <- cbind_dif(list(package14_13 = a$package, package15_14 = b$package, package16_15 = c$package, package17_16 = d$package, package18_17 = e$package, package19_18 = f$package))
+
+pkg_change[is.na(pkg_change)] = "-"
+```
+
+```{r semijoin-1319}
+a1 <- semi_join(cran2014_1001,cran2013_1001) 
+b1 <- semi_join(cran2015_1001,cran2014_1001) 
+c1 <- semi_join(cran2016_1001,cran2015_1001) 
+d1 <- semi_join(cran2017_1001,cran2016_1001) 
+e1 <- semi_join(cran2018_1001,cran2017_1001) 
+f1 <- semi_join(cran2019_1001,cran2018_1001) 
+
+pkg_remain <- cbind_dif(list(package14_13 = a1$package, package15_14 = b1$package, package16_15 = c1$package, package17_16 = d1$package, package18_17 = e1$package, package19_18 = f1$package))
+
+pkg_remain[is.na(pkg_remain)] = "-"
+```
+
+```{r changed-top15pkg}
+pkg_change %>%
+  kable(caption = "Changed top 15 downloaded packages from 2013 to 2019") %>%
+  kable_styling(bootstrap_options = c("hover", "striped")) 
+
+```
+
+```{r  unchanged-top15pkg}
+pkg_remain %>%
+  kable(caption = "Unchanged top 15 downloaded packages from 2013 to 2019") %>%
+  kable_styling(bootstrap_options = c("hover", "striped")) 
 ```
 
 ## Compare last half year's downloads with the release date
@@ -890,7 +811,7 @@ Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage o
 
 
 ```{r  function-lowupdates}
-# compute the percentage of top 15 trending packages lying in the low-updated range
+# function used to compute packages lying in the low-updated range
 
 compute_pct_lowupdated <- function(packages){
   
@@ -920,55 +841,55 @@ compute_pct_lowupdated(pkg_trending$package)
   
 ```
 
-It can be seen from Figure \@ref(fig:latestpublish) that most top 15 trending packages' latest publish date is after 2021, which indicates that popular packages tend to update by time to keep its activity.
+It can be seen from Figure \@ref(fig:latestpublish) that most top 15 trending packages' latest publish date is after 2021, which indicates that popular packages tend to update by time to keep its activity. And this can also be explained from another aspect, that is, the a trending package refers to a package with a high download volume in a short period of recent time. We know that when a package is updated, its downloads will increase, so the latest update dates of trending packages are almost all the recent dates.
 
 ```{r function-latestupdate}
 # function used to get the total downloads of a period of time and the latest release date
 downloads_latest_release <- function(packages) {
+
+# function used to get the latest release date from CRAN
+latest_updates <- function(packages){
   
-  # function used to get the earliest release date from CRAN
-  latest_updates <- function(packages){
-    
-    latest_updates <- get_arcvupdate_date(packages) %>%
-      group_by(package) %>%
-      arrange(update, .by_group = TRUE) %>% #arrange within group
-       top_n(1, update)  # to get the latest release date
-    
-  }
+  latest_updates <- get_arcvupdate_date(packages) %>%
+  group_by(package) %>%
+  arrange(update, .by_group = TRUE) %>% #arrange within group
+  top_n(1, update) # to get the latest release date, top_n() is used to select the highest value of a column within each group
   
-  latest_updates <- latest_updates(packages)
+}
+
+latest_updates <- latest_updates(packages)
+
+packages_vector <- latest_updates$package
+
+
+# function used to get the total downloads of a period of time (date1 to date2) for several packages at the same time
+get_total_downloads <- function(packages_vector){
   
-  latest_vector <- latest_updates$package
+total_downloads <- map(packages_vector, function(pkg){
   
-  # function used to get the total downloads of a period of time (date1 to date2) for several pacckages at the same time
-  get_total_downloads <- function(packages_vector){
-    
-    total_downloads <- map(packages_vector, function(pkg){
-      
-      pkg <- cran_downloads(package = paste0(pkg), from = date1, to = date2) %>%
-        summarise(package = package, count = sum(count)) %>%
-        head(1)
-      
-    })
-    
-    names(total_downloads) <- packages_vector
-    
-    downloads <- unlist(total_downloads) %>% 
-      enframe("package", "count") %>% 
-      mutate(count = as.numeric(count),
-             # need to get rid of the numbers appended to pkg names
-             package = str_extract(package, paste0(packages_vector, collapse="|")))%>%
-      na.omit()
-  }
+  pkg <- cran_downloads(package = paste0(pkg), from = date1, to = date2) %>%
+  summarise(package = package, count = sum(count)) %>%
+  head(1)
   
-  downloads <- get_total_downloads(packages_vector)
+})
+
+ names(total_downloads) <- packages_vector
+
+downloads <- unlist(total_downloads) %>% 
+  enframe("package", "count") %>% 
+  mutate(count = suppressWarnings(as.numeric(count)),
+         # need to get rid of the numbers appended to pkg names
+         package = str_extract(package, paste0(packages_vector, collapse="|")))%>%
+         na.omit()
+}
+
+downloads <- get_total_downloads(packages_vector)
   
-  downloads_release_latest <- downloads %>%
-    as.data.frame() %>%
-    left_join(latest_updates,by = "package")
-  
-  return(downloads_release_latest)
-  
+downloads_release_latest <- downloads %>%
+  as.data.frame() %>%
+  left_join(latest_updates,by = "package")
+
+return(downloads_release_latest)
 }
 ```
 
@@ -978,17 +899,21 @@ downloads_latest_release <- function(packages) {
 date1 <- "2019-10-01"
 date2 <- "2020-04-01"
 
+pkg_trending1 <- pkg_trending %>%
+  filter(!(package == "distro")) %>%
+  filter(!(package == "decor")) %>%
+  filter(!(package == "SeuratObject")) %>%
+  filter(!(package == "bslib"))
 
-pkg_trending_latest_publish <- downloads_latest_release(pkg_trending$package)
+pkg_trending_latest_publish <- unique(downloads_latest_release(pkg_trending1$package))
 
 pkg_trending_latest_publish %>%
-  mutate(latest_publish = ymd(latest_publish)) %>%
-  ggplot(aes(latest_publish)) +
+  ggplot(aes(update)) +
   geom_density() +
   labs( 
         x = 'Latest publish date',
     title = "Distribution of latest publish date",
-    subtitle = "for top 15 trending packages") +
+    subtitle = "for trending packages") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -998,31 +923,29 @@ pkg_trending_latest_publish %>%
   plot.subtitle = element_text(h = 0.5))
 ```
 
-```{r updates-pattern, fig.align = 'center', fig.cap=" The package with most updates is proxy while the most trending one is fddm."}
-pkg_trending_updates %>%
-  mutate(score = as.numeric(score)) %>%
-  mutate(updates = as.numeric(updates)) %>%
-  ggplot(aes(x = updates, y = score)) +
-  geom_smooth(se = F) +
-  labs( y = 'Score',
-          x = 'The number of updates',
-    title = "Update counts against the package score",
-    subtitle = "for trending packages") +
-  annotate("text",y= 2200,x= 20,label="'proxy' with the highest score has 5 updates",color="red") +
-  theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  plot.title = element_text(h = 0.5),
-  plot.subtitle = element_text(h = 0.5))
-```
 
 ```{r daily-updates}
-pkg_trending_latest_publish %>%
-  ggplot(aes(x = updates_perday, y = score)) +
+
+pkg_trending_earliest_publish <- unique(downloads_earliest_release(pkg_trending_latest_publish$package))
+
+pkg_trending_daily_update <- left_join(pkg_trending_earliest_publish,pkg_trending_latest_publish,by = "package") %>%
+  select(-count.y) %>%
+  rename(count = count.x) %>%
+  mutate(release_days = as.numeric(update.y - update.x)) 
+
+pkg_trending_daily_update$release_days <- as.character(pkg_trending_daily_update$release_days)
+pkg_trending_daily_update$release_days[pkg_trending_daily_update$release_days == "0"] <- "1"
+
+pkg_trending_daily_update$release_days <- as.numeric(pkg_trending_daily_update$release_days)
+
+pkg_trending_daily_update <- pkg_trending_daily_update %>%
+left_join(get_updates_downloads(pkg_trending_daily_update$package))
+
+pkg_trending_daily_update %>%
+  mutate(update_perday = `number of updates`/release_days) %>%
+  ggplot(aes(x = update_perday, y = count)) +
   geom_smooth(se = F) +
-  labs( y = 'Score',
+  labs( y = 'Total download counts',
           x = 'The number of updates',
     title = "Daily update counts against the package score",
     subtitle = "for trending packages") +
@@ -1044,35 +967,39 @@ In conclusion, it's not that the more updates the package has, the popular it wi
 It can be seen that although the patterns of top 15 and last 15 are not the same, they all have one thing in common, that is, when the name length exceeds 8 characters, the package score will drop significantly. And when length is less than 4 characters, the score would not be ideal either.
 
 ```{r  namelength-plot}
-# also use the top 15 trending packages before 4.11
-pkg_trending_15_namelth <- pkg_trending_15 %>%
+# use the top 30 trending packages before 4.11
+pkg_trending_30 <- pkg_trending %>%
+  head(30)
+ 
+
+pkg_trending_30_namelth <- pkg_trending_30 %>%
   mutate(length_name = nchar(package)) %>%
   mutate(score = as.numeric(score)) %>%
   mutate(length_name = as.numeric(length_name)) 
 
 # to get the last 15 trending ones
-pkg_trending_tail15 <- pkg_trending %>%
-  tail(15) 
+pkg_trending_tail30 <- pkg_trending %>%
+  tail(30) 
 
-pkg_trending_tail15_namelth <- pkg_trending_tail15 %>%
+pkg_trending_tail30_namelth <- pkg_trending_tail30 %>%
   mutate(length_name = nchar(package)) %>%
   mutate(score = as.numeric(score)) %>%
   mutate(length_name = as.numeric(length_name)) 
 
 # to get the name length for all trending packages before 4.11
-  pkg_trending1 <- pkg_trending %>%
+  pkg_trending2 <- pkg_trending %>%
   mutate(length_name = nchar(package)) %>%
   mutate(score = as.numeric(score)) %>%
   mutate(length_name = as.numeric(length_name)) 
   
   
-pkg_trending_15_namelth %>%
+pkg_trending_30_namelth %>%
   ggplot(aes(x = length_name, y = score)) +
   geom_smooth(se = F) +
   labs( y = 'Score',
         x = 'The length of package names',
     title = "Name length against the package score",
-    subtitle = "for top 15 trending packages") +
+    subtitle = "for top 30 trending packages") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -1082,13 +1009,13 @@ pkg_trending_15_namelth %>%
   plot.subtitle = element_text(h = 0.5))
 
 
-pkg_trending_tail15_namelth %>%
+pkg_trending_tail30_namelth %>%
   ggplot(aes(x = length_name, y = score)) +
   geom_smooth(se = F) +
   labs( y = 'Score',
         x = 'The length of package names',
     title = "Name length against the package score",
-    subtitle = "for last 15 trending packages") +
+    subtitle = "for last 30 trending packages") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -1097,7 +1024,7 @@ pkg_trending_tail15_namelth %>%
   plot.title = element_text(h = 0.5),
   plot.subtitle = element_text(h = 0.5))
 
-pkg_trending1 %>%
+pkg_trending2 %>%
   ggplot(aes(x = length_name, y = score)) +
   geom_smooth(se = F) +
   labs( y = 'Score',
