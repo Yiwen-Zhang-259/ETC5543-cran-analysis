@@ -137,3 +137,21 @@ judge whether a package is popular according to the download amount in a short t
 6. Emi suggtested me that I can explore how the average name length changes over time.
 
 7. At last, Emi said I should select a angle of my report and display the key findings followed that.
+
+
+## Tue 20 April 2021
+
+This week, Emi, Hien, and I talked about things as followed:
+
+1. I first reported what I did last week, and the main thing I have done is re-writing my code to be reproducible as much as possible
+
+2. Emi told me to make scatterplots instead of just line plots to make the figures more interpretive.
+
+3. Hien told me to transform the axis to be logarithm.
+
+4. For the name length part, Emi said I should use the random sample of all the packages on CRAN, in this way, the output would be more representative.
+
+5. Emi suggested me to add the alphabetical name analysis 
+
+6. Emi told me to start the story writing and show my own creative ability as much as possible.
+
