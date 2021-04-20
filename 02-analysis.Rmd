@@ -28,7 +28,6 @@ library(lubridate)
 library(dplyr)
 library(rvest)
 library(glue)
-library(plyr)
 ```
 
 ## Daily top 15 downloaded packages 
@@ -70,25 +69,23 @@ load("data/cran2019_10_01.rda")
 # filter the packages maintained by R studio
 pkg_rstusio <- db %>%
   filter(grepl('RStudio', Author)) %>%
-  select(Package) %>%
-  rename(package = Package)
+  select(Package) 
 
 
 # filter the packages whose author is from R core group
 pkg_core <- db %>%
-  filter(grepl('Douglas Bates|John Chambers|Peter Dalgaard|Robert Gentleman|Kurt Hornik|Ross Ihaka|Tomas Kalibera|Michael Lawrence|Friedrich Leisch|Uwe Ligges|Thomas Lumley|Martin Maechler|Martin Morgan|Paul Murrell|Brian Ripley|Deepayan Sarkar|Duncan Temple Lang|Luke Tierney|Simon Urbanek|Martyn Plummer|', Author))
+  filter(grepl('Douglas Bates|John Chambers|Peter Dalgaard|Robert Gentleman|Kurt Hornik|Ross Ihaka|Tomas Kalibera|Michael Lawrence|Friedrich Leisch|Uwe Ligges|Thomas Lumley|Martin Maechler|Martin Morgan|Paul Murrell|Brian Ripley|Deepayan Sarkar|Duncan Temple Lang|Luke Tierney|Simon Urbanek|Martyn Plummer|', Author)) %>%
+  select(Package)
 
 pkg_secondary <- db %>%
   filter(!grepl('Guido Masarotto|Duncan Murdoch|Henrik Bengtsson|Roger Bivand|Ben Bolker|David Brahm|Vince Carey|Saikat DebRoy|Matt Dowle|Dirk Eddelbuettel|Claus Ekstrom|John Fox|Paul Gilbert|Yu Gong|Gabor Grothendieck|Frank E Harrell Jr|Peter M. Haverty|Torsten Hothorn|Robert King|Kjetil Kjernsmo|Roger Koenker|Philippe Lambert|Jan de Leeuw|Jim Lindsey|Patrick Lindsey|Catherine Loader| Gordon Maclean|Arni Magnusson|John Maindonald|David Meyer|Ei-ji Nakama|Jens Oehlschägel|Steve Oncley|Richard O’Keefe|Hubert Palme|Roger D. Peng|José C. Pinheiro|Tony Plate|Anthony Rossini| Jonathan Rougier|Petr Savicky|Günther Sawitzki|Marc Schwartz|Arun Srinivasan|Detlef Steuer|Bill Simpson|Gordon Smyth|Adrian Trapletti|Terry Therneau|Rolf Turner|Bill Venables|Gregory R. Warnes| Andreas Weingessel|Morten Welinder|James Wettenhall|Simon Wood|and Achim Zeileis', Author)) %>%
-  select(Package) %>%
-  rename(package = Package)
+  select(Package) 
 
 
 # filter the packages developed by top 20 prolific maintainers
 pkg_20maintainer <- db %>% 
   filter(stringr::str_detect(Author, 'Hadley Wickham|Yihui Xie|Dirk Eddelbuettel|Jeroen Ooms|Achim Zeileis|Scott Chamberlain|Gabor Csardi|Jeroen Ooms|ORPHANED|Thomas J. Leeper|Bob Rudis|Henrik Bengtsson|Kurt Hornik|Oliver Keyes|Martin Maechler|Richard Cotton|Robin K. S. Hankin|Simon Urbanek|Kirill Muller|Torsten Hothorn|Paul Gilbert') )%>%
-  select(Package) %>%
-  rename(package = Package)
+  select(Package) 
 
 
 # filter the packages developed by other R studio related authors
@@ -97,8 +94,7 @@ pkg_r_related <- db %>%
 Philipp A.|Fabian Mundt|Fabian Mundt|boB Rudis|Asher|Henrik Bengtsson|James Lamb|rich-rstudio|Andrie de Vries|Iñaki Ucar|Mark Brown|Hiroaki Yutani|Dean Attali|Matthias Mailänder|Bruno Tremblay|Ian|John Blischak|Chris von Csefalvay|Jeroen Ooms|
 Daniel Gromer|Kirill Müller|Jan Gleixner|Alexander Grueneberg|Darío Hereñú|Aron Atkins|harupiko|Barret Schloerke|James Arnold|Giuseppe Casalicchio|Fredric Johansson|Curtis Kephart|reudismam|Jeff Allen|Yuri Niyazov|Sean Kross|Carl A. B. Pearson|
 Peter Glerup Ericson|Diomidis Spinellis|Paul Menzel|Lincoln Mullen|Colin Gillespie|Masafumi Okada|Øystein Sørensen|Matthew Grogan|Scott Kostyshak|Marcus Kinsella|rhinopotamus|Daiki Katsuragawa|Michael Steinbaugh|Jari Karppinen|Roy Storey|Kristofer Rye|Erin|Ben Torvaney|Pol Mesalles|Sainath Adapa|Vladimir Panfilov|Christian Brueffer|Julien Barnier|') )%>%
-  select(Package) %>%
-  rename(package = Package)
+  select(Package) 
 
 ```
 
@@ -108,11 +104,11 @@ Peter Glerup Ericson|Diomidis Spinellis|Paul Menzel|Lincoln Mullen|Colin Gillesp
 filter_list <- function(pkg){
   
   pkg <- pkg %>%
-     filter(!(package %in% pkg_20maintainer$package)) %>%
-     filter(!(package %in% pkg_secondary$package)) %>%
-     filter(!(package %in% pkg_rstusio$package)) %>%
-     filter(!(package %in% pkg_core$package)) %>%
-     filter(!(package %in% pkg_r_related$package))
+     filter(!(package %in% pkg_20maintainer$Package)) %>%
+     filter(!(package %in% pkg_secondary$Package)) %>%
+     filter(!(package %in% pkg_rstusio$Package)) %>%
+     filter(!(package %in% pkg_core$Package)) %>%
+     filter(!(package %in% pkg_r_related$Package))
   
   return(pkg)
 }
@@ -135,7 +131,7 @@ cran2013_10_01_new <- filter_list(cran2013_10_01)
 # find the top 30 downloaded packages on 10.1 from 2013 to 2019
 cran2013_1001 <- cran2013_10_01_new %>%
   drop_na() %>%
-  count(package) %>%
+  dplyr::count(package) %>%
   arrange(desc(n)) %>%
   head(15) %>%
   select(package)
@@ -146,42 +142,42 @@ cran2013_1001 <- cran2013_10_01_new %>%
 
 cran2014_1001 <- cran2014_10_01_new %>%
   drop_na() %>%
-  count(package) %>%
+  dplyr::count(package) %>%
   arrange(desc(n)) %>%
   head(15) %>%
   select(package)
 
 cran2015_1001 <- cran2015_10_01_new %>%
   drop_na() %>%
-  count(package) %>%
+  dplyr::count(package) %>%
   arrange(desc(n)) %>%
   head(15) %>%
   select(package)
 
 cran2016_1001 <- cran2016_10_01_new %>%
   drop_na() %>%
-  count(package) %>%
+  dplyr::count(package) %>%
   arrange(desc(n)) %>%
   head(15) %>%
   select(package)
 
 cran2017_1001 <- cran2017_10_01_new %>%
   drop_na() %>%
-  count(package) %>%
+  dplyr::count(package) %>%
   arrange(desc(n)) %>%
   head(15) %>%
   select(package)
 
 cran2018_1001 <- cran2018_10_01_new %>%
   drop_na() %>%
-  count(package) %>%
+  dplyr::count(package) %>%
   arrange(desc(n)) %>%
   head(15) %>%
   select(package)
 
 cran2019_1001 <- cran2019_10_01_new %>%
   drop_na() %>%
-  count(package) %>%
+  dplyr::count(package) %>%
   arrange(desc(n)) %>%
   head(15) %>%
   select(package)
@@ -249,7 +245,6 @@ In our common cognition, we think that the earlier a package is released, the mo
 
 1. Packages for Time Series Analysis
 
-
 ```{r get-arcvreleasedate}
 
 # function used to get archive release dates from CRAN
@@ -300,13 +295,16 @@ topic_pkg <- lapply(topic_pkg, '[', 8) %>%
   as.data.frame() 
 
 topic_pkg <- topic_pkg %>%
-  rename(package = packagelist.name) %>%
+  dplyr::rename(package = packagelist.name) %>%
   filter_list() %>%
   filter(packagelist.core == "FALSE")%>%
   select(-packagelist.core)
   
 }
 
+
+doe_pkgs <- ctv:::.get_pkgs_from_ctv_or_repos("Econometrics", 
+                                              repos = "http://cran.rstudio.com/")[[1]]
 
 # get the packages for econometrics
 topic_file <- "Econometrics.ctv"
@@ -329,15 +327,15 @@ Bayesian <- get_pkg_taskview(topic_file)
 
 ```{r  function-earliestrelease-counts}
 
-# function used to get the total downloads of a period of time and the eariest release date
+# function used to get the total downloads of a period of time and the earliest release date
 downloads_earliest_release <- function(packages) {
 
 # function used to get the earliest release date from CRAN
 earliest_updates <- function(packages){
   
   earliest_updates <- get_arcvupdate_date(packages) %>%
-  group_by(package) %>%
-  arrange(update, .by_group = TRUE) %>% #arrange within group
+  dplyr::group_by(package) %>%
+  dplyr::arrange(update, .by_group = TRUE) %>% #arrange within group
   top_n(-1, update) # to get the earliest release date, top_n() is used to select the lowest value of a column within each group
   
 }
@@ -347,13 +345,13 @@ earliest_updates <- earliest_updates(packages)
 packages_vector <- earliest_updates$package
 
 
-# function used to get the total downloads of a period of time (date1 to date2) for several pacckages at the same time
+# function used to get the total downloads of a period of time (date1 to date2) for several packages at the same time
 get_total_downloads <- function(packages_vector){
   
 total_downloads <- map(packages_vector, function(pkg){
   
   pkg <- cran_downloads(package = paste0(pkg), from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
+  dplyr::summarise(package = package, count = sum(count)) %>%
   head(1)
   
 })
@@ -425,9 +423,11 @@ And we could see that `pear`, `tsfa`, `fractalrock` and `CommonTrend` have simil
 ```{r timeseries, fig.align = 'center', fig.cap="The older package 'fable' has less download count than that of package 'forecast'."}
 
 timeseries %>%
-  ggplot(aes(x = update, y = count,colour = package)) +
+  ggplot(aes(x = update, y = count)) +
   geom_point() +
-    labs( y = 'Download count',
+  geom_smooth(se = F) +
+    labs( x = "Earliest release date",
+      y = 'Download count',
     title = "Last half year's downloads with the earliest release date",
     subtitle = "between for time series packages") +
   scale_y_sqrt() + # to change the scale of y axis
@@ -449,9 +449,11 @@ Therefore, in this type of packages, we can say that the later the release date,
 ```{r bayesian,fig.align = 'center', fig.cap="last two years' downloads with the release date for bayesian general model fitting packages."}
 
 bayesian %>%
-  ggplot(aes(x = update, y = count,colour = package)) +
+  ggplot(aes(x = update, y = count)) +
   geom_point() +
-    labs( y = 'Download count',
+  geom_smooth(se = F) +
+    labs( x = "Earliest release date",
+      y = 'Download count',
     title = "Last half year's downloads with the earliest release date",
     subtitle = "between for bayesian packages") +
   scale_y_sqrt() + # to change the scale of y axis
@@ -478,9 +480,11 @@ Therefore, in this case, except for the package with the highest download, the p
 ```{r eco-lm,fig.align = 'center', fig.cap="The latest package sandwich has the highest downloads."}
 
 bayesian %>%
-  ggplot(aes(x = update, y = count,colour = package)) +
+  ggplot(aes(x = update, y = count)) +
   geom_point() +
-    labs( y = 'Download count',
+  geom_smooth(se = F) +
+    labs( x = "Earliest release date",
+      y = 'Download count',
     title = "Last half year's downloads with the earliest release date",
     subtitle = "between for econometrics packages") +
   scale_y_sqrt() + # to change the scale of y axis
@@ -624,9 +628,9 @@ grid.draw(gff)
 
 
 
-## compare package score with the number of commits on master branch
+## compare download counts with the number of commits on master branch
 
-Table \@ref(tab:pct-lowupdates) shows the top 15 trending packages these days. I will compare the number of updates of them with their package scores.
+Table \@ref(tab:pct-lowupdates) shows the top 30 trending packages these days. I will compare the number of updates of them with their package scores.
 
 ```{r trending-commits}
 # to find the 100 trending packages before 4.11 and save as csv file
@@ -729,6 +733,7 @@ trending_downloads %>%
   mutate(count = as.numeric(count)) %>%
   mutate(commits = as.numeric(commits)) %>%
   ggplot(aes(x = commits, y = count)) +
+  geom_point() +
   geom_smooth(se = F) +
   labs( y = 'Total download count',
           x = 'The number of commits',
@@ -746,7 +751,7 @@ trending_downloads %>%
 ```
 
 
-## compare package score with the number of updates for top 30 trending package
+## compare download counts with the number of updates for all 100 trending packages
 
 
 ```{r function-updates-downloads}
@@ -792,6 +797,7 @@ pkg_trending_updates <- get_updates_downloads(pkg_trending$package) %>%
 
 pkg_trending_updates %>%
   ggplot(aes(x = `number of updates`, y = count)) +
+  geom_point() +
   geom_smooth(se = F) +
     labs( x = 'The number of updates',
           y = 'Total download count',
@@ -942,13 +948,16 @@ pkg_trending_daily_update <- pkg_trending_daily_update %>%
 left_join(get_updates_downloads(pkg_trending_daily_update$package))
 
 pkg_trending_daily_update %>%
-  mutate(update_perday = `number of updates`/release_days) %>%
+  mutate(update_perday = release_days/`number of updates`) %>%
   ggplot(aes(x = update_perday, y = count)) +
+  geom_point(aes(colour = `number of updates`)) +
   geom_smooth(se = F) +
   labs( y = 'Total download counts',
           x = 'The number of updates',
-    title = "Daily update counts against the package score",
+    title = "Daily update counts against the download counts",
     subtitle = "for trending packages") +
+  scale_color_continuous(trans = 'log10') +
+  scale_x_log10() +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -962,7 +971,7 @@ pkg_trending_daily_update %>%
 In conclusion, it's not that the more updates the package has, the popular it will be. In the trending package, most of the packages whose updates are lower than the average occupy the majority. Therefore, we can also know that the total number of updates is not very important for the trending package. The important thing is to keep it updated.
 
 
-## compare the package name length with package score for trending packages
+## compare the package name length with download counts for trending packages
 
 It can be seen that although the patterns of top 15 and last 15 are not the same, they all have one thing in common, that is, when the name length exceeds 8 characters, the package score will drop significantly. And when length is less than 4 characters, the score would not be ideal either.
 
@@ -971,11 +980,12 @@ It can be seen that although the patterns of top 15 and last 15 are not the same
 pkg_trending_30 <- pkg_trending %>%
   head(30)
  
-
 pkg_trending_30_namelth <- pkg_trending_30 %>%
   mutate(length_name = nchar(package)) %>%
-  mutate(score = as.numeric(score)) %>%
+  mutate(count = get_total_downloads(package)$count)%>%
+  rowwise()%>%
   mutate(length_name = as.numeric(length_name)) 
+
 
 # to get the last 15 trending ones
 pkg_trending_tail30 <- pkg_trending %>%
@@ -983,22 +993,26 @@ pkg_trending_tail30 <- pkg_trending %>%
 
 pkg_trending_tail30_namelth <- pkg_trending_tail30 %>%
   mutate(length_name = nchar(package)) %>%
-  mutate(score = as.numeric(score)) %>%
+  mutate(count = get_total_downloads(package)$count)%>%
+  rowwise()%>%
   mutate(length_name = as.numeric(length_name)) 
 
 # to get the name length for all trending packages before 4.11
   pkg_trending2 <- pkg_trending %>%
   mutate(length_name = nchar(package)) %>%
-  mutate(score = as.numeric(score)) %>%
+  mutate(count = get_total_downloads(package)$count)%>%
+  rowwise()%>%
   mutate(length_name = as.numeric(length_name)) 
   
   
 pkg_trending_30_namelth %>%
-  ggplot(aes(x = length_name, y = score)) +
+  arrange(desc(count)) %>%
+  ggplot(aes(x = length_name, y = count)) +
+  geom_point()+
   geom_smooth(se = F) +
-  labs( y = 'Score',
+  labs( y = 'Total download counts',
         x = 'The length of package names',
-    title = "Name length against the package score",
+    title = "Name length against the download counts",
     subtitle = "for top 30 trending packages") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
@@ -1010,11 +1024,12 @@ pkg_trending_30_namelth %>%
 
 
 pkg_trending_tail30_namelth %>%
-  ggplot(aes(x = length_name, y = score)) +
+  arrange(desc(count)) %>%
+  ggplot(aes(x = length_name, y = count)) +
   geom_smooth(se = F) +
-  labs( y = 'Score',
+  labs( y = 'Total download counts',
         x = 'The length of package names',
-    title = "Name length against the package score",
+    title = "Name length against the download counts",
     subtitle = "for last 30 trending packages") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
@@ -1025,11 +1040,12 @@ pkg_trending_tail30_namelth %>%
   plot.subtitle = element_text(h = 0.5))
 
 pkg_trending2 %>%
-  ggplot(aes(x = length_name, y = score)) +
+  arrange(desc(count)) %>%
+  ggplot(aes(x = length_name, y = count)) +
   geom_smooth(se = F) +
-  labs( y = 'Score',
+  labs( y = 'Total download counts',
         x = 'The length of package names',
-    title = "Name length against the package score",
+    title = "Name length against the download counts",
     subtitle = "for all trending packages") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
@@ -1047,10 +1063,10 @@ avg_namelth <- function(df){
     
   df1 <- df %>%
   mutate(length_name = nchar(package)) %>%
-  mutate(score = as.numeric(score)) %>%
+  select(-score) %>%
   mutate(length_name = as.numeric(length_name)) 
   
-`total average name length` <- mean(pkg_trending1$length_name)
+`total average name length` <- mean(pkg_trending2$length_name)
 `average name length`  <- mean(df1$length_name)
 pkg_trending_total <- length(df1$package)
 
@@ -1066,16 +1082,16 @@ return(df2)
 }
 
 
-trending_top15_namelth <- avg_namelth(pkg_trending_15) %>%
-  mutate(group = "top 15")
+trending_top30_namelth <- avg_namelth(pkg_trending_30) %>%
+  mutate(group = "top 30")
 
-trending_tail15_namelth <- avg_namelth(pkg_trending_tail15) %>%
-  mutate(group = "last 15")
+trending_tail30_namelth <- avg_namelth(pkg_trending_tail30) %>%
+  mutate(group = "last 30")
 
 trending_all_namelth <- avg_namelth(pkg_trending) %>%
   mutate(group = "all")
 
-compare_trending_namelth <- rbind(trending_top15_namelth,trending_tail15_namelth,trending_all_namelth)
+compare_trending_namelth <- rbind(trending_top30_namelth,trending_tail30_namelth,trending_all_namelth)
 ```
 
 Table \@ref(tab:pct-lngname) shows that the average name length of last 15 packages is more close to the total average. And over half of the packages are more likely to have names longer than average for both top 15 and last 15, but this is more significant among top 15. That means top trending packages are more likely to have longer names.
@@ -1090,9 +1106,9 @@ compare_trending_namelth %>%
 # to get the 95% CI of the name length
 
 # calculate the mean, sd and se
-sample.mean <- mean(pkg_trending1$length_name)
-sample.n <- length(pkg_trending1$length_name)
-sample.sd <- sd(pkg_trending1$length_name)
+sample.mean <- mean(pkg_trending2$length_name)
+sample.n <- length(pkg_trending2$length_name)
+sample.sd <- sd(pkg_trending2$length_name)
 sample.se <- sample.sd/sqrt(sample.n)
 
 # find t-score
