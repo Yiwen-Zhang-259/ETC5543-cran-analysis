@@ -286,39 +286,32 @@ return(updates)
 
 # function used to get packages of  a certain topic from CRAN task view
 get_pkg_taskview <- function(topic_file){
+
+topic_pkg <- ctv:::.get_pkgs_from_ctv_or_repos(paste0(topic_file), 
+                                              repos = "http://cran.rstudio.com/")[[1]]
+
+
+df <- data.frame(matrix(unlist(topic_pkg), nrow=length(topic_pkg), byrow=TRUE),stringsAsFactors=FALSE)
+
+colnames(df)[1] <- 'package'
   
-topic_pkg <- read.ctv(system.file("ctv", paste0(topic_file), package = "ctv")) 
-
-topic_pkg <- list(topic_pkg)
-
-topic_pkg <- lapply(topic_pkg, '[', 8) %>%
-  as.data.frame() 
-
-topic_pkg <- topic_pkg %>%
-  dplyr::rename(package = packagelist.name) %>%
-  filter_list() %>%
-  filter(packagelist.core == "FALSE")%>%
-  select(-packagelist.core)
-  
+return(df)
 }
 
 
-doe_pkgs <- ctv:::.get_pkgs_from_ctv_or_repos("Econometrics", 
-                                              repos = "http://cran.rstudio.com/")[[1]]
-
 # get the packages for econometrics
-topic_file <- "Econometrics.ctv"
+topic_file <- "Econometrics"
 Econometrics <- get_pkg_taskview(topic_file) 
 
 
 
 # get the packages for time series
-topic_file <- "TimeSeries.ctv"
+topic_file <- "TimeSeries"
 TimeSeries <- get_pkg_taskview(topic_file)
 
 
 # get the packages for bayesian
-topic_file <- "Bayesian.ctv"
+topic_file <- "Bayesian"
 Bayesian <- get_pkg_taskview(topic_file)
 
 
@@ -326,6 +319,26 @@ Bayesian <- get_pkg_taskview(topic_file)
 
 
 ```{r  function-earliestrelease-counts}
+
+# function used to get the total downloads of a period of time (date1 to date2) for several packages at the same time
+get_total_downloads <- function(packages_vector){
+  
+total_downloads <- map(packages_vector, function(pkg){
+  
+  pkg <- cran_downloads(package = paste0(pkg), from = date1, to = date2) %>%
+  dplyr::summarise(package = package, count = sum(count)) %>%
+  head(1)
+  
+})
+ names(total_downloads) <- packages_vector
+
+downloads <- unlist(total_downloads) %>% 
+  enframe("package", "count") %>% 
+  mutate(count = suppressWarnings(as.numeric(count)),
+         # need to get rid of the numbers appended to pkg names
+         package = str_extract(package, paste0(packages_vector, collapse="|")))%>%
+         na.omit()
+}
 
 # function used to get the total downloads of a period of time and the earliest release date
 downloads_earliest_release <- function(packages) {
@@ -343,29 +356,8 @@ earliest_updates <- function(packages){
 earliest_updates <- earliest_updates(packages)
 
 packages_vector <- earliest_updates$package
-
-
-# function used to get the total downloads of a period of time (date1 to date2) for several packages at the same time
-get_total_downloads <- function(packages_vector){
   
-total_downloads <- map(packages_vector, function(pkg){
   
-  pkg <- cran_downloads(package = paste0(pkg), from = date1, to = date2) %>%
-  dplyr::summarise(package = package, count = sum(count)) %>%
-  head(1)
-  
-})
-
- names(total_downloads) <- packages_vector
-
-downloads <- unlist(total_downloads) %>% 
-  enframe("package", "count") %>% 
-  mutate(count = suppressWarnings(as.numeric(count)),
-         # need to get rid of the numbers appended to pkg names
-         package = str_extract(package, paste0(packages_vector, collapse="|")))%>%
-         na.omit()
-}
-
 downloads <- get_total_downloads(packages_vector)
   
 downloads_release_earliest <- downloads %>%
@@ -430,7 +422,7 @@ timeseries %>%
       y = 'Download count',
     title = "Last half year's downloads with the earliest release date",
     subtitle = "between for time series packages") +
-  scale_y_sqrt() + # to change the scale of y axis
+  scale_y_log10() + # to change the scale of y axis
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -456,7 +448,7 @@ bayesian %>%
       y = 'Download count',
     title = "Last half year's downloads with the earliest release date",
     subtitle = "between for bayesian packages") +
-  scale_y_sqrt() + # to change the scale of y axis
+  scale_y_log10() + # to change the scale of y axis
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -487,7 +479,7 @@ bayesian %>%
       y = 'Download count',
     title = "Last half year's downloads with the earliest release date",
     subtitle = "between for econometrics packages") +
-  scale_y_sqrt() + # to change the scale of y axis
+  scale_y_log10()+ # to change the scale of y axis
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -517,11 +509,6 @@ By looking into Figure \@ref(fig:pkg0401), we could know that the most downloade
 Let's have a look at package `fable` and `forecast`. They are two closely related packages, for `fable` is the recently released tidy version of `forecast`. It can be seen from Figure \@ref(fig:daily-fbl) and Figure \@ref(fig:daily-fcst) that the time series plots of them both show strong weekly seasonality, which means the downloads tend to be higher in week days and thus lower on weekends. 
 
 In order to estimate the trend-cycle and how do they change over time, I consider the weighed 7 moving average. That is, it calculates the weighted average for every seven consecutive time series with the following weights : [1/15,2/15,1/5,1/5,1/5,2/15,1/15]. And this will reduce the weight of weekends with low download volume, and the weight of weekdays with high download volume will be higher, which will reduce the seasonality as much as possible.
-
-```{r}
-purrr::map_dr()
-```
-
 
 ```{r trans-ff}
 # transform the daily download of 'fable' to time series table
@@ -735,6 +722,7 @@ trending_downloads %>%
   ggplot(aes(x = commits, y = count)) +
   geom_point() +
   geom_smooth(se = F) +
+  scale_x_log10() +
   labs( y = 'Total download count',
           x = 'The number of commits',
     title = "Commits counts against download counts",
@@ -799,6 +787,7 @@ pkg_trending_updates %>%
   ggplot(aes(x = `number of updates`, y = count)) +
   geom_point() +
   geom_smooth(se = F) +
+  scale_x_log10() +
     labs( x = 'The number of updates',
           y = 'Total download count',
     title = "Updates counts against download counts",
@@ -1010,6 +999,7 @@ pkg_trending_30_namelth %>%
   ggplot(aes(x = length_name, y = count)) +
   geom_point()+
   geom_smooth(se = F) +
+  scale_x_log10() +
   labs( y = 'Total download counts',
         x = 'The length of package names',
     title = "Name length against the download counts",
@@ -1026,7 +1016,9 @@ pkg_trending_30_namelth %>%
 pkg_trending_tail30_namelth %>%
   arrange(desc(count)) %>%
   ggplot(aes(x = length_name, y = count)) +
+  geom_point() +
   geom_smooth(se = F) +
+  scale_x_log10() +
   labs( y = 'Total download counts',
         x = 'The length of package names',
     title = "Name length against the download counts",
@@ -1042,7 +1034,9 @@ pkg_trending_tail30_namelth %>%
 pkg_trending2 %>%
   arrange(desc(count)) %>%
   ggplot(aes(x = length_name, y = count)) +
+  geom_point() +
   geom_smooth(se = F) +
+  scale_x_log10() +
   labs( y = 'Total download counts',
         x = 'The length of package names',
     title = "Name length against the download counts",
