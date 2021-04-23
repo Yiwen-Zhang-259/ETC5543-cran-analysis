@@ -38,32 +38,36 @@ db <- readRDS(url(url)) %>%
 as.data.frame() %>%
   rename(package = Package)
 
-#cran2012_10_01 <- read_csv("data/2012-10-01 (1).csv")
-#cran2013_10_01 <- read_csv("data/2013-10-01.csv")
-#cran2014_10_01 <- read_csv("data/2014-10-01.csv")
-#cran2015_10_01 <- read_csv("data/2015-10-01.csv")
-#cran2016_10_01 <- read_csv("data/2016-10-01.csv")
-#cran2017_10_01 <- read_csv("data/2017-10-01.csv")
-#cran2018_10_01 <- read_csv("data/2018-10-01.csv")
-#cran2019_10_01 <- read_csv("data/2019-10-01.csv")
+#cran2013_04_01 <- read_csv("data/2013-04-01.csv")
+#cran2014_04_01 <- read_csv("data/2014-04-01.csv")
+#cran2015_04_01 <- read_csv("data/2015-04-01.csv")
+#cran2016_04_01 <- read_csv("data/2016-04-01.csv")
+#cran2017_04_01 <- read_csv("data/2017-04-01.csv")
+#cran2018_04_01 <- read_csv("data/2018-04-01.csv")
+#cran2019_04_01 <- read_csv("data/2019-04-01.csv")
+#cran2020_04_01 <- read_csv("data/2020-04-01.csv")
+#cran2021_04_01 <- read_csv("data/2021-04-01.csv")
 
-#save(cran2012_10_01, file=here::here("data/cran2012_10_01.rda"))
-#save(cran2013_10_01, file=here::here("data/cran2013_10_01.rda"))
-#save(cran2014_10_01, file=here::here("data/cran2014_10_01.rda"))
-#save(cran2015_10_01, file=here::here("data/cran2015_10_01.rda"))
-#save(cran2016_10_01, file=here::here("data/cran2016_10_01.rda"))
-#save(cran2017_10_01, file=here::here("data/cran2017_10_01.rda"))
-#save(cran2018_10_01, file=here::here("data/cran2018_10_01.rda"))
-#save(cran2019_10_01, file=here::here("data/cran2019_10_01.rda"))
+#save(cran2013_04_01, file=here::here("data/cran2013_04_01.rda"))
+#save(cran2014_04_01, file=here::here("data/cran2014_04_01.rda"))
+#save(cran2015_04_01, file=here::here("data/cran2015_04_01.rda"))
+#save(cran2016_04_01, file=here::here("data/cran2016_04_01.rda"))
+#save(cran2017_04_01, file=here::here("data/cran2017_04_01.rda"))
+#save(cran2018_04_01, file=here::here("data/cran2018_04_01.rda"))
+#save(cran2019_04_01, file=here::here("data/cran2019_04_01.rda"))
+#save(cran2020_04_01, file=here::here("data/cran2020_04_01.rda"))
+#save(cran2021_04_01, file=here::here("data/cran2021_04_01.rda"))
 
-load("data/cran2012_10_01.rda")
-load("data/cran2013_10_01.rda")
-load("data/cran2014_10_01.rda")
-load("data/cran2015_10_01.rda")
-load("data/cran2016_10_01.rda")
-load("data/cran2017_10_01.rda")
-load("data/cran2018_10_01.rda")
-load("data/cran2019_10_01.rda")
+load("data/cran2013_04_01.rda")
+load("data/cran2014_04_01.rda")
+load("data/cran2015_04_01.rda")
+load("data/cran2016_04_01.rda")
+load("data/cran2017_04_01.rda")
+load("data/cran2018_04_01.rda")
+load("data/cran2019_04_01.rda")
+load("data/cran2020_04_01.rda")
+load("data/cran2021_04_01.rda")
+
 ```
 
 ```{r filter-list}
@@ -118,19 +122,21 @@ filter_list <- function(pkg){
 
 ```{r filterlist}
 # exclude the packages in the above three lists
-cran2019_10_01_new <- filter_list(cran2019_10_01)
-cran2018_10_01_new <- filter_list(cran2018_10_01)
-cran2017_10_01_new <- filter_list(cran2017_10_01)
-cran2016_10_01_new <- filter_list(cran2016_10_01)
-cran2015_10_01_new <- filter_list(cran2015_10_01)
-cran2014_10_01_new <- filter_list(cran2014_10_01)
-cran2013_10_01_new <- filter_list(cran2013_10_01)
+cran2013_04_01_new <- filter_list(cran2013_04_01)
+cran2014_04_01_new <- filter_list(cran2014_04_01)
+cran2015_04_01_new <- filter_list(cran2015_04_01)
+cran2016_04_01_new <- filter_list(cran2016_04_01)
+cran2017_04_01_new <- filter_list(cran2017_04_01)
+cran2018_04_01_new <- filter_list(cran2018_04_01)
+cran2019_04_01_new <- filter_list(cran2019_04_01)
+cran2020_04_01_new <- filter_list(cran2020_04_01)
+cran2021_04_01_new <- filter_list(cran2021_04_01)
 ```
 
 
 ```{r crantop15-1319}
 # find the top 30 downloaded packages on 10.1 from 2013 to 2019
-cran2013_1001 <- cran2013_10_01_new %>%
+cran2013_0401 <- cran2013_04_01_new %>%
   drop_na() %>%
   dplyr::count(package) %>%
   arrange(desc(n)) %>%
@@ -141,42 +147,56 @@ cran2013_1001 <- cran2013_10_01_new %>%
 
 #cran2013_1001$package = factor(cran2013_1001$package,cran2013_1001$package)
 
-cran2014_1001 <- cran2014_10_01_new %>%
+cran2014_0401 <- cran2014_04_01_new %>%
   drop_na() %>%
   dplyr::count(package) %>%
   arrange(desc(n)) %>%
   head(15) %>%
   select(package)
 
-cran2015_1001 <- cran2015_10_01_new %>%
+cran2015_0401 <- cran2015_04_01_new %>%
   drop_na() %>%
   dplyr::count(package) %>%
   arrange(desc(n)) %>%
   head(15) %>%
   select(package)
 
-cran2016_1001 <- cran2016_10_01_new %>%
+cran2016_0401 <- cran2016_04_01_new %>%
   drop_na() %>%
   dplyr::count(package) %>%
   arrange(desc(n)) %>%
   head(15) %>%
   select(package)
 
-cran2017_1001 <- cran2017_10_01_new %>%
+cran2017_0401 <- cran2017_04_01_new %>%
   drop_na() %>%
   dplyr::count(package) %>%
   arrange(desc(n)) %>%
   head(15) %>%
   select(package)
 
-cran2018_1001 <- cran2018_10_01_new %>%
+cran2018_0401 <- cran2018_04_01_new %>%
   drop_na() %>%
   dplyr::count(package) %>%
   arrange(desc(n)) %>%
   head(15) %>%
   select(package)
 
-cran2019_1001 <- cran2019_10_01_new %>%
+cran2019_0401 <- cran2019_04_01_new %>%
+  drop_na() %>%
+  dplyr::count(package) %>%
+  arrange(desc(n)) %>%
+  head(15) %>%
+  select(package)
+
+cran2020_0401 <- cran2020_04_01_new %>%
+  drop_na() %>%
+  dplyr::count(package) %>%
+  arrange(desc(n)) %>%
+  head(15) %>%
+  select(package)
+
+cran2021_0401 <- cran2021_04_01_new %>%
   drop_na() %>%
   dplyr::count(package) %>%
   arrange(desc(n)) %>%
@@ -188,12 +208,14 @@ cran2019_1001 <- cran2019_10_01_new %>%
 
 ```{r antijoin-1319}
 # find out the new top 15 packages added each year
-a <- anti_join(cran2014_1001,cran2013_1001) 
-b <- anti_join(cran2015_1001,cran2014_1001) 
-c <- anti_join(cran2016_1001,cran2015_1001) 
-d <- anti_join(cran2017_1001,cran2016_1001) 
-e <- anti_join(cran2018_1001,cran2017_1001) 
-f <- anti_join(cran2019_1001,cran2018_1001) 
+a <- anti_join(cran2014_0401,cran2013_0401) 
+b <- anti_join(cran2015_0401,cran2014_0401) 
+c <- anti_join(cran2016_0401,cran2015_0401) 
+d <- anti_join(cran2017_0401,cran2016_0401) 
+e <- anti_join(cran2018_0401,cran2017_0401) 
+f <- anti_join(cran2019_0401,cran2018_0401) 
+g <- anti_join(cran2020_0401,cran2019_0401) 
+h <- anti_join(cran2021_0401,cran2020_0401) 
 
 # function used to combine data with different length 
 cbind_dif <- function(x = list()){
@@ -209,20 +231,22 @@ cbind_dif <- function(x = list()){
     return(as.data.frame(res))
 }
 
-pkg_change <- cbind_dif(list(package14_13 = a$package, package15_14 = b$package, package16_15 = c$package, package17_16 = d$package, package18_17 = e$package, package19_18 = f$package))
+pkg_change <- cbind_dif(list(package14_13 = a$package, package15_14 = b$package, package16_15 = c$package, package17_16 = d$package, package18_17 = e$package, package19_18 = f$package,package20_19 = g$package,package21_20 = h$package))
 
 pkg_change[is.na(pkg_change)] = "-"
 ```
 
 ```{r semijoin-1319}
-a1 <- semi_join(cran2014_1001,cran2013_1001) 
-b1 <- semi_join(cran2015_1001,cran2014_1001) 
-c1 <- semi_join(cran2016_1001,cran2015_1001) 
-d1 <- semi_join(cran2017_1001,cran2016_1001) 
-e1 <- semi_join(cran2018_1001,cran2017_1001) 
-f1 <- semi_join(cran2019_1001,cran2018_1001) 
+a1 <- semi_join(cran2014_0401,cran2013_0401)  
+b1 <- semi_join(cran2015_0401,cran2014_0401) 
+c1 <- semi_join(cran2016_0401,cran2015_0401) 
+d1 <- semi_join(cran2017_0401,cran2016_0401) 
+e1 <- semi_join(cran2018_0401,cran2017_0401) 
+f1 <- semi_join(cran2019_0401,cran2018_0401) 
+g1 <- semi_join(cran2020_0401,cran2019_0401) 
+h1 <- semi_join(cran2021_0401,cran2020_0401) 
 
-pkg_remain <- cbind_dif(list(package14_13 = a1$package, package15_14 = b1$package, package16_15 = c1$package, package17_16 = d1$package, package18_17 = e1$package, package19_18 = f1$package))
+pkg_remain <- cbind_dif(list(package14_13 = a1$package, package15_14 = b1$package, package16_15 = c1$package, package17_16 = d1$package, package18_17 = e1$package, package19_18 = f1$package,package20_19 = g1$package,package21_20 = h1$package))
 
 pkg_remain[is.na(pkg_remain)] = "-"
 ```
@@ -1069,7 +1093,7 @@ namelth_CI %>%
 
 ## compare download counts with alphabetical order of name
 
-```{r}
+```{r alpha-function}
 get_downloads_alphabetic <- function(df){
   
   
@@ -1129,7 +1153,7 @@ return(avg_downloads)
 
 ```
 
-```{r}
+```{r ahlpha-downloads}
  alphabetic_downloads <- get_downloads_alphabetic(pkg_random1)
 
 alphabetic_downloads %>%
@@ -1137,7 +1161,7 @@ alphabetic_downloads %>%
   geom_point() +
   labs( y = 'Total download counts',
     title = "Mean download counts against different alphabetic group",
-    subtitle = "for trending packages") +
+    subtitle = "for 500 random packages") +
   scale_y_log10() +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
