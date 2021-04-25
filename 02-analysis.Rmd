@@ -25,9 +25,11 @@ library(fpp3)
 library(slider)
 library(stringr)
 library(lubridate)
+library(plyr)
 library(dplyr)
 library(rvest)
 library(glue)
+library(rlist)
 ```
 
 ## General daily download trend of all packages
@@ -308,9 +310,45 @@ pkg_remain %>%
   kable_styling(bootstrap_options = c("hover", "striped")) 
 ```
 
-## Compare last half year's downloads with the release date
+```{r}
+# to get all the topic names from CRAN task view
+task_topic <- available.views()
 
-In our common cognition, we think that the earlier a package is released, the more people will know about it, and thus the more downloads it will have. However, packages related to different topics cannot be directly compared, because it is possible that the total download amount of packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, I selected three domain packages through CRAN task view, calculated their respective downloads in the previous two years, and found their release dates for comparison.
+x <- lapply(1:length(task_topic),function(i) { topic_name[i] <- task_topic[[i]]$name})
+
+task_topic_all <- list.rbind(x) %>%
+  as.data.frame()
+
+colnames(task_topic_all)[1] <- 'topic'
+
+
+# to get all the packages from CRAN task view along with their topics
+pkg_taskview_total = data.frame()
+for (i in c(1:length(task_topic_all$topic))) {
+  
+    topic_pkg <- ctv:::.get_pkgs_from_ctv_or_repos(paste0(task_topic_all$topic[i]), 
+                                              repos = "http://cran.rstudio.com/")[[1]]
+
+
+   df  <- data.frame(matrix(unlist(topic_pkg), nrow=length(topic_pkg), byrow=TRUE),stringsAsFactors=FALSE) %>%
+     mutate(topic = paste0(task_topic_all$topic[i]))
+   
+   colnames(df)[1] <-'packages'
+  
+   pkg_taskview_total <- rbind(df_total,df)
+  
+}
+
+colnames(pkg_taskview_total)[1] <- 'package'
+
+
+match_df(pkg_taskview_total,a,on = "package")
+```
+
+
+## Compare last half year's downloads with the earliest release date
+
+In our common cognition, we think that the earlier a package is released, the more people will know about it, and thus the more downloads it will have. However, packages related to different topics cannot be directly compared, because it is possible that the total download amount of packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, I selected three domain packages through CRAN task view, calculated their respective downloads in the previous half year, and found their rearliest elease dates for comparison.
 
 1. Packages for Time Series Analysis
 
@@ -351,6 +389,7 @@ return(updates)
 ```
 
 
+
 ```{r getpkg}
 
 # function used to get packages of  a certain topic from CRAN task view
@@ -368,10 +407,10 @@ return(df)
 }
 
 
+
 # get the packages for econometrics
 topic_file <- "Econometrics"
 Econometrics <- get_pkg_taskview(topic_file) 
-
 
 
 # get the packages for time series
@@ -383,6 +422,7 @@ TimeSeries <- get_pkg_taskview(topic_file)
 topic_file <- "Bayesian"
 Bayesian <- get_pkg_taskview(topic_file)
 
+match_df(ETB,c,on = "package")
 
 ```
 
