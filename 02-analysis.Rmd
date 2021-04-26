@@ -30,6 +30,7 @@ library(dplyr)
 library(rvest)
 library(glue)
 library(rlist)
+library(plotly)
 ```
 
 ## General daily download trend of all packages
@@ -341,8 +342,9 @@ for (i in c(1:length(task_topic_all$topic))) {
 
 colnames(pkg_taskview_total)[1] <- 'package'
 
+# to figure out the classification of packages according to CRAN task view
+match_df(pkg_taskview_total,c,on = "package")
 
-match_df(pkg_taskview_total,a,on = "package")
 ```
 
 
@@ -351,6 +353,7 @@ match_df(pkg_taskview_total,a,on = "package")
 In our common cognition, we think that the earlier a package is released, the more people will know about it, and thus the more downloads it will have. However, packages related to different topics cannot be directly compared, because it is possible that the total download amount of packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, I selected three domain packages through CRAN task view, calculated their respective downloads in the previous half year, and found their rearliest elease dates for comparison.
 
 1. Packages for Time Series Analysis
+
 
 ```{r get-arcvreleasedate}
 
@@ -478,6 +481,24 @@ return(downloads_release_earliest)
 }
 ```
 
+Table \@ref(tab:timeseris-updates) shows the first 15 timeseries packages along with their earliest release date and last half year's total counts. It can be seen that `lubridate` ranks first on download count with release date `r timeseries$update[1]`. Except that, other first four packages are all released before 2010, which is over 10 years ago.
+
+```{r timeseris-updates}
+packages <- TimeSeries$package 
+
+timeseries <- downloads_earliest_release(packages)
+
+
+timeseries %>%
+  arrange(desc(count)) %>%
+  head(15) %>%
+  kable(caption = "Timeseries packages with earliest release date and last half year's total counts") %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+
+```
+
+Table \@ref(tab:eco-updates) shows the first 15 econometric packages along with their earliest release date and last half year's total counts. It can be seen that the first-rank package is `zoo` released on `r econometric$update[1]`. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010. 
+
 ```{r eco-updates}
 # before use the function 'downloads_earliest_release()', please set the time range
 date1 <- "2019-10-01"
@@ -489,23 +510,15 @@ econometric <- downloads_earliest_release(packages)
 
 
 econometric %>%
+  arrange(desc(count))%>%
+  head(15) %>%
   kable(caption = "Econometrics packages with earliest release date and last half year's total counts") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 
 ```
 
 
-```{r timeseris-updates}
-packages <- TimeSeries$package 
-
-timeseries <- downloads_earliest_release(packages)
-
-
-timeseries %>%
-  kable(caption = "Timeseries packages with earliest release date and last half year's total counts") %>%
-  kable_styling(bootstrap_options = c("hover", "striped"))
-
-```
+Table \@ref(tab:bayesian-updates) shows the first 15 econometric packages along with their earliest release date and last half year's total counts. It can be seen that the first-rank package is `zoo` released on `r econometric$update[1]`. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010. 
 
 ```{r bayesian-updates}
 packages <- Bayesian$package 
@@ -513,17 +526,17 @@ packages <- Bayesian$package
 bayesian <- downloads_earliest_release(packages)
 
 bayesian%>%
+  arrange(desc(count))%>%
+  head(15) %>%
   kable(caption = "Bayesian packages with earliest release date and last half year's total counts") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
-It can be seen from Figure \@ref(fig:timeseries) that the most downloaded package for the past six months is `wmtsa` whose release date is 2007-09-06, a relatively early date. And the second downloaded one is `fractal` released on the same day.
-
-And we could see that `pear`, `tsfa`, `fractalrock` and `CommonTrend` have similar downloads that are higher than the rest of the packages. However, some of them were released before 2010 and some after 2010, showing no obvious time difference.
+Figure \@ref(fig:timeseries) displays the scatterplot of the last half year's download count and the earliest release date of timeseries packages. It can be seen that generally, as the earliest release date gets later and later, the number of download logs becomes lower and lower. And most of the high downloaded packages are from a period of time between 2004 and 2011. For timeseries packages, they are mainly released between 2012 and 2019. 
 
 ```{r timeseries, fig.align = 'center', fig.cap="The older package 'fable' has less download count than that of package 'forecast'."}
 
-timeseries %>%
+pt <- timeseries %>%
   ggplot(aes(x = update, y = count)) +
   geom_point() +
   geom_smooth(se = F) +
@@ -539,17 +552,22 @@ timeseries %>%
   axis.title=element_text(size=12,face="bold"),
   plot.title = element_text(h = 0.5),
   plot.subtitle = element_text(h = 0.5))
+
+ggplotly(pt)
+
+timeseries %>%
+  ggplot(aes(update)) +
+  geom_density()
+
 ```
 
 2. Bayesian packages for general model fitting
 
-Let's have a look at the bayesian packages. It can be seen from Figure \@ref(fig:bayesian) that the most downloaded packages is `geoRglm` released on 2002-02-13. Then package `profdpm` released on 2009-11-15 and `abn` released on 2011-07-26 are also highly downloaded, which come from the relatively recent date. Then the difference in the downloads of other packages is not very significant.
-
-Therefore, in this type of packages, we can say that the later the release date, the lower the download volume of the package. But there are still some special cases. That is even if the release date is later, the download volume is still not ideal such as `growcurves`,  which may be due to other reasons.
+Let's have a look at the bayesian packages. It can be seen from Figure \@ref(fig:bayesian) that similarly, the earlier packages is released, the more dowloads it will have. And most of the packages are from 2007 to 2012.
 
 ```{r bayesian,fig.align = 'center', fig.cap="last two years' downloads with the release date for bayesian general model fitting packages."}
 
-bayesian %>%
+pb <- bayesian %>%
   ggplot(aes(x = update, y = count)) +
   geom_point() +
   geom_smooth(se = F) +
@@ -566,21 +584,24 @@ bayesian %>%
   plot.title = element_text(h = 0.5),
   plot.subtitle = element_text(h = 0.5))
 
+ggplotly(pb)
+
+
+bayesian %>%
+  ggplot(aes(update)) +
+  geom_density()
 ```
 
 3. Econometrics 
 
 In order to test whether this is the case in other areas, let's turn our attention to econometrics packages. 
 
-It can be seen from Figure \@ref(fig:eco-lm) that the second oldest package `tsfa` has the highest downloads, while the downloads of `rddtools` with the second earliest release date is much close to it.
+In Figure \@ref(fig:eco-lm), as we can see, for this kind of package, the download volume decreases more obviously with the release date, which is quite consistent with both timeseries and bayesian situations. And most of the packages are centered between 2013 and 2016.
 
-This is quite different to Bayesian's case, that is, although the most downloaded package comes from early date, the second downloaded package comes from newer date, and the overall download volume of packages released after 2013 is higher.
-
-Therefore, in this case, except for the package with the highest download, the packages with the later release date are more likely to have higher downloads.
 
 ```{r eco-lm,fig.align = 'center', fig.cap="The latest package sandwich has the highest downloads."}
 
-bayesian %>%
+pe <- econometric %>%
   ggplot(aes(x = update, y = count)) +
   geom_point() +
   geom_smooth(se = F) +
@@ -597,10 +618,17 @@ bayesian %>%
   plot.title = element_text(h = 0.5),
   plot.subtitle = element_text(h = 0.5))
 
+ggplotly(pe)
+
+
+
+econometric %>%
+  ggplot(aes(update)) +
+  geom_density()
 ```
 
 
-In conclusion, I'm surprised to find it's not that the earlier the package is released, the more downloads it has. And the most downloaded packages are often from the earlier date, which is reflected in bayesian, econometrics, time series. But packages from later date also have quite high downloads, and for econometrics packages, it shows that the later the release date, the higher the downloads.
+In conclusion, I'm not surprised to find that the earlier the package is released, the more downloads it will has, which is reflected in bayesian, econometrics, time series  cases. That is because,t he packages released earlier will be better known. When they are released early, there may be a relatively small number of packages of the same type, so the competition is relatively small. In contrast, the packages released later can easily be covered up, because people tend to use the well-known, mature and habitual packages.
 
 ## compare packages with similar release date
 
