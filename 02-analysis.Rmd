@@ -347,13 +347,48 @@ match_df(pkg_taskview_total,c,on = "package")
 
 ```
 
+Let's take a look at the trending packages. Trending packages are packages that downloaded at least 1000 times last week, which have increased significantly compared to the average weekly downloads in the previous 24 weeks[@r-hub]. That is to say, they are packages with high download volume in a recent short time. Through their topic, we can know what areas of packages people are concerned about recently.
+As the trending packages are changing through time, let's focus on trending ones before 2021-04-11.
+
+Table \@ref(tab:trending-topic) shows the first 15 trending packages along with their topics.
+
+```{r trending-topic}
+pkg_trending_new <- pkg_trending %>%
+  select(-score)
+
+pkg_trending_compare <- match_df(pkg_taskview_total,pkg_trending_new,on = "package") %>%
+  group_by(topic)
+
+pkg_trending_compare %>%
+  head(15) %>%
+  kable(caption = "trending packages with topics") %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+```
+
+And Table \@ref(tab:trending-count) shows the first 10 topics for trending packages. The most popular topic is `TimeSeries`, followed by `Survival` and `WebTechnologies`. This is easy to understand, because the number of people in different fields is different, so there are also differences in the number of packages used in different topics.
+
+```{r trending-count}
+pkg_trendcom_count <- pkg_trending_compare %>%
+  dplyr::count(topic) %>%
+  arrange(desc(n))
+
+
+pkg_trendcom_count %>%
+  head(10) %>%
+  kable(caption = "Topics of trending packages") %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+```
+
+So, apart from the topic of the package itself, what other factors will affect its download volume? With this problem in mind, I mainly explored the relationship between the total number of download counts of packages in the past half a year and the earliest release date, the number of updates, the number of commits on GitHub repositories, the length of the name and the alphabetic order of the first letter of the name.
 
 ## Compare last half year's downloads with the earliest release date
 
-In our common cognition, we think that the earlier a package is released, the more people will know about it, and thus the more downloads it will have. However, packages related to different topics cannot be directly compared, because it is possible that the total download amount of packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, I selected three domain packages through CRAN task view, calculated their respective downloads in the previous half year, and found their rearliest elease dates for comparison.
+In our common cognition, we think that the earlier a package is released, the more people will know about it, and thus the more downloads it will have. However, packages related to different topics cannot be directly compared, because it is possible that the total download amount of packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, I selected three domain packages through CRAN task view, calculated their respective downloads in the previous half a year, and found their earliest release dates for comparison.
+
 
 1. Packages for Time Series Analysis
 
+The first topic is Time Series Analysis. Time Series Analysis is a statistical technique that deals with time series data, or trend analysis. Time series data means that data is in a series of  particular time periods or intervals[@timeseries].
 
 ```{r get-arcvreleasedate}
 
@@ -497,41 +532,6 @@ timeseries %>%
 
 ```
 
-Table \@ref(tab:eco-updates) shows the first 15 econometric packages along with their earliest release date and last half year's total counts. It can be seen that the first-rank package is `zoo` released on `r econometric$update[1]`. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010. 
-
-```{r eco-updates}
-# before use the function 'downloads_earliest_release()', please set the time range
-date1 <- "2019-10-01"
-date2 <- "2020-04-01"
-
-packages <- Econometrics$package 
-
-econometric <- downloads_earliest_release(packages)
-
-
-econometric %>%
-  arrange(desc(count))%>%
-  head(15) %>%
-  kable(caption = "Econometrics packages with earliest release date and last half year's total counts") %>%
-  kable_styling(bootstrap_options = c("hover", "striped"))
-
-```
-
-
-Table \@ref(tab:bayesian-updates) shows the first 15 econometric packages along with their earliest release date and last half year's total counts. It can be seen that the first-rank package is `zoo` released on `r econometric$update[1]`. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010. 
-
-```{r bayesian-updates}
-packages <- Bayesian$package 
-
-bayesian <- downloads_earliest_release(packages)
-
-bayesian%>%
-  arrange(desc(count))%>%
-  head(15) %>%
-  kable(caption = "Bayesian packages with earliest release date and last half year's total counts") %>%
-  kable_styling(bootstrap_options = c("hover", "striped"))
-```
-
 Figure \@ref(fig:timeseries) displays the scatterplot of the last half year's download count and the earliest release date of timeseries packages. It can be seen that generally, as the earliest release date gets later and later, the number of download logs becomes lower and lower. And most of the high downloaded packages are from a period of time between 2004 and 2011. For timeseries packages, they are mainly released between 2012 and 2019. 
 
 ```{r timeseries, fig.align = 'center', fig.cap="The older package 'fable' has less download count than that of package 'forecast'."}
@@ -561,9 +561,28 @@ timeseries %>%
 
 ```
 
+
+
 2. Bayesian packages for general model fitting
 
-Let's have a look at the bayesian packages. It can be seen from Figure \@ref(fig:bayesian) that similarly, the earlier packages is released, the more dowloads it will have. And most of the packages are from 2007 to 2012.
+The second topic is Bayesian Inference. Bayesian statistics is a mathematical procedure that applies probabilities to statistical problems. It provides people the tools to update their beliefs in the evidence of new data[@bayesian].
+
+Table \@ref(tab:bayesian-updates) shows the first 15 econometric packages along with their earliest release date and last half year's total counts. It can be seen that the first-rank package is `zoo` released on `r econometric$update[1]`. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010. 
+
+
+```{r bayesian-updates}
+packages <- Bayesian$package 
+
+bayesian <- downloads_earliest_release(packages)
+
+bayesian%>%
+  arrange(desc(count))%>%
+  head(15) %>%
+  kable(caption = "Bayesian packages with earliest release date and last half year's total counts") %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+```
+
+It can be seen from Figure \@ref(fig:bayesian) that similarly, the earlier packages is released, the more downloads it will have. And most of the packages are from 2007 to 2012.
 
 ```{r bayesian,fig.align = 'center', fig.cap="last two years' downloads with the release date for bayesian general model fitting packages."}
 
@@ -594,7 +613,28 @@ bayesian %>%
 
 3. Econometrics 
 
-In order to test whether this is the case in other areas, let's turn our attention to econometrics packages. 
+In order to test whether this is the case in other areas, let's turn our attention to econometrics packages. Econometrics is the use of statistical methods using quantitative data to develop theories or test existing hypotheses in economics or finance, which relies on techniques such as regression models and null hypothesis testing[@econometrics].
+
+Table \@ref(tab:eco-updates) shows the first 15 econometric packages along with their earliest release date and last half year's total counts. It can be seen that the first-rank package is `zoo` released on `r econometric$update[1]`. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010. 
+
+```{r eco-updates}
+# before use the function 'downloads_earliest_release()', please set the time range
+date1 <- "2019-10-01"
+date2 <- "2020-04-01"
+
+packages <- Econometrics$package 
+
+econometric <- downloads_earliest_release(packages)
+
+
+econometric %>%
+  arrange(desc(count))%>%
+  head(15) %>%
+  kable(caption = "Econometrics packages with earliest release date and last half year's total counts") %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+
+```
+
 
 In Figure \@ref(fig:eco-lm), as we can see, for this kind of package, the download volume decreases more obviously with the release date, which is quite consistent with both timeseries and bayesian situations. And most of the packages are centered between 2013 and 2016.
 
@@ -757,7 +797,7 @@ grid.draw(gff)
 
 ## compare download counts with the number of commits on master branch
 
-Table \@ref(tab:pct-lowupdates) shows the top 30 trending packages these days. I will compare the number of updates of them with their package scores.
+Table \@ref(tab:pct-lowupdates) shows the top 30 trending packages these days. I will compare the number of updates of them with their last half year's total download counts.
 
 ```{r trending-commits}
 # to find the 100 trending packages before 4.11 and save as csv file
@@ -1077,8 +1117,8 @@ pkg_trending_daily_update <- pkg_trending_daily_update %>%
 left_join(get_updates_downloads(pkg_trending_daily_update$package))
 
 pkg_trending_daily_update %>%
-  mutate(update_perday = release_days/`number of updates`) %>%
-  ggplot(aes(x = update_perday, y = count)) +
+  mutate(days_peruodate = release_days/`number of updates`) %>%
+  ggplot(aes(x = days_peruodate, y = count)) +
   geom_point(aes(colour = `number of updates`)) +
   geom_smooth(se = F) +
   labs( y = 'Total download counts',
