@@ -313,8 +313,9 @@ pkg_remain %>%
 
 ```{r}
 # to get all the topic names from CRAN task view
-task_topic <- available.views()
+task_topic <- available.views(repos = "https://cran.csiro.au/")
 
+topic_name <- task_topic[[1]]$name
 x <- lapply(1:length(task_topic),function(i) { topic_name[i] <- task_topic[[i]]$name})
 
 task_topic_all <- list.rbind(x) %>%
@@ -325,6 +326,7 @@ colnames(task_topic_all)[1] <- 'topic'
 
 # to get all the packages from CRAN task view along with their topics
 pkg_taskview_total = data.frame()
+
 for (i in c(1:length(task_topic_all$topic))) {
   
     topic_pkg <- ctv:::.get_pkgs_from_ctv_or_repos(paste0(task_topic_all$topic[i]), 
@@ -336,7 +338,7 @@ for (i in c(1:length(task_topic_all$topic))) {
    
    colnames(df)[1] <-'packages'
   
-   pkg_taskview_total <- rbind(df_total,df)
+   pkg_taskview_total <- rbind(pkg_taskview_total,df)
   
 }
 
@@ -353,6 +355,9 @@ As the trending packages are changing through time, let's focus on trending ones
 Table \@ref(tab:trending-topic) shows the first 15 trending packages along with their topics.
 
 ```{r trending-topic}
+# read trending packages before 4.11
+pkg_trending <- read_csv("data/pkg_trending.csv") 
+
 pkg_trending_new <- pkg_trending %>%
   select(-score)
 
@@ -460,12 +465,13 @@ TimeSeries <- get_pkg_taskview(topic_file)
 topic_file <- "Bayesian"
 Bayesian <- get_pkg_taskview(topic_file)
 
-match_df(ETB,c,on = "package")
-
 ```
 
 
 ```{r  function-earliestrelease-counts}
+# before use the function 'get_total_downloads', please set the time range
+date1 <- "2019-10-01"
+date2 <- "2020-04-01"
 
 # function used to get the total downloads of a period of time (date1 to date2) for several packages at the same time
 get_total_downloads <- function(packages_vector){
@@ -516,27 +522,28 @@ return(downloads_release_earliest)
 }
 ```
 
-Table \@ref(tab:timeseris-updates) shows the first 15 timeseries packages along with their earliest release date and last half year's total counts. It can be seen that `lubridate` ranks first on download count with release date `r timeseries$update[1]`. Except that, other first four packages are all released before 2010, which is over 10 years ago.
+
 
 ```{r timeseris-updates}
 packages <- TimeSeries$package 
 
-timeseries <- downloads_earliest_release(packages)
+timeseries <- downloads_earliest_release(packages) %>%
+    arrange(desc(count)) 
 
 
 timeseries %>%
-  arrange(desc(count)) %>%
   head(15) %>%
   kable(caption = "Timeseries packages with earliest release date and last half year's total counts") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 
 ```
+Table \@ref(tab:timeseris-updates) shows the first 15 timeseries packages along with their earliest release date and last half year's total counts. It can be seen that `lubridate` ranks first on download count with release date `r timeseries$update[1]`. Except that, other first four packages are all released before 2010, which is over 10 years ago.
 
 Figure \@ref(fig:timeseries) displays the scatterplot of the last half year's download count and the earliest release date of timeseries packages. It can be seen that generally, as the earliest release date gets later and later, the number of download logs becomes lower and lower. And most of the high downloaded packages are from a period of time between 2004 and 2011. For timeseries packages, they are mainly released between 2012 and 2019. 
 
 ```{r timeseries, fig.align = 'center', fig.cap="The older package 'fable' has less download count than that of package 'forecast'."}
 
-pt <- timeseries %>%
+timeseries %>%
   ggplot(aes(x = update, y = count)) +
   geom_point() +
   geom_smooth(se = F) +
@@ -553,11 +560,10 @@ pt <- timeseries %>%
   plot.title = element_text(h = 0.5),
   plot.subtitle = element_text(h = 0.5))
 
-ggplotly(pt)
 
-timeseries %>%
-  ggplot(aes(update)) +
-  geom_density()
+#timeseries %>%
+  #ggplot(aes(update)) +
+  #geom_density()
 
 ```
 
@@ -567,26 +573,27 @@ timeseries %>%
 
 The second topic is Bayesian Inference. Bayesian statistics is a mathematical procedure that applies probabilities to statistical problems. It provides people the tools to update their beliefs in the evidence of new data[@bayesian].
 
-Table \@ref(tab:bayesian-updates) shows the first 15 econometric packages along with their earliest release date and last half year's total counts. It can be seen that the first-rank package is `zoo` released on `r econometric$update[1]`. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010. 
 
 
 ```{r bayesian-updates}
 packages <- Bayesian$package 
 
-bayesian <- downloads_earliest_release(packages)
+bayesian <- downloads_earliest_release(packages) %>%
+    arrange(desc(count))
 
 bayesian%>%
-  arrange(desc(count))%>%
   head(15) %>%
   kable(caption = "Bayesian packages with earliest release date and last half year's total counts") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
+Table \@ref(tab:bayesian-updates) shows the first 15 econometric packages along with their earliest release date and last half year's total counts. It can be seen that the first-rank package is `r bayesian$package[1]` released on `r bayesian$update[1]`. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010. 
+
 It can be seen from Figure \@ref(fig:bayesian) that similarly, the earlier packages is released, the more downloads it will have. And most of the packages are from 2007 to 2012.
 
 ```{r bayesian,fig.align = 'center', fig.cap="last two years' downloads with the release date for bayesian general model fitting packages."}
 
-pb <- bayesian %>%
+bayesian %>%
   ggplot(aes(x = update, y = count)) +
   geom_point() +
   geom_smooth(se = F) +
@@ -603,19 +610,17 @@ pb <- bayesian %>%
   plot.title = element_text(h = 0.5),
   plot.subtitle = element_text(h = 0.5))
 
-ggplotly(pb)
 
 
-bayesian %>%
-  ggplot(aes(update)) +
-  geom_density()
+
+#bayesian %>%
+  #ggplot(aes(update)) +
+  #geom_density()
 ```
 
 3. Econometrics 
 
 In order to test whether this is the case in other areas, let's turn our attention to econometrics packages. Econometrics is the use of statistical methods using quantitative data to develop theories or test existing hypotheses in economics or finance, which relies on techniques such as regression models and null hypothesis testing[@econometrics].
-
-Table \@ref(tab:eco-updates) shows the first 15 econometric packages along with their earliest release date and last half year's total counts. It can be seen that the first-rank package is `zoo` released on `r econometric$update[1]`. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010. 
 
 ```{r eco-updates}
 # before use the function 'downloads_earliest_release()', please set the time range
@@ -624,24 +629,25 @@ date2 <- "2020-04-01"
 
 packages <- Econometrics$package 
 
-econometric <- downloads_earliest_release(packages)
+econometric <- downloads_earliest_release(packages) %>%
+    arrange(desc(count))
 
 
 econometric %>%
-  arrange(desc(count))%>%
   head(15) %>%
   kable(caption = "Econometrics packages with earliest release date and last half year's total counts") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 
 ```
 
+Table \@ref(tab:eco-updates) shows the first 15 econometric packages along with their earliest release date and last half year's total counts. It can be seen that the first-rank package is `zoo` released on `r econometric$update[1]`. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010. 
 
 In Figure \@ref(fig:eco-lm), as we can see, for this kind of package, the download volume decreases more obviously with the release date, which is quite consistent with both timeseries and bayesian situations. And most of the packages are centered between 2013 and 2016.
 
 
 ```{r eco-lm,fig.align = 'center', fig.cap="The latest package sandwich has the highest downloads."}
 
-pe <- econometric %>%
+econometric %>%
   ggplot(aes(x = update, y = count)) +
   geom_point() +
   geom_smooth(se = F) +
@@ -658,15 +664,14 @@ pe <- econometric %>%
   plot.title = element_text(h = 0.5),
   plot.subtitle = element_text(h = 0.5))
 
-ggplotly(pe)
 
 
 
-econometric %>%
-  ggplot(aes(update)) +
-  geom_density()
+
+#econometric %>%
+ # ggplot(aes(update)) +
+  #geom_density()
 ```
-
 
 In conclusion, I'm not surprised to find that the earlier the package is released, the more downloads it will has, which is reflected in bayesian, econometrics, time series  cases. That is because,t he packages released earlier will be better known. When they are released early, there may be a relatively small number of packages of the same type, so the competition is relatively small. In contrast, the packages released later can easily be covered up, because people tend to use the well-known, mature and habitual packages.
 
@@ -797,7 +802,9 @@ grid.draw(gff)
 
 ## compare download counts with the number of commits on master branch
 
-Table \@ref(tab:pct-lowupdates) shows the top 30 trending packages these days. I will compare the number of updates of them with their last half year's total download counts.
+In this part, I would like to compare last half year's total downloads with the number of commits on master branch in Github repositories. Let's look back to trending packages.
+
+Table \@ref(tab:pct-lowupdates) shows the top 30 trending packages these days. 
 
 ```{r trending-commits}
 # to find the 100 trending packages before 4.11 and save as csv file
@@ -807,7 +814,7 @@ Table \@ref(tab:pct-lowupdates) shows the top 30 trending packages these days. I
 #write_csv(pkg_trending,"data/pkg_trending.csv")
 
 # read top 49 trending packages
-pkg_trending <- read_csv("data/pkg_trending.csv") 
+
 
 pkg_trending_49 <- pkg_trending %>%
   head(49)
@@ -889,11 +896,20 @@ trending_downloads <- left_join(trending_downloads,pkg_trending_commits, by = "p
 
 ```
 
+
 ```{r commits-tbl}
+trending_downloads <- trending_downloads %>%
+  arrange(desc(count)) 
+
 trending_downloads %>%
   kable(caption = "Top 30 scored trending packages with commits on Github and last half year's downloads") %>%
   kable_styling(bootstrap_options = c("hover", "striped")) 
 ```
+
+
+And Table \@ref(tab:commits-tbl) shows the top 30 scored trending packages with commits on Github and last half year's downloads. Package `V8` ranks first with `r trending_downloads$count[1]` download count and `r trending_downloads$commits[1]`. 
+
+Figure \@ref(fig:commits-pattern) shows the scatterplot along with a smoothing line. In general, more commits, more downloads. What's more, most packages' commits are in the range of 100 to 400.
 
 ```{r commits-pattern, fig.align = 'center', fig.cap= "The package downloads of trending packages is increasing with the number of commits."}
 trending_downloads %>%
@@ -921,6 +937,8 @@ trending_downloads %>%
 
 ## compare download counts with the number of updates for all 100 trending packages
 
+Next, let's look at the relationship between the number of updates and the number of downloads.
+In this part, our analysis object is still trending packages.
 
 ```{r function-updates-downloads}
 
@@ -932,8 +950,8 @@ update_count <- function(packages){
   
   # get all the update dates and compute the number of updates of each package  
 pkg_trending_updates <- get_arcvupdate_date(packages) %>%
-  group_by(package) %>%
-  count(package) %>%
+  dplyr::group_by(package) %>%
+  dplyr::count(package) %>%
   rename(`number of updates` = n)
 
 }
@@ -955,7 +973,8 @@ return(update_counts)
 
 ```
 
-Figure \@ref(fig:trend-updates) shows that the number of downloads increases with the increase of update times.
+Figure \@ref(fig:trend-updates) shows that the number of downloads increases with the increase of update times. And most packages are updated between 1 and 6 times.
+
 
 ```{r  trend-updates, fig.align = 'center', fig.cap=" The number of downloads increases with the increase of update times."}
 pkg_trending_updates <- get_updates_downloads(pkg_trending$package) %>%
@@ -982,7 +1001,7 @@ pkg_trending_updates %>%
 ```
 
 
-Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage of trending packages whose updates are less than average is `r pct_trending_updates[2][1]`, which means much more than half of the 100 trending packages do not tend to update very frequently. 
+Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage of trending packages whose updates are less than average is 71, which means much more than half of the 100 trending packages do not tend to update very frequently. 
 
 
 ```{r  function-lowupdates}
@@ -996,8 +1015,8 @@ pkg_trending_total <- length(packages)
 
 pct_trending_updates <- get_updates_downloads(packages) %>%
   mutate(`number of updates` = as.numeric(`number of updates`))  %>%
-  filter(`number of updates` < avg_updates) %>%
-  summarise(`number of packages with low updates` = length(package)) %>%
+  dplyr::filter(`number of updates` < avg_updates) %>%
+  dplyr::summarise(`number of packages with low updates` = length(package)) %>%
   mutate(`percentage of packages with low updates` = (`number of packages with low updates`/pkg_trending_total)*100)
 
 pct_trending_updates%>%
@@ -1068,6 +1087,7 @@ return(downloads_release_latest)
 }
 ```
 
+
 ```{r  latestpublish,fig.align = 'center', fig.cap=" Most top 15 trending packages' latest publish date is after 2021."}
 
 # before use the function 'downloads_latest_release()', please set the time range
@@ -1098,8 +1118,9 @@ pkg_trending_latest_publish %>%
   plot.subtitle = element_text(h = 0.5))
 ```
 
+Figure \@ref(fig:updates-perday) shows that with the increase of update interval, the number of downloads first increases and then decreases slightly. And most of the time intervals are between 45 and 450 days, which shows that their update frequency is not very high.
 
-```{r daily-updates}
+```{r updates-perday}
 
 pkg_trending_earliest_publish <- unique(downloads_earliest_release(pkg_trending_latest_publish$package))
 
@@ -1122,11 +1143,12 @@ pkg_trending_daily_update %>%
   geom_point(aes(colour = `number of updates`)) +
   geom_smooth(se = F) +
   labs( y = 'Total download counts',
-          x = 'The number of updates',
+          x = 'Days per update',
     title = "Daily update counts against the download counts",
     subtitle = "for trending packages") +
   scale_color_continuous(trans = 'log10') +
   scale_x_log10() +
+  scale_y_sqrt() +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -1142,9 +1164,9 @@ In conclusion, it's not that the more updates the package has, the popular it wi
 
 ## compare the package name length with download counts for trending packages
 
-It can be seen that although the patterns of top 15 and last 15 are not the same, they all have one thing in common, that is, when the name length exceeds 8 characters, the package score will drop significantly. And when length is less than 4 characters, the score would not be ideal either.
+Here, I choose 500 random sample of all packages on CRAN to make the conclusion more representative.
 
-```{r}
+```{r random-sample}
 # generate random sample of the packages used to analyse name length
 set.seed(2599)
 x <- dplyr::pull(db,package)
@@ -1163,9 +1185,11 @@ pkg_random1 <- pkg_random %>%
   rowwise()%>%
   mutate(length_name = as.numeric(length_name)) 
 
+pkg_random1 <- pkg_random1 %>%
+  arrange(desc(count)) 
+
   
 pkg_random1 %>%
-  arrange(desc(count)) %>%
   group_by(length_name) %>%
   ggplot(aes(x = length_name, y = count)) +
   geom_point()+
@@ -1175,7 +1199,7 @@ pkg_random1 %>%
   labs( y = 'Total download counts',
         x = 'The length of package names',
     title = "Name length against the download counts",
-    subtitle = "for 100 random packages on CRAN") +
+    subtitle = "for 500 random packages on CRAN") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -1186,27 +1210,28 @@ pkg_random1 %>%
 
 
 ```
+We can see from Figure \@ref(fig:namelength-plot) that, in general, the influence of name length on download volume is not very obvious. But the names of packages with more than 100,000 downloads are between 5 and 9 characters long. And the most downloaded is package `r pkg_random1$package[1]` whose name length is `r pkg_random1$legnth_name[1]`, with `r pkg_random1$count[1]` download counts.
 
 ```{r namelength}
 db_namelth <- db %>%
   select(package) %>%
   mutate(length_name = nchar(package)) 
 
-`total average name length`  <- mean(db_namelth$length_name)
-`pkg_trending_total` <- length(pkg_random$package)
+`total average name length`  <- as.numeric(mean(db_namelth$length_name))
+`pkg_trending_total` <- as.numeric(length(pkg_random$package))
 
-pkg_random1 <- pkg_random %>%
+pkg_random2 <- pkg_random1 %>%
+  group_by(package) %>%
   dplyr::filter(length_name < `total average name length`) %>%
-  summarise(`number of short names` = length(package)) %>%
+  ungroup() %>%
+  dplyr::summarise(`number of short names` = length(package)) %>%
   mutate(`percentage of short names` = (`number of short names`/pkg_trending_total)*100)
 
-pkg_random1 <- cbind(pkg_random,`average name length`)
+compare_trending_namelth <- cbind(pkg_random2,`total average name length`)
 
-
-nrow(pkg_random1$package)
 ```
 
-Table \@ref(tab:pct-lngname) shows that the average name length of last 15 packages is more close to the total average. And over half of the packages are more likely to have names longer than average for both top 15 and last 15, but this is more significant among top 15. That means top trending packages are more likely to have longer names.
+Table \@ref(tab:pct-lngname) shows that the average name length of 500 random packages is `r compare_trending_namelth[[3]]`. And over half of the packages are more likely to have names shorter  than average. That means, to a certain extent, packages with shorter names are easier to get relatively higher downloads.
 
 ```{r pct-lngname}
 compare_trending_namelth %>%
@@ -1218,9 +1243,9 @@ compare_trending_namelth %>%
 # to get the 95% CI of the name length
 
 # calculate the mean, sd and se
-sample.mean <- mean(pkg_trending2$length_name)
-sample.n <- length(pkg_trending2$length_name)
-sample.sd <- sd(pkg_trending2$length_name)
+sample.mean <- mean(pkg_random1$length_name)
+sample.n <- length(pkg_random1$length_name)
+sample.sd <- sd(pkg_random1$length_name)
 sample.se <- sample.sd/sqrt(sample.n)
 
 # find t-score
@@ -1238,15 +1263,17 @@ namelth_CI <- cbind(lower.bound,upper.bound)
 
 ```
 
-Table \@ref(tab:pct-lngname) shows the 95% confidence interval of name length for trending packages. We could know that the 95% suitable name length is between 7 and 9 characters.
+Table \@ref(tab:pct-lngname) shows the 95% confidence interval of name length for trending packages. We could know that the 95% suitable name length is between `r namelth_CI[[1]]` and `r namelth_CI[[2]]` characters.
 
 ```{r namelth-ci}
 namelth_CI %>%
-  kable(caption = "95% Confidence Interval of name length for trending packages") %>%
+  kable(caption = "95% Confidence Interval of name length for random packages") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
 ## compare download counts with alphabetical order of name
+
+From the perspective of package name, in addition to the length, does the alphabetic order of the first letter also affect the download volume? To answer this question, I grouped the packages in 26-letter order, calculated the average downloads of each group, and then compared them.
 
 ```{r alpha-function}
 get_downloads_alphabetic <- function(df){
@@ -1304,12 +1331,12 @@ return(avg_downloads)
   
 }
 
-
+alphabetic_downloads <- get_downloads_alphabetic(pkg_random1)
 
 ```
 
+From Figure \@ref(fig:ahlpha-downloads) we could see that 
 ```{r ahlpha-downloads}
- alphabetic_downloads <- get_downloads_alphabetic(pkg_random1)
 
 alphabetic_downloads %>%
   ggplot(aes(x = `alphabetic group`,y = avg_downloads)) +
