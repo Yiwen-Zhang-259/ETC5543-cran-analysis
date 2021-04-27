@@ -38,28 +38,40 @@ library(plotly)
 First, let's take a look at the daily downloads of all packages on CRAN from 2020-10-01 to 2021-04-01.  Figure \@ref(fig:total-trend) shows the pattern, and the yellow areas highlight the weekend.We could know that there seems to have strong seasonality, which indicates that in a week, the total downloads always increases first then decreases, and reaches the lowest at the weekend. What's more, the downloads is on the rise from August to October and from February to April, which may be due to the start of semester for most universities.
 
 ```{r total-trend, fig.align = 'center', fig.cap="Generally, the total downloads of all packages on CRAN would decrease on weekends."}
-# plot the daily download trend of all packages from CRAN
-total_download <- cran_downloads(from = "2020-08-01", to = "2021-04-01")
+# Make plots taller
+options(repr.plot.width=8, repr.plot.height=50)
 
+# plot the daily download trend of all packages from CRAN
+total_download <- cran_downloads(from = "2019-01-01", to = "2021-04-01")
+
+total_download$Year <- format(total_download$date, "%Y")
+total_download$Month <- format(total_download$date, "%b")
+total_download$Day <- format(total_download$date, "%d")
+total_download$MonthDay <- format(total_download$date, "%d-%b")
 
 total_download$weekend <- weekdays(total_download$date) %in% c("Saturday", "Sunday")
 
-ggplot(total_download,aes( x = date, y = count)) +
+total_download$CommonDate <- as.Date(paste0("2000-",format(total_download$date, "%j")), "%Y-%j")
+
+ggplot(total_download,aes( x = CommonDate, y = count)) +
   geom_area(aes(y=weekend*max(count)), fill="yellow")+
   geom_line() +
   geom_smooth(se = F) +
    labs( x = "Date",
       y = 'Download count',
     title = "Total number of package downloads on CRAN",
-    subtitle = "from 2020-08-01 to 2021-04-01") +
+    subtitle = "from 2019-01-01 to 2021-04-01") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
   axis.text=element_text(size=10),
   axis.title=element_text(size=12,face="bold"),
   plot.title = element_text(h = 0.5),
-  plot.subtitle = element_text(h = 0.5))
-  
+  plot.subtitle = element_text(h = 0.5),
+  ) +
+  facet_grid(facets = Year ~ ., scales='free_x', space='free_x') +
+  scale_x_date(labels = function(x) format(x, "%d-%b")) 
+
 ```
 
 ## Daily top 15 downloaded packages 
@@ -1171,7 +1183,7 @@ Here, I choose 500 random sample of all packages on CRAN to make the conclusion 
 set.seed(2599)
 x <- dplyr::pull(db,package)
 
-pkg_random <- sample(x,500,replace = TRUE) %>%
+pkg_random <- sample(x,500,replace = FALSE) %>%
   as.data.frame()
 
 colnames(pkg_random)[1] <- 'package'
