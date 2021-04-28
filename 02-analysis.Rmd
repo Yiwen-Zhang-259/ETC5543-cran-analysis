@@ -1,7 +1,7 @@
 # Analysis
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE,cache = TRUE,message = FALSE,warning = FALSE, error = FALSE)
 library(tidyverse)
 library(pkgsearch)
 library(jsonlite)
@@ -35,7 +35,7 @@ library(plotly)
 
 ## General daily download trend of all packages
 
-First, let's take a look at the daily downloads of all packages on CRAN from 2020-10-01 to 2021-04-01.  Figure \@ref(fig:total-trend) shows the pattern, and the yellow areas highlight the weekend.We could know that there seems to have strong seasonality, which indicates that in a week, the total downloads always increases first then decreases, and reaches the lowest at the weekend. What's more, the downloads is on the rise from August to October and from February to April, which may be due to the start of semester for most universities.
+First, let's take a look at the daily downloads of all packages on CRAN from 2019-01-01 to 2021-04-01.  Figure \@ref(fig:total-trend) shows the pattern, and the yellow areas highlight the weekend.We could know that there seems to have strong seasonality, which indicates that in a week, the total downloads always increases first then decreases, and reaches the lowest at the weekend. What's more, the downloads is on the rise from August to October and from February to April, which may be due to the start of semester for most universities.
 
 ```{r total-trend, fig.align = 'center', fig.cap="Generally, the total downloads of all packages on CRAN would decrease on weekends."}
 # Make plots taller
@@ -1287,6 +1287,24 @@ namelth_CI %>%
 
 From the perspective of package name, in addition to the length, does the alphabetic order of the first letter also affect the download volume? To answer this question, I grouped the packages in 26-letter order, calculated the average downloads of each group, and then compared them.
 
+```{r random-sample1}
+# generate random sample of the packages used to analyze name alphabetic order
+set.seed(2599)
+x <- dplyr::pull(db,package)
+
+# expand the sample size
+pkg_random_new <- sample(x,5000,replace = FALSE) %>%
+  as.data.frame()
+
+colnames(pkg_random_new)[1] <- 'package'
+
+pkg_random_new1 <- pkg_random_new %>%
+  mutate(length_name = nchar(package)) %>%
+  mutate(count = get_total_downloads(package)$count)%>%
+  rowwise()%>%
+  mutate(length_name = as.numeric(length_name)) 
+```
+
 ```{r alpha-function}
 get_downloads_alphabetic <- function(df){
   
@@ -1343,7 +1361,7 @@ return(avg_downloads)
   
 }
 
-alphabetic_downloads <- get_downloads_alphabetic(pkg_random1)
+alphabetic_downloads <- get_downloads_alphabetic(pkg_random_new1)
 
 ```
 
