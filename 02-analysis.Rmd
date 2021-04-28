@@ -311,7 +311,8 @@ Table \@ref(tab:changed-top15pkg) shows the packages that newly come up to the t
 ```{r changed-top15pkg}
 pkg_change %>%
   kable(caption = "Changed top 15 downloaded packages from 2013 to 2019") %>%
-  kable_styling(bootstrap_options = c("hover", "striped")) 
+  kable_styling(bootstrap_options = c("hover", "striped")) %>%
+  scroll_box(width = "100%", height = "400px")
 
 ```
 
@@ -320,7 +321,8 @@ Table \@ref(tab:unchanged-top15pkg) shows the packages that remain unchanged eac
 ```{r  unchanged-top15pkg}
 pkg_remain %>%
   kable(caption = "Unchanged top 15 downloaded packages from 2013 to 2019") %>%
-  kable_styling(bootstrap_options = c("hover", "striped")) 
+  kable_styling(bootstrap_options = c("hover", "striped")) %>%
+  scroll_box(width = "100%", height = "400px")
 ```
 
 ```{r}
@@ -1293,7 +1295,7 @@ set.seed(2599)
 x <- dplyr::pull(db,package)
 
 # expand the sample size
-pkg_random_new <- sample(x,5000,replace = FALSE) %>%
+pkg_random_new <- sample(x,1000,replace = FALSE) %>%
   as.data.frame()
 
 colnames(pkg_random_new)[1] <- 'package'
