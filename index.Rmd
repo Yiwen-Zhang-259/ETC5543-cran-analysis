@@ -1,11 +1,9 @@
 --- 
-title: ""
-author: ""
+title: "What do CRAN download counts mean?"
+author: "Yiwen Zhang"
 date: "`r Sys.Date()`"
-site: bookdown::bookdown_site
-output: 
- bookdown::gitbook: default
 documentclass: book
+site: bookdown::bookdown_site
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
@@ -15,9 +13,9 @@ description: ""
 
 # Preface {-}
 
+This is written as part of the ETC5543 research project supervised by Drs Emi Tanaka and Hien Nguyen.
 
-
-```{r include=FALSE}
+```{r, include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
