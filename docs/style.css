@@ -12,3 +12,27 @@ pre {
 pre code {
   white-space: inherit;
 }
+
+div.discovery {
+  padding: 12px 24px 12px 30px;
+  margin: 2em 0;
+  background-color: rgba(2, 126, 182, 0.3);
+  border-left: 6px solid #006DAE;
+  position: relative;
+}
+
+div.discovery::before {
+  background-color: #006DAE;
+  border-radius: 100%;
+  color: #fff;
+  content: "\1F4DD";
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 25px;
+  position: absolute;
+  height: 25px;
+  width: 25px;
+  text-align: center;
+  top: 10px;
+  left: -14.5px;
+}
