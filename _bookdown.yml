@@ -1,6 +1,12 @@
-book_filename: "bookdown-demo"
+book_filename: "ETC5543-Yiwen-Zhang"
 language:
   ui:
-    chapter_name: "Chapter "
+    chapter_name: "Section "
 delete_merged_file: true
 output_dir: "docs"
+rmd_files:
+  - "index.Rmd"
+  - "01-intro.Rmd"
+  - "02-analysis.Rmd"
+  - "03-summary.Rmd"
+  - "04-references.Rmd"
