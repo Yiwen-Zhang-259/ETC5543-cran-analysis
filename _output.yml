@@ -1,7 +1,7 @@
 output:
   bookdown::gitbook:
     css: style.css
-    split_by: chapter
+    split_by: section
     self_contained: false
     number_sections: true
     lib_dir: "libs"

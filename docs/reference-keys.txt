@@ -1,9 +1,11 @@
 fig:unusual-spikes
 fig:total-trend
+fig:download-over-time
 intro
 rtrends
 analysis
 daily-download-of-r-packages
-summary
-fig:download-over-time
 daily-downloads-of-r
+compare-last-half-years-downloads-with-the-earliest-release-date
+summary
+compare-last-years-downloads-with-the-earliest-release-date

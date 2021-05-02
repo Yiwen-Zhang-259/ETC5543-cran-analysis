@@ -13,12 +13,13 @@ library(tidyverse)
 library(cranlogs)
 library(lubridate)
 library(glue)
+library(rvest)
 
 # library(pkgsearch)
 # library(jsonlite)
 # library(ctv)
 # library(lubridate)
-# library(rvest)
+# 
 # library(htmltools)
 # library(httpuv)
 # library(httr)
@@ -35,9 +36,10 @@ theme_set(theme_bw(base_size = 14) +
 
 # comment out below to include/exclude analysis
 child_docs <- c(
-                "02-S01-daily-downloads.Rmd",
+                "02-S01-pkg-downloads.Rmd",
+                "02-S01B-R-downloads.Rmd",
                 #"02-S02-top15.Rmd",
-                #"02-S03-release-date.Rmd",
+                "02-S03-release-date.Rmd",
                 #"02-S04-similar-release-date.Rmd",
                 #"02-S05-github-commits.Rmd",
                 #"02-S06-trending-pkgs.Rmd",

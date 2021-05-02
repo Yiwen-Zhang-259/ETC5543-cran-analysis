@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.3 Compare last year’s downloads with the earliest release date | What do CRAN download counts mean?</title>
+  <meta name="description" content="2.3 Compare last year’s downloads with the earliest release date | What do CRAN download counts mean?" />
+  <meta name="generator" content="bookdown 0.21.4 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.3 Compare last year’s downloads with the earliest release date | What do CRAN download counts mean?" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="Yiwen-Zhang-259/ETC5543-cran-analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.3 Compare last year’s downloads with the earliest release date | What do CRAN download counts mean?" />
+  
+  
+  
+
+<meta name="author" content="Yiwen Zhang" />
+
+
+<meta name="date" content="2021-05-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="daily-downloads-of-r.html"/>
+<link rel="next" href="summary.html"/>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ETC5543 Yiwen Zhang</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="rtrends.html"><a href="rtrends.html"><i class="fa fa-check"></i><b>1.1</b> rtrends</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>2</b> Analysis</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>2.1</b> Daily download of R-packages</a></li>
+<li class="chapter" data-level="2.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>2.2</b> Daily downloads of R</a></li>
+<li class="chapter" data-level="2.3" data-path="compare-last-years-downloads-with-the-earliest-release-date.html"><a href="compare-last-years-downloads-with-the-earliest-release-date.html"><i class="fa fa-check"></i><b>2.3</b> Compare last year’s downloads with the earliest release date</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>3</b> Summary</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">What do CRAN download counts mean?</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="compare-last-years-downloads-with-the-earliest-release-date" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Compare last year’s downloads with the earliest release date</h2>
+<div class="discovery">
+<p>
+<strong>Finding x</strong>: Packages that were initially released earlier on CRAN have a higher download in the past year. This perhaps is because …
+</p>
+</div>
+<p><img src="figures/release-downloads-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>[ET: removed plots to replace with above. Comments left as is.]</p>
+<p>In our common cognition, we think that the earlier a package is released, the more people will know about it, and thus the more downloads it will have. However, packages related to different topics cannot be directly compared, because it is possible that the total download amount of packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, I selected three domain packages through CRAN task view, calculated their respective downloads in the previous half a year, and found their earliest release dates for comparison.</p>
+<ol style="list-style-type: decimal">
+<li>Packages for Time Series Analysis</li>
+</ol>
+<p>The first topic is Time Series Analysis. Time Series Analysis is a statistical technique that deals with time series data, or trend analysis. Time series data means that data is in a series of particular time periods or intervals<span class="citation">(<a href="#ref-timeseries" role="doc-biblioref"><span>“Time Series Analysis”</span> 2020</a>)</span>.</p>
+<p>Table <a href="#tab:timeseris-updates"><strong>??</strong></a> shows the first 15 timeseries packages along with their earliest release date and last half year’s total counts. It can be seen that <code>lubridate</code> ranks first on download count with release date XX. Except that, other first four packages are all released before 2010, which is over 10 years ago.</p>
+<p>Figure <a href="#fig:timeseries"><strong>??</strong></a> displays the scatterplot of the last half year’s download count and the earliest release date of timeseries packages. It can be seen that generally, as the earliest release date gets later and later, the number of download logs becomes lower and lower. And most of the high downloaded packages are from a period of time between 2004 and 2011. For timeseries packages, they are mainly released between 2012 and 2019.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Bayesian packages for general model fitting</li>
+</ol>
+<p>The second topic is Bayesian Inference. Bayesian statistics is a mathematical procedure that applies probabilities to statistical problems. It provides people the tools to update their beliefs in the evidence of new data<span class="citation">(<a href="#ref-bayesian" role="doc-biblioref">perpetual 2019</a>)</span>.</p>
+<p>Table <a href="#tab:bayesian-updates"><strong>??</strong></a> shows the first 15 econometric packages along with their earliest release date and last half year’s total counts. It can be seen that the first-rank package is XX released on XX. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010.</p>
+<p>It can be seen from Figure <a href="#fig:bayesian"><strong>??</strong></a> that similarly, the earlier packages is released, the more downloads it will have. And most of the packages are from 2007 to 2012.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Econometrics</li>
+</ol>
+<p>In order to test whether this is the case in other areas, let’s turn our attention to econometrics packages. Econometrics is the use of statistical methods using quantitative data to develop theories or test existing hypotheses in economics or finance, which relies on techniques such as regression models and null hypothesis testing<span class="citation">(<a href="#ref-econometrics" role="doc-biblioref">Hayes 2020</a>)</span>.</p>
+<p>Table <a href="#tab:eco-updates"><strong>??</strong></a> shows the first 15 econometric packages along with their earliest release date and last half year’s total counts. It can be seen that the first-rank package is <code>zoo</code> released on XX. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010.</p>
+<p>In Figure <a href="#fig:eco-lm"><strong>??</strong></a>, as we can see, for this kind of package, the download volume decreases more obviously with the release date, which is quite consistent with both timeseries and bayesian situations. And most of the packages are centered between 2013 and 2016.</p>
+<p>In conclusion, I’m not surprised to find that the earlier the package is released, the more downloads it will has, which is reflected in bayesian, econometrics, time series cases. That is because,t he packages released earlier will be better known. When they are released early, there may be a relatively small number of packages of the same type, so the competition is relatively small. In contrast, the packages released later can easily be covered up, because people tend to use the well-known, mature and habitual packages.</p>
+
+</div>
+<!-- </div> -->
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-econometrics" class="csl-entry">
+Hayes, Adam. 2020. <span>“Econometrics: What It Means, and How It’s Used.”</span> <em>Investopedia</em>. Investopedia. <a href="https://www.investopedia.com/terms/e/econometrics.asp">https://www.investopedia.com/terms/e/econometrics.asp</a>.
+</div>
+<div id="ref-bayesian" class="csl-entry">
+perpetual, NSSI am a. 2019. <span>“Bayesian Statistics Explained in Simple English for Beginners.”</span> <em>Analytics Vidhya</em>. <a href="https://www.analyticsvidhya.com/blog/2016/06/bayesian-statistics-beginners-simple-english/">https://www.analyticsvidhya.com/blog/2016/06/bayesian-statistics-beginners-simple-english/</a>.
+</div>
+<div id="ref-timeseries" class="csl-entry">
+<span>“Time Series Analysis.”</span> 2020. <em>Statistics Solutions</em>. <a href="https://www.statisticssolutions.com/time-series-analysis/">https://www.statisticssolutions.com/time-series-analysis/</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="daily-downloads-of-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="summary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Yiwen-Zhang-259/ETC5543-cran-analysis/edit/master/02-analysis.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ETC5543-Yiwen-Zhang.pdf", "ETC5543-Yiwen-Zhang.epub"],
+"toc": {
+"collapse": "subsection"
+},
+"collapse": "subsection",
+"scroll_highlight": true,
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
