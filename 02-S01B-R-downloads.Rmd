@@ -1,0 +1,31 @@
+## Daily downloads of R
+
+```{r vars-R-downloads, cache = TRUE}
+R_downloads <- cran_downloads("R", from = dd_start, to = dd_end) %>% 
+  mutate(year = year(date),
+         day = yday(date),
+         weekend = is_weekend(date)) 
+```
+
+
+```{r R-download-trend}
+R_downloads %>% 
+  group_by(date) %>% 
+  summarise(total = sum(count)) %>% 
+  ggplot(aes(date, total)) +
+  geom_line()
+```
+
+```{r R-download-trend-os}
+R_downloads %>% 
+  group_by(os, date) %>% 
+  summarise(total = sum(count)) %>% 
+  ggplot(aes(date, total, color = os)) +
+  geom_line()
+```
+
+```{r R-download-trend-version}
+R_downloads %>% 
+  pull(version) %>% 
+  table()
+```
