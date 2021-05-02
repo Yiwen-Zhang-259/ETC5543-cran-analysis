@@ -5,3 +5,5 @@ rtrends
 analysis
 daily-download-of-r-packages
 summary
+fig:download-over-time
+daily-downloads-of-r

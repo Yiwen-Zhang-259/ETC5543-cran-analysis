@@ -1,7 +1,7 @@
 
 ## Daily download of R-packages
 
-```{r dd-vars, cache = TRUE}
+```{r vars-pkg-downloads, cache = TRUE}
 dd_start <- "2012-10-01"
 dd_end <- Sys.Date() - 2
 
@@ -17,10 +17,12 @@ total_downloads <- cran_downloads(from = dd_start, to = dd_end) %>%
 
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 1**: There was an unusual download activity in one day of 2014 and 2018. 
+**Finding 1**: There was unusual download activity in one day of 2014 and 2018. 
 ```
 
 In this section, we study the daily downloads of CRAN packages from `r dd_start` to `r dd_end`. The data is obtained from the `cranlogs` package, which includes a summary of the download logs from the RStudio CRAN mirror. The daily download data for CRAN packages are available from 1st October 2012. Examination of this data showed two unusual observations in XX and XX as shown in Figure \@ref(fig:unusual-spikes).
+
+[ADD] Any explanations to why these spikes occured?
 
 
 (ref:unusual-spikes) Unusual download spikes on XX and XX. 
@@ -70,6 +72,7 @@ plot_daily_fix %+%
    total_downloads_fix
 ```
 
+[ET: this paragraph needs to be made clear.]
 
 We could know that there seems to have strong seasonality, which indicates that in a week, the total downloads always increases first then decreases, and reaches the lowest at the weekend. What's more, the downloads is on the rise from August to October and from February to April, which may be due to the start of semester for most universities.
 
@@ -84,5 +87,18 @@ total_downloads_fix %>%
        y = "Download count (in millions)") +
   facet_wrap(~year, scales = "free_y", nrow = 2) +
   scale_x_discrete(labels = c("Day", "End")) 
+```
+
+```{block, type="discovery", echo = TRUE}
+**Finding 3**: There is an increasing number of downloads over time. This likely attests to the growing number of R users. 
+```
+
+(ref:download-over-time) The above figure shows the download trend over time. 
+
+```{r download-over-time, fig.cap="(ref:download-over-time)"}
+total_downloads_fix %>% 
+  ggplot(aes(date, count/1e6)) +
+  geom_line() +
+  labs(x = "Date", y = "Download count (in millions)")
 ```
 
