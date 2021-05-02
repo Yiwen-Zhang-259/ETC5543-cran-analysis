@@ -1,0 +1,108 @@
+## compare the package name length with download counts for trending packages
+
+Here, I choose 500 random sample of all packages on CRAN to make the conclusion more representative.
+
+```{r random-sample}
+# generate random sample of the packages used to analyse name length
+set.seed(2599)
+x <- dplyr::pull(db,package)
+
+pkg_random <- sample(x,500,replace = FALSE) %>%
+  as.data.frame()
+
+colnames(pkg_random)[1] <- 'package'
+```
+
+```{r  namelength-plot}
+# use random sample
+pkg_random1 <- pkg_random %>%
+  mutate(length_name = nchar(package)) %>%
+  mutate(count = get_total_downloads(package)$count)%>%
+  rowwise()%>%
+  mutate(length_name = as.numeric(length_name)) 
+
+pkg_random1 <- pkg_random1 %>%
+  arrange(desc(count)) 
+
+  
+pkg_random1 %>%
+  group_by(length_name) %>%
+  ggplot(aes(x = length_name, y = count)) +
+  geom_point()+
+  geom_smooth(se = F) +
+  scale_y_sqrt() +
+  scale_x_log10() +
+  labs( y = 'Total download counts',
+        x = 'The length of package names',
+    title = "Name length against the download counts",
+    subtitle = "for 500 random packages on CRAN") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5))
+
+
+```
+We can see from Figure \@ref(fig:namelength-plot) that, in general, the influence of name length on download volume is not very obvious. But the names of packages with more than 100,000 downloads are between 5 and 9 characters long. And the most downloaded is package `r pkg_random1$package[1]` whose name length is `r pkg_random1$length_name[1]`, with `r pkg_random1$count[1]` download counts.
+
+```{r namelength}
+db_namelth <- db %>%
+  select(package) %>%
+  mutate(length_name = nchar(package)) 
+
+`total average name length`  <- as.numeric(mean(db_namelth$length_name))
+`pkg_trending_total` <- as.numeric(length(pkg_random$package))
+
+pkg_random2 <- pkg_random1 %>%
+  group_by(package) %>%
+  dplyr::filter(length_name < `total average name length`) %>%
+  ungroup() %>%
+  dplyr::summarise(`number of short names` = length(package)) %>%
+  mutate(`percentage of short names` = (`number of short names`/pkg_trending_total)*100)
+
+compare_trending_namelth <- cbind(pkg_random2,`total average name length`)
+
+```
+
+Table \@ref(tab:pct-lngname) shows that the average name length of 500 random packages is `r compare_trending_namelth[[3]]`. And over half of the packages are more likely to have names shorter  than average. That means, to a certain extent, packages with shorter names are easier to get relatively higher downloads.
+
+```{r pct-lngname}
+compare_trending_namelth %>%
+  kable(caption = "Percentage of trending packages whose updates are less than average") %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+```
+
+```{r compute-ci}
+# to get the 95% CI of the name length
+
+# calculate the mean, sd and se
+sample.mean <- mean(pkg_random1$length_name)
+sample.n <- length(pkg_random1$length_name)
+sample.sd <- sd(pkg_random1$length_name)
+sample.se <- sample.sd/sqrt(sample.n)
+
+# find t-score
+alpha <- 0.05
+degrees.freedom <- sample.n - 1
+t.score <- qt(p=alpha/2, df=degrees.freedom,lower.tail=F)
+
+margin.error <- t.score * sample.se
+
+# get the 95% CI
+lower.bound <- sample.mean - margin.error
+upper.bound <- sample.mean + margin.error
+
+namelth_CI <- cbind(lower.bound,upper.bound)
+
+```
+
+Table \@ref(tab:pct-lngname) shows the 95% confidence interval of name length for trending packages. We could know that the 95% suitable name length is between `r namelth_CI[[1]]` and `r namelth_CI[[2]]` characters.
+
+```{r namelth-ci}
+namelth_CI %>%
+  kable(caption = "95% Confidence Interval of name length for random packages") %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+```

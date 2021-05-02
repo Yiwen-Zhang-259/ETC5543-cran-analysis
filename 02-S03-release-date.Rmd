@@ -1,0 +1,289 @@
+## Compare last half year's downloads with the earliest release date
+
+In our common cognition, we think that the earlier a package is released, the more people will know about it, and thus the more downloads it will have. However, packages related to different topics cannot be directly compared, because it is possible that the total download amount of packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, I selected three domain packages through CRAN task view, calculated their respective downloads in the previous half a year, and found their earliest release dates for comparison.
+
+
+1. Packages for Time Series Analysis
+
+The first topic is Time Series Analysis. Time Series Analysis is a statistical technique that deals with time series data, or trend analysis. Time series data means that data is in a series of  particular time periods or intervals[@timeseries].
+
+```{r get-arcvreleasedate}
+
+# function used to get archive release dates from CRAN
+get_arcvupdate_date <- function(packages){
+  pkg_url <- "https://cran.r-project.org/web/packages/{pkg}/index.html"
+  pkg_archive <- "https://cran.r-project.org/src/contrib/Archive/{pkg}/"
+  pkg_updates <- map(packages, function(pkg) {
+      
+    archive_dates <- tryCatch({ 
+        read_html(glue(pkg_archive)) %>% 
+          html_table() %>%
+          .[[1]] %>% 
+          pull(`Last modified`) %>% 
+          ymd_hm() %>% 
+          na.omit() %>% 
+          as.Date()
+      }, error = function(e) {
+        NULL
+      })
+    archive_dates
+  })
+names(pkg_updates) <- packages
+
+updates <- unlist(pkg_updates) %>% 
+  enframe("package", "update") %>% 
+  # unlist converts date to integers
+  mutate(update = as.Date(update, origin = "1970-01-01"),
+         # need to get rid of the numbers appended to pkg names
+         package = str_extract(package, paste0(packages, collapse="|"))) 
+
+return(updates)
+}
+
+
+```
+
+
+
+```{r getpkg}
+
+# function used to get packages of  a certain topic from CRAN task view
+get_pkg_taskview <- function(topic_file){
+
+topic_pkg <- ctv:::.get_pkgs_from_ctv_or_repos(paste0(topic_file), 
+                                              repos = "http://cran.rstudio.com/")[[1]]
+
+
+df <- data.frame(matrix(unlist(topic_pkg), nrow=length(topic_pkg), byrow=TRUE),stringsAsFactors=FALSE)
+
+colnames(df)[1] <- 'package'
+  
+return(df)
+}
+
+
+
+# get the packages for econometrics
+topic_file <- "Econometrics"
+Econometrics <- get_pkg_taskview(topic_file) 
+
+
+# get the packages for time series
+topic_file <- "TimeSeries"
+TimeSeries <- get_pkg_taskview(topic_file)
+
+
+# get the packages for bayesian
+topic_file <- "Bayesian"
+Bayesian <- get_pkg_taskview(topic_file)
+
+```
+
+
+```{r  function-earliestrelease-counts}
+# before use the function 'get_total_downloads', please set the time range
+date1 <- "2019-10-01"
+date2 <- "2020-04-01"
+
+# function used to get the total downloads of a period of time (date1 to date2) for several packages at the same time
+get_total_downloads <- function(packages_vector){
+  
+total_downloads <- map(packages_vector, function(pkg){
+  
+  pkg <- cran_downloads(package = paste0(pkg), from = date1, to = date2) %>%
+  dplyr::summarise(package = package, count = sum(count)) %>%
+  head(1)
+  
+})
+ names(total_downloads) <- packages_vector
+
+downloads <- unlist(total_downloads) %>% 
+  enframe("package", "count") %>% 
+  mutate(count = suppressWarnings(as.numeric(count)),
+         # need to get rid of the numbers appended to pkg names
+         package = str_extract(package, paste0(packages_vector, collapse="|")))%>%
+         na.omit()
+}
+
+# function used to get the total downloads of a period of time and the earliest release date
+downloads_earliest_release <- function(packages) {
+
+# function used to get the earliest release date from CRAN
+earliest_updates <- function(packages){
+  
+  earliest_updates <- get_arcvupdate_date(packages) %>%
+  dplyr::group_by(package) %>%
+  dplyr::arrange(update, .by_group = TRUE) %>% #arrange within group
+  top_n(-1, update) # to get the earliest release date, top_n() is used to select the lowest value of a column within each group
+  
+}
+
+earliest_updates <- earliest_updates(packages)
+
+packages_vector <- earliest_updates$package
+  
+  
+downloads <- get_total_downloads(packages_vector)
+  
+downloads_release_earliest <- downloads %>%
+  as.data.frame() %>%
+  left_join(earliest_updates,by = "package")
+
+return(downloads_release_earliest)
+
+}
+```
+
+
+
+```{r timeseris-updates}
+packages <- TimeSeries$package 
+
+timeseries <- downloads_earliest_release(packages) %>%
+    arrange(desc(count)) 
+
+
+timeseries %>%
+  head(15) %>%
+  kable(caption = "Timeseries packages with earliest release date and last half year's total counts") %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+
+```
+Table \@ref(tab:timeseris-updates) shows the first 15 timeseries packages along with their earliest release date and last half year's total counts. It can be seen that `lubridate` ranks first on download count with release date `r timeseries$update[1]`. Except that, other first four packages are all released before 2010, which is over 10 years ago.
+
+Figure \@ref(fig:timeseries) displays the scatterplot of the last half year's download count and the earliest release date of timeseries packages. It can be seen that generally, as the earliest release date gets later and later, the number of download logs becomes lower and lower. And most of the high downloaded packages are from a period of time between 2004 and 2011. For timeseries packages, they are mainly released between 2012 and 2019. 
+
+```{r timeseries, fig.align = 'center', fig.cap="The older package 'fable' has less download count than that of package 'forecast'."}
+
+timeseries %>%
+  ggplot(aes(x = update, y = count)) +
+  geom_point() +
+  geom_smooth(se = F) +
+    labs( x = "Earliest release date",
+      y = 'Download count',
+    title = "Last half year's downloads with the earliest release date",
+    subtitle = "between for time series packages") +
+  scale_y_log10() + # to change the scale of y axis
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5))
+
+
+#timeseries %>%
+  #ggplot(aes(update)) +
+  #geom_density()
+
+```
+
+
+
+2. Bayesian packages for general model fitting
+
+The second topic is Bayesian Inference. Bayesian statistics is a mathematical procedure that applies probabilities to statistical problems. It provides people the tools to update their beliefs in the evidence of new data[@bayesian].
+
+
+
+```{r bayesian-updates}
+packages <- Bayesian$package 
+
+bayesian <- downloads_earliest_release(packages) %>%
+    arrange(desc(count))
+
+bayesian%>%
+  head(15) %>%
+  kable(caption = "Bayesian packages with earliest release date and last half year's total counts") %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+```
+
+Table \@ref(tab:bayesian-updates) shows the first 15 econometric packages along with their earliest release date and last half year's total counts. It can be seen that the first-rank package is `r bayesian$package[1]` released on `r bayesian$update[1]`. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010. 
+
+It can be seen from Figure \@ref(fig:bayesian) that similarly, the earlier packages is released, the more downloads it will have. And most of the packages are from 2007 to 2012.
+
+```{r bayesian,fig.align = 'center', fig.cap="last two years' downloads with the release date for bayesian general model fitting packages."}
+
+bayesian %>%
+  ggplot(aes(x = update, y = count)) +
+  geom_point() +
+  geom_smooth(se = F) +
+    labs( x = "Earliest release date",
+      y = 'Download count',
+    title = "Last half year's downloads with the earliest release date",
+    subtitle = "between for bayesian packages") +
+  scale_y_log10() + # to change the scale of y axis
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5))
+
+
+
+
+#bayesian %>%
+  #ggplot(aes(update)) +
+  #geom_density()
+```
+
+3. Econometrics 
+
+In order to test whether this is the case in other areas, let's turn our attention to econometrics packages. Econometrics is the use of statistical methods using quantitative data to develop theories or test existing hypotheses in economics or finance, which relies on techniques such as regression models and null hypothesis testing[@econometrics].
+
+```{r eco-updates}
+# before use the function 'downloads_earliest_release()', please set the time range
+date1 <- "2019-10-01"
+date2 <- "2020-04-01"
+
+packages <- Econometrics$package 
+
+econometric <- downloads_earliest_release(packages) %>%
+    arrange(desc(count))
+
+
+econometric %>%
+  head(15) %>%
+  kable(caption = "Econometrics packages with earliest release date and last half year's total counts") %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+
+```
+
+Table \@ref(tab:eco-updates) shows the first 15 econometric packages along with their earliest release date and last half year's total counts. It can be seen that the first-rank package is `zoo` released on `r econometric$update[1]`. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010. 
+
+In Figure \@ref(fig:eco-lm), as we can see, for this kind of package, the download volume decreases more obviously with the release date, which is quite consistent with both timeseries and bayesian situations. And most of the packages are centered between 2013 and 2016.
+
+
+```{r eco-lm,fig.align = 'center', fig.cap="The latest package sandwich has the highest downloads."}
+
+econometric %>%
+  ggplot(aes(x = update, y = count)) +
+  geom_point() +
+  geom_smooth(se = F) +
+    labs( x = "Earliest release date",
+      y = 'Download count',
+    title = "Last half year's downloads with the earliest release date",
+    subtitle = "between for econometrics packages") +
+  scale_y_log10()+ # to change the scale of y axis
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5))
+
+
+
+
+
+#econometric %>%
+ # ggplot(aes(update)) +
+  #geom_density()
+```
+
+In conclusion, I'm not surprised to find that the earlier the package is released, the more downloads it will has, which is reflected in bayesian, econometrics, time series  cases. That is because,t he packages released earlier will be better known. When they are released early, there may be a relatively small number of packages of the same type, so the competition is relatively small. In contrast, the packages released later can easily be covered up, because people tend to use the well-known, mature and habitual packages.
+

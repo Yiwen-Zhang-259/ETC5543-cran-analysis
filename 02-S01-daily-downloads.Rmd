@@ -1,0 +1,88 @@
+
+## Daily download of R-packages
+
+```{r dd-vars, cache = TRUE}
+dd_start <- "2012-10-01"
+dd_end <- Sys.Date() - 2
+
+is_weekend <- function(date) {
+  weekdays(date) %in% c("Saturday", "Sunday")
+}
+
+total_downloads <- cran_downloads(from = dd_start, to = dd_end) %>% 
+  mutate(year = year(date),
+         day = yday(date),
+         weekend = is_weekend(date)) 
+```
+
+
+```{block, type="discovery", echo = TRUE}
+**Finding 1**: There was an unusual download activity in one day of 2014 and 2018. 
+```
+
+In this section, we study the daily downloads of CRAN packages from `r dd_start` to `r dd_end`. The data is obtained from the `cranlogs` package, which includes a summary of the download logs from the RStudio CRAN mirror. The daily download data for CRAN packages are available from 1st October 2012. Examination of this data showed two unusual observations in XX and XX as shown in Figure \@ref(fig:unusual-spikes).
+
+
+(ref:unusual-spikes) Unusual download spikes on XX and XX. 
+
+```{r unusual-spikes, fig.cap="(ref:unusual-spikes)"}
+plot_daily <- total_downloads %>% 
+  group_by(year) %>% 
+  mutate(max_count = max(count)) %>% 
+  ungroup() %>% 
+  filter(year %in% c(2014, 2018)) %>% 
+  ggplot(aes(x = day, y = count/1e6)) +
+  geom_area(aes(y = weekend * max_count/1e6),
+            fill="#e3e3e3")+
+  geom_line() +
+  labs(x = "Day",
+       y = 'Download count (in millions)') +
+  facet_grid(facets = year ~ ., 
+             scales = "free_y") +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank())
+
+plot_daily
+```
+
+```{block, type="discovery", echo = TRUE}
+**Finding 2**: Weekends have a lower download than weekdays.
+```
+
+The two unusual observations are removed for futher investigation. Figure \@ref(fig:total-trend) shows the daily download of all CRAN packages from the RStudio mirror with the grey areas highlighting the weekend. 
+
+(ref:total-trend) The figure shows the total downloads of all packages on CRAN would decrease on weekends.
+
+
+```{r total-trend, fig.cap="(ref:total-trend)", fig.height = 12}
+total_downloads_fix <- total_downloads %>% 
+  mutate(count = ifelse(count > 3e6 & year==2014 | count > 10e6 & year==2018, 
+                        NA, count)) %>% 
+  group_by(year) %>% 
+  mutate(max_count = max(count, na.rm = TRUE)) %>% 
+  ungroup()
+
+plot_daily_fix <- plot_daily +
+  labs(title = "Total number of package downloads on CRAN",
+       subtitle = glue("from {dd_start} to {dd_end}")) 
+
+plot_daily_fix %+%
+   total_downloads_fix
+```
+
+
+We could know that there seems to have strong seasonality, which indicates that in a week, the total downloads always increases first then decreases, and reaches the lowest at the weekend. What's more, the downloads is on the rise from August to October and from February to April, which may be due to the start of semester for most universities.
+
+
+```{r weekend-vs-weekday, fig.height = 7}
+total_downloads_fix %>% 
+  ggplot(aes(weekend, count/1e6)) +
+  geom_violin() +
+  geom_boxplot(width = 0.1)  +
+  labs(color = "Year",
+       x = "Weekday or Weekend",
+       y = "Download count (in millions)") +
+  facet_wrap(~year, scales = "free_y", nrow = 2) +
+  scale_x_discrete(labels = c("Day", "End")) 
+```
+
