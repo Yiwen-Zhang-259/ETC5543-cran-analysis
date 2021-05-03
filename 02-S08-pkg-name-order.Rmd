@@ -1,0 +1,102 @@
+## compare download counts with alphabetical order of name
+
+From the perspective of package name, in addition to the length, does the alphabetic order of the first letter also affect the download volume? To answer this question, I grouped the packages in 26-letter order, calculated the average downloads of each group, and then compared them.
+
+```{r random-sample1}
+# generate random sample of the packages used to analyze name alphabetic order
+set.seed(2599)
+x <- dplyr::pull(db,package)
+
+# expand the sample size
+pkg_random_new <- sample(x,1000,replace = FALSE) %>%
+  as.data.frame()
+
+colnames(pkg_random_new)[1] <- 'package'
+
+pkg_random_new1 <- pkg_random_new %>%
+  mutate(length_name = nchar(package)) %>%
+  mutate(count = get_total_downloads(package)$count)%>%
+  rowwise()%>%
+  mutate(length_name = as.numeric(length_name)) 
+```
+
+```{r alpha-function}
+get_downloads_alphabetic <- function(df){
+  
+  
+  avg_downloads_alphabetic <- function(df,letter){
+  
+  avg_downloads <- df %>%
+  select(-length_name) %>%
+  filter(str_detect(package, paste0(letter)))%>%
+  ungroup() %>%
+  summarise(avg_downloads = mean(count))
+
+  return(avg_downloads)
+  
+  }
+  
+ avg_downloads_a <- avg_downloads_alphabetic(df,"^a|^A")
+ avg_downloads_b <- avg_downloads_alphabetic(df,"^b|^B")
+ avg_downloads_c <- avg_downloads_alphabetic(df,"^c|^C")
+ avg_downloads_d <- avg_downloads_alphabetic(df,"^d|^D")
+ avg_downloads_e <- avg_downloads_alphabetic(df,"^e|^E")
+ avg_downloads_f <- avg_downloads_alphabetic(df,"^f|^F")
+ avg_downloads_g <- avg_downloads_alphabetic(df,"^g|^G")
+ avg_downloads_h <- avg_downloads_alphabetic(df,"^h|^H")
+ avg_downloads_i <- avg_downloads_alphabetic(df,"^i|^I")
+ avg_downloads_j <- avg_downloads_alphabetic(df,"^j|^J")
+ avg_downloads_k <- avg_downloads_alphabetic(df,"^k|^K")
+ avg_downloads_l <- avg_downloads_alphabetic(df,"^l|^L")
+ avg_downloads_m <- avg_downloads_alphabetic(df,"^m|^M")
+ avg_downloads_n <- avg_downloads_alphabetic(df,"^n|^N")
+ avg_downloads_o <- avg_downloads_alphabetic(df,"^o|^O")
+ avg_downloads_p <- avg_downloads_alphabetic(df,"^p|^P")
+ avg_downloads_q <- avg_downloads_alphabetic(df,"^q|^Q")
+ avg_downloads_r <- avg_downloads_alphabetic(df,"^r|^R")
+ avg_downloads_s <- avg_downloads_alphabetic(df,"^s|^S")
+ avg_downloads_t <- avg_downloads_alphabetic(df,"^t|^T")
+ avg_downloads_u <- avg_downloads_alphabetic(df,"^u|^U")
+ avg_downloads_v <- avg_downloads_alphabetic(df,"^v|^V")
+ avg_downloads_w <- avg_downloads_alphabetic(df,"^w|^W")
+ avg_downloads_x <- avg_downloads_alphabetic(df,"^x|^X")
+ avg_downloads_y <- avg_downloads_alphabetic(df,"^y|^Y")
+ avg_downloads_z <- avg_downloads_alphabetic(df,"^z|^Z")
+ 
+ avg_downloads <- rbind(avg_downloads_a,avg_downloads_b,avg_downloads_c,avg_downloads_d,avg_downloads_e,avg_downloads_f,avg_downloads_g,avg_downloads_h,avg_downloads_i,avg_downloads_j,avg_downloads_k,avg_downloads_l,avg_downloads_m,avg_downloads_n,avg_downloads_o,avg_downloads_p,avg_downloads_q,avg_downloads_r,avg_downloads_s,avg_downloads_t,avg_downloads_u,avg_downloads_v,avg_downloads_w,avg_downloads_x,avg_downloads_y,avg_downloads_z)
+ 
+`alphabetic group` <- LETTERS[1:26] %>%
+  as.data.frame()
+
+colnames(`alphabetic group`)[1] <- 'alphabetic group'
+
+avg_downloads <- cbind(avg_downloads,`alphabetic group`)
+
+return(avg_downloads)
+  
+}
+
+alphabetic_downloads <- get_downloads_alphabetic(pkg_random_new1)
+
+```
+
+From Figure \@ref(fig:ahlpha-downloads) we could see that 
+```{r ahlpha-downloads}
+
+alphabetic_downloads %>%
+  ggplot(aes(x = `alphabetic group`,y = avg_downloads)) +
+  geom_point() +
+  labs( y = 'Total download counts',
+    title = "Mean download counts against different alphabetic group",
+    subtitle = "for 500 random packages") +
+  scale_y_log10() +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5),
+  axis.title.x = element_blank())
+```
+

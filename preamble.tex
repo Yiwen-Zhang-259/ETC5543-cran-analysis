@@ -1,8 +1,13 @@
 \usepackage{booktabs}
 \usepackage{amsthm}
+\usepackage{bera}
+\usepackage{tcolorbox}
 \makeatletter
 \def\thm@space@setup{%
   \thm@preskip=8pt plus 2pt minus 4pt
   \thm@postskip=\thm@preskip
 }
 \makeatother
+
+\newenvironment{discovery}[1]{%
+  \begin{tcolorbox}[colback=blue!30,colframe=blue!80!black]#1}{\end{tcolorbox}}

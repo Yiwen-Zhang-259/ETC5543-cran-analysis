@@ -1,10 +1,10 @@
 # Introduction {#intro}
 
-R is a widely used programming language, and also a free software environment for statistical calculation and mapping analysis, which is popular among statisticians and data analysts, with being widely used in statistical software development and data analysis. In the process of using R, we need to extend its functions with the help of R packages, so R packages have become an indispensable part when people use R to work and study.Due to that, both users and developers are concerned about the download amount and popularity of R packages that can be downloaded from CRAN, a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R. Based on this, researchers have started to study the popularity of R packages from CRAN. For example, a package `adjustedcranlogs` finds that there are spike in downloads due to automatic re-downloads and package update, and it also provides a method to remove these download logs. And package `packageRank` provides a way to compute the rank percentile for packages and filter the invalid downloads including small and medium size logs. What's more, there are also some packages such as `pkgsearch` and `Visualize.CRAN.Downloads` providing some visualization methods to explore the package download trend or for convenient searching. As for us, we investigated the historical data of CRAN dowload logs and found that... (to be added)
+R is a widely used programming language, and also a free software environment for statistical calculation and mapping analysis, which is popular among statisticians and data analysts, with being widely used in statistical software development and data analysis. In the process of using R, we need to extend its functions with the help of R packages, so R packages have become an indispensable part when people use R to work and study. Due to that, both users and developers are concerned about the download amount and popularity of R packages that can be downloaded from CRAN, a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R. Based on this, researchers have started to study the popularity of R packages from CRAN. For example, the R-package `adjustedcranlogs` finds that there are spike in downloads due to automatic re-downloads and package update, and it also provides a method to remove these download logs. And package `packageRank` provides a way to compute the rank percentile for packages and filter the invalid downloads including small and medium size logs. What's more, there are also some packages such as `pkgsearch` and `Visualize.CRAN.Downloads` providing some visualization methods to explore the package download trend or for convenient searching. As for us, we investigated the historical data of CRAN download logs and found that... (to be added)
 
 Next, I would like to introduce some terms involved in this project.
 
-- R language : R is a language and environment for statistical computing and graphics which can be extended easily via packages and provide an Open Source route to participation in statistical methodology. It is available as Free Software under the term of the Free Software Foundation’s GNU General Public License[@gnu].
+- R language : R is a language and environment for statistical computing and graphics which can be extended easily via packages and provide an Open Source route to participation in statistical methodology. It is available as Free Software under the term of the Free Software Foundation’s GNU General Public License [@gnu].
 
 - R Studio : It is an integrated development environment (IDE) for R. It includes a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging and workspace management.
 
@@ -19,30 +19,5 @@ Next, I would like to introduce some terms involved in this project.
 
 ## rtrends
 
-
-
-
  the purpose of this project is to analyze and explore the packages download on CRAN, and try to provide one or more methods to modify the download amount of packages or help users and developers better understand the download amount pattern.
  
-## Helpful tips
-
-You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
-
-Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
-
-```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
-par(mar = c(4, 4, .1, .1))
-plot(pressure, type = 'b', pch = 19)
-```
-
-Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
-
-```{r nice-tab, tidy=FALSE}
-knitr::kable(
-  head(iris, 20), caption = 'Here is a nice table!',
-  booktabs = TRUE
-)
-```
-
-
-You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].
