@@ -232,7 +232,15 @@ pkg_remain <- cbind_dif(list(package14_13 = a1$package, package15_14 = b1$packag
 pkg_remain[is.na(pkg_remain)] = "-"
 ```
 
+```{block, type="discovery", echo = TRUE}
+**Finding 1**: The topic of newly added packages each year come from quite different areas. 
+
+```
+
 Table \@ref(tab:changed-top15pkg) shows the packages that newly come up to the top 15 list each year, from which we can know what the user preferences increase year by year compared with the previous year. 
+
+For 2014, `ncdf` ranks first, which is used to provide an interface to netCDF format data. For 2015, the first downloaded is `XLConnectJars` on JAVA dependency. For 2016, the first one is `reports` for standardising the output of R. For 2017, `lava.tobit` aims to help with estimation and simulation of latent variable models. For 2018, the ranking-first `ReportsRs` is for creating Microsoft Word and Powerpoint documents. And for 2019, `CALIBERrfimpute` is used to impute missing values in analysis datasets using full conditional specifications. As for 2020, `SparkR` is similar to `dplyr` but for large datasets. At last, for 2021, `heatmap.plus` is an extension of `heatmap()` function.
+
 
 ```{r changed-top15pkg}
 pkg_change %>%
@@ -242,7 +250,14 @@ pkg_change %>%
 
 ```
 
+```{block, type="discovery", echo = TRUE}
+**Finding 2**: The topic of packages changes least between 2017 and 2019. And the most popular filed is about JAVA dependency.
+
+```
+
 Table \@ref(tab:unchanged-top15pkg) shows the packages that remain unchanged each year compared with the previous year, from which we can know which packages are relatively stable in popularity.
+
+To be more specific, packages like `XLConnectJars`, `DMwR`, `KoNLP`, and `gWidgets` are relatively popular through years from 2014 to 2021. And they are used for providing JAVA dependency, data mining, linguistic research and providing API for building toolkit-independent, interactive GUIs.
 
 ```{r  unchanged-top15pkg}
 pkg_remain %>%
@@ -293,6 +308,11 @@ colnames(pkg_taskview_total)[1] <- 'package'
 
 Let's take a look at the trending packages. Trending packages are packages that downloaded at least 1000 times last week, which have increased significantly compared to the average weekly downloads in the previous 24 weeks[@r-hub]. That is to say, they are packages with high download volume in a recent short time. Through their topic, we can know what areas of packages people are concerned about recently.
 As the trending packages are changing through time, let's focus on trending ones before 2021-04-11.
+
+```{block, type="discovery", echo = TRUE}
+**Finding 3**: The most popular topic of trending packages is for Time series analysis.
+
+```
 
 Table \@ref(tab:trending-topic) shows the first 15 trending packages along with their topics.
 
