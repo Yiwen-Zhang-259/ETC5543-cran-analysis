@@ -1,8 +1,11 @@
 ## compare download counts with the number of commits on master branch
 
-In this part, I would like to compare last half year's total downloads with the number of commits on master branch in Github repositories. Let's look back to trending packages.
+In this part, we compare last half year's total downloads with the number of commits on master branch in Github repositories. Let's look back to trending packages.
 
-Table \@ref(tab:pct-lowupdates) shows the top 30 trending packages these days. 
+```{block, type="discovery", echo = TRUE}
+**Finding x**: In general, more commits on master branch of Github repository tends to bring more download counts to packages. On the one hand, the number of commits indicates that developers are constantly supplementing and updating the package, which will lead to more downloads. On the other hand, the number of commits also reflects the importance developers attach to the package to a certain extent. If a package has more commits, it means that developers attach more importance to it, then developers may invest in advertising and other ways to promote it, so as to expand the popularity and improve the download amount.
+```
+
 
 ```{r trending-commits}
 # to find the 100 trending packages before 4.11 and save as csv file
@@ -79,12 +82,12 @@ commits <- c(get_commits("rtdists","fddm"),get_commits("r-lib","webfakes"),get_c
 
 
 
-pkg_trending_commits <- cbind(pkg_trending_filter,commits) %>%
+pkg_trending_commits <- cbind(pkg_trending_filter,as.numeric(commits)) %>%
   select(-score)
 
 # set the time range again (last half year)
-date1 <- "2019-10-01"
-date2 <- "2020-04-01"
+date1 <- lh_dt_start
+date2 <- lh_dt_end
 
 # get last half year's total download for each package
 trending_downloads <- get_total_downloads(pkg_trending_filter$package) 
@@ -94,18 +97,17 @@ trending_downloads <- left_join(trending_downloads,pkg_trending_commits, by = "p
 
 ```
 
+Table \@ref(tab:commits-tbl) shows the top 30 trending packages before 2021-04-11, along with their last half a year's total downloads and the number of commits on Github master branch. `V8` ranks first in download count with `r trending_downloads$count[1]`, while `phangorn` comes to the top in commits count with `r max(trending_downloads$commits)`.
 
 ```{r commits-tbl}
 trending_downloads <- trending_downloads %>%
-  arrange(desc(count)) 
+  arrange(desc(count))
 
 trending_downloads %>%
   kable(caption = "Top 30 scored trending packages with commits on Github and last half year's downloads") %>%
   kable_styling(bootstrap_options = c("hover", "striped")) 
 ```
 
-
-And Table \@ref(tab:commits-tbl) shows the top 30 scored trending packages with commits on Github and last half year's downloads. Package `V8` ranks first with `r trending_downloads$count[1]` download count and `r trending_downloads$commits[1]`. 
 
 Figure \@ref(fig:commits-pattern) shows the scatterplot along with a smoothing line. In general, more commits, more downloads. What's more, most packages' commits are in the range of 100 to 400.
 

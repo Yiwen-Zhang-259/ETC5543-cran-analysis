@@ -18,9 +18,12 @@ By looking into Figure \@ref(fig:pkg0401), we could know that the most downloade
 In this section, we compare package `fable` and `forecast`. They are two closely related packages, for `fable` is the recently released tidy version of `forecast`. Figure \@ref(fig:daily-fbl) and Figure \@ref(fig:daily-fcst) shows the daily download count changing during last half year, which shows strong weekly seasonality. And that means the downloads tend to be higher in week days and thus lower on weekends, which is consistent with total package trend on CRAN.
 
 ```{r trans-ff}
+lh_dt_start <- Sys.Date() - 183 - 2 #last half year
+lh_dt_end <- Sys.Date() - 2
+
 # transform the daily download of 'fable' to time series table
-fable <- cran_downloads(package = "fable",from = date1, to = date2)
-forecast <- cran_downloads(package = "forecast",from = date1, to = date2)
+fable <- cran_downloads(package = "fable",from = lh_dt_start, to = lh_dt_end)
+forecast <- cran_downloads(package = "forecast",from = lh_dt_start, to = lh_dt_end)
 
 fable <- fable %>%
   as_tsibble(index = date) 
@@ -35,7 +38,7 @@ fable %>%
    labs( y = 'Daily download count',
           x = 'Date',
     title = "The daily downloads of fable",
-    subtitle = "from 2019-10-01 to 2021-04-02") +
+    subtitle = "for last half year") +
   scale_y_sqrt() +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
@@ -54,7 +57,7 @@ forecast %>%
    labs(  y = 'Daily download count',
           x = 'Date',
     title = "The daily downloads of forecast",
-    subtitle = "from 2019-10-01 to 2021-04-02") +
+    subtitle = "for last half year") +
   scale_y_sqrt() +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
@@ -87,7 +90,7 @@ p_fbl <- fable_ma %>%
                 color = "violetred4", size=0.8) +
   labs( 
   title = "Weighed moving average of fable and forecast",
-  subtitle = "from 2021-02-06 to 2021-04-02") +
+  subtitle = "from 2021-02-06 up to now") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
