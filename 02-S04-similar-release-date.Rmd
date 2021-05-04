@@ -11,8 +11,11 @@ By looking into Figure \@ref(fig:pkg0401), we could know that the most downloade
 
 ## Compare moving average of fable and forecast
 
-Let's have a look at package `fable` and `forecast`. They are two closely related packages, for `fable` is the recently released tidy version of `forecast`. Figure \@ref(fig:daily-fbl) and Figure \@ref(fig:daily-fcst) shows the daily download count changing during last half year, which shows strong weekly seasonality. And that means the downloads tend to be higher in week days and thus lower on weekends.  
+```{block, type="discovery", echo = TRUE}
+**Finding x**: Package forecast has a more stable download trend comparing to fable. And when fable gets updated, its downloads peaked, while forecast suffers a dropping on the contrast.
+```
 
+In this section, we compare package `fable` and `forecast`. They are two closely related packages, for `fable` is the recently released tidy version of `forecast`. Figure \@ref(fig:daily-fbl) and Figure \@ref(fig:daily-fcst) shows the daily download count changing during last half year, which shows strong weekly seasonality. And that means the downloads tend to be higher in week days and thus lower on weekends, which is consistent with total package trend on CRAN.
 
 ```{r trans-ff}
 # transform the daily download of 'fable' to time series table
