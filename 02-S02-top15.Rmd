@@ -1,14 +1,16 @@
 ## Daily top 15 downloaded packages 
 
-We all know that some packages are hold by rstudio, or they are developed by some core personnel or related personnel under R, or some prolific developers. Naturally, the number of downloads of these packages will be higher. (explain why??)
-And the existence of these packages will make the results biased. Therefore, in order to explore the interesting findings for packages constructed by non-special creators, I have screened out four types of packages, namely:
+In this section, we study the top 15 downloaded packages from 2013-04-01 to 2021-04-01 to see how user preferences has been changing. The data is obtained from CRAN website [http://cran.rstudio.com/web/packages/packages.rds].
+
+We all know that some packages are hold by rstudio, or they are developed by some core personnel or related personnel under R, or some prolific developers. Naturally, the number of downloads of these packages will be higher. On the one hand, the packages developed by these experienced developers may be more mature and perfect, on the other hand, users are more inclined to use the packages of famous authors, which is a kind of "good use" guarantee.
+
+However, the existence of these packages will make the results biased. Therefore, in order to explore the packages constructed by non-special creators, we have screened out four types of packages, namely:
+
 - Packages maintained by R studio
 - Packages created by authors from R core group
 - Packages created by authors from R secondary group
 - Packages created by R related authors
-- Packages created by top 20 prolific maintainers (explain the recource)
-
-Then, I compared the top 15 downloaded packages April 1 from 2013 to 2021 to see how user preferences has been changing. 
+- Packages created by top 20 prolific maintainers (This is resourced at @revolutions)
 
 
 ```{r readcran}
@@ -114,7 +116,7 @@ cran2021_04_01_new <- filter_list(cran2021_04_01)
 
 
 ```{r crantop15-1319}
-# find the top 30 downloaded packages on 10.1 from 2013 to 2019
+# find the top 30 downloaded packages on 04.01 from 2013 to 2021
 cran2013_0401 <- cran2013_04_01_new %>%
   drop_na() %>%
   dplyr::count(package) %>%
@@ -249,8 +251,9 @@ pkg_remain %>%
   scroll_box(width = "100%", height = "400px")
 ```
 
-```{r}
+```{r taskview-function}
 # to get all the topic names from CRAN task view
+library(ctv)
 task_topic <- available.views(repos = "https://cran.csiro.au/")
 
 topic_name <- task_topic[[1]]$name
@@ -283,7 +286,8 @@ for (i in c(1:length(task_topic_all$topic))) {
 colnames(pkg_taskview_total)[1] <- 'package'
 
 # to figure out the classification of packages according to CRAN task view
-match_df(pkg_taskview_total,c,on = "package")
+# plyr::match_df(pkg_taskview_total,c,on = "package")
+
 
 ```
 
@@ -299,7 +303,7 @@ pkg_trending <- read_csv("data/pkg_trending.csv")
 pkg_trending_new <- pkg_trending %>%
   select(-score)
 
-pkg_trending_compare <- match_df(pkg_taskview_total,pkg_trending_new,on = "package") %>%
+pkg_trending_compare <- plyr::match_df(pkg_taskview_total,pkg_trending_new,on = "package") %>%
   group_by(topic)
 
 pkg_trending_compare %>%
@@ -308,7 +312,7 @@ pkg_trending_compare %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
-And Table \@ref(tab:trending-count) shows the first 10 topics for trending packages. The most popular topic is `TimeSeries`, followed by `Survival` and `WebTechnologies`. This is easy to understand, because the number of people in different fields is different, so there are also differences in the number of packages used in different topics.
+And Table \@ref(tab:trending-count) shows the first 10 topics for trending packages. The most popular topic is `TimeSeries`, followed by `Survival` and `WebTechnologies`. This is easy to understand, because the number of users from different fields is different, so there are also differences in the number of packages used in different topics. And it seems that Time series is quite a hit recently.
 
 ```{r trending-count}
 pkg_trendcom_count <- pkg_trending_compare %>%
@@ -322,4 +326,4 @@ pkg_trendcom_count %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
-So, apart from the topic of the package itself, what other factors will affect its download volume? With this problem in mind, I mainly explored the relationship between the total number of download counts of packages in the past half a year and the earliest release date, the number of updates, the number of commits on GitHub repositories, the length of the name and the alphabetic order of the first letter of the name.
+So, apart from the topic of the package itself, what other factors will affect its download volume? With this problem in mind, we mainly explored the relationship between the total number of download counts of packages in the past half a year and the earliest release date, the number of updates, the number of commits on GitHub repositories, the length of the name and the alphabetic order of the first letter of the name in the next following parts.
