@@ -42,6 +42,8 @@ return(update_counts)
 
 Figure \@ref(fig:trend-updates) shows that the number of downloads increases with the update times. And most packages are updated between 1 and 6 times.
 
+(ref:trend-updates) The download count increase with the number of updates.
+
 ```{r  trend-updates, fig.cap="(ref:trend-updates)}
 pkg_trending_updates <- get_updates_downloads(pkg_trending$package) %>%
   mutate(score = as.numeric(count)) %>%
@@ -109,7 +111,7 @@ compute_pct_lowupdated(pkg_trending$package)
 **Finding 3**: Most trending packages keep updates with the time to keep its activity.
 ```
 
-It can be seen from Figure \@ref(fig:latestpublish) that most top 15 trending packages' latest publish date is after 2021, which indicates that popular packages tend to update by time to keep its activity. And this can also be explained from another aspect, that is, a trending package refers to a package with a high download volume in a short period of recent time. We know that when a package is updated, its downloads will increase, so the latest update dates of trending packages are almost all the recent dates.
+
 
 ```{r function-latestupdate}
 # function used to get the total downloads of a period of time and the latest release date
@@ -161,6 +163,9 @@ return(downloads_release_latest)
 }
 ```
 
+It can be seen from Figure \@ref(fig:latestpublish) that most top 15 trending packages' latest publish date is after 2021, which indicates that popular packages tend to update by time to keep its activity. And this can also be explained from another aspect, that is, a trending package refers to a package with a high download volume in a short period of recent time. We know that when a package is updated, its downloads will increase, so the latest update dates of trending packages are almost all the recent dates.
+
+(ref:latestpublish) The latest update dates of trending packages are almost all the recent dates.
 
 ```{r  latestpublish,fig.cap="(ref:latestpublish)}
 
@@ -198,6 +203,8 @@ pkg_trending_latest_publish %>%
 ```
 
 Figure \@ref(fig:updates-perday) shows that with the increase of update interval, the number of downloads first increases and then decreases slightly. And most of the time intervals are between 45 and 450 days, which shows that their update frequency is not very high.
+
+(ref:updates-perday) Most of the time intervals of updates are between 45 and 450 days.
 
 ```{r updates-perday,fig.cap="(ref:updates-perday)}
 

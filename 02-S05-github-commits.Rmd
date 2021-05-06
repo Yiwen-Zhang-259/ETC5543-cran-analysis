@@ -111,6 +111,8 @@ trending_downloads %>%
 
 Figure \@ref(fig:commits-pattern) shows the scatterplot along with a smoothing line. In general, more commits, more downloads. What's more, most packages' commits are in the range of 100 to 400.
 
+(ref:commits-pattern) The commits on master branch of Github repository against the last half a year's total download count.
+
 ```{r commits-pattern, fig.cap="(ref:commits-pattern)}
 trending_downloads %>%
   mutate(count = as.numeric(count)) %>%

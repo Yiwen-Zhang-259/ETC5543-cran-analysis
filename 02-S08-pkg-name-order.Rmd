@@ -89,6 +89,8 @@ alphabetic_downloads <- get_downloads_alphabetic(pkg_random_new1)
 
 From Figure \@ref(fig:ahlpha-downloads) we could see that the mean downloads of different alphabetic group are hardly affected by alphabetic order. And the highest downloaded package's name started with letter "I" or "i".
 
+(ref:ahlpha-downloads) The average total download count of each group is little affected by the alphabetic order of package name.
+
 ```{r ahlpha-downloads,fig.cap="(ref:ahlpha-downloads)"}
 
 alphabetic_downloads %>%
@@ -113,6 +115,8 @@ alphabetic_downloads %>%
 ```
 
 Then, let's take a look for all the 1000 random packages.
+
+(ref:random-boxplot) The packages with name starting with "j" has the largest variance.
 
 ```{r random-boxplot,fig.cap="(ref:random-boxplot)"}
 pkg_random_alpha <- pkg_random_new1 %>%

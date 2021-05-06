@@ -31,8 +31,9 @@ pkg_random1 <- pkg_random1 %>%
   arrange(desc(count)) 
 ```
 
+(ref:namelength-plot) The names of packages with more than 100,000 downloads are between 5 and 9 characters long. 
 
-```{r  namelength-plot}
+```{r  namelength-plot,fig.cap="(ref:namelength-plot)"}
 pkg_random1 %>%
   group_by(length_name) %>%
   ggplot(aes(x = length_name, y = count)) +
@@ -134,6 +135,8 @@ We have such an experience in life, that is, for the same type of goods, such as
 
 Coincidentally, the naming of packages from the same type will be affected to a certain extent by the initial release time. Figure \@ref(fig:namelth-taskview) shows the name length of CRAN task view packages against the initial release date. It is obvious that the length of the package name increases with the initial release date, especially for Bayesian packages.
 
+(ref:namelth-taskview) The name length of taskview packages slightly increase with the initial release date.
+
 ```{r namelth-taskview,fig.height = 10,fig.cap="(ref:namelth-taskview)"}
 taskview_downloads %>% 
   group_by(package) %>% 
@@ -164,6 +167,8 @@ taskview_downloads %>%
 ```
 
 Figure \@ref(fig:random-release) shows the name length random packages from CRAN against the initial release date. The name length of these package increases with the initial release date as well.
+
+(ref:random-release) The name length of random packages from CRAN slightly increase with the initial release date as well.
 
 ```{r random-release,fig.cap="(ref:random-release)"}
 #to get the initial release date of random packages
@@ -198,6 +203,8 @@ random_namelth_release %>%
 ```
 
 Figure \@ref(fig:avgnamelth-year) shows the average name length of random packages from CRAN each year. It is obvious that the name length of these package generally increases year by year.
+
+(ref:random-release) The average name length of random packages from CRAN each year tends to rise along the time.
 
 ```{r avgnamelth-year,fig.cap="(ref:avgnamelth-year)"}
 random_namelth_release %>%
