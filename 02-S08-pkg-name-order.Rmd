@@ -1,6 +1,12 @@
 ## compare download counts with alphabetical order of name
 
-From the perspective of package name, in addition to the length, does the alphabetic order of the first letter also affect the download volume? To answer this question, I grouped the packages in 26-letter order, calculated the average downloads of each group, and then compared them.
+We will also have such experiences in our life. For example, when we go shopping in the supermarket, the goods placed in front of the shelves will be easier to attract our attention and be selected by us, because we will no longer want to look more under similar functions.
+
+From the perspective of package name, in addition to the length, does the alphabetic order of the first letter also affect the download volume? For package with early alphabetic order will be placed at the first part of the list. To answer this question, we grouped the packages in 26-letter order, calculated the average downloads of each group, and then compared them.
+
+```{block, type="discovery", echo = TRUE}
+**Finding 1**: For 1000 random packages, the relationship between alphabetic order and download count is not obvious.
+```
 
 ```{r random-sample1}
 # generate random sample of the packages used to analyze name alphabetic order
@@ -21,6 +27,7 @@ pkg_random_new1 <- pkg_random_new %>%
 ```
 
 ```{r alpha-function}
+
 get_downloads_alphabetic <- function(df){
   
   
@@ -80,15 +87,45 @@ alphabetic_downloads <- get_downloads_alphabetic(pkg_random_new1)
 
 ```
 
-From Figure \@ref(fig:ahlpha-downloads) we could see that 
-```{r ahlpha-downloads}
+From Figure \@ref(fig:ahlpha-downloads) we could see that the mean downloads of different alphabetic group are hardly affected by alphabetic order. And the highest downloaded package's name started with letter "I" or "i".
+
+```{r ahlpha-downloads,fig.cap="(ref:ahlpha-downloads)"}
 
 alphabetic_downloads %>%
   ggplot(aes(x = `alphabetic group`,y = avg_downloads)) +
   geom_point() +
   labs( y = 'Total download counts',
     title = "Mean download counts against different alphabetic group",
-    subtitle = "for 500 random packages") +
+    subtitle = "for 1000 random packages") +
+  scale_y_log10() +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5),
+  axis.title.x = element_blank())
+```
+
+```{block, type="discovery", echo = TRUE}
+**Finding 2**: For 1000 random packages, 
+```
+
+Then, let's take a look for all the 1000 random packages.
+
+```{r random-boxplot,fig.cap="(ref:random-boxplot)"}
+pkg_random_alpha <- pkg_random_new1 %>%
+  arrange(package)%>%
+  group_by(substr(package,1,1))
+
+colnames(pkg_random_alpha)[4] <- "group"
+
+ggplot(pkg_random_alpha,aes(x = group, y = count)) +
+  geom_boxplot() +
+  labs( y = 'Total download counts',
+    title = "Total download counts against different alphabetic group",
+    subtitle = "for 1000 random packages") +
   scale_y_log10() +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
