@@ -114,9 +114,9 @@ alphabetic_downloads %>%
 **Finding 2**: For 1000 random packages, 
 ```
 
-Then, let's take a look for all the 1000 random packages.
+Then, let's take a look for all the 1000 random packages. Figure \@ref(fig:random-boxplot) shows the data range and the median value for each alphabetic group. It can be seen that the group "i" has the highest outlier and the group "j" has the largest variation.
 
-(ref:random-boxplot) The packages with name starting with "j" has the largest variance.
+(ref:random-boxplot) The packages with name starting with "j" has the largest variation.
 
 ```{r random-boxplot,fig.cap="(ref:random-boxplot)"}
 pkg_random_alpha <- pkg_random_new1 %>%
