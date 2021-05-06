@@ -111,7 +111,7 @@ trending_downloads %>%
 
 Figure \@ref(fig:commits-pattern) shows the scatterplot along with a smoothing line. In general, more commits, more downloads. What's more, most packages' commits are in the range of 100 to 400.
 
-```{r commits-pattern, fig.align = 'center', fig.cap= "The package downloads of trending packages is increasing with the number of commits."}
+```{r commits-pattern, fig.cap="(ref:commits-pattern)}
 trending_downloads %>%
   mutate(count = as.numeric(count)) %>%
   mutate(commits = as.numeric(commits)) %>%

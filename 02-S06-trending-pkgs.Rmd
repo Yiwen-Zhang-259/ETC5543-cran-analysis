@@ -42,7 +42,7 @@ return(update_counts)
 
 Figure \@ref(fig:trend-updates) shows that the number of downloads increases with the update times. And most packages are updated between 1 and 6 times.
 
-```{r  trend-updates, fig.align = 'center', fig.cap=" The number of downloads increases with the increase of update times."}
+```{r  trend-updates, fig.cap="(ref:trend-updates)}
 pkg_trending_updates <- get_updates_downloads(pkg_trending$package) %>%
   mutate(score = as.numeric(count)) %>%
   mutate(updates = as.numeric(`number of updates`)) %>%
@@ -162,7 +162,7 @@ return(downloads_release_latest)
 ```
 
 
-```{r  latestpublish,fig.align = 'center', fig.cap=" Most top 15 trending packages' latest publish date is after 2021."}
+```{r  latestpublish,fig.cap="(ref:latestpublish)}
 
 # before use the function 'downloads_latest_release()', please set the time range
 date1 <- lh_dt_start
@@ -199,7 +199,7 @@ pkg_trending_latest_publish %>%
 
 Figure \@ref(fig:updates-perday) shows that with the increase of update interval, the number of downloads first increases and then decreases slightly. And most of the time intervals are between 45 and 450 days, which shows that their update frequency is not very high.
 
-```{r updates-perday}
+```{r updates-perday,fig.cap="(ref:updates-perday)}
 
 pkg_trending_earliest_publish <- unique(downloads_earliest_release(pkg_trending_latest_publish$package))
 
