@@ -1,7 +1,7 @@
 ## Compare last year's downloads with the earliest release date
 
 ```{block, type="discovery", echo = TRUE}
-**Finding x**: Packages that were initially released earlier on CRAN have a higher download in the past year. This perhaps is because in earlier times, there were fewer packages in the same category, so users had 'no choice' but to use them. Due to this, these packages accumulate a certain user base, which makes it easier to attract new users.
+**Finding**: Packages that were initially released earlier on CRAN have a higher download count in the past year. This perhaps is because in earlier times, there were fewer packages in the same category, so users had 'no choice' but to use them. Due to this, these packages accumulate a certain user base, which makes it easier to attract new users.
 ```
 
 

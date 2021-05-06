@@ -108,7 +108,7 @@ compute_pct_lowupdated(pkg_trending$package)
 
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 3**: Most trending packages keep updates with the time to keep its activity.
+**Finding 3**: Most trending packages keep updating with the time to keep its activity.
 ```
 
 

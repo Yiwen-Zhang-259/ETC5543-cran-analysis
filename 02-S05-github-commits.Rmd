@@ -3,7 +3,7 @@
 In this part, we compare last half year's total downloads with the number of commits on master branch in Github repositories. Let's look back to trending packages.
 
 ```{block, type="discovery", echo = TRUE}
-**Finding x**: In general, more commits on master branch of Github repository tends to bring more download counts to packages. On the one hand, the number of commits indicates that developers are constantly supplementing and updating the package, which will lead to more downloads. On the other hand, the number of commits also reflects the importance developers attach to the package to a certain extent. If a package has more commits, it means that developers attach more importance to it, then developers may invest in advertising and other ways to promote it, so as to expand the popularity and improve the download amount.
+**Finding**: In general, more commits on master branch of Github repository tends to bring more download counts to packages. On the one hand, the number of commits indicates that developers are constantly supplementing and updating the package, which will lead to more downloads. On the other hand, the number of commits also reflects the importance developers attach to the package to a certain extent. If a package has more commits, it means that developers attach more importance to it, then developers may invest in advertising and other ways to promote it, so as to expand the popularity and improve the download count.
 ```
 
 
