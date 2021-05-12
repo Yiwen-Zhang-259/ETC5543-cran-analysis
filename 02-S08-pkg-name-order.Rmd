@@ -5,7 +5,7 @@ We will also have such experiences in our life. For example, when we go shopping
 From the perspective of package name, in addition to the length, does the alphabetic order of the first letter also affect the download volume? For package with early alphabetic order will be placed at the first part of the list. To answer this question, we grouped the packages in 26-letter order, calculated the average downloads of each group, and then compared them.
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 1**: For 1000 random packages, the relationship between alphabetic order and download count is not obvious.
+**Finding 1**: For random packages, the mean downloads of different alphabetic group are slightly increasing by alphabetic order, while the total downloads tends to decrease a little.
 ```
 
 ```{r alphabetic-group}
@@ -91,7 +91,7 @@ alphabetic_downloads <- pkg_alpha_sample1 %>%
             total_downloads = sum(count))
 ```
 
-From Figure \@ref(fig:ahlpha-downloads) we could see that the mean downloads of different alphabetic group are slightly increasing by alphabetic order, while the total downloads tends to decrease a little, instead. 
+From Figure \@ref(fig:ahlpha-downloads) we could see that the mean downloads of different alphabetic group are slightly increasing by alphabetic order, while the total downloads tends to decrease a little, instead. This is because the lower the alphabetic order, the fewer packets. It can be seen that developers prefer packages with top alphabetical order, because it will be easier for users to notice.
 
 (ref:ahlpha-downloads) The average total download count of each group is little affected by the alphabetic order of package name.
 
@@ -116,10 +116,10 @@ alphabetic_downloads %>%
 ```
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 2**: For 9656 random packages, 
+**Finding 2**: For 9656 random packages, the group with higher total downloads tends to have greater variance, because there are more outliers.
 ```
 
-Then, let's take a look for all the 1000 random packages. Figure \@ref(fig:random-boxplot) shows the data range and the median value for each alphabetic group. It can be seen that the group "i" has the highest outlier and the group "j" has the largest variation.
+Then, let's take a look for how the variance varies across groups. Figure \@ref(fig:random-boxplot) shows the data range and the median value for each alphabetic group. It can be seen that the group "R/r" has the highest outlier and the group "X/x" has the largest variation. At the same time, we can also see that the variance between different groups is not very obvious, which means that for each group, 50% of the package downloads are relatively concentrated. The real difference is the highest and lowest downloads per group. In general, the larger the total number of downloads (which also means the more packages in the group), the more outliers, such as group "F/f", "L/l" and "R/r".
 
 (ref:random-boxplot) The packages with name starting with "j" has the largest variation.
 
@@ -136,6 +136,7 @@ ggplot(pkg_alpha_sample1,aes(x = group, y = count)) +
     title = "Total download counts against different alphabetic group",
     subtitle = "for 500 random packages of each group") +
   scale_y_log10() +
+  #ylim(0, 10000) +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
