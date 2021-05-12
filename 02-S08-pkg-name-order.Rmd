@@ -8,7 +8,7 @@ From the perspective of package name, in addition to the length, does the alphab
 **Finding 1**: For 1000 random packages, the relationship between alphabetic order and download count is not obvious.
 ```
 
-```{r}
+```{r alphabetic-group}
 library(available)
 cran_names <- rownames(available:::available_packages(repos = available:::default_cran_repos)) %>%
   as.data.frame() 
@@ -80,77 +80,27 @@ pkg_alpha_sample1 <- pkg_alpha_sample %>%
   mutate(count = get_total_downloads(package)$count)%>%
   rowwise()%>%
   mutate(length_name = as.numeric(length_name)) 
-```
-
-```{r alpha-function}
-
-get_downloads_alphabetic <- function(df){
-  
-  
-  pkg_alphabetic <- function(df,letter1,letter2){
-  
-  pkg <- df %>%
-  select(-length_name) %>%
-  filter(str_detect(package, paste0(letter1)))%>%
-  mutate(group = paste0(letter2))
-
-  return(pkg)
-  
-  }
-  
- avg_downloads_a <- avg_downloads_alphabetic(df,"^a|^A")
- avg_downloads_b <- avg_downloads_alphabetic(df,"^b|^B")
- avg_downloads_c <- avg_downloads_alphabetic(df,"^c|^C")
- avg_downloads_d <- avg_downloads_alphabetic(df,"^d|^D")
- avg_downloads_e <- avg_downloads_alphabetic(df,"^e|^E")
- avg_downloads_f <- avg_downloads_alphabetic(df,"^f|^F")
- avg_downloads_g <- avg_downloads_alphabetic(df,"^g|^G")
- avg_downloads_h <- avg_downloads_alphabetic(df,"^h|^H")
- avg_downloads_i <- avg_downloads_alphabetic(df,"^i|^I")
- avg_downloads_j <- avg_downloads_alphabetic(df,"^j|^J")
- avg_downloads_k <- avg_downloads_alphabetic(df,"^k|^K")
- avg_downloads_l <- avg_downloads_alphabetic(df,"^l|^L")
- avg_downloads_m <- avg_downloads_alphabetic(df,"^m|^M")
- avg_downloads_n <- avg_downloads_alphabetic(df,"^n|^N")
- avg_downloads_o <- avg_downloads_alphabetic(df,"^o|^O")
- avg_downloads_p <- avg_downloads_alphabetic(df,"^p|^P")
- avg_downloads_q <- avg_downloads_alphabetic(df,"^q|^Q")
- avg_downloads_r <- avg_downloads_alphabetic(df,"^r|^R")
- avg_downloads_s <- avg_downloads_alphabetic(df,"^s|^S")
- avg_downloads_t <- avg_downloads_alphabetic(df,"^t|^T")
- avg_downloads_u <- avg_downloads_alphabetic(df,"^u|^U")
- avg_downloads_v <- avg_downloads_alphabetic(df,"^v|^V")
- avg_downloads_w <- avg_downloads_alphabetic(df,"^w|^W")
- avg_downloads_x <- avg_downloads_alphabetic(df,"^x|^X")
- avg_downloads_y <- avg_downloads_alphabetic(df,"^y|^Y")
- avg_downloads_z <- avg_downloads_alphabetic(df,"^z|^Z")
- 
- avg_downloads <- rbind(avg_downloads_a,avg_downloads_b,avg_downloads_c,avg_downloads_d,avg_downloads_e,avg_downloads_f,avg_downloads_g,avg_downloads_h,avg_downloads_i,avg_downloads_j,avg_downloads_k,avg_downloads_l,avg_downloads_m,avg_downloads_n,avg_downloads_o,avg_downloads_p,avg_downloads_q,avg_downloads_r,avg_downloads_s,avg_downloads_t,avg_downloads_u,avg_downloads_v,avg_downloads_w,avg_downloads_x,avg_downloads_y,avg_downloads_z)
- 
-`alphabetic group` <- LETTERS[1:26] %>%
-  as.data.frame()
-
-colnames(`alphabetic group`)[1] <- 'alphabetic group'
-
-avg_downloads <- cbind(avg_downloads,`alphabetic group`)
-
-return(avg_downloads)
-  
-}
-
-alphabetic_downloads <- get_downloads_alphabetic(pkg_random_new1)
 
 ```
 
-From Figure \@ref(fig:ahlpha-downloads) we could see that the mean downloads of different alphabetic group are hardly affected by alphabetic order. And the highest downloaded package's name started with letter "I" or "i".
+
+```{r alpha-avg-download}
+alphabetic_downloads <- pkg_alpha_sample1 %>%
+  group_by(group) %>%
+  summarise(avg_downloads = mean(count),
+            total_downloads = sum(count))
+```
+
+From Figure \@ref(fig:ahlpha-downloads) we could see that the mean downloads of different alphabetic group are slightly increasing by alphabetic order, while the total downloads tends to decrease a little, instead. 
 
 (ref:ahlpha-downloads) The average total download count of each group is little affected by the alphabetic order of package name.
 
 ```{r ahlpha-downloads,fig.cap="(ref:ahlpha-downloads)"}
 
 alphabetic_downloads %>%
-  ggplot(aes(x = `alphabetic group`,y = avg_downloads)) +
-  geom_point() +
+  ggplot() +
+  geom_point(aes(x = group,y = avg_downloads,colour = "mean download")) +
+  geom_point(aes(x = group,y = total_downloads,colour = "total download")) +
   labs( y = 'Total download counts',
     title = "Mean download counts against different alphabetic group",
     subtitle = "for 1000 random packages") +
@@ -166,7 +116,7 @@ alphabetic_downloads %>%
 ```
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 2**: For 1000 random packages, 
+**Finding 2**: For 9656 random packages, 
 ```
 
 Then, let's take a look for all the 1000 random packages. Figure \@ref(fig:random-boxplot) shows the data range and the median value for each alphabetic group. It can be seen that the group "i" has the highest outlier and the group "j" has the largest variation.
@@ -174,17 +124,17 @@ Then, let's take a look for all the 1000 random packages. Figure \@ref(fig:rando
 (ref:random-boxplot) The packages with name starting with "j" has the largest variation.
 
 ```{r random-boxplot,fig.cap="(ref:random-boxplot)"}
-pkg_random_alpha <- pkg_random_new1 %>%
+pkg_random_alpha <- pkg_alpha_sample1 %>%
   arrange(package)%>%
   group_by(substr(package,1,1))
 
 colnames(pkg_random_alpha)[4] <- "group"
 
-ggplot(pkg_random_alpha,aes(x = group, y = count)) +
+ggplot(pkg_alpha_sample1,aes(x = group, y = count)) +
   geom_boxplot() +
   labs( y = 'Total download counts',
     title = "Total download counts against different alphabetic group",
-    subtitle = "for 1000 random packages") +
+    subtitle = "for 500 random packages of each group") +
   scale_y_log10() +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
