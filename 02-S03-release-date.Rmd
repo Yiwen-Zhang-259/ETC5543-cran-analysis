@@ -4,22 +4,20 @@
 **Finding**: Packages that were initially released earlier on CRAN have a higher download count in the past year. This perhaps is because in earlier times, there were fewer packages in the same category, so users had 'no choice' but to use them. Due to this, these packages accumulate a certain user base, which makes it easier to attract new users.
 ```
 
+In our common cognition, we think that the earlier a package is released, the more people will know about it, and thus the more downloads it will have. However, packages related to different topics cannot be directly compared, because it is possible that the total download amount of packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, we selected three domain packages through CRAN task view, calculated their respective downloads in the previous half a year, and found their earliest release dates for comparison. The three topics are :
 
-In our common cognition, we think that the earlier a package is released, the more people will know about it, and thus the more downloads it will have. However, packages related to different topics cannot be directly compared, because it is possible that the total download amount of packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, we selected three domain packages through CRAN task view, calculated their respective downloads in the previous half a year, and found their earliest release dates for comparison.
 
-
-1. Packages for Time Series Analysis
+(a) Packages for Time Series Analysis
 
 The first topic is Time Series Analysis. Time Series Analysis is a statistical technique that deals with time series data, or trend analysis. Time series data means that data is in a series of  particular time periods or intervals[@timeseries].
 
 
-
-2. Bayesian packages for general model fitting
+(b) Bayesian packages for general model fitting
 
 The second topic is Bayesian Inference. Bayesian statistics is a mathematical procedure that applies probabilities to statistical problems. It provides people the tools to update their beliefs in the evidence of new data[@bayesian].
 
 
-3. Econometrics 
+(c) Econometrics packages
 
 In order to test whether this is the case in other areas, the last topic is for econometrics packages. Econometrics is the use of statistical methods using quantitative data to develop theories or test existing hypotheses in economics or finance, which relies on techniques such as regression models and null hypothesis testing[@econometrics].
 

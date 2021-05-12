@@ -22,7 +22,11 @@ total_downloads <- cran_downloads(from = dd_start, to = dd_end) %>%
 
 In this section, we study the daily downloads of CRAN packages from `r dd_start` to `r dd_end`. The data is obtained from the `cranlogs` package, which includes a summary of the download logs from the RStudio CRAN mirror. The daily download data for CRAN packages are available from 1st October 2012. Examination of this data showed two unusual observations in 2014 and 2018 as shown in Figure \@ref(fig:unusual-spikes).
 
-Having a closer look into these two spikes, the one happening in 2014 is on 2014-11-17, which is Monday, while the other one happening in 2018 is on 2018-10-21, which is on Sunday. (??why)
+Having a closer look into these two spikes, the one happening in 2014 is on 2014-11-17, which is Monday, while the other one happening in 2018 is on 2018-10-21, which is on Sunday. The 3.1.2 version of R for windows released on 2014-10-31.
+
+```{r}
+
+```
 
 
 (ref:unusual-spikes) Unusual download spikes on 2014 and 2018. 
