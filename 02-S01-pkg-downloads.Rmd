@@ -63,7 +63,7 @@ The two unusual observations are removed for further investigation. Figure \@ref
 ```{r total-trend, fig.cap="(ref:total-trend)", fig.height = 12}
 total_downloads_fix <- total_downloads %>% 
   mutate(count = ifelse(count > 3e6 & year==2014 | count > 10e6 & year==2018, 
-                        NA, count)) %>% #remove the unusual observaions in 2014 and 2018
+                        NA, count)) %>% #remove the unusual observations in 2014 and 2018
   group_by(year) %>% 
   mutate(max_count = max(count, na.rm = TRUE)) %>% 
   ungroup()
@@ -81,6 +81,27 @@ plot_daily_fix %+%
 We could know that except 2012 and 2013, the patterns of other years are very similar, that is, they all show strong seasonality. To be more specific, in 2012, the download logs showed an overall upward trend, because more and more users began to download packages from CRAN after its open. In the following years, there is no obvious trend in download volume, but a strong seasonality, which indicates that in a week, the total downloads always increases first then decreases, and reaches the lowest at the weekend. Although the pattern of 2013 is more volatile, it still conforms to this. I think for 2013, that is because CRAN is only open for a short time at this time, and the amount of data downloaded is not adequate to show its download pattern very clearly. Considering this, we could see that after 2016, the pattern of each year is quite consistent, for the total download has been increasing year by year. Back to weekly seasonality, that is because people always need to download and use packages on weekdays, and most of them choose to rest on weekends, so the trough of download curve always occurs on weekends. In addition, we could also notice that the lowest downloads across the year are always at the end of December and the beginning of January, due to the Christmas and New Year's holidays. 
 What's more, the downloads is on the rise from August to October and from February to April, which covers the start of semester for most universities. 
 
+```{r pkg-stl}
+# try to use stl model to smooth the curve
+total_download_tsble <- total_downloads_fix %>%
+  as_tsibble(index = date)
+
+total_download_tsble[is.na(total_download_tsble)] <- 0
+
+pkg_stl <- total_download_tsble %>%
+  model(stl = STL(count))
+
+components(pkg_stl) %>%
+  as_tsibble() %>%
+  autoplot(count, colour="gray") +
+  geom_line(aes(y=trend), colour = "#D55E00") +
+  labs(
+    y = "Download count",
+    title = "Daily download count of total packages"
+  )
+
+
+```
 
 Figure \@ref(fig:weekend-vs-weekday) shows the distribution and the median of the downloads between weekday and weekends. The distribution of weekdays and weekends are quite different. Weekends are wider and shorter, while weekdays are thinner and higher, because the total download of data on weekends is less than that on weekdays. And in 2012, the median and interquartile range of download logs are not very distinguished between weekdays and weekends, for the data volume is not adequate at this time as mentioned above. But after 2013, the gap between the two becomes more and more obvious, that is, the median downloads of working days is significantly higher than that of weekends, and the overall number of data is also significantly higher than that of weekends as well. But interestingly, the lower adjacent sometimes occurs on weekends, such as in year 2014, 2015, 2018, 2019 and 2021, while sometimes in weekdays, such as in year 2012, 2013, 2016, 2017 and 2020.
 
