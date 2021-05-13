@@ -155,3 +155,31 @@ This week, Emi, Hien, and I talked about things as followed:
 
 6. Emi told me to start the story writing and show my own creative ability as much as possible.
 
+
+## Tue 27 April 2021
+
+This week, Emi, Hien, and I talked about things as followed :
+
+1. Emi told me to show variance of each alphabetic group.
+
+2. Emi told me fix the rendering error.
+
+3. Hien and Emi told me that for the name order analysis part, my sample size is too small to reflect the real pattern, so I should expand the sample size.
+
+4. Emi told me start with the writing of my stories.
+
+5. Emi told me to follow the report and code style she provided to me.
+
+
+## Thurs 06 May 2021
+
+This week, Emi, Hien, and I talked about things as followed :
+
+1. I report what I have modified with following the report and code style Emi provided to me.
+
+2. Emi told me to re-sample the packages for the name order analysis part.
+
+3. Emi and Hien helped me to figure out the unusual spikes in daily download logs of all the packages in 2014 and 2018. (One is caused by server issue from `tidyverse` and another is mainly downloaded from Indonesia.
+
+4. Emi told me to keep polishing my report as much as I could.
+
