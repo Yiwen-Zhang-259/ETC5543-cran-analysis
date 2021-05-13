@@ -183,3 +183,15 @@ This week, Emi, Hien, and I talked about things as followed :
 
 4. Emi told me to keep polishing my report as much as I could.
 
+
+## Thurs 13 May 2021
+
+This week, Emi and I talked about things as followed :
+
+1. I report what I did last week : (a) I replace the "latest version" of R with the specific version, but for this part, Emi told me to make sure I did the right comparison (What should I do is compare between dates not strings); (b) I resample the packages for alphabetic order analysis; (c) I add some text content
+
+2. Emi told me to reduce the influecntial factors to make the comparison more fair by just looking at the bottom packages (call them "garbage packages", and we assume they are equally useless, so the only difference would be the factor we want to cpmpare, such as name order or name length)
+
+3. Emi suggests some ways for me to reduce the spike in daily download count ( try it ). For example, smoohing the spike or remove the seasonality. One way to do this is firstly detecting the unnormal spike and then replacing it with our estimate then. Another way is to try a time series way.
+
+4. Emi told me to start make my presentation slides as earlier as I can.
