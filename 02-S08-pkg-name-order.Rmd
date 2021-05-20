@@ -60,36 +60,353 @@ pkg_alphabetic <- rbind(pkg_a,pkg_b,pkg_c,pkg_d,pkg_e,pkg_f,pkg_g,pkg_h,pkg_i,pk
 
 ```{r random-sample1}
 # generate random sample with 500 packages for each alphabetic group
-set.seed(2599)
+#set.seed(2599)
 
-n <- 500
-df <- pkg_alphabetic
-df$ID <- pkg_alphabetic$group
+#n <- 500
+#df <- pkg_alphabetic
+#df$ID <- pkg_alphabetic$group
 
 # in case of that any group has less than 500 packages
-FUN <- function(x, n) {
-    if (length(x) <= n) return(x)
-    x[x %in% sample(x, n)]
-}
+#FUN <- function(x, n) {
+    #if (length(x) <= n) return(x)
+    #x[x %in% sample(x, n)]
+#}
 
-pkg_alpha_sample <- df[unlist(lapply(split(1:nrow(df), df$ID), FUN, n = 500)), ]
+#pkg_alpha_sample <- df[unlist(lapply(split(1:nrow(df), df$ID), FUN, n = 500)), ]
 
   
-pkg_alpha_sample1 <- pkg_alpha_sample %>%
-  mutate(length_name = nchar(package)) %>%
-  mutate(count = get_total_downloads(package)$count)%>%
-  rowwise()%>%
-  mutate(length_name = as.numeric(length_name)) 
+#pkg_alpha_sample1 <- pkg_alpha_sample %>%
+  #mutate(length_name = nchar(package)) %>%
+  #mutate(count = get_total_downloads(package)$count)%>%
+  #rowwise()%>%
+  #mutate(length_name = as.numeric(length_name)) 
 
+#pkg_alphabetic %>%
+  #group_by(group) %>%
+  #count(group,sort = TRUE)
+
+#pkg_test <- c("tidyverse","forecast","ggplot2") %>%
+  #as.data.frame()
+
+#colnames(pkg_test)[1] <- "package" #4 seconds per pkg
+
+
+#should just cost 6 hrs
+#cran_total_download <- cran_names %>%
+  #mutate(count = get_total_downloads(package)$count)
+
+
+cran_names1 <- cran_names %>% 
+  slice(1:850) 
+
+cran_names2 <- cran_names %>% 
+  slice(851:1701)
+
+cran_names3 <- cran_names %>% 
+  slice(1702:2552)
+
+cran_names4 <- cran_names %>% 
+  slice(2553:3403)
+
+cran_names5 <- cran_names %>% 
+  slice(3404:4254)
+
+cran_names6 <- cran_names %>% 
+  slice(4255:5105)
+
+cran_names7 <- cran_names %>% 
+  slice(5106:5956)
+
+cran_names8 <- cran_names %>% 
+  slice(5957:6807)
+
+cran_names9 <- cran_names %>% 
+  slice(6808:7657)
+
+cran_names10 <- cran_names %>% 
+  slice(7658:8508)
+
+cran_names11 <- cran_names %>% 
+  slice(8509:9359)
+
+cran_names12 <- cran_names %>% 
+  slice(9360:10210)
+
+cran_names13 <- cran_names %>% 
+  slice(10211:11061)
+
+cran_names14 <- cran_names %>% 
+  slice(11062:11912)
+
+cran_names15 <- cran_names %>% 
+  slice(11913:12763)
+
+cran_names16 <- cran_names %>% 
+  slice(12764:13614)
+
+cran_names17 <- cran_names %>% 
+  slice(13615:14465)
+
+cran_names18 <- cran_names %>% 
+  slice(14466:15316)
+
+cran_names19 <- cran_names %>% 
+  slice(15317:16167)
+
+cran_names20 <- cran_names %>% 
+  slice(16168:17018)
+
+cran_names21 <- cran_names %>% 
+  slice(17019:17639)
+
+get_total_downloads(cran_names1$package)#cost more than 15 mins
+
+#get total download for slice1
+cran_names1 <- map_dfr(cran_names1, ~{
+  pkgs <- cran_names1$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names1 <- cran_names1 %>%
+  group_by(package) %>%
+  summarise(total = sum(count)) ##this way only cost 1 mins and 15 seconds
+
+#get total download for slice2
+cran_names2 <- map_dfr(cran_names2, ~{
+  pkgs <- cran_names2$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names2 <- cran_names2 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice3
+cran_names3 <- map_dfr(cran_names3, ~{
+  pkgs <- cran_names3$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names3 <- cran_names3 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice4
+cran_names4 <- map_dfr(cran_names4, ~{
+  pkgs <- cran_names4$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names4 <- cran_names4 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice5
+cran_names5 <- map_dfr(cran_names5, ~{
+  pkgs <- cran_names5$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names5 <- cran_names5 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice6
+cran_names6 <- map_dfr(cran_names6, ~{
+  pkgs <- cran_names6$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names6 <- cran_names6 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice7
+cran_names7 <- map_dfr(cran_names7, ~{
+  pkgs <- cran_names7$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names7 <- cran_names7 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice8
+cran_names8 <- map_dfr(cran_names8, ~{
+  pkgs <- cran_names8$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names8 <- cran_names8 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice9
+cran_names9 <- map_dfr(cran_names9, ~{
+  pkgs <- cran_names9$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names9 <- cran_names9 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice10
+cran_names10 <- map_dfr(cran_names10, ~{
+  pkgs <- cran_names10$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names10 <- cran_names10 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice11
+cran_names11 <- map_dfr(cran_names11, ~{
+  pkgs <- cran_names11$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names11 <- cran_names11 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice12
+cran_names12 <- map_dfr(cran_names12, ~{
+  pkgs <- cran_names12$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names12 <- cran_names12 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice13
+cran_names13 <- map_dfr(cran_names13, ~{
+  pkgs <- cran_names13$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names13 <- cran_names13 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice14
+cran_names14 <- map_dfr(cran_names14, ~{
+  pkgs <- cran_names14$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names14 <- cran_names14 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice15
+cran_names15 <- map_dfr(cran_names15, ~{
+  pkgs <- cran_names15$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names15 <- cran_names15 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice16
+cran_names16 <- map_dfr(cran_names16, ~{
+  pkgs <- cran_names16$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names16 <- cran_names16 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice17
+cran_names17 <- map_dfr(cran_names17, ~{
+  pkgs <- cran_names17$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names17 <- cran_names17 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice18
+cran_names18 <- map_dfr(cran_names18, ~{
+  pkgs <- cran_names18$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names18 <- cran_names18 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice19
+cran_names19 <- map_dfr(cran_names19, ~{
+  pkgs <- cran_names19$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names19 <- cran_names19 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice20
+cran_names20 <- map_dfr(cran_names20, ~{
+  pkgs <- cran_names20$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names20 <- cran_names20 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice21
+cran_names21 <- map_dfr(cran_names21, ~{
+  pkgs <- cran_names21$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names21 <- cran_names21 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+
+cran_names_download <- rbind(cran_names1,cran_names2,cran_names3,cran_names4,cran_names5,cran_names6,cran_names7,cran_names8,cran_names9,cran_names10,cran_names11,cran_names12,cran_names13,cran_names14,cran_names15,cran_names16,cran_names17,cran_names18,cran_names19,cran_names20,cran_names21)
 ```
 
+```{r  alpha-avg-download}
+pkg_alpha_download <- pkg_alphabetic%>%
+  left_join(cran_names_download,by = "package") 
 
-```{r alpha-avg-download}
-alphabetic_downloads <- pkg_alpha_sample1 %>%
+alphabetic_downloads <- pkg_alpha_download %>%
   group_by(group) %>%
-  summarise(avg_downloads = mean(count),
-            total_downloads = sum(count))
+  na.omit()%>%
+  summarise(avg_downloads = mean(total),
+            total_downloads = sum(total))
 ```
+
 
 From Figure \@ref(fig:ahlpha-downloads) we could see that the mean downloads of different alphabetic group are slightly increasing by alphabetic order, while the total downloads tends to decrease a little, instead. This is because the lower the alphabetic order, the fewer packets. It can be seen that developers prefer packages with top alphabetical order, because it will be easier for users to notice.
 
@@ -102,7 +419,7 @@ alphabetic_downloads %>%
   geom_point(aes(x = group,y = avg_downloads,colour = "mean download")) +
   geom_point(aes(x = group,y = total_downloads,colour = "total download")) +
   labs( y = 'Total download counts',
-    title = "Mean download counts against different alphabetic group",
+    title = "Download counts against different alphabetic group",
     subtitle = "for 1000 random packages") +
   scale_y_log10() +
   theme_minimal()  +
@@ -116,7 +433,7 @@ alphabetic_downloads %>%
 ```
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 2**: For 9656 random packages, the group with higher total downloads tends to have greater variance, because there are more outliers.
+**Finding 2**: For all packages on CRAN, the group with higher total downloads tends to have greater variance, because there are more outliers.
 ```
 
 Then, let's take a look for how the variance varies across groups. Figure \@ref(fig:random-boxplot) shows the data range and the median value for each alphabetic group. It can be seen that the group "R/r" has the highest outlier and the group "X/x" has the largest variation. At the same time, we can also see that the variance between different groups is not very obvious, which means that for each group, 50% of the package downloads are relatively concentrated. The real difference is the highest and lowest downloads per group. In general, the larger the total number of downloads (which also means the more packages in the group), the more outliers, such as group "F/f", "L/l" and "R/r".
@@ -125,7 +442,7 @@ Then, let's take a look for how the variance varies across groups. Figure \@ref(
 
 ```{r random-boxplot,fig.cap="(ref:random-boxplot)"}
 
-ggplot(pkg_alpha_sample1,aes(x = group, y = count)) +
+ggplot(pkg_alpha_download,aes(x = group, y = total)) +
   geom_boxplot() +
   labs( y = 'Total download counts',
     title = "Total download counts against different alphabetic group",
