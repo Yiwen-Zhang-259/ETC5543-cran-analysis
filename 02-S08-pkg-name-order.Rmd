@@ -398,13 +398,26 @@ cran_names_download <- rbind(cran_names1,cran_names2,cran_names3,cran_names4,cra
 
 ```{r  alpha-avg-download}
 pkg_alpha_download <- pkg_alphabetic%>%
-  left_join(cran_names_download,by = "package") 
+  left_join(cran_names_download,by = "package") %>%
+  na.omit()
 
 alphabetic_downloads <- pkg_alpha_download %>%
   group_by(group) %>%
-  na.omit()%>%
   summarise(avg_downloads = mean(total),
             total_downloads = sum(total))
+```
+
+```{r}
+#get the "garbage" packages
+
+pkg_alpha_download <- pkg_alpha_download %>%
+  filter(!(total == 0)) 
+
+pkg_alpha_download$rank <- rank(pkg_alpha_download$total,ties.method = "first")
+
+pkg_alpha_garbage <- pkg_alpha_download %>%
+  arrange(rank) %>%
+  filter(rank < 1800) #define the last 10% downloaded packages are "garbage" packages
 ```
 
 
@@ -459,3 +472,21 @@ ggplot(pkg_alpha_download,aes(x = group, y = total)) +
   axis.title.x = element_blank())
 ```
 
+```{r garbage-boxplot,fig.cap="(ref:random-boxplot)"}
+
+ggplot(pkg_alpha_garbage,aes(x = group, y = total)) +
+  geom_boxplot() +
+  labs( y = 'Total download counts',
+    title = "Total download counts against different alphabetic group",
+    subtitle = "for last 10% downloaded packages of each group") +
+  scale_y_log10() +
+  #ylim(0, 10000) +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5),
+  axis.title.x = element_blank())
+```
