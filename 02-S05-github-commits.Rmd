@@ -3,54 +3,113 @@
 In this part, we compare last half year's total downloads with the number of commits on master branch in Github repositories. Let's look back to trending packages.
 
 ```{block, type="discovery", echo = TRUE}
-**Finding**: In general, more commits on master branch of Github repository tends to bring more download counts to packages. On the one hand, the number of commits indicates that developers are constantly supplementing and updating the package, which will lead to more downloads. On the other hand, the number of commits also reflects the importance developers attach to the package to a certain extent. If a package has more commits, it means that developers attach more importance to it, then developers may invest in advertising and other ways to promote it, so as to expand the popularity and improve the download count.
+**Finding**: In general, more commits on master branch of Github repository tends to bring more download counts to packages. On the one hand, the number of commits indicates that developers are constantly supplementing and updating the package, which will lead to more downloads. On the other hand, the number of commits also reflects the commitments developers attach to the package to a certain extent. If a package has more commits, it means that developers attach more commitments to it, then developers may invest in advertising and other ways to promote it, so as to expand the popularity and improve the download count.
 ```
 
 
-```{r trending-commits}
-# to find the 100 trending packages before 4.11 and save as csv file
+```{r}
+library(tidyverse)
+library(rvest)
+library(available)
+library(xml2)
+description <- sprintf("%s/web/packages/packages.rds",
+                          getOption("repos")["CRAN"])
+  con <- if(substring(description, 1L, 7L) == "file://") {
+       file(description, "rb")
+  } else {
+      url(description, "rb")
+  }
+  db <- as.data.frame(readRDS(gzcon(con)),stringsAsFactors=FALSE)
+  close(con)
+  rownames(db) <- NULL
 
-#pkg_trending <- cran_trending() 
+pkg_url <- db %>%
+  select(Package,URL)
 
-#write_csv(pkg_trending,"data/pkg_trending.csv")
+a <- pkg_url$URL[str_detect(pkg_url$URL,'github.com')]
 
-# read top 49 trending packages
+pkg_url <- pkg_url%>%
+  filter(URL%in%a)%>%
+  na.omit() %>%
+  rename(package = Package)
+
+#replace all the "https" with "http" in URL
+pkg_url$URL <- str_replace_all(pkg_url$URL, "https", "http")
+
+#remove"<>" in URL
+b <- pkg_url$URL[str_detect(pkg_url$URL,'<')]
+
+pkg_url_adj1 <- pkg_url%>%
+  filter(URL%in%b)%>%
+  mutate(URL = str_remove(URL,coll(str_sub(URL, str_locate(URL, '<'))))) %>%
+  mutate(URL = str_remove(URL,coll(str_sub(URL, str_locate(URL, '>')))))
+
+pkg_url_adj1$URL[1] <- str_remove(pkg_url_adj1$URL[1],coll(str_sub(pkg_url_adj1$URL[1], str_locate(pkg_url_adj1$URL[1], ',\n')[1])))
+
+pkg_url_adj1$URL[5] <- str_remove(pkg_url_adj1$URL[5],coll(str_sub(pkg_url_adj1$URL[5], str_locate(pkg_url_adj1$URL[5], ',')[1])))
+
+pkg_url_adj1$URL[12] <- str_remove(pkg_url_adj1$URL[12],coll(str_sub(pkg_url_adj1$URL[12], str_locate(pkg_url_adj1$URL[12], ',\n')[1])))
+
+pkg_url_adj1$URL[15] <- str_remove(pkg_url_adj1$URL[15],coll(str_sub(pkg_url_adj1$URL[15], str_locate(pkg_url_adj1$URL[15], ',\n')[1])))
+
+pkg_url_adj2 <- pkg_url%>%
+  filter(!(package%in%pkg_url_adj1$package))
+
+d <- pkg_url_adj2$URL[str_detect(pkg_url_adj2$URL,'github.com')]
+
+pkg_url_adj2 <- pkg_url_adj2 %>%
+  filter(URL%in%d) 
+  
 
 
-pkg_trending_49 <- pkg_trending %>%
-  head(49)
- 
+#combine data 
+pkg_url_rest <- pkg_url%>%
+  filter(!(package%in%pkg_url_adj1$package)) %>%
+  filter(!(package%in%pkg_url_adj2$package)) 
+  #filter(!(package%in%pkg_url_adj22$package))
 
-# exclude the package that only have read-only mirror of the CRAN github repo, and the remaining are 30
-pkg_trending_filter <- pkg_trending_49 %>%
-  filter(!(package == "proxy")) %>%
-  filter(!(package == "uplift")) %>%
-  filter(!(package == "spatstat.geom")) %>%
-  filter(!(package == "ClickClust")) %>%
-  filter(!(package == "gRc")) %>%
-  filter(!(package == "anesrake")) %>%
-  filter(!(package == "svd")) %>%
-  filter(!(package == "textutils")) %>%
-  filter(!(package == "rgl")) %>%
-  filter(!(package == "tseries")) %>%
-  filter(!(package == "tsDyn")) %>%
-  filter(!(package == "tseriesChaos")) %>%
-  filter(!(package == "penalized")) %>%
-  filter(!(package == "mapdata")) %>%
-  filter(!(package == "plot3D")) %>%
-  filter(!(package == "ic.infer")) %>%
-  filter(!(package == "misc3d")) %>%
-  filter(!(package == "textshaping")) %>%
-  filter(!(package == "ragg"))
+pkg_url_new <- rbind(pkg_url_rest,pkg_url_adj1,pkg_url_adj2) %>%
+  arrange(package)
 
+#get the user and repo name
+pkg_url_new$URL <- str_extract(pkg_url_new$URL,coll(str_sub(pkg_url_new$URL, str_locate(pkg_url_new$URL, 'http://github.com/')[1])))
+
+j <- pkg_url_new$URL[str_detect(pkg_url_new$URL,'github.io')]
+
+pkg_url_new <- pkg_url_new %>%
+  filter(!(URL%in%j)) %>%
+ mutate(user_repo = str_sub(URL, str_locate(URL, 'github.com/')[2]+11)) %>%
+  select(package,user_repo)
+
+
+pkg_url_new <- pkg_url_new %>%
+  mutate(user = (str_extract(user_repo,boundary("word"))))%>%
+  select(package,user)
+
+e <- pkg_url_new$user[str_detect(pkg_url_new$user,'.io')]
+f <- pkg_url_new$user[str_detect(pkg_url_new$user,'.org')]
+g <- pkg_url_new$user[str_detect(pkg_url_new$user,'org')]
+h <- pkg_url_new$user[str_detect(pkg_url_new$user,'.com')]
+i <- pkg_url_new$user[str_detect(pkg_url_new$user,'.r')]
+
+pkg_url_new <- pkg_url_new %>%
+  filter(!(user%in%e)) %>%
+  filter(!(user%in%f))%>%
+  filter(!(user%in%g))%>%
+  filter(!(user%in%h))%>%
+  filter(!(user%in%i))%>%
+  filter(!(package == "abess")) %>%
+  filter(!(user == "r")) %>%
+  filter(!(user == "io")) %>%
+  mutate(user_repo = str_c(user,"/",package))
 ```
 
 ```{r function-commits}
+library(httr)
+# extract commits on master branch on Github
+get_commits <- map(pkg_url_new$user_repo, function(user_repo){
 
-# function used to extract commits on master branch on Github
-get_commits <- function(username,pkg){
-
-pkg_url <- GET(glue::glue("https://api.github.com/repos/{username}/{pkg}/commits?per_page=1"))
+pkg_url <- GET(glue::glue("https://api.github.com/repos/{user_repo}/commits?per_page=1"))
 
 # function used to extract commits from github page
 commits <-  function(pkg_url) {
@@ -70,32 +129,20 @@ f <- str_sub(d, str_locate(d, '&page=')[2]+1, str_locate(d, '>')[1]-1)
 }
   commits(pkg_url)
  
-}
+})
 
+#convert the list output to dataframe
+commits <- data.frame(matrix(unlist(get_commits), nrow=length(get_commits), byrow=TRUE))
+colnames(commits)[1] <- "commits"
+
+#append the commits to the original data
+pkg_commits <-  cbind(pkg_url_new,commits)
+
+#combine with the total download
+pkg_commits_download <- left_join(pkg_commits,cran_names_download,by = "package")
 ```
 
 
-
-```{r  trending-commits1}
-
-commits <- c(get_commits("rtdists","fddm"),get_commits("r-lib","webfakes"),get_commits("nalzok","tree.interpreter"),get_commits("harryprince","geospark"),get_commits("cloudyr","AzureStor"),get_commits("spatstat","spatstat.core"),get_commits("Azure","AzureRMR"),get_commits("baddstats","spatstat.linnet"),get_commits("cran","clickstream"),get_commits("jeroen","js"),get_commits("spatstat","spatstat.sparse"),get_commits("ltorgo","DMwR2"),get_commits("daroczig","botor"),get_commits("timelyportfolio","sunburstR"),get_commits("jacob-long","panelr"),get_commits("markmfredrickson","RItools"),get_commits("DyfanJones","RAthena"),get_commits("jeroen","V8"),get_commits("timelyportfolio","d3r"),get_commits("daroczig","logger"),get_commits("dreamRs","fresh"),get_commits("nir0s","distro"),get_commits("h2oai","rsparkling"),get_commits("christophergandrud","DataCombine"),get_commits("quanteda","quanteda.textmodels"),get_commits("rstudio","bslib"),get_commits("rstudio","jquerylib"),get_commits("mclements","rstpm2"),get_commits("KlausVigo","phangorn"),get_commits("rstudio","sass"))
-
-
-
-pkg_trending_commits <- cbind(pkg_trending_filter,as.numeric(commits)) %>%
-  select(-score)
-
-# set the time range again (last half year)
-date1 <- lh_dt_start
-date2 <- lh_dt_end
-
-# get last half year's total download for each package
-trending_downloads <- get_total_downloads(pkg_trending_filter$package) 
-  
- #combine the trending commits and trending downloads 
-trending_downloads <- left_join(trending_downloads,pkg_trending_commits, by = "package")      
-
-```
 
 Table \@ref(tab:commits-tbl) shows the top 30 trending packages before 2021-04-11, along with their last half a year's total downloads and the number of commits on Github master branch. `V8` ranks first in download count with `r trending_downloads$count[1]`, while `phangorn` comes to the top in commits count with `r max(trending_downloads$commits)`.
 
