@@ -195,3 +195,27 @@ This week, Emi and I talked about things as followed :
 3. Emi suggests some ways for me to reduce the spike in daily download count ( try it ). For example, smoohing the spike or remove the seasonality. One way to do this is firstly detecting the unnormal spike and then replacing it with our estimate then. Another way is to try a time series way.
 
 4. Emi told me to start make my presentation slides as earlier as I can.
+
+
+## Thurs 21 May 2021
+
+This week, Emi, Hien, and I talked about things as followed :
+
+1. Emi told me to replace the object of "github commits vs total download" part with all the packages on CRAN that do have a github repository. The way to achieve this can be extracting github URL from the description of packages.
+
+2. Hien said for I could make a lorenz curve to show the number of packages maintained by different downloaded groups.
+
+3. Reconsidering the "garbage" (its downloads only ranks around last 10%) for name analysis part.
+
+
+## Thurs 27 May 2021
+
+This week, Emi, Hien, and I talked about things as followed :
+
+1. I asked a question on my function used to exract the github commits for packages. And Emi and Hien told me that it could due to two issues : a) the unlist proccess; b) the github api is called too many times and the time interval between each call is too short, so the results can be incorrect. They suggested me to use function `Sys.sleep(x)` inside the function to make r rest for several seconds after each calling of the github api url.
+
+2. Emi told me just display several interesting and deep findings on the final pre, and at the last page, I could show my github repo to have audience get chance to know my other findings through my report. (just regard the pre as an advertisement of my project) Emi also said I should select findings that audience are probably interested in. (for example, the lorenz cueve is a good choose!) And very care about the story telling.
+
+3. Emi said she has made comments on my writing, and I would read it carefully to re-construct my writing part later.
+
+4. Remember to post issues when having questions !
