@@ -1,6 +1,6 @@
 ## Daily downloads of R
 
-In this section, we study the daily downloads of R language itself from `r dd_start` to `r dd_end`. The data is obtained from the `cranlogs` package as well.
+In this section, we study the daily downloads of R language itself from `r dd_start` to `r dd_end`. The data is obtained from the `cranlogs` package [@cranlogs] as well.
 
 ```{r vars-R-downloads, cache = TRUE}
 R_downloads <- cran_downloads("R", from = dd_start, to = dd_end) %>% 
@@ -13,20 +13,32 @@ R_downloads <- cran_downloads("R", from = dd_start, to = dd_end) %>%
 **Finding 1**: The number of downloads showed an upward trend over time, and the variance also increase with the downloads.
 ```
 
-Figure \@ref(fig:R-download-trend) shows the download trend of R on CRAN over time. It shows a upward trend over time, and the variance also increases with the download count, which shows the volatility of the data is increasing as well. And that is because the number of users of R rises.
+Figure \@ref(fig:R-download-trend) shows the download trend of R on CRAN over time. It shows an upward trend over time, and the variance also increases with the download count, which shows the volatility of the data is increasing as well. And that is because the number of users of R rises. And as for the significant spikes, it is probabaly quite similar to the situation of R packages, which is due to repeated downloads, weekly calendar effect and server test.
 
 (ref:R-download-trend) The download trend of R on CRAN over time. 
 
 ```{r R-download-trend, fig.cap="(ref:R-download-trend)"}
 R_downloads %>% 
   group_by(date) %>% 
+  mutate(date = as.Date(date)) %>%
   summarise(total = sum(count)) %>% 
   ggplot(aes(date, total)) +
-  geom_line()
+  geom_line(colour="gray")+
+  labs(
+    y = "Download count",
+    title = "Daily total download count of R"
+  )+
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5)
+  )
 ```
 
+
 ```{block, type="discovery", echo = TRUE}
-**Finding 1**: The number of downloads showed an upward trend over time, and the variance also increase with the downloads.
+**Finding 2**: The most popular version of R is 3.2.1
 ```
 
 Figure \@ref(fig:R-download-trend-os) shows the comparison of operation system for R users. The number of Windows users ranks first, followed by MacOS and SRC. For Microsoft has traditionally dominated the desktop and laptop market. And Microsoft officially claims there are 400 million active users of Windows 10 itself, while Apple revealed that there are now nearly 100 million active Mac users.[@warren2017]
@@ -38,11 +50,22 @@ R_downloads %>%
   group_by(os, date) %>% 
   summarise(total = sum(count)) %>% 
   ggplot(aes(date, total, color = os)) +
-  geom_line()
+  geom_line() +
+  labs(
+    y = "Download count",
+    title = "Daily total download count of R",
+    subtitle = "for different OS"
+  )+
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5)
+  )
 
 
 ```
-
 
 
 ```{r latest-version}
@@ -101,3 +124,5 @@ R_version %>%
   scroll_box(width = "100%", height = "400px")
 
 ```
+
+In conclusion, the daily download trend of R is quite similar to that of R packages, and they are both significantly affected by weekly calendar issue, unusual downloads from CRAN mirrors. But in general, they both tend to increase with the growing of users.
