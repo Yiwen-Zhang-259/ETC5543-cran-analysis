@@ -1,4 +1,4 @@
-# Analysis
+# Analysis (Methods)
 
 In this project, we construct eight exploratory data analysis : (a) we explore the daily download of all the packages on CRAN; (b) we analysis the daily download trend of R itself and the download distribution of its version; (c) we compare the top 15 downloaded packages on CRAN on 1st Oct. from year 2013 to 2021 to see how the user preference changes; (d) we figure out the relationship between initial release date and the total download count; (e) we compare two closely related packages `fable` and `forecast` to see the difference between their MA (moving average); (f) we study how the number of commits of master (main) branch on Github repository influence the download count; (g) we explore the relationship between the number of updates of packages and its download count; (h) we analyse the name length pattern for both CRAN task view packages and random packages; (i) we explore how the alphabetic order of packages affect the download count and its statistic features (variance, median).
 
