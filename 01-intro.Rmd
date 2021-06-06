@@ -1,9 +1,6 @@
 # Abstract
 
-
-
-
-
+Data is closely related to social and economic activities and our daily life, so data mining and analysis will definitely benefit us. In many statistical and data analysis tools, we choose R, and set the research object as the download logs of R package. By obtaining the daily and recent half year total download count of R package and R itself, we analyze their pattern characteristics, as well as the relationship between the release date, update times, number of commits on Github, name length and alphabetic order of the packages. Finally, we also check the changes of the top 15 downloaded packages on 1st April from 2013 to 2021, to have a glance of how the user preferences changes to some extent.
 
 # Introduction {#intro}
 
