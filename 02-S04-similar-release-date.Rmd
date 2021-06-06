@@ -2,13 +2,13 @@
 ## Compare moving average of fable and forecast
 
 ```{block, type="discovery", echo = TRUE}
-**Finding x**: Package forecast has a more stable download trend comparing to fable. And when fable gets updated, its downloads peaked, while forecast suffers a dropping on the contrast.
+**Finding**: Package 'forecast' has a more stable download trend comparing to 'fable'. And when 'fable' gets updated, its downloads peaked, while 'forecast' suffers a dropping on the contrast.
 ```
 
-In this section, we compare package `fable` and `forecast`. They are two closely related packages, for `fable` is the recently released tidy version of `forecast`. Figure \@ref(fig:daily-fbl) and Figure \@ref(fig:daily-fcst) shows the daily download count changing during last half year, which shows strong weekly seasonality. And that means the downloads tend to be higher in week days and thus lower on weekends, which is consistent with total package trend we analysed before.
+As we stated in the previous section, the earlier the package is released, the easier it is to get a relatively higher total download. But that doesn't mean a better growth will exist. Due to that, in this section, we compare package `fable` and `forecast`. They are two closely related packages, for `fable` is the later released tidy version of `forecast`. And in this way, we can approximately fix all the factors except the initail release date, so that we can compare the growth and changes of these two more clearly. Figure \@ref(fig:daily-fbl) and Figure \@ref(fig:daily-fcst) show the daily download count changing during last half year, which indicates strong weekly seasonality. And that means the downloads tend to be higher in week days and thus lower on weekends, which is consistent with total package trend analyzed before.
 
 ```{r trans-ff}
-lh_dt_start <- Sys.Date() - 183 - 2 #last half year
+lh_dt_start <- "2020-10-01" #last half year
 lh_dt_end <- Sys.Date() - 2
 
 # transform the daily download of 'fable' to time series table
@@ -26,7 +26,7 @@ forecast <- forecast %>%
 
 ```{r daily-fbl, fig.cap="(ref:daily-fbl)}
 fable %>%
-  autoplot(count) +
+  autoplot(count,colour="gray") +
    labs( y = 'Daily download count',
           x = 'Date',
     title = "The daily downloads of fable",
@@ -47,7 +47,7 @@ fable %>%
 
 ```{r  daily-fcst, fig.cap="(ref:daily-fcst)}
 forecast %>%
-  autoplot(count) +
+  autoplot(count,colour="gray") +
    labs(  y = 'Daily download count',
           x = 'Date',
     title = "The daily downloads of forecast",
@@ -67,13 +67,13 @@ Therefore, in order to estimate the trend-cycle and reduce the weekly seasonalit
 
 A moving average of order **m** can be written as :
 
-$$T_hat $$
+$$T_t = \frac1m\ \Sigma_{j = -k}^{k}y_{t+j} $$
 
 where **m=2k+1**. That is, the estimate of the trend-cycle at time **t** is obtained by averaging values of the time series within **k** periods of  **t**. 
 
-And here, we consider the equal weighed 7 moving average. That is, it calculates the weighted average for every seven consecutive time series with the following weights : [1/7,1/7,1/7,1/7,1/7,1/7,1/7]. 
+And here, we consider the equal weighed 7 moving average. That is, it calculates the weighted average for every seven consecutive time series with the following weights : *[1/7,1/7,1/7,1/7,1/7,1/7,1/7]*. 
 
-Figure \@ref(fig:ff-ma) shows the moving average (MA) of `fable` and `forecast` respectively. They have quite different moving average patterns with `forecast`'s download volume much higher than `fable`'s. That is, the MA of `forecast` is relatively stable than that of `fable` except for the time around New Year's Eve when `forecast` has a significant drop. But during that time, a drop also appears in `fable`, which is probably due to the big New Year holiday. In addition, the purple vertical dashed line in plot of `fable` marks the update day of it which is on 2021-1-29. And on that day, its downloads peaked, which is because the number of download counts will increase on the update day.
+Figure \@ref(fig:ff-ma) shows the moving average (MA) of `fable` and `forecast` respectively. They have quite different moving average patterns with `forecast`'s download volume much higher than `fable`'s. That is, the MA of `forecast` is relatively stable than that of `fable` except for the time around New Year's Eve when `forecast` has a significant drop. But during that time, a drop also appears in `fable`, which is probably due to the big New Year holiday. In addition, the purple vertical dashed line in plot of `fable` marks the update day of it which is on 2021-1-29. And soon after that day, its downloads peaked, which is because the number of download counts will increase on the update day. At the same time, `forecast` drops and then only gets a gentle increase.
 
 (ref:ff-ma) The moving average of package "forecast" and "fable".
 
@@ -90,11 +90,11 @@ colors <- c('fable' = '#D55E00', 'forecast' = 'violetred4')
 p_fbl <- fable_ma %>%
   autoplot(count, color = "gray") +
   geom_line(aes(y = `7-MA`,colour = 'fable')) +
-  geom_vline(xintercept = as.numeric(ymd("2020-01-29")), linetype="dashed", #to get geom_vline to an x-axis of class date
+  geom_vline(xintercept = as.numeric(ymd("2021-01-29")), linetype="dashed", #to get geom_vline to an x-axis of class date
                 color = "violetred4", size=0.8) +
   labs( 
   title = "Weighed moving average of fable and forecast",
-  subtitle = "from 2021-02-06 up to now") +
+  subtitle = "from 2020-12-03 up to now") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -103,8 +103,6 @@ p_fbl <- fable_ma %>%
   axis.title=element_text(size=12,face="bold"),
   plot.title = element_text(h = 0.5),
   plot.subtitle = element_text(h = 0.5)) 
-
-
 
 forecast_ma <- forecast %>%
   mutate(
@@ -130,5 +128,5 @@ grid.newpage()
 grid.draw(gff)
 
 ```
-
+In conclusion, the download variance of `forecast` is larger than that of `fable` while the former looks relatively more stable than the latter after applying the moving average. And once again, it coincides with the conclusion of the previous section, that is, the earlier released package tends to gain more cumulative downloads. In addition, we can also see that the growth of both of them sometimes increases at the same time, while sometimes the growth of one corresponds to the decline of the other. As for as we concerned, the shared growth may be due to their similarity. Users will download both at the same time or compare them like us. And the trade-off may also be due to the similarity of their functions, one can be replaced by the other in the process of using. Finally, we can also know that earlier release does not guarantee a faster growth. For example, `fable` has a more dramatic growth than `forecast` from 2021-01-21 to 2021-02-06.
 
