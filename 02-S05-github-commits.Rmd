@@ -1,122 +1,425 @@
-## compare download counts with the number of commits on master branch
+## Compare download counts with the number of commits on master branch
 
-In this part, we compare last half year's total downloads with the number of commits on master branch in Github repositories. Let's look back to trending packages.
+In this section, we compare last half year's total downloads with the number of commits on master branch in Github repositories. And this turn, we replaced the research object with all the packages on CRAN with 17674 packages up to 2021-06-06.
 
 ```{block, type="discovery", echo = TRUE}
-**Finding**: In general, more commits on master branch of Github repository tends to bring more download counts to packages. On the one hand, the number of commits indicates that developers are constantly supplementing and updating the package, which will lead to more downloads. On the other hand, the number of commits also reflects the commitments developers attach to the package to a certain extent. If a package has more commits, it means that developers attach more commitments to it, then developers may invest in advertising and other ways to promote it, so as to expand the popularity and improve the download count.
+**Assumption**: In our initial assumption, more commits on master branch of Github repository tends to bring more download counts to packages. On the one hand, the number of commits indicates that developers are constantly supplementing and updating the package, which will lead to more downloads. On the other hand, the number of commits also reflects the attention developers attach to the package to a certain extent. So, if a package has more commits, then developers may invest more in advertising and other ways to promote it, so as to expand the popularity and improve the download count.
 ```
 
+The way we applied is extracting the commits through accessing the Github API. To achieve this, we first scrape the Github URLs from 'description' page for all the packages, and clean up the multiple URLs or some other redundant symbols and characters. And the URL of scraping the commits through Github API is formatted as ["https://api.github.com/repos/{user_repo}/commits?per_page=1"]. For example, the URL for package `tidyverse` can be like ["https://api.github.com/repos/tidyverse/tidyverse/commits?per_page=1"]. So, practically, by replacing the ```user_repo``` part that consists of the name of the related repository and the name of the package holder, we could access the Github API for all the packages.
 
-```{r}
-library(tidyverse)
-library(rvest)
-library(available)
-library(xml2)
-description <- sprintf("%s/web/packages/packages.rds",
-                          getOption("repos")["CRAN"])
-  con <- if(substring(description, 1L, 7L) == "file://") {
-       file(description, "rb")
-  } else {
-      url(description, "rb")
-  }
-  db <- as.data.frame(readRDS(gzcon(con)),stringsAsFactors=FALSE)
-  close(con)
-  rownames(db) <- NULL
+However, the Github API has a rate limits allowing for up to 60 requests per hour for unauthenticated requests, and this can be extended to 5000 per hour after authentication[@githubapi]. But even after getting authentication, our rate limit didn't get promoted. So, we have no choice but to just show a small sample in this case to display the research ideas, but also hope to be able to solve this problem in the near future.
 
-pkg_url <- db %>%
-  select(Package,URL)
+Based on that, Table \@ref(tab:userrepo) shows the first 60 packages of the whole, their URLs and the ```user_repo``` part.
 
-a <- pkg_url$URL[str_detect(pkg_url$URL,'github.com')]
+```{r totalpkg}
+#get all the packages from CRAN 
+cran_names <- rownames(available:::available_packages(repos = available:::default_cran_repos)) %>%
+  as.data.frame() 
 
-pkg_url <- pkg_url%>%
-  filter(URL%in%a)%>%
-  na.omit() %>%
+colnames(cran_names)[1] <- "package"
+
+#slice into small sample to speed up the execution
+cran_names1 <- cran_names %>% 
+  slice(1:850) 
+
+cran_names2 <- cran_names %>% 
+  slice(851:1701)
+
+cran_names3 <- cran_names %>% 
+  slice(1702:2552)
+
+cran_names4 <- cran_names %>% 
+  slice(2553:3403)
+
+cran_names5 <- cran_names %>% 
+  slice(3404:4254)
+
+cran_names6 <- cran_names %>% 
+  slice(4255:5105)
+
+cran_names7 <- cran_names %>% 
+  slice(5106:5956)
+
+cran_names8 <- cran_names %>% 
+  slice(5957:6807)
+
+cran_names9 <- cran_names %>% 
+  slice(6808:7657)
+
+cran_names10 <- cran_names %>% 
+  slice(7658:8508)
+
+cran_names11 <- cran_names %>% 
+  slice(8509:9359)
+
+cran_names12 <- cran_names %>% 
+  slice(9360:10210)
+
+cran_names13 <- cran_names %>% 
+  slice(10211:11061)
+
+cran_names14 <- cran_names %>% 
+  slice(11062:11912)
+
+cran_names15 <- cran_names %>% 
+  slice(11913:12763)
+
+cran_names16 <- cran_names %>% 
+  slice(12764:13614)
+
+cran_names17 <- cran_names %>% 
+  slice(13615:14465)
+
+cran_names18 <- cran_names %>% 
+  slice(14466:15316)
+
+cran_names19 <- cran_names %>% 
+  slice(15317:16167)
+
+cran_names20 <- cran_names %>% 
+  slice(16168:17018)
+
+cran_names21 <- cran_names %>% 
+  slice(17019:length(cran_names$package))
+
+td_start <- "2020-10-01"
+td_end <- Sys.Date() - 2
+
+#get total download for slice1
+cran_names1 <- map_dfr(cran_names1, ~{
+  pkgs <- cran_names1$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names1 <- cran_names1 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice2
+cran_names2 <- map_dfr(cran_names2, ~{
+  pkgs <- cran_names2$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names2 <- cran_names2 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice3
+cran_names3 <- map_dfr(cran_names3, ~{
+  pkgs <- cran_names3$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names3 <- cran_names3 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice4
+cran_names4 <- map_dfr(cran_names4, ~{
+  pkgs <- cran_names4$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names4 <- cran_names4 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice5
+cran_names5 <- map_dfr(cran_names5, ~{
+  pkgs <- cran_names5$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names5 <- cran_names5 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice6
+cran_names6 <- map_dfr(cran_names6, ~{
+  pkgs <- cran_names6$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names6 <- cran_names6 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice7
+cran_names7 <- map_dfr(cran_names7, ~{
+  pkgs <- cran_names7$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names7 <- cran_names7 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice8
+cran_names8 <- map_dfr(cran_names8, ~{
+  pkgs <- cran_names8$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names8 <- cran_names8 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice9
+cran_names9 <- map_dfr(cran_names9, ~{
+  pkgs <- cran_names9$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names9 <- cran_names9 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice10
+cran_names10 <- map_dfr(cran_names10, ~{
+  pkgs <- cran_names10$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names10 <- cran_names10 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice11
+cran_names11 <- map_dfr(cran_names11, ~{
+  pkgs <- cran_names11$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names11 <- cran_names11 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice12
+cran_names12 <- map_dfr(cran_names12, ~{
+  pkgs <- cran_names12$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names12 <- cran_names12 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice13
+cran_names13 <- map_dfr(cran_names13, ~{
+  pkgs <- cran_names13$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names13 <- cran_names13 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice14
+cran_names14 <- map_dfr(cran_names14, ~{
+  pkgs <- cran_names14$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names14 <- cran_names14 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice15
+cran_names15 <- map_dfr(cran_names15, ~{
+  pkgs <- cran_names15$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names15 <- cran_names15 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice16
+cran_names16 <- map_dfr(cran_names16, ~{
+  pkgs <- cran_names16$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names16 <- cran_names16 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice17
+cran_names17 <- map_dfr(cran_names17, ~{
+  pkgs <- cran_names17$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names17 <- cran_names17 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice18
+cran_names18 <- map_dfr(cran_names18, ~{
+  pkgs <- cran_names18$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names18 <- cran_names18 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice19
+cran_names19 <- map_dfr(cran_names19, ~{
+  pkgs <- cran_names19$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names19 <- cran_names19 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice20
+cran_names20 <- map_dfr(cran_names20, ~{
+  pkgs <- cran_names20$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names20 <- cran_names20 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+#get total download for slice21
+cran_names21 <- map_dfr(cran_names21, ~{
+  pkgs <- cran_names21$package
+  
+  cran_downloads(pkgs, from = td_start, to = td_end) 
+})
+
+cran_names21 <- cran_names21 %>%
+  group_by(package) %>%
+  summarise(total = sum(count))
+
+
+cran_names_download <- rbind(cran_names1,cran_names2,cran_names3,cran_names4,cran_names5,cran_names6,cran_names7,cran_names8,cran_names9,cran_names10,cran_names11,cran_names12,cran_names13,cran_names14,cran_names15,cran_names16,cran_names17,cran_names18,cran_names19,cran_names20,cran_names21)
+```
+
+```{r userrepo}
+#scrape the Github URLs
+getPackageRDS <- function() {
+     description <- sprintf("%s/web/packages/packages.rds",
+                            getOption("repos")["CRAN"])
+     con <- if(substring(description, 1L, 7L) == "file://") {
+         file(description, "rb")
+     } else {
+         url(description, "rb")
+     }
+     on.exit(close(con))
+     db <- readRDS(gzcon(con))
+     rownames(db) <- NULL
+     return(db)
+}
+
+dd <- as.data.frame(getPackageRDS())
+dd2 <- subset(dd, grepl("github.com", URL))
+
+## clean up (multiple URLs, etc.)
+dd2$URL <- sapply(strsplit(dd2$URL,"[, \n]"),
+       function(x) trimws(grep("github.com", x, value=TRUE)[1]))
+
+dd2$URL <- sapply(strsplit(dd2$URL,"[>]"),
+       function(x) trimws(grep("github.com", x, value=TRUE)[1]))
+
+dd2$URL <- sapply(strsplit(dd2$URL,"[<]"),
+       function(x) trimws(grep("github.com", x, value=TRUE)[1]))
+
+dd2$URL <- sapply(strsplit(dd2$URL,"[#]"),
+       function(x) trimws(grep("github.com", x, value=TRUE)[1]))
+
+dd2$URL <- str_replace_all(dd2$URL, "https", "http")
+
+
+dd2_new <- dd2 %>%
+  select(Package,URL) %>%
+  mutate(user_repo = str_sub(URL, str_locate(URL, 'github.com/')[2]+11)) 
+
+#filter some obs
+a <- dd2_new$user_repo[str_detect(dd2_new$user_repo,'/blob/')]
+b <- dd2_new$user_repo[str_detect(dd2_new$user_repo,'/master')]
+c <- dd2_new$user_repo[str_detect(dd2_new$user_repo,'/Master')]
+
+#get all the username and repo name done
+dd2_new <- dd2_new %>%
+  filter(!(user_repo%in%a))%>%
+  filter(!(user_repo%in%b))%>%
+  filter(!(user_repo%in%c))
+
+#want to remove the "/" at the last position of user_repo for some pkgs
+#count the frequency of "/"
+dd2_new$freq_dash <- str_count(dd2_new$user_repo, "/")
+
+#remove the last "/" for those have two "/" in user_repo (and don't have other things inside)
+dd2_new_dash <- dd2_new %>%
+  filter(freq_dash == 2) %>%
+  mutate(user_repo = substr(user_repo,1,nchar(user_repo)-1))
+         
+#bind with origianl data and filter some pkgs with unclean user_repo (hard to clean and not many)
+dd2_new <- dd2_new %>%
+  filter(!(Package %in% dd2_new_dash$Package)) %>%
+  rbind(dd2_new_dash) %>%
+  arrange(Package)%>%
+  filter(!(freq_dash == 0))%>%
+  filter(!(freq_dash == 2))%>%
+  filter(!(freq_dash == 3)) %>%
   rename(package = Package)
 
-#replace all the "https" with "http" in URL
-pkg_url$URL <- str_replace_all(pkg_url$URL, "https", "http")
+dd2_new <- dd2_new %>%
+  mutate(path = paste(user_repo,"/commits?per_page=1",sep=""))
 
-#remove"<>" in URL
-b <- pkg_url$URL[str_detect(pkg_url$URL,'<')]
+#slice a small sample as an example
+dd2_new1 <- dd2_new %>%
+  slice(1:60)
 
-pkg_url_adj1 <- pkg_url%>%
-  filter(URL%in%b)%>%
-  mutate(URL = str_remove(URL,coll(str_sub(URL, str_locate(URL, '<'))))) %>%
-  mutate(URL = str_remove(URL,coll(str_sub(URL, str_locate(URL, '>')))))
-
-pkg_url_adj1$URL[1] <- str_remove(pkg_url_adj1$URL[1],coll(str_sub(pkg_url_adj1$URL[1], str_locate(pkg_url_adj1$URL[1], ',\n')[1])))
-
-pkg_url_adj1$URL[5] <- str_remove(pkg_url_adj1$URL[5],coll(str_sub(pkg_url_adj1$URL[5], str_locate(pkg_url_adj1$URL[5], ',')[1])))
-
-pkg_url_adj1$URL[12] <- str_remove(pkg_url_adj1$URL[12],coll(str_sub(pkg_url_adj1$URL[12], str_locate(pkg_url_adj1$URL[12], ',\n')[1])))
-
-pkg_url_adj1$URL[15] <- str_remove(pkg_url_adj1$URL[15],coll(str_sub(pkg_url_adj1$URL[15], str_locate(pkg_url_adj1$URL[15], ',\n')[1])))
-
-pkg_url_adj2 <- pkg_url%>%
-  filter(!(package%in%pkg_url_adj1$package))
-
-d <- pkg_url_adj2$URL[str_detect(pkg_url_adj2$URL,'github.com')]
-
-pkg_url_adj2 <- pkg_url_adj2 %>%
-  filter(URL%in%d) 
-  
-
-
-#combine data 
-pkg_url_rest <- pkg_url%>%
-  filter(!(package%in%pkg_url_adj1$package)) %>%
-  filter(!(package%in%pkg_url_adj2$package)) 
-  #filter(!(package%in%pkg_url_adj22$package))
-
-pkg_url_new <- rbind(pkg_url_rest,pkg_url_adj1,pkg_url_adj2) %>%
-  arrange(package)
-
-#get the user and repo name
-pkg_url_new$URL <- str_extract(pkg_url_new$URL,coll(str_sub(pkg_url_new$URL, str_locate(pkg_url_new$URL, 'http://github.com/')[1])))
-
-j <- pkg_url_new$URL[str_detect(pkg_url_new$URL,'github.io')]
-
-pkg_url_new <- pkg_url_new %>%
-  filter(!(URL%in%j)) %>%
- mutate(user_repo = str_sub(URL, str_locate(URL, 'github.com/')[2]+11)) %>%
-  select(package,user_repo)
-
-
-pkg_url_new <- pkg_url_new %>%
-  mutate(user = (str_extract(user_repo,boundary("word"))))%>%
-  select(package,user)
-
-e <- pkg_url_new$user[str_detect(pkg_url_new$user,'.io')]
-f <- pkg_url_new$user[str_detect(pkg_url_new$user,'.org')]
-g <- pkg_url_new$user[str_detect(pkg_url_new$user,'org')]
-h <- pkg_url_new$user[str_detect(pkg_url_new$user,'.com')]
-i <- pkg_url_new$user[str_detect(pkg_url_new$user,'.r')]
-
-pkg_url_new <- pkg_url_new %>%
-  filter(!(user%in%e)) %>%
-  filter(!(user%in%f))%>%
-  filter(!(user%in%g))%>%
-  filter(!(user%in%h))%>%
-  filter(!(user%in%i))%>%
-  filter(!(package == "abess")) %>%
-  filter(!(user == "r")) %>%
-  filter(!(user == "io")) %>%
-  mutate(user_repo = str_c(user,"/",package))
+dd2_new1 %>%
+  kable(caption = "First 60 packages and Github URL") %>%
+  kable_styling(full_width = FALSE) %>%
+  scroll_box(width = "100%", height = "400px")
 ```
 
-```{r function-commits}
-library(httr)
+
+```{r getcommits}
 # extract commits on master branch on Github
-get_commits <- map(pkg_url_new$user_repo, function(user_repo){
-
-pkg_url <- GET(glue::glue("https://api.github.com/repos/{user_repo}/commits?per_page=1"))
-
-# function used to extract commits from github page
-commits <-  function(pkg_url) {
+github_api1 <- map(dd2_new1$path,function(path) {
   
-headers(pkg_url)$link
+   #Sys.sleep(60)
+  
+  url <- modify_url("https://api.github.com", path = path)
+  
+  resp <- httr::GET(url)
+  
+  if (http_type(resp) != "application/json") {
+    stop("API did not return json", call. = FALSE)
+  }
+  
 
-c <- str_split(headers(pkg_url)$link, ",") %>%
+c <- str_split(headers(resp)$link, ",") %>%
   unlist()
 
 
@@ -126,53 +429,48 @@ d <- c[str_detect(c,'rel=\"last\"')]
 f <- str_sub(d, str_locate(d, '&page=')[2]+1, str_locate(d, '>')[1]-1)
 
   return(f)
-}
-  commits(pkg_url)
- 
+  
 })
 
 #convert the list output to dataframe
-commits <- data.frame(matrix(unlist(get_commits), nrow=length(get_commits), byrow=TRUE))
+commits <- data.frame(matrix(unlist(github_api1), nrow=length(github_api1), byrow=TRUE))
 colnames(commits)[1] <- "commits"
 
 #append the commits to the original data
-pkg_commits <-  cbind(pkg_url_new,commits)
+pkg_commits1 <-  cbind(dd2_new1,commits) %>%
+  rename(package = Package)%>%
+  mutate(commits = as.numeric(commits))
 
 #combine with the total download
-pkg_commits_download <- left_join(pkg_commits,cran_names_download,by = "package")
+pkg_commits_download <- left_join(pkg_commits1,cran_names1,by = "package") %>%
+  arrange(desc(total))
 ```
 
-
-
-Table \@ref(tab:commits-tbl) shows the top 30 trending packages before 2021-04-11, along with their last half a year's total downloads and the number of commits on Github master branch. `V8` ranks first in download count with `r trending_downloads$count[1]`, while `phangorn` comes to the top in commits count with `r max(trending_downloads$commits)`.
+Table \@ref(tab:commits-tbl) shows the first 60 packages, along with their last half a year's total downloads and the number of commits on Github master branch.
 
 ```{r commits-tbl}
-trending_downloads <- trending_downloads %>%
-  arrange(desc(count))
-
-trending_downloads %>%
-  kable(caption = "Top 30 scored trending packages with commits on Github and last half year's downloads") %>%
+pkg_commits_download %>%
+  kable(caption = "Top 15 downloaded packages with commits on Github and last half year's downloads") %>%
   kable_styling(bootstrap_options = c("hover", "striped")) 
 ```
 
-
-Figure \@ref(fig:commits-pattern) shows the scatterplot along with a smoothing line. In general, more commits, more downloads. What's more, most packages' commits are in the range of 100 to 400.
+Figure \@ref(fig:commits-pattern) shows the scatterplot along with a smoothing line. In general, more commits, more downloads. But as this only covers a very tiny sample with 60 packages, we don't know whether this conclusion is applicable to all packages on CRAN. Anyway, from the pattern shown by this small sample, our assumption seems relatively reasonable to some extent.
 
 (ref:commits-pattern) The commits on master branch of Github repository against the last half a year's total download count.
 
 ```{r commits-pattern, fig.cap="(ref:commits-pattern)}
-trending_downloads %>%
-  mutate(count = as.numeric(count)) %>%
+pkg_commits_download %>%
+  mutate(total = as.numeric(total)) %>%
   mutate(commits = as.numeric(commits)) %>%
-  ggplot(aes(x = commits, y = count)) +
+  ggplot(aes(x = commits, y = total)) +
   geom_point() +
   geom_smooth(se = F) +
-  scale_x_log10() +
+  scale_y_log10() +
   labs( y = 'Total download count',
           x = 'The number of commits',
     title = "Commits counts against download counts",
-    subtitle = "of top 30 trending packages for last half year") +
-    annotate("text",y= 70000,x= 500,label="In general, more commits, more downloads.",color="red") +
+    subtitle = "of first 60 packages for last half year") +
+    #annotate("text",y= 70000,x= 500,label="In general, more commits, more downloads.",color="red") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -181,5 +479,83 @@ trending_downloads %>%
   plot.title = element_text(h = 0.5),
   plot.subtitle = element_text(h = 0.5))
 
+```
+
+Another method to explore this question is by looking at the ultra-low-downloaded packages, whose download count only ranks at last 1% of all. From Table \@ref(tab:quantileall) we could see the last 1% downloaded count is around 401. And as these download counts are extremely low, we could assume that many factors will have little effect on their downloads. Thus, we can further assume that the only two differences between them are the number of commits on Github master branch and the total download count.
+
+So, we could filter these ultra-low-downloaded packages and extract the commits on Github , then explore the pattern in total download count.
+
+```{r quantileall}
+quantile_all <- quantile(cran_names_download$total,probs = seq(0, 1, 0.01)) %>% 
+  as.data.frame()
+
+colnames(quantile_all)[1] <- "download count"
+
+quantile_all %>%
+  kable(caption = "Quantile of total download count for all the packages on CRAN") %>%
+  kable_styling(full_width = FALSE) %>%
+  scroll_box(width = "100%", height = "400px")
+```
+
+
+```{r pkg-low}
+pkg_low_download <- left_join(dd2_new,cran_names_download,by = "package") %>%
+  arrange(desc(total)) %>%
+  filter(total < 401) 
+
+github_api_low <- map(pkg_low_download$path,function(path) {
+  
+   #Sys.sleep(60)
+  
+  url <- modify_url("https://api.github.com", path = path)
+  
+  resp <- httr::GET(url)
+  
+  if (http_type(resp) != "application/json") {
+    stop("API did not return json", call. = FALSE)
+  }
+  
+
+c <- str_split(headers(resp)$link, ",") %>%
+  unlist()
+
+
+d <- c[str_detect(c,'rel=\"last\"')] 
+
+
+f <- str_sub(d, str_locate(d, '&page=')[2]+1, str_locate(d, '>')[1]-1)
+
+  return(f)
+  
+})
+
+#convert the list output to dataframe
+commits <- data.frame(matrix(unlist(github_api_low), nrow=length(github_api_low), byrow=TRUE))
+colnames(commits)[1] <- "commits"
+
+#append the commits to the original data
+pkg_commits_low <-  cbind(github_api_low,commits) %>%
+  rename(package = package)%>%
+  mutate(commits = as.numeric(commits))
+
+pkg_commits_low  %>%
+  mutate(total = as.numeric(total)) %>%
+  mutate(commits = as.numeric(commits)) %>%
+  ggplot(aes(x = commits, y = total)) +
+  geom_point() +
+  geom_smooth(se = F) +
+  scale_y_log10() +
+  labs( y = 'Total download count',
+          x = 'The number of commits',
+    title = "Commits counts against download counts",
+    subtitle = "of last 1% downloaded packages for last half year") +
+    #annotate("text",y= 70000,x= 500,label="In general, more commits, more downloads.",color="red") +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5))
 ```
 
