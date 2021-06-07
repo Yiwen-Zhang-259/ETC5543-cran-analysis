@@ -6,7 +6,7 @@ In this project, we extracted R packages names from CRAN and got summary daily d
 
 - b) we analyzed the daily download trend of R itself and the found out the most popular version of R; 
 
-- c) we compared the top 15 downloaded packages on CRAN on 1st Oct. from year 2013 to 2021 to see how the user preference changes;
+- c) we compared the top 15 downloaded packages on CRAN on 1st April. from year 2013 to 2021 to see how the user preference changes;
 
 - d) we figured out the relationship between initial release date and the total download count for last half a year; 
 
