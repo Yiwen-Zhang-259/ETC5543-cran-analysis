@@ -12,7 +12,6 @@ However, the existence of these packages will make the results biased. Therefore
 - Packages created by R related authors
 - Packages created by top 20 prolific maintainers (This is resourced at @revolutions)
 
-
 ```{r readcran}
 url <- "http://cran.rstudio.com/web/packages/packages.rds"
 db <- readRDS(url(url)) %>% 
@@ -232,9 +231,36 @@ pkg_remain <- cbind_dif(list(package14_13 = a1$package, package15_14 = b1$packag
 pkg_remain[is.na(pkg_remain)] = "-"
 ```
 
+And after that, if we generate the lorenz curve again in Figure \@ref(fig:lorenz-filter), we could see that the distribution of packages in each download group is quite equal now and the Gini value decreases a lot as well, for the 'extreme effect' brought by highly-downloaded packages disappears. So, after filtering those quite popular and high-downloaded packages, we could see the user preference better. But as after filtering, the number of remaining packages is only 58, which is a too small-sized sample to construct representative conclusions, we will still focus on all the packages on CRAN in our later analysis.
+
+
+(ref:lorenz-filter) Percentiles of the download count against cumulative download count of packages after filtering four types of popular and highly-downloaded packages.
+
+```{r lorenz-filter, fig.cap="(ref:lorenz-filter)"}
+cran_names_download_new <- filter_list(cran_names_download)
+
+ggplot(cran_names_download_new, aes(total)) +
+stat_lorenz() +
+geom_abline(linetype = "dashed") +
+annotate_ineq(cran_names_download_new$total)+
+theme_bw()+
+  labs(
+    y = "Cumulative share of download count",
+    x = "Download quantile",
+    title = "The number of packages occupied by each group",
+    subtitle = "based on download count quantile after filtering"
+  ) +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5)
+  )
+```
+
 ```{block, type="discovery", echo = TRUE}
 **Finding 1**: The topic of newly added packages each year come from quite different areas. 
-
 ```
 
 Table \@ref(tab:changed-top15pkg) shows the packages that newly come up to the top 15 list each year, from which we can know what the user preferences increase year by year compared with the previous year. To be more specific :
