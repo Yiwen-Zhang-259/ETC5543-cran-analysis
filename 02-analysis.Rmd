@@ -1,6 +1,6 @@
 # Methods
 
-In this project, we extracted R packages names from CRAN and got daily download logs of R packages through cranlogs API. And we also collected release date of R packages through CRAN. In addition, we also tried to scrap the number of commits in Github repository for R packages. However, due to the rate limit of Github API, we only captured part of the data in the end. Then we constructed eight exploratory data analysis sections: 
+In this project, we extracted R packages names from CRAN and got summary daily download logs of R packages through web API maintained by r-hub[@rhub]. And we also collected release dates of R packages through CRAN. In addition, we also tried to scrap the number of commits in Github repository for R packages. However, due to the rate limit of Github API, we only captured part of the data in the end. Then we constructed eight exploratory data analysis sections: 
 
 - a) we explored the daily download of all the packages on CRAN and figured out the number of packages occupied by different downloaded groups; 
 
