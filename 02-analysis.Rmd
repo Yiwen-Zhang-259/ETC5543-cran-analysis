@@ -1,6 +1,24 @@
-# Analysis (Methods)
+# Methods
 
-In this project, we construct eight exploratory data analysis : (a) we explore the daily download of all the packages on CRAN; (b) we analysis the daily download trend of R itself and the download distribution of its version; (c) we compare the top 15 downloaded packages on CRAN on 1st Oct. from year 2013 to 2021 to see how the user preference changes; (d) we figure out the relationship between initial release date and the total download count; (e) we compare two closely related packages `fable` and `forecast` to see the difference between their MA (moving average); (f) we study how the number of commits of master (main) branch on Github repository influence the download count; (g) we explore the relationship between the number of updates of packages and its download count; (h) we analyse the name length pattern for both CRAN task view packages and random packages; (i) we explore how the alphabetic order of packages affect the download count and its statistic features (variance, median).
+In this project, we extracted R packages names from CRAN and got daily download logs of R packages through cranlogs API. And we also collected release date of R packages through CRAN. In addition, we also tried to scrap the number of commits in Github repository for R packages. However, due to the rate limit of Github API, we only captured part of the data in the end. Then we constructed eight exploratory data analysis sections: 
+
+- a) we explored the daily download of all the packages on CRAN and figured out the number of packages occupied by different downloaded groups; 
+
+- b) we analyzed the daily download trend of R itself and the found out the most popular version of R; 
+
+- c) we compared the top 15 downloaded packages on CRAN on 1st Oct. from year 2013 to 2021 to see how the user preference changes;
+
+- d) we figured out the relationship between initial release date and the total download count for last half a year; 
+
+- e) we compared two closely related packages `fable` and `forecast` to see the difference between their MA (moving average); 
+
+- f) we studied how the number of commits of master (main) branch on Github repository influence the total download count for last half a year; 
+
+- g) we explored the relationship between the number of updates of packages and its download count; 
+
+- h) we analyzed the name length pattern for both CRAN task view packages and all the packages on CRAN; 
+
+- i) we explored how the alphabetical order of packages affected the download count and its statistic features (variance, median).
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,
@@ -13,15 +31,12 @@ knitr::opts_chunk$set(echo = FALSE,
                       warning = FALSE)
 library(tidyverse)
 library(cranlogs)
-library(lubridate)
 library(glue)
-library(rvest)
-
+library(grid)
  library(pkgsearch)
- library(jsonlite)
  library(ctv)
  library(lubridate)
- 
+ library(jsonlite)
  library(htmltools)
  library(httpuv)
  library(httr)
@@ -31,22 +46,26 @@ library(rvest)
  library(slider)
  library(rvest)
  library(rlist)
- library(plotly)
+ library(available)
+ library(xml2)
+ library(stats)
+ library(gglorenz)
 
 theme_set(theme_bw(base_size = 14) +
             theme(plot.title.position = "plot"))
 
 # comment out below to include/exclude analysis
 child_docs <- c(
+                "02-S00-intro.Rmd",
                 #"02-S01-pkg-downloads.Rmd",
-                "02-S01B-R-downloads.Rmd",
+                #"02-S01B-R-downloads.Rmd",
                 #"02-S02-top15.Rmd",
-                "02-S03-release-date.Rmd",
+                #"02-S03-release-date.Rmd",
                 #"02-S04-similar-release-date.Rmd",
-                "02-S05-github-commits.Rmd",
-                "02-S06-trending-pkgs.Rmd",
-                "02-S07-pkg-name-length.Rmd",
-                "02-S08-pkg-name-order.Rmd",
+                #"02-S05-github-commits.Rmd",
+                #"02-S06-trending-pkgs.Rmd",
+                #"02-S07-pkg-name-length.Rmd",
+                #"02-S08-pkg-name-order.Rmd",
                 NULL)
 ```
 
