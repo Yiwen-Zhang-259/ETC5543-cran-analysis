@@ -94,7 +94,7 @@ pkg_url_new <- dd2_new %>%
 
 ```{r combine-commits}
 #read data of commits
-##the code used to scrape the commits is in python script
+##the code used to scrape the commits is in python script 'spider.py'
 commits_all <- read.table("data/commits.txt", comment="", header=TRUE)
 colnames(commits_all)[1] <- "URL"
 colnames(commits_all)[2] <- "commits"
