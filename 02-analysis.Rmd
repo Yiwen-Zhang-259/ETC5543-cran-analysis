@@ -22,17 +22,17 @@ In this project, we extracted R packages names from CRAN and got summary daily d
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,
-                      cache = FALSE,
+                      cache = TRUE,
                       cache.path = paste0("cache/",
                                           ifelse(knitr::is_html_output(), "html/", "latex/")),
                       fig.path = "figures/",
                       fig.align = "center",
                       message = FALSE,
                       warning = FALSE)
-library(tidyverse)
-library(cranlogs)
-library(glue)
-library(grid)
+ library(tidyverse)
+ library(cranlogs)
+ library(glue)
+ library(grid)
  library(pkgsearch)
  library(ctv)
  library(lubridate)

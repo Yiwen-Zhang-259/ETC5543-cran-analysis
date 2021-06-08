@@ -92,7 +92,7 @@ pkg_url_new <- dd2_new %>%
 
 ```
 
-```{r userrepo}
+```{r userrepo-tbl}
 dd2_new %>%
   arrange(desc(total)) %>%
   head(15) %>%

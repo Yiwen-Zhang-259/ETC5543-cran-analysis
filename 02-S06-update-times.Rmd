@@ -8,9 +8,9 @@ In this part, our analysis object is still all the packages.
 ```
 
 
-```{r function-updates-downloads}
+```{r updates-downloads-all}
 cran_names1_1 <- cran_names1 %>%
-  slice(1:300)
+  slice(1:100)
 
 # to get the number of updates
 cran_names1_1release <- map_dfr(cran_names1_1$package, function(x) releases(x)) %>%
@@ -148,7 +148,7 @@ compute_pct_lowupdated(pkg_updates)
 ```
 
 
-```{r function-latestupdate}
+```{r latestupdate-all}
 # function used to get the total downloads of a period of time and the latest release date
 
 latest_updates <- pkg_updates_all %>%
