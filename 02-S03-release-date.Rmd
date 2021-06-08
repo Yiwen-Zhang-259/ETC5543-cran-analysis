@@ -1,11 +1,10 @@
 ## Compare last year's downloads with the earliest release date
 
 ```{block, type="discovery", echo = TRUE}
-**Finding**: Packages that were initially released earlier on CRAN have a higher download count in the past year. This perhaps is because in earlier times, there were fewer packages in the same category, so users had 'no choice' but to use them. Due to this, these packages accumulate a certain user base, which makes it more possible to attract new users.
+**Finding**: Packages that are initially released earlier on CRAN tend to have a higher download count in the past year. This perhaps is because in earlier times, there were fewer packages in the same category, so users had 'no choice' but to use them. Due to this, these packages accumulate a certain user base, which makes it more possible to attract new users.
 ```
 
-In our common cognition, we may assume that the earlier a package is released, the more people will know about it, and thus the more downloads it will have. However, packages related to different topics cannot be directly compared, because it is possible that the total download amount of packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, we selected three domain packages through CRAN task view[@crantaskviews], calculated their respective downloads in the previous half a year, and extract their earliest release dates for comparison. Those three topics are :
-
+In our common cognition, we may assume that the earlier a package is released, the more people will know about it, and thus the more downloads it will have. However, packages related to different topics cannot be directly compared, because it is possible that the total download amount of packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, we selected three domain packages through CRAN task view[@crantaskviews], calculated their respective downloads in the previous half a year, and extracted their earliest release dates for comparison. Those three topics are :
 
 - a) Packages for Time Series Analysis
 
@@ -102,6 +101,6 @@ taskview_downloads %>%
   )
 ```
 
-In conclusion, I'm not surprised to find that the earlier the package is released, the more downloads it will has, which is reflected in all of three topics of packages above. That is probably because the packages released earlier will be better known. When they are released early, there may be a relatively small number of packages of the same topic, with no serious competition. As a result, the packages coming later can easily be covered up, since people generally tend to use well-known, mature and habitual packages.
+In conclusion, we are not surprised to find that the earlier the package is released, the more downloads it will has, which is reflected in all of three topics of packages above. That is probably because the packages released earlier will be better known. When they are released early, there may be a relatively small number of packages of the same topic, under non-serious competition. As a result, the packages coming later can easily be covered up, since people generally tend to use well-known, mature and habitual packages.
 
 That is to say, earlier packages are more conducive to the cultivation of user habits. After all, habits are influenced by the length of time. For example, if the teacher is an old user of some packages, they may recommend these packages to their students when they teach, or colleagues may prefer to recommend familiar packages to others especially when they get a satisfying user experience. 

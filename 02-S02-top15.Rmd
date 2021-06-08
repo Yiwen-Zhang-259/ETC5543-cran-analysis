@@ -1,8 +1,8 @@
 ## Daily top 15 downloaded packages 
 
-In this section, we study the top 15 downloaded packages from 2013-04-01 to 2021-04-01 to see how user preferences has been changing. The data is obtained from CRAN website [http://cran.rstudio.com/web/packages/packages.rds].
+In this section, we studied the top 15 downloaded packages from 2013-04-01 to 2021-04-01 to see how user preferences has been changing. The data was obtained from CRAN website [http://cran.rstudio.com/web/packages/packages.rds].
 
-We all know that some packages are hold by rstudio, or they are developed by some core personnel or related personnel under R, or some prolific developers. Naturally, the number of downloads of these packages will be higher. On the one hand, the packages developed by these experienced developers may be more mature and perfect, on the other hand, users are more inclined to use the packages of famous authors, which is a kind of "good use" guarantee.
+We are supposed to know that some packages are hold by Rstudio, and some are developed by core personnel or personnel closely related to R, or some prolific developers. Naturally, the number of downloads of these packages will probably be higher. On the one hand, the packages developed by these experienced developers may be more mature and perfect, on the other hand, users are more inclined to use the packages from famous authors, which can be regarded as a kind of "good use" guarantee.
 
 However, the existence of these packages will make the results biased. Therefore, in order to explore the packages constructed by non-special creators, we have screened out four types of packages, namely:
 
@@ -231,7 +231,7 @@ pkg_remain <- cbind_dif(list(package14_13 = a1$package, package15_14 = b1$packag
 pkg_remain[is.na(pkg_remain)] = "-"
 ```
 
-And after that, if we generate the lorenz curve again in Figure \@ref(fig:lorenz-filter), we could see that the distribution of packages in each download group is quite equal now and the Gini value decreases a lot as well, for the 'extreme effect' brought by highly-downloaded packages disappears. So, after filtering those quite popular and high-downloaded packages, we could see the user preference better. But as after filtering, the number of remaining packages is only 58, which is a too small-sized sample to construct representative conclusions, we will still focus on all the packages on CRAN in our later analysis.
+And after that, we generated the lorenz curve here again in Figure \@ref(fig:lorenz-filter), it can be observed that the distribution of packages in each download group is quite equal now and the Gini value decreases a lot as well, for the 'extreme effect' brought by highly-downloaded packages has disappeared. Thus, the user preferences could be shown more clearly. But as after filtering, the number of remaining packages is only 58, which is a too small-sized sample to construct representative conclusions, we would still focus on all the packages on CRAN in our later analysis.
 
 
 (ref:lorenz-filter) Percentiles of the download count against cumulative download count of packages after filtering four types of popular and highly-downloaded packages.
@@ -263,12 +263,12 @@ theme_bw()+
 **Finding 1**: The topic of newly added packages each year come from quite different areas. 
 ```
 
-Table \@ref(tab:changed-top15pkg) shows the packages that newly come up to the top 15 list each year, from which we can know what the user preferences increase year by year compared with the previous year. To be more specific :
+Table \@ref(tab:changed-top15pkg) shows the packages that newly come up to the top 15 list each year, from which we can know how the user preference has changed year by year, compared with the previous year. To be more specific :
 
 - For 2014, `ncdf` ranks first, which is used to provide an interface to netCDF format data. 
 - For 2015, the first downloaded is `XLConnectJars` on JAVA dependency. 
 - For 2016, the first one is `reports` for standardising the output of R. 
-- For 2017, `lava.tobit` aims to help with estimation and simulation of latent variable models. 
+- For 2017, `lava.tobit` aims to help with estimation and simulation of latent variable models.
 - For 2018, the ranking-first `ReportsRs` is for creating Microsoft Word and Powerpoint documents. 
 - For 2019, `CALIBERrfimpute` is used to impute missing values in analysis datasets using full conditional specifications. 
 - For 2020, `SparkR` is similar to `dplyr` but for large datasets. 
@@ -285,7 +285,6 @@ pkg_change %>%
 
 ```{block, type="discovery", echo = TRUE}
 **Finding 2**: The topic of packages changes least between 2017 and 2019. And the most popular filed is about JAVA dependency.
-
 ```
 
 Table \@ref(tab:unchanged-top15pkg) shows the packages that remain unchanged each year compared with the previous year, from which we can know which packages are relatively stable in popularity.
@@ -339,12 +338,11 @@ colnames(pkg_taskview_total)[1] <- 'package'
 
 ```
 
-Let's take a look at the trending packages. Trending packages are packages that downloaded at least 1000 times last week, which have increased significantly compared to the average weekly downloads in the previous 24 weeks[@r-hub]. That is to say, they are packages with high download volume in a recent short time. Through their topic, we can know what areas of packages people are concerned about recently.
+Let's take a look at the trending packages. Trending packages are ones that are downloaded at least 1000 times last week, which have increased significantly compared to the average weekly downloads in the previous 24 weeks[@r-hub]. That is to say, they are packages with high download volume in a recent short time. Through their topic, we can know what areas of packages people are concerned about recently.
 As the trending packages are changing through time, let's focus on trending ones before 2021-04-11.
 
 ```{block, type="discovery", echo = TRUE}
 **Finding 3**: The most popular topic of trending packages is for Time series analysis.
-
 ```
 
 Table \@ref(tab:trending-topic) shows the first 15 trending packages along with their topics.
@@ -379,4 +377,4 @@ pkg_trendcom_count %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
-So, apart from the topic of the package itself, what other factors will affect its download volume? With this problem in mind, we mainly explored the relationship between the total number of download counts of packages in the past half a year and the earliest release date, the number of updates, the number of commits on GitHub repositories, the length of the name and the alphabetic order of the first letter of the name in the next following parts.
+So, apart from the topic of the package itself, what other factors will affect its download volume? With this problem in mind, we mainly explored the relationship between the total number of download counts of packages in the past half a year and the earliest release date, the number of updates, the number of commits on GitHub repositories, the length of the name and the alphabetical order of the first letter of the name in the next following sections.
