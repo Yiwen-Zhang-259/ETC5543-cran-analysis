@@ -25,7 +25,7 @@ forecast <- forecast %>%
 
 (ref:daily-fbl) The daily download of package "fable"
 
-```{r daily-fbl, fig.cap="(ref:daily-fbl)}
+```{r daily-fbl, fig.cap="(ref:daily-fbl)"}
 fable %>%
   autoplot(count,colour="gray") +
    labs( y = 'Daily download count',
@@ -46,7 +46,7 @@ fable %>%
 
 (ref:daily-fcst) The daily download of package "forecast".
 
-```{r  daily-fcst, fig.cap="(ref:daily-fcst)}
+```{r  daily-fcst, fig.cap="(ref:daily-fcst)"}
 forecast %>%
   autoplot(count,colour="gray") +
    labs(  y = 'Daily download count',
@@ -78,7 +78,7 @@ Figure \@ref(fig:ff-ma) shows the moving average (MA) of `fable` and `forecast` 
 
 (ref:ff-ma) The moving average of package "forecast" and "fable".
 
-```{r ff-ma, fig.cap="(ref:ff-ma)}
+```{r ff-ma, fig.cap="(ref:ff-ma)"}
 # use 7 MA can get a equal weighed 7 MA 
 fable_ma <- fable %>%
   mutate(

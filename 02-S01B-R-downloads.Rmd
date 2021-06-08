@@ -1,6 +1,6 @@
 ## Daily downloads of R
 
-In this section, we studied the daily downloads of R language itself from `r dd_start` to `r dd_end`. The data is obtained from the `cranlogs` package [@cranlogs] as well.
+In this section, we studied the daily downloads of R language itself from `r dd_start` to `r dd_end`. The data was obtained from the `cranlogs` package [@cranlogs] as well.
 
 ```{r vars-R-downloads, cache = TRUE}
 R_downloads <- cran_downloads("R", from = dd_start, to = dd_end) %>% 
@@ -64,7 +64,6 @@ R_downloads %>%
   plot.subtitle = element_text(h = 0.5)
   )
 
-
 ```
 
 ```{block, type="discovery", echo = TRUE}
@@ -106,9 +105,7 @@ R_downloads$version[which(R_downloads$version == "latest" & R_downloads$date < "
 R_downloads$version[which(R_downloads$version == "latest" & R_downloads$date >= "2021-03-31")] <- "4.0.5"
 ```
 
-And Table \@ref(tab:R-download-trend-version) shows the number of downloads of different versions of R. The most downloaded one is `r R_version$R_version[1]` with `r R_version$count[1]` times, followed by `r R_version$R_version[2]` with `r R_version$count[2]` times and `r R_version$R_version[3]` with `r R_version$count[3]` times. So, most users tend to install the latest version of R to get the newest update information.
-
-```{r R-download-trend-version}
+```{r R-downloadversion}
 R_version <- R_downloads %>% 
   pull(version) %>%
   as.data.frame()
@@ -119,7 +116,11 @@ R_version <- R_version %>%
   count(R_version) %>%
   arrange(desc(n)) %>%
   rename(count = n) 
+```
 
+And Table \@ref(tab:R-download-trend-version) shows the number of downloads of different versions of R. The most downloaded one is `r R_version$R_version[1]` with `r R_version$count[1] times`, followed by `r R_version$R_version[2]` with `r R_version$count[2]` times and `r R_version$R_version[3]` with `r R_version$count[3]` times. So, most users tend to install the latest version of R to get the newest update information.
+
+```{r R-download-trend-version}
 R_version %>%
   kable(caption = "The number of downloads of different versions of R") %>%
   kable_styling(bootstrap_options = c("hover", "striped")) %>%

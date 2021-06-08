@@ -87,7 +87,7 @@ Figure \@ref(fig:all-updates) shows that the number of downloads increases with 
 
 (ref:all-updates) The download count increase with the number of updates.
 
-```{r  all-updates, fig.cap="(ref:all-updates)}
+```{r  all-updates, fig.cap="(ref:all-updates)"}
 pkg_updates %>%
   ggplot(aes(x = n, y = total)) +
   geom_point() +
@@ -162,7 +162,7 @@ It can be seen from Figure \@ref(fig:latestpublish) that most packages' latest p
 
 (ref:latestpublish) The latest update dates of trending packages are almost all the recent dates.
 
-```{r  latestpublish,fig.cap="(ref:latestpublish)}
+```{r  latestpublish,fig.cap="(ref:latestpublish)"}
 
 pkg_trending_latest_publish %>%
   ggplot(aes(update)) +
@@ -189,7 +189,7 @@ Figure \@ref(fig:updates-perday) shows that with the increase of update interval
 
 (ref:updates-perday) Most of the time intervals of updates are between 45 and 450 days.
 
-```{r updates-perday,fig.cap="(ref:updates-perday)}
+```{r updates-perday,fig.cap="(ref:updates-perday)"}
 
 pkg_trending_earliest_publish <- unique(downloads_earliest_release(pkg_trending_latest_publish$package))
 

@@ -85,7 +85,7 @@ daily_download_20141117 %>%
   kable_styling(full_width = FALSE) #downloads from Indonesia is much more than any others
 ```
 
-Furthermore, we also checked the IP address in Table \@ref(tab:spike14ip), downloads from ```ip3758``` is much higher than others. So, it seems that most of the downloads were owing to one certain IP. 
+Furthermore, we also checked the IP address in Table \@ref(tab:spike14ip), downloads from `ip3758` is much higher than others. So, it seems that most of the downloads were owing to one certain IP. 
 
 ```{r spike14ip}
 daily_download_20141117 %>%
@@ -645,7 +645,6 @@ lorenz_curve
 
 ```{r top10}
 #quantile(cran_names_download$total,probs = seq(0, 1, 0.1)) 
-
 cran_names_download %>%
   filter(total > 24310) %>%
   arrange(desc(total))%>%

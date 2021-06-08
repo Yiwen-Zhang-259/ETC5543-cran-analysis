@@ -135,7 +135,7 @@ Figure \@ref(fig:commits-pattern) shows the scatterplot along with a smoothing l
 
 (ref:commits-pattern) The commits on master branch of Github repository against the last half a year's total download count.
 
-```{r commits-pattern, fig.cap="(ref:commits-pattern)}
+```{r commits-pattern, fig.cap="(ref:commits-pattern)"}
 pkg_commits_all %>%
   mutate(total = as.numeric(total)) %>%
   mutate(commits = as.numeric(commits)) %>%
@@ -178,7 +178,7 @@ quantile_all %>%
 
 (ref:pkg-low) The commits on master branch of Github repository against the last half a year's total download count for last 1% downloaded packages on CRAN.
 
-```{r pkg-low,fig.cap="(ref:pkg-low)}
+```{r pkg-low,fig.cap="(ref:pkg-low)"}
 pkg_low_download <- left_join(dd2_new,cran_names_download,by = "package") %>%
   arrange(desc(total)) %>%
   filter(total < 401) 

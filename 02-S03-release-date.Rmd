@@ -71,7 +71,7 @@ Figure \@ref(fig:release-downloads) displays the scatterplot of the last half ye
 
 (ref:release-downloads) The download count decrease with the initial release date.
 
-```{r release-downloads, fig.cap="(ref:release-downloads),fig.height = 12}
+```{r release-downloads, fig.cap="(ref:release-downloads)",fig.height = 12}
 initial_release <- pkg_releases %>% 
   mutate(releases = as.Date(release)) %>% 
   group_by(package) %>% 

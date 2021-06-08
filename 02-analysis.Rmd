@@ -50,6 +50,7 @@ knitr::opts_chunk$set(echo = FALSE,
  library(xml2)
  library(stats)
  library(gglorenz)
+ library(yaml)
 
 theme_set(theme_bw(base_size = 14) +
             theme(plot.title.position = "plot"))
@@ -57,14 +58,14 @@ theme_set(theme_bw(base_size = 14) +
 # comment out below to include/exclude analysis
 child_docs <- c(
                 "02-S01-pkg-downloads.Rmd",
-                "02-S01B-R-downloads.Rmd",
-                "02-S02-top15.Rmd",
-                "02-S03-release-date.Rmd",
-                "02-S04-similarpkg-fable-forecast.Rmd",
-                "02-S05-github-commits.Rmd",
-                "02-S06-update-times.Rmd",
-                "02-S07-pkg-name-length.Rmd",
-                "02-S08-pkg-name-order.Rmd",
+                #"02-S01B-R-downloads.Rmd",
+                #"02-S02-top15.Rmd",
+                #"02-S03-release-date.Rmd",
+                #"02-S04-similarpkg-fable-forecast.Rmd",
+                #"02-S05-github-commits.Rmd",
+                #"02-S06-update-times.Rmd",
+                #"02-S07-pkg-name-length.Rmd",
+                #"02-S08-pkg-name-order.Rmd",
                 NULL)
 ```
 
