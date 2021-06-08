@@ -1,0 +1,241 @@
+---
+title: "ETC5543 Presentation"
+subtitle: "The evolution of R Packages"
+author: "Yiwen Zhang"
+supervisor: "Emi Tanaka"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: xaringan-themer.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+  
+---
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(echo = FALSE, 
+                      cache=TRUE, 
+                      message=FALSE, 
+                      warning=FALSE,
+                      fig.align = 'left')
+
+library(tidyverse)
+library(xaringan)
+library(cranlogs)
+library(glue)
+library(grid)
+ library(pkgsearch)
+ library(ctv)
+ library(lubridate)
+ library(jsonlite)
+ library(htmltools)
+ library(httpuv)
+ library(httr)
+ library(kableExtra)
+ library(packageRank)
+ library(fpp3)
+ library(slider)
+ library(rvest)
+ library(rlist)
+ library(available)
+ library(xml2)
+ library(stats)
+ library(gglorenz)
+
+
+our_theme <- theme(rect = element_rect(fill = "#4e5a65"),
+        text = element_text(color = "white", size = 10),
+        panel.background = element_rect(fill = "#4e5a65"),
+        axis.text = element_text(color = "white"),
+        panel.border = element_rect(color = "white", size = 0.8),
+        plot.title = element_text(size = 12, face = "bold", colour = "white"),
+        plot.subtitle = element_text(size = 15, face = "italic", colour = "white"),
+        axis.ticks = element_line(colour = "white")
+        )
+
+# Set new theme for graphs
+our_theme1 <- theme(rect = element_rect(fill = "#023858"),
+        text = element_text(color = "white", size = 10),
+        panel.background = element_rect(fill = "#023858"),
+        axis.text = element_text(color = "white"),
+        panel.border = element_rect(color = "white", size = 0.8),
+        plot.title = element_text(size = 12, face = "bold", colour = "white"),
+        plot.subtitle = element_text(size = 15, face = "italic", colour = "white"),
+        axis.ticks = element_line(colour = "white")
+        )
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#55B4B0",
+  secondary_color = "#55B4B0",
+  inverse_header_color = "#FFFFFF"
+)
+```
+
+# `r emo::ji("gold")`Introduction
+--
+
+- There are over **two million** users of R
+
+--
+
+- There are **17700** R packages on CRAN
+
+--
+
+- Research object : **download count** of R packages
+
+--
+
+### *Question : What affects the popularity of the package?* 
+--
+
+- understand **download pattern** 
+
+- figure out **influential factors**
+
+---
+
+## `r emo::ji("gold")`The daily download of packages
+
+.center[
+
+```{r trend, fig.cap="(ref:trend)", fig.height = 12}
+
+plot_daily_fix %+%
+   total_downloads_fix
+```
+
+]
+
+---
+
+## *Finding 1* Unusual spike in 2014 and 2018
+
+.center[
+
+```{r unusual1418}
+plot_daily
+```
+
+]
+
+---
+
+.left[
+**Spike in 2014 most from**
+
+- several packages, such as 
+
+- the *same* IP
+
+- Indonesia
+
+]
+
+.right[
+**Spike in 2018 most from**
+
+tidyverse 
+
+
+Several *consecutive* IP : 
+
+a) same person
+
+b) server issue 
+
+US 
+
+]
+
+---
+## *Finding 2* 
+
+- **10%** packages share **90%** cumulative download count
+
+```{r lorenz}
+lorenz_curve
+```
+
+
+---
+
+# `r emo::ji("gold")`The daily download of packages
+##`r emo::ji("thinking")` **finding 2**
+
+### Weekends have a lower download than weekdays.
+
+---
+# `r emo::ji("gold")`The daily download of packages
+##`r emo::ji("thinking")` **finding 3**
+
+### There is an increasing number of downloads over time. 
+
+
+---
+# `r emo::ji("gold")`The daily download of R
+##`r emo::ji("thinking")` **finding 1**
+
+### There is an increasing in downloads and variance over time.
+
+---
+# `r emo::ji("gold")`The daily download of R
+##`r emo::ji("thinking")` **finding 2**
+
+### The most popular version of R is 3.2.1. 
+
+
+---
+# `r emo::ji("gold")`The changing in Top15
+
+##`r emo::ji("thinking")` **finding 1**
+
+### The most popular filed is about JAVA dependency.
+
+---
+# `r emo::ji("gold")`The changing in Top15
+
+##`r emo::ji("thinking")` **finding 2**
+
+### The most popular topic of trending packages is Time series analysis.
+
+
+
+---
+# `r emo::ji("gold")`Release date VS total downloads
+##`r emo::ji("thinking")` **finding**
+
+###The earlier release, the more downloads
+
+---
+# `r emo::ji("gold")`fable VS forecast
+##`r emo::ji("thinking")` **finding**
+
+###forecast has a more stable trending comparing to fable
+
+
+---
+# `r emo::ji("gold")`The number of updates VS total downloads
+##`r emo::ji("thinking")` **finding**
+
+###Download count rises with the number of updates
+
+
+---
+# `r emo::ji("gold")`Github commits VS total downloads
+
+
+---
+# `r emo::ji("gold")`Name Analysis
+##`r emo::ji("thinking")` **finding 1 name length**
+##`r emo::ji("thinking")` **finding 2 name order**
+
+---
+# `r emo::ji("gold")`Acknowledgements
+
