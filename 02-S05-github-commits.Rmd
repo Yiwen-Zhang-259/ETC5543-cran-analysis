@@ -1,6 +1,6 @@
 ## Compare download counts with the number of commits on master branch
 
-In this section, we compare last half year's total downloads with the number of commits on master branch in Github repositories. And this turn, we replaced the research object with all the packages on CRAN with 17674 packages up to 2021-06-06.
+In this section, we compare last half year's total downloads with the number of commits on master branch in Github repositories. And this turn, we initially planned to replace the research object with all the packages on CRAN with 17674 packages up to 2021-06-06. But we soon found out that there are only 6185 packages that have a Github repository, and after cleaning up, only 5610 remained.
 
 ```{block, type="discovery", echo = TRUE}
 **Assumption**: In our initial assumption, more commits on master branch of Github repository tends to bring more download counts to packages. On the one hand, the number of commits indicates that developers are constantly supplementing and updating the package, which will lead to more downloads. On the other hand, the number of commits also reflects the attention developers attach to the package to a certain extent. So, if a package has more commits, then developers may invest more in advertising and other ways to promote it, so as to expand the popularity and improve the download count.
