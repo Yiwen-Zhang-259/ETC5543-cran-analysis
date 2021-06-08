@@ -1,0 +1,160 @@
+--- 
+title: "What do CRAN download counts mean?"
+author: "Yiwen Zhang"
+date: "`r Sys.Date()`"
+documentclass: book
+site: bookdown::bookdown_site
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: Yiwen-Zhang-259/ETC5543-cran-analysis
+description: ""
+---
+--- 
+title: "What do CRAN download counts mean?"
+author: "Yiwen Zhang"
+date: "`r Sys.Date()`"
+documentclass: book
+site: bookdown::bookdown_site
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: Yiwen-Zhang-259/ETC5543-cran-analysis
+description: ""
+---
+
+# Preface {-}
+
+This is written as part of the ETC5543 research project supervised by Drs Emi Tanaka and Hien Nguyen.
+
+```{r, include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+
+
+
+
+<!--chapter:end:index.Rmd-->
+
+
+# Abstract
+
+Placeholder
+
+
+
+<!--chapter:end:01-intro.Rmd-->
+
+# Methods
+
+In this project, we extracted R packages names from CRAN and got summary daily download logs of R packages through web API maintained by r-hub[@rhub]. And we also collected release dates of R packages through CRAN. In addition, we also tried to scrap the number of commits in Github repository for R packages. However, due to the rate limit of Github API, we only captured part of the data in the end. Then we constructed eight exploratory data analysis sections: 
+
+- a) we explored the daily download of all the packages on CRAN and figured out the number of packages occupied by different downloaded groups; 
+
+- b) we analyzed the daily download trend of R itself and the found out the most popular version of R; 
+
+- c) we compared the top 15 downloaded packages on CRAN on 1st April. from year 2013 to 2021 to see how the user preference changes;
+
+- d) we figured out the relationship between initial release date and the total download count for last half a year; 
+
+- e) we compared two closely related packages `fable` and `forecast` to see the difference between their MA (moving average); 
+
+- f) we studied how the number of commits of master (main) branch on Github repository influence the total download count for last half a year; 
+
+- g) we explored the relationship between the number of updates of packages and its download count; 
+
+- h) we analyzed the name length pattern for both CRAN task view packages and all the packages on CRAN; 
+
+- i) we explored how the alphabetical order of packages affected the download count and its statistic features (variance, median).
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      cache = FALSE,
+                      cache.path = paste0("cache/",
+                                          ifelse(knitr::is_html_output(), "html/", "latex/")),
+                      fig.path = "figures/",
+                      fig.align = "center",
+                      message = FALSE,
+                      warning = FALSE)
+library(tidyverse)
+library(cranlogs)
+library(glue)
+library(grid)
+ library(pkgsearch)
+ library(ctv)
+ library(lubridate)
+ library(jsonlite)
+ library(htmltools)
+ library(httpuv)
+ library(httr)
+ library(kableExtra)
+ library(packageRank)
+ library(fpp3)
+ library(slider)
+ library(rvest)
+ library(rlist)
+ library(available)
+ library(xml2)
+ library(stats)
+ library(gglorenz)
+
+theme_set(theme_bw(base_size = 14) +
+            theme(plot.title.position = "plot"))
+
+# comment out below to include/exclude analysis
+child_docs <- c(
+                "02-S00-intro.Rmd",
+                #"02-S01-pkg-downloads.Rmd",
+                #"02-S01B-R-downloads.Rmd",
+                #"02-S02-top15.Rmd",
+                #"02-S03-release-date.Rmd",
+                #"02-S04-similar-release-date.Rmd",
+                #"02-S05-github-commits.Rmd",
+                #"02-S06-trending-pkgs.Rmd",
+                #"02-S07-pkg-name-length.Rmd",
+                #"02-S08-pkg-name-order.Rmd",
+                NULL)
+```
+
+```{r child=child_docs}
+```
+
+<!--chapter:end:02-analysis.Rmd-->
+
+# Summary
+
+In this project, we collected summary daily download logs of R packages through web API maintained by r-hub[@rhub] and also used daily download data in CRAN for a time period from 2013-04-01 to 2021-04-01 to explore the daily download pattern of all packages both in general and of each year. In that case, we found that it is true that the cumulative number of downloads increases with time, and the variance also increases, which indicates that some packages with larger downloads grow rapidly. In addition, there is also strong weekly seasonality in the daily download plot. The download count will peak through weekdays and drop on weekend, for users may tend to work and study during weekdays while rest on weekends. What's more, through Lorenz curve, we also found that most of the cumulative downloads came from the top 10% downloaded packages, so we could also see that the distribution of downloads is quite unequal. Part of the reason is that these top 10% downloaded packages contain quite a lot popular and frequently used packages, such as `tidyverse` and `rlang`, which would be more probably to gain high downloads. In addition, there are other packages that often get high download volume, which can be divided into the following four categories:
+
+- Packages maintained by R studio
+- Packages created by authors from R core group
+- Packages created by authors from R secondary group
+- Packages created by R related authors
+- Packages created by top 20 prolific maintainers (This is resourced at @revolutions)
+
+However, the existence of these packages may make it difficult to reflect the popularity of other packages, we excluded these packages for the analysis of user preferences. And we found that the topic of newly added packages on 1st Oct of each year come from quite different areas, while the packages remaining most stably popular during 2017 to 2019 is about JAVA dependency. Definitely, JAVA always ranked the top three among programming languages according to TIOBE Index[@tiobe], which shows that the number of users under JAVA related packages would be probably huge.
+
+As for R itself, its download pattern is quite similar to that of total R packages on CRAN. And the most used OS for R users is windows OS. Also, the most popular version of R is 3.2.1.
+
+After exploration of the characteristics of download pattern for R package and R itself, we then extracted the release dates of all packages and taskview packages from CRAN to compare the total download count of last half a year among packages with different release date or with different numbers of updates. And we found that for packages from the same topic, earlier release date usually would bring more download count, while packages with more times of updates would not always have higher downloads. So to sum up, packages released earlier and kept updated are more likely to have higher downloads. 
+
+In the next section, we tried to scrape the number of commits in Github repository of all packages on CRAN to check whether more commits would result in more downloads or not. But there came a tricky problem on the rate limit of Github API. As documented in @githubapi, unauthenticated users could only be permitted to send 60 requests per hour. And only after get authentication, could the rate limit be expanded up to 5000 per hour. However, after trying several methods to get authentication, the rate limit was failed increase. So, in order to display our research idea and leave a chance to solve this problem in the future, we just scraped first 60 packages of all. And we found that, in this small-sized sample, more commits tend to bring more download count. In addition, we also have a look at the last 1% downloaded packages on this question, and that is also adapted as well. Therefore, we would expect that generally, if a package has more commits on Github repository, it would probably gain more download count.
+
+The last two parts are about analysis for package name. We compared the average downloads among packages with different name length and different alphabetical orders. It is believed that over half of the packages tend to have shorter names probably for the sake of being easily remembered by users. And alphabetical order played little roles in promoting the download volume.
+
+
+# Conclusion
+
+In conclusion, we hold the belief that there are many factors that affect the download amount and popularity of the R packages on CRAN, such as the popularity of the creator, the application field of the package, the release date, whether to keep updated, and the length of the name. In addition, we also assume that the number of commits on Github repository will also probably affect the download amount of packages. However, due to technical limitations, the sample size we got is too small to make a strong conclusion on this point. We hope that in the future, we can get over this difficulty and add supplement. Anyway, we could generally believed that a relatively popular package should have earlier release date, shorter name and maybe more commits on Github repository if they have. There is also another point that could not be ignored is to keep updated. 
+
+
+<!--chapter:end:03-summary.Rmd-->
+
+`r if (knitr:::is_html_output()) '
+# References {-}
+'`
+
+<!--chapter:end:04-references.Rmd-->
+

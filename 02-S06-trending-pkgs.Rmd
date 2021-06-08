@@ -1,64 +1,102 @@
-## compare download counts with the number of updates for all 100 trending packages
+## Compare download counts with the number of updates
 
 Next, let's look at the relationship between the number of updates and the number of downloads.
-In this part, our analysis object is still trending packages.
+In this part, our analysis object is still all the packages.
 
 ```{block, type="discovery", echo = TRUE}
 **Finding 1**: The download count tends to rise with the number of updates.This is because as we have known before, when a package is updated, there will be a significant increase in the number of downloads. That is to say, when a package is updated, not only old users will download the latest version, but also it is easier to attract new users at this time, for the increase of downloads in a short time may bring it into the trending list.
 ```
 
+
 ```{r function-updates-downloads}
+cran_names1_1 <- cran_names1 %>%
+  slice(1:300)
 
-# function used to get total updates and total downloads for a vector of packages
-get_updates_downloads <- function(packages){
-  
-update_count <- function(packages){
+# to get the number of updates
+cran_names1_1release <- map_dfr(cran_names1_1$package, function(x) releases(x)) %>%
+  group_by(package) 
 
-  
-  # get all the update dates and compute the number of updates of each package  
-pkg_trending_updates <- get_arcvupdate_date(packages) %>%
-  dplyr::group_by(package) %>%
-  dplyr::count(package) %>%
-  rename(`number of updates` = n)
+cran_names2_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
 
-}
+cran_names3_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
 
-update_counts <- update_count(packages) 
+cran_names4_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
 
-# get total downloads for each package 
-total_downloads <- get_total_downloads(update_counts$package)
+cran_names5_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
 
-# join data
-update_counts <- update_counts %>%
-  as.data.frame() %>%
-  left_join(total_downloads,by = "package")
+cran_names6_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
 
-return(update_counts)
+cran_names7_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
 
-}
+cran_names8_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
 
+cran_names9_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
 
+cran_names10_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
+
+cran_names11_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
+
+cran_names12_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
+
+cran_names13_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
+
+cran_names14_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
+
+cran_names15_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package)
+
+cran_names16_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
+
+cran_names17_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
+
+cran_names18_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
+
+cran_names19_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
+
+cran_names20_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
+
+cran_names21_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
+  group_by(package) 
+
+pkg_updates_all <- rbind(cran_names1_release,cran_names2_release,cran_names3_release,cran_names4_release,cran_names5_release,cran_names6_release,cran_names7_release,cran_names8_release,cran_names9_release,cran_names10_release,cran_names11_release,cran_names12_release,cran_names13_release,cran_names14_release,cran_names15_release,cran_names16_release,cran_names17_release,cran_names18_release,cran_names19_release,cran_names20_release,cran_names21_release)
+
+pkg_updates <- pkg_updates_all %>%
+  group_by(package)%>%
+  count(package)
 ```
 
-Figure \@ref(fig:trend-updates) shows that the number of downloads increases with the update times. And most packages are updated between 1 and 6 times.
+Figure \@ref(fig:all-updates) shows that the number of downloads increases with the update times. And most packages are updated between 1 and 6 times.
 
-(ref:trend-updates) The download count increase with the number of updates.
+(ref:all-updates) The download count increase with the number of updates.
 
-```{r  trend-updates, fig.cap="(ref:trend-updates)}
-pkg_trending_updates <- get_updates_downloads(pkg_trending$package) %>%
-  mutate(score = as.numeric(count)) %>%
-  mutate(updates = as.numeric(`number of updates`)) %>%
-  arrange(desc(count))
-
-pkg_trending_updates %>%
-  ggplot(aes(x = `number of updates`, y = count)) +
+```{r  all-updates, fig.cap="(ref:all-updates)}
+pkg_updates %>%
+  ggplot(aes(x = n, y = total)) +
   geom_point() +
   geom_smooth(se = F) +
   scale_x_log10() +
     labs( x = 'The number of updates',
           y = 'Total download count',
     title = "Update counts against download counts",
-    subtitle = "for 100 trending packages") +
+    subtitle = "for all packages on CRAN") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank()) +
   theme(
@@ -69,32 +107,31 @@ pkg_trending_updates %>%
 ```
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 2**: Over half of the trending packages don't tend to update as frequently as expected.
+**Finding 2**: Over half of the packages don't tend to update very frequently.
 ```
 
-Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage of trending packages whose updates are less than average is 71 %, which means much more than half of the 100 trending packages do not tend to update very frequently. 
-
+Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage of trending packages whose updates are less than average is 71 %, which means much more than half of the packages do not tend to update very frequently. 
 
 ```{r  function-lowupdates}
 # function used to compute packages lying in the low-updated range
 
-compute_pct_lowupdated <- function(packages){
+compute_pct_lowupdated <- function(pkg_updates){
   
-avg_updates <- mean(as.numeric(get_updates_downloads(packages)$`number of updates`))
+avg_updates <- mean(as.numeric(pkg_updates$n))
 
-pkg_trending_total <- length(packages)
+pkg_total <- length(pkg_updates$package)
 
-pct_trending_updates <- get_updates_downloads(packages) %>%
-  mutate(`number of updates` = as.numeric(`number of updates`))  %>%
-  dplyr::filter(`number of updates` < avg_updates) %>%
+pct_updates <- pkg_updates %>%
+  mutate(n = as.numeric(n))  %>%
+  dplyr::filter(n < avg_updates) %>%
   dplyr::summarise(`number of packages with low updates` = length(package)) %>%
-  mutate(`percentage of packages with low updates` = (`number of packages with low updates`/pkg_trending_total)*100)
+  mutate(`percentage of packages with low updates` = (`number of packages with low updates`/pkg_total)*100)
 
-pct_trending_updates%>%
+pct_updates%>%
   kable(caption = "Percentage of trending packages whose updates are less than average") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 
-return(pct_trending_updates)
+return(pct_updates)
 
 }
 
@@ -102,84 +139,30 @@ return(pct_trending_updates)
 
 ```{r pct-lowupdates}
 # get the percentage of packages whose update counts is under the average
-compute_pct_lowupdated(pkg_trending$package) 
-  
+compute_pct_lowupdated(pkg_updates) 
 ```
 
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 3**: Most trending packages keep updating with the time to keep its activity.
+**Finding 3**: Most packages keep updating with the time to keep its activity.
 ```
-
 
 
 ```{r function-latestupdate}
 # function used to get the total downloads of a period of time and the latest release date
-downloads_latest_release <- function(packages) {
 
-# function used to get the latest release date from CRAN
-latest_updates <- function(packages){
-  
-  latest_updates <- get_arcvupdate_date(packages) %>%
+latest_updates <- pkg_updates_all %>%
   group_by(package) %>%
   arrange(update, .by_group = TRUE) %>% #arrange within group
   top_n(1, update) # to get the latest release date, top_n() is used to select the highest value of a column within each group
   
-}
-
-latest_updates <- latest_updates(packages)
-
-packages_vector <- latest_updates$package
-
-
-# function used to get the total downloads of a period of time (date1 to date2) for several packages at the same time
-get_total_downloads <- function(packages_vector){
-  
-total_downloads <- map(packages_vector, function(pkg){
-  
-  pkg <- cran_downloads(package = paste0(pkg), from = date1, to = date2) %>%
-  summarise(package = package, count = sum(count)) %>%
-  head(1)
-  
-})
-
- names(total_downloads) <- packages_vector
-
-downloads <- unlist(total_downloads) %>% 
-  enframe("package", "count") %>% 
-  mutate(count = suppressWarnings(as.numeric(count)),
-         # need to get rid of the numbers appended to pkg names
-         package = str_extract(package, paste0(packages_vector, collapse="|")))%>%
-         na.omit()
-}
-
-downloads <- get_total_downloads(packages_vector)
-  
-downloads_release_latest <- downloads %>%
-  as.data.frame() %>%
-  left_join(latest_updates,by = "package")
-
-return(downloads_release_latest)
-}
 ```
 
-It can be seen from Figure \@ref(fig:latestpublish) that most top 15 trending packages' latest publish date is after 2021, which indicates that popular packages tend to update by time to keep its activity. And this can also be explained from another aspect, that is, a trending package refers to a package with a high download volume in a short period of recent time. We know that when a package is updated, its downloads will increase, so the latest update dates of trending packages are almost all the recent dates.
+It can be seen from Figure \@ref(fig:latestpublish) that most packages' latest publish date is after 2021, which indicates that popular packages tend to update by time to keep its activity.
 
 (ref:latestpublish) The latest update dates of trending packages are almost all the recent dates.
 
 ```{r  latestpublish,fig.cap="(ref:latestpublish)}
-
-# before use the function 'downloads_latest_release()', please set the time range
-date1 <- lh_dt_start
-date2 <- lh_dt_end
-
-pkg_trending1 <- pkg_trending %>%
-  filter(!(package == "distro")) %>%
-  filter(!(package == "decor")) %>%
-  filter(!(package == "SeuratObject")) %>%
-  filter(!(package == "bslib"))
-
-pkg_trending_latest_publish <- unique(downloads_latest_release(pkg_trending1$package))
 
 pkg_trending_latest_publish %>%
   ggplot(aes(update)) +
@@ -187,7 +170,7 @@ pkg_trending_latest_publish %>%
   labs( 
         x = 'Latest publish date',
     title = "Distribution of latest publish date",
-    subtitle = "for trending packages") +
+    subtitle = "for all packages") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -199,7 +182,7 @@ pkg_trending_latest_publish %>%
 
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 4**: Most of the trending packages are likely to update at a longer time interval.
+**Finding 4**: Most of the packages are likely to update at a longer time interval.
 ```
 
 Figure \@ref(fig:updates-perday) shows that with the increase of update interval, the number of downloads first increases and then decreases slightly. And most of the time intervals are between 45 and 450 days, which shows that their update frequency is not very high.
@@ -245,5 +228,5 @@ pkg_trending_daily_update %>%
 ```
 
 
-In conclusion, it's not that the more updates the package has, the popular it will be. In the trending package, most of the packages whose updates are lower than the average occupy the majority. Therefore, we can also know that the total number of updates is not very important for the trending package. The important thing is to keep it updated with the time.
+In conclusion, it's not that the more updates the package has, the popular it will be. In general, most of the packages whose updates are lower than the average occupy the majority. Therefore, we can also know that the total number of updates is not very important for the trending package. The important thing is to keep it updated with the time.
 

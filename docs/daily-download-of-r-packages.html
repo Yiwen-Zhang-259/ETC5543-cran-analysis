@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2.1 Daily download of R-packages | What do CRAN download counts mean?</title>
   <meta name="description" content="2.1 Daily download of R-packages | What do CRAN download counts mean?" />
-  <meta name="generator" content="bookdown 0.21.4 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2.1 Daily download of R-packages | What do CRAN download counts mean?" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Yiwen Zhang" />
 
 
-<meta name="date" content="2021-05-02" />
+<meta name="date" content="2021-05-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="analysis.html"/>
-<link rel="next" href="daily-downloads-of-r.html"/>
+<link rel="next" href="summary.html"/>
 <script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,8 +51,33 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -78,8 +103,6 @@
 <li class="chapter" data-level="2" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>2</b> Analysis</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>2.1</b> Daily download of R-packages</a></li>
-<li class="chapter" data-level="2.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>2.2</b> Daily downloads of R</a></li>
-<li class="chapter" data-level="2.3" data-path="compare-last-years-downloads-with-the-earliest-release-date.html"><a href="compare-last-years-downloads-with-the-earliest-release-date.html"><i class="fa fa-check"></i><b>2.3</b> Compare last year’s downloads with the earliest release date</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>3</b> Summary</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
@@ -110,13 +133,13 @@
 <strong>Finding 1</strong>: There was unusual download activity in one day of 2014 and 2018.
 </p>
 </div>
-<p>In this section, we study the daily downloads of CRAN packages from 2012-10-01 to 2021-04-30. The data is obtained from the <code>cranlogs</code> package, which includes a summary of the download logs from the RStudio CRAN mirror. The daily download data for CRAN packages are available from 1st October 2012. Examination of this data showed two unusual observations in XX and XX as shown in Figure <a href="daily-download-of-r-packages.html#fig:unusual-spikes">2.1</a>.</p>
-<p>[ADD] Any explanations to why these spikes occured?</p>
+<p>In this section, we study the daily downloads of CRAN packages from 2012-10-01 to 2021-05-04. The data is obtained from the <code>cranlogs</code> package, which includes a summary of the download logs from the RStudio CRAN mirror. The daily download data for CRAN packages are available from 1st October 2012. Examination of this data showed two unusual observations in 2014 and 2018 as shown in Figure <a href="daily-download-of-r-packages.html#fig:unusual-spikes">2.1</a>.</p>
+<p>Having a closer look into these two spikes, the one happening in 2014 is on 2014-11-17, which is Monday, while the other one happening in 2018 is on 2018-10-21, which is on Sunday. The 3.1.2 version of R for windows released on 2014-10-31.</p>
 
 <div class="figure" style="text-align: center"><span id="fig:unusual-spikes"></span>
-<img src="figures/unusual-spikes-1.png" alt="Unusual download spikes on XX and XX." width="672" />
+<img src="figures/unusual-spikes-1.png" alt="Unusual download spikes on 2014 and 2018." width="672" />
 <p class="caption">
-Figure 2.1: Unusual download spikes on XX and XX.
+Figure 2.1: Unusual download spikes on 2014 and 2018.
 </p>
 </div>
 <div class="discovery">
@@ -124,7 +147,7 @@ Figure 2.1: Unusual download spikes on XX and XX.
 <strong>Finding 2</strong>: Weekends have a lower download than weekdays.
 </p>
 </div>
-<p>The two unusual observations are removed for futher investigation. Figure <a href="daily-download-of-r-packages.html#fig:total-trend">2.2</a> shows the daily download of all CRAN packages from the RStudio mirror with the grey areas highlighting the weekend.</p>
+<p>The two unusual observations are removed for further investigation. Figure <a href="daily-download-of-r-packages.html#fig:total-trend">2.2</a> shows the daily download of all CRAN packages from the RStudio mirror with the grey areas highlighting the weekend.</p>
 
 <div class="figure" style="text-align: center"><span id="fig:total-trend"></span>
 <img src="figures/total-trend-1.png" alt="The figure shows the total downloads of all packages on CRAN would decrease on weekends." width="672" />
@@ -133,28 +156,33 @@ Figure 2.2: The figure shows the total downloads of all packages on CRAN would d
 </p>
 </div>
 <p>[ET: this paragraph needs to be made clear.]</p>
-<p>We could know that there seems to have strong seasonality, which indicates that in a week, the total downloads always increases first then decreases, and reaches the lowest at the weekend. What’s more, the downloads is on the rise from August to October and from February to April, which may be due to the start of semester for most universities.</p>
+<p>We could know that except 2012 and 2013, the patterns of other years are very similar, that is, they all show strong seasonality. To be more specific, in 2012, the download logs showed an overall upward trend, because more and more users began to download packages from CRAN after its open. In the following years, there is no obvious trend in download volume, but a strong seasonality, which indicates that in a week, the total downloads always increases first then decreases, and reaches the lowest at the weekend. Although the pattern of 2013 is more volatile, it still conforms to this. I think for 2013, that is because CRAN is only open for a short time at this time, and the amount of data downloaded is not adequate to show its download pattern very clearly. Considering this, we could see that after 2016, the pattern of each year is quite consistent, for the total download has been increasing year by year. Back to weekly seasonality, that is because people always need to download and use packages on weekdays, and most of them choose to rest on weekends, so the trough of download curve always occurs on weekends. In addition, we could also notice that the lowest downloads across the year are always at the end of December and the beginning of January, due to the Christmas and New Year’s holidays.
+What’s more, the downloads is on the rise from August to October and from February to April, which covers the start of semester for most universities.</p>
+<p>Figure <a href="#fig:weekend-vs-weekday"><strong>??</strong></a> shows the distribution and the median of the downloads between weekday and weekends. The distribution of weekdays and weekends are quite different. Weekends are wider and shorter, while weekdays are thinner and higher, because the total download of data on weekends is less than that on weekdays. And in 2012, the median and interquartile range of download logs are not very distinguished between weekdays and weekends, for the data volume is not adequate at this time as mentioned above. But after 2013, the gap between the two becomes more and more obvious, that is, the median downloads of working days is significantly higher than that of weekends, and the overall number of data is also significantly higher than that of weekends as well. But interestingly, the lower adjacent sometimes occurs on weekends, such as in year 2014, 2015, 2018, 2019 and 2021, while sometimes in weekdays, such as in year 2012, 2013, 2016, 2017 and 2020.</p>
 <p><img src="figures/weekend-vs-weekday-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="discovery">
 <p>
 <strong>Finding 3</strong>: There is an increasing number of downloads over time. This likely attests to the growing number of R users.
 </p>
 </div>
+<p>Figure <a href="daily-download-of-r-packages.html#fig:download-over-time">2.3</a> shows the download trend of all packages on CRAN over time. It shows a upward trend over time, and the variance also increases with the increasing of download count, which shows the volatility of the data is increasing.</p>
 
 <div class="figure" style="text-align: center"><span id="fig:download-over-time"></span>
-<img src="figures/download-over-time-1.png" alt="The above figure shows the download trend over time." width="672" />
+<img src="figures/download-over-time-1.png" alt="The download trend of all packages on CRAN over time." width="672" />
 <p class="caption">
-Figure 2.3: The above figure shows the download trend over time.
+Figure 2.3: The download trend of all packages on CRAN over time.
 </p>
 </div>
+
 </div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
 <a href="analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="daily-downloads-of-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="summary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -177,6 +205,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
