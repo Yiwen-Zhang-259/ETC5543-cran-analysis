@@ -2,7 +2,7 @@
 
 We might also have such experiences in our life. For example, when we go shopping in the supermarket, the goods placed in front of the shelves will be easier to attract our attention and be selected by us, because we may no longer want to seek products with similar functions for a long time.
 
-From the perspective of package name, in addition to the length, does the alphabetical order of the first letter also affect the download volume? For packages with earlier alphabetical order will be placed at the first part of the package list on CRAN[https://cran.r-project.org/web/packages/available_packages_by_name.html]. To answer this question, we grouped the packages in 26-letter order, calculated the average downloads of each group, and then made comparison.
+From the perspective of package name, in addition to the length, does the alphabetical order of the first letter also affect the download volume? For packages with earlier alphabetical order will be placed at the first part of the package list on CRAN[@cranpkgsname]. To answer this question, we grouped the packages in 26-letter order, calculated the average downloads of each group, and then made comparison.
 
 ```{block, type="discovery", echo = TRUE}
 **Finding 1**: For all packages, the average downloads of different alphabetical group are slightly increasing by its order, while the total download tends to decrease a little, instead.
