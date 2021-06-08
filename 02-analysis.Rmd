@@ -56,7 +56,6 @@ theme_set(theme_bw(base_size = 14) +
 
 # comment out below to include/exclude analysis
 child_docs <- c(
-                "02-S00-intro.Rmd",
                 "02-S01-pkg-downloads.Rmd",
                 "02-S01B-R-downloads.Rmd",
                 "02-S02-top15.Rmd",

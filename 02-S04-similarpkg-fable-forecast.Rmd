@@ -1,4 +1,3 @@
-
 ## Compare moving average of fable and forecast
 
 ```{block, type="discovery", echo = TRUE}
