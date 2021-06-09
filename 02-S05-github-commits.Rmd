@@ -8,11 +8,13 @@ In this section, we compared last half year's total downloads with the number of
 
 The way we initially applied was extracting the commits through accessing the Github API. To achieve this, we first scraped the Github URLs from 'description' page for all the packages, and cleaned up the multiple URLs or some other redundant symbols and characters. And the URL of scraping the commits through Github API is formatted as *"https://api.github.com/repos/{user_repo}/commits?per_page=1"*. For example, the URL for package `tidyverse` can be like *"https://api.github.com/repos/tidyverse/tidyverse/commits?per_page=1"*. So, practically, by replacing the `user_repo` part that consists of the name of the related repository and the name of the package holder, we could access the content of all the package URLs through Github API.
 
-Based on that, Table \@ref(tab:userrepo) shows the first 15 packages of the whole, their Github URLs and the `user_repo` part.
+Based on that, Table \@ref(tab:userrepo-tbl) shows the first 5 packages of the whole, their Github URLs and the `user_repo` part.
 
 However, the Github API has a rate limits allowing for up to 60 requests per hour for unauthenticated requests, and this can be extended to 5000 per hour after authentication[@githubapi]. But even after getting authentication, our rate limit didn't get promoted. So, we switched to scrape commits by python spider. And by setting random agent, we successfully avoided the API limit. And as this method is quite time consuming, we saved the output as a txt file and load it in R studio to speed up the compiling process. 
 
-```{r userrepo}
+```{r userrepo,eval=FALSE}
+#code used to extract Github URL for CRAN packages
+
 #scrape the Github URLs
 getPackageRDS <- function() {
      description <- sprintf("%s/web/packages/packages.rds",
@@ -89,19 +91,22 @@ pkg_url_new <- dd2_new %>%
 
 #save the clean-up pkg and github URL to scrape data in python
 ##write_csv(pkg_url_new, file=here::here("data/pkg_url_new.csv"))
-
+#save(dd2_new, file=here::here("data/dd2_new.rda")) 
 ```
 
 ```{r userrepo-tbl}
+load("data/dd2_new.rda")
+
+#display some packages with their clean URL as exaple
 dd2_new %>%
-  arrange(desc(total)) %>%
-  head(15) %>%
-  kable(caption = "First 15 packages with their 'user_repo' element") %>%
+  select(package,URL,user_repo)%>%
+  head(5) %>%
+  kable(caption = "First 5 packages with their 'user_repo' element") %>%
   kable_styling(bootstrap_options = c("hover", "striped")) 
 ```
 
 
-```{r combine-commits}
+```{r combine-commits,eval=FALSE}
 #read data of commits
 ##the code used to scrape the commits is in python script 'spider.py'
 commits_all <- read.table("data/commits.txt", comment="", header=TRUE)
@@ -121,13 +126,17 @@ pkg_commits_all <- pkg_commits_all %>%
 
 ```
 
-Table \@ref(tab:commits-tbl) shows the first 15 packages of all, along with their last half a year's total downloads and the number of commits on Github master branch.
+```{r load-commits}
+load("data/pkg_commits_all.rda")
+```
+
+Table \@ref(tab:commits-tbl) shows the first 5 packages of all, along with their last half a year's total downloads and the number of commits on Github master branch.
 
 ```{r commits-tbl}
 pkg_commits_all %>%
   arrange(desc(total)) %>%
-  head(15) %>%
-  kable(caption = "First 15 packages with commits on Github and last half year's total downloads") %>%
+  head(5) %>%
+  kable(caption = "First 5 packages with commits on Github and last half year's total downloads") %>%
   kable_styling(bootstrap_options = c("hover", "striped")) 
 ```
 

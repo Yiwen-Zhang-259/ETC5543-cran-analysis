@@ -6,10 +6,7 @@ Here, we still focused on all packages on CRAN and made comparison between the n
 **Finding 1**: The name length of packages has no significant effect on the number of downloads.
 ```
 
-We could see from Figure \@ref(fig:namelength-plot) that, in general, the influence of name length on download volume is not very obvious. But we could still observe that the number of downloads decreases slightly with the length of the name. And the names with more than 6,000,000 downloads are between 5 and 9 characters long. Alao, the most downloaded is package `r cran_namelth_download$package[1]` whose name length is `r cran_namelth_download$length_name[1]`, with `r cran_namelth_download$total[1]` download counts.
-
 ```{r  namelength1}
-# use random sample
 cran_namelth_download <- cran_names_download %>%
   mutate(length_name = nchar(package)) %>%
   rowwise()%>%
@@ -19,6 +16,8 @@ cran_namelth_download <- cran_names_download %>%
 cran_namelth_download <- cran_namelth_download %>%
   arrange(desc(total)) 
 ```
+
+We could see from Figure \@ref(fig:namelength-plot) that, in general, the influence of name length on download volume is not very obvious. But we could still observe that the number of downloads decreases slightly with the length of the name. And the names with more than 6,000,000 downloads are between 5 and 9 characters long. Alao, the most downloaded is package `r cran_namelth_download$package[1]` whose name length is `r cran_namelth_download$length_name[1]`, with `r cran_namelth_download$total[1]` download counts.
 
 (ref:namelength-plot) The names of packages with more than 6,000,000 downloads are between 5 and 9 characters long. 
 
