@@ -887,6 +887,24 @@ pkg_commits_all %>%
 ##`r emo::ji("check")` **alphabetical name order**
 
 ---
+
+### `r emo::ji("wink")` life experience : name of detective movie
+
+--
+
+.center[
+
+**.grey[Sherlock Holmes]**  **.red[1922]**
+
+<img src="sherlock1922.jpeg" width="150">
+
+**.grey[Sherlock Holmes :] .brown[The Greatest Detective]**  **.red[1995]**
+
+<img src="sherlock1995.jpg" width="150">
+
+]
+
+---
 class: hide-logo
 ### `r emo::ji("thinking")`Over half of the packages tend to have *.orange[shorter]* names
 
@@ -924,23 +942,7 @@ compare_all_namelth %>%
 
 ### `r emo::ji("smile")`Probably, shorter names are easier to be remembered by users !
 
----
 
-### `r emo::ji("wink")` life experience : name of detective movie
-
---
-
-.center[
-
-**.grey[Sherlock Holmes]**  **.red[1922]**
-
-<img src="sherlock1922.jpeg" width="150">
-
-**.grey[Sherlock Holmes :] .brown[The Greatest Detective]**  **.red[1995]**
-
-<img src="sherlock1995.jpg" width="150">
-
-]
 
 ---
 class: hide-logo
