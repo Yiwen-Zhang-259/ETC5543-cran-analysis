@@ -954,9 +954,81 @@ class: hide-logo
 
 ### `r emo::ji("thinking")` The difference in downloads for each alphabetical groups varies **.red[little]**
 
-```{r}
+--
+
+```{r get-alphabetic, include=FALSE}
+library(available)
+cran_names <- rownames(available:::available_packages(repos = available:::default_cran_repos)) %>%
+  as.data.frame() 
+
+colnames(cran_names)[1] <- "package"
+
+
+  get_pkg_alphabetic <- function(df,letter1,letter2){
+  
+  pkg <- df %>%
+  filter(str_detect(package, paste0(letter1)))%>%
+  mutate(group = paste0(letter2))
+
+  return(pkg)
+  
+  }
+
+#group the pkgs by alphabetical order
+pkg_a <- get_pkg_alphabetic(cran_names,"^a|^A","A/a")
+pkg_b <- get_pkg_alphabetic(cran_names,"^b|^B","B/b")
+pkg_c <- get_pkg_alphabetic(cran_names,"^c|^C","C/c")
+pkg_d <- get_pkg_alphabetic(cran_names,"^d|^D","D/d")
+pkg_e <- get_pkg_alphabetic(cran_names,"^e|^E","E/e")
+pkg_f <- get_pkg_alphabetic(cran_names,"^f|^F","F/f")
+pkg_g <- get_pkg_alphabetic(cran_names,"^g|^G","G/g")
+pkg_h <- get_pkg_alphabetic(cran_names,"^h|^H","H/h")
+pkg_i <- get_pkg_alphabetic(cran_names,"^i|^I","I/i")
+pkg_j <- get_pkg_alphabetic(cran_names,"^j|^J","J/j")
+pkg_k <- get_pkg_alphabetic(cran_names,"^k|^K","K/k")
+pkg_l <- get_pkg_alphabetic(cran_names,"^l|^L","L/l")
+pkg_m <- get_pkg_alphabetic(cran_names,"^m|^M","M/m")
+pkg_n <- get_pkg_alphabetic(cran_names,"^n|^N","N/n")
+pkg_o <- get_pkg_alphabetic(cran_names,"^o|^O","O/o")
+pkg_p <- get_pkg_alphabetic(cran_names,"^p|^P","P/p")
+pkg_q <- get_pkg_alphabetic(cran_names,"^q|^Q","Q/q")
+pkg_r <- get_pkg_alphabetic(cran_names,"^r|^R","R/r")
+pkg_s <- get_pkg_alphabetic(cran_names,"^s|^S","S/s")
+pkg_t <- get_pkg_alphabetic(cran_names,"^t|^T","T/t")
+pkg_u <- get_pkg_alphabetic(cran_names,"^u|^U","U/u")
+pkg_v <- get_pkg_alphabetic(cran_names,"^v|^V","V/v")
+pkg_w <- get_pkg_alphabetic(cran_names,"^w|^W","W/w")
+pkg_x <- get_pkg_alphabetic(cran_names,"^x|^X","X/x")
+pkg_y <- get_pkg_alphabetic(cran_names,"^y|^Y","Y/y")
+pkg_z <- get_pkg_alphabetic(cran_names,"^z|^Z","Z/z")
+
+pkg_alphabetic <- rbind(pkg_a,pkg_b,pkg_c,pkg_d,pkg_e,pkg_f,pkg_g,pkg_h,pkg_i,pkg_j,pkg_k,pkg_l,pkg_m,pkg_n,pkg_o,pkg_p,pkg_q,pkg_r,pkg_s,pkg_t,pkg_u,pkg_v,pkg_w,pkg_x,pkg_y,pkg_z) %>%
+  group_by(group)
 
 ```
+
+```{r alpha-boxplot}
+pkg_alpha_download <- pkg_alphabetic%>%
+  left_join(cran_names_download,by = "package") %>%
+  na.omit()
+
+ggplot(pkg_alpha_download,aes(x = group, y = total)) +
+  geom_boxplot() +
+  labs( y = 'Total download counts',
+    title = "Total download counts against different alphabetic group",
+    subtitle = "for all packages of each group") +
+  scale_y_log10() +
+  #ylim(0, 10000) +
+  theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5),
+  axis.title.x = element_blank())
+```
+
 
 ---
 # `r emo::ji("star")`Conclusion
@@ -964,9 +1036,9 @@ class: hide-logo
 
 ---
 
-# `r emo::ji("heart")`Acknowledgements
+# `r emo::ji("wise")`Acknowledgements
 
 
 ---
 
-# `r emo::ji("gold")`References
+# `r emo::ji("wise")`References
