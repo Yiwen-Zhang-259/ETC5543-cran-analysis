@@ -67,7 +67,7 @@ taskview_downloads <- map_dfr(taskviews, ~{
 })
 ```
 
-Figure \@ref(fig:release-downloads) displays the scatterplot of the last half year's download count and the earliest release date for ```Time Series Analysis```, ```Econometrics``` and ```Bayesian``` packages. It can be seen that generally, as the earliest release date gets later and later, the number of download logs becomes lower and lower. And for ```Time Series Analysis``` packages, they are mainly released between 2012 and 2019. For ```Bayesian``` packages, most of the packages are from 2007 to 2012. And most ```Econometrics``` are centered between 2013 and 2016.  
+Figure \@ref(fig:release-downloads) displays the scatterplot of the last half year's download count and the earliest release date for `Time Series Analysis`, `Econometrics` and `Bayesian` packages. It can be seen that generally, as the earliest release date gets later and later, the number of download logs becomes lower and lower. And for `Time Series Analysis` packages, they are mainly released between 2012 and 2019. For `Bayesian` packages, most of the packages are from 2007 to 2012. And most `Econometrics` are centered between 2013 and 2016.  
 
 (ref:release-downloads) The download count decrease with the initial release date.
 
