@@ -8,6 +8,11 @@ pkgs <- readRDS(url(url)) %>%
   rename(package = Package)
 ```
 
+# Acknowledgments
+
+I would like to express my very great appreciation to Dr Emi Tanaka and Dr Hien Nguyen for their valuable and constructive suggestions during the planning and development of this research work. As my supervisors, their patient guidance, enthusiastic encouragement and willingness to give their time so generously have been very much appreciated. And my special thanks are also extended to Dr Emi Tanaka for her generous help on writing. I would like to also thank Professor Rob J Hyndman, for holding every two weeks' meeting to give us recommendations.
+
+\pagebreak
 
 # Abstract
 
