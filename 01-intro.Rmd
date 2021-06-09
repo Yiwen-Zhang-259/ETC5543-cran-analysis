@@ -1,5 +1,6 @@
 
 ```{r all-pkgs}
+library(tidyverse)
 url <- "http://cran.rstudio.com/web/packages/packages.rds"
 pkgs <- readRDS(url(url)) %>% 
   as.data.frame() %>%
