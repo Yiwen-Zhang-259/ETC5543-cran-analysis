@@ -1,0 +1,15 @@
+# Data
+
+The main source of data used in this report is the download logs from the RStudio CRAN mirror site https://cran.rstudio.com/. These log files are created for every instance of download of an R-package via the RStudio CRAN mirror, then these log files are processed daily into CSV files that contain the following variables with the name of header in brackets:
+
+* Date (`date`),
+* Time in UTC time zone (`time`),
+* Size of the file in bytes  (`size`),
+* Version of R used to download the package (`r_version`),
+* Architecture type for R (i386 = 32 bit, x86_64 = 64 bit) (`r_arch`),
+* Operating System (darwin9.8.0 = mac, mingw32 = windows) (`r_os`),
+* Package (`package`),
+* Country in two letter ISO country code (`country`), and
+* Anonymised daily unique id (`ip_id`).
+
+A similar log file is also created for every download of R from the RStudio CRAN mirror with the processed log file generating a CSV file that contains the same variables except `r_arch` and `package`, and `r_version` and `r_os` are named as `version` and `os`. These CSV files are hosted at http://cran-logs.rstudio.com/ and updated daily with data available from 1st October 2012. 
