@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Section 3 Summary | What do CRAN download counts mean?</title>
-  <meta name="description" content="Section 3 Summary | What do CRAN download counts mean?" />
+  <title>Section 5 Summary | What do CRAN download counts mean? [probably need a catchier title than this]</title>
+  <meta name="description" content="Section 5 Summary | What do CRAN download counts mean? [probably need a catchier title than this]" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Section 3 Summary | What do CRAN download counts mean?" />
+  <meta property="og:title" content="Section 5 Summary | What do CRAN download counts mean? [probably need a catchier title than this]" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="Yiwen-Zhang-259/ETC5543-cran-analysis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Section 3 Summary | What do CRAN download counts mean?" />
+  <meta name="twitter:title" content="Section 5 Summary | What do CRAN download counts mean? [probably need a catchier title than this]" />
   
   
   
@@ -24,16 +24,16 @@
 <meta name="author" content="Yiwen Zhang" />
 
 
-<meta name="date" content="2021-05-06" />
+<meta name="date" content="2021-06-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="daily-download-of-r-packages.html"/>
-<link rel="next" href="references.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<link rel="prev" href="compare-download-counts-with-alphabetical-order-of-name.html"/>
+<link rel="next" href="conclusion.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -53,6 +53,8 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 
@@ -96,15 +98,20 @@ div.csl-indent {
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<li class="chapter" data-level="1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>1</b> Abstract</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a></li>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="rtrends.html"><a href="rtrends.html"><i class="fa fa-check"></i><b>1.1</b> rtrends</a></li>
+<li class="chapter" data-level="4.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>4.1</b> Daily download of R-packages</a></li>
+<li class="chapter" data-level="4.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>4.2</b> Daily downloads of R</a></li>
+<li class="chapter" data-level="4.3" data-path="daily-top-15-downloaded-packages.html"><a href="daily-top-15-downloaded-packages.html"><i class="fa fa-check"></i><b>4.3</b> Daily top 15 downloaded packages</a></li>
+<li class="chapter" data-level="4.4" data-path="compare-moving-average-of-fable-and-forecast.html"><a href="compare-moving-average-of-fable-and-forecast.html"><i class="fa fa-check"></i><b>4.4</b> Compare moving average of fable and forecast</a></li>
+<li class="chapter" data-level="4.5" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>4.5</b> Compare download counts with the number of commits on master branch</a></li>
+<li class="chapter" data-level="4.6" data-path="compare-download-counts-with-alphabetical-order-of-name.html"><a href="compare-download-counts-with-alphabetical-order-of-name.html"><i class="fa fa-check"></i><b>4.6</b> Compare download counts with alphabetical order of name</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>2</b> Analysis</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>2.1</b> Daily download of R-packages</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>3</b> Summary</a></li>
+<li class="chapter" data-level="5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>5</b> Summary</a></li>
+<li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -118,7 +125,7 @@ div.csl-indent {
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">What do CRAN download counts mean?</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">What do CRAN download counts mean? [probably need a catchier title than this]</a>
           </h1>
         </div>
 
@@ -126,17 +133,45 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="summary" class="section level1" number="3">
-<h1><span class="header-section-number">Section 3</span> Summary</h1>
-
+<div id="summary" class="section level1" number="5">
+<h1><span class="header-section-number">Section 5</span> Summary</h1>
+<p>In this project, we collected summary daily download logs of R packages through web API maintained by r-hub<span class="citation">(<a href="#ref-rhub" role="doc-biblioref">R-Hub, n.d.a</a>)</span> and also used daily download data in CRAN for a time period from 2013-04-01 to 2021-04-01 to explore the daily download pattern of all packages both in general and of each year. In that case, we found that it is true that the cumulative number of downloads increases with time, and the variance also increases, which indicates that some packages with larger downloads grow rapidly. In addition, there is also strong weekly seasonality in the daily download plot. The download count will peak through weekdays and drop on weekend, for users may tend to work and study during weekdays while rest on weekends. What’s more, through Lorenz curve, we also found that most of the cumulative downloads came from the top 10% downloaded packages, so we could also see that the distribution of downloads is quite unequal. Part of the reason is that these top 10% downloaded packages contain quite a lot popular and frequently used packages, such as <code>tidyverse</code> and <code>rlang</code>, which would be more probably to gain high downloads. In addition, there are other packages that often get high download volume, which can be divided into the following four categories:</p>
+<ul>
+<li>Packages maintained by R studio</li>
+<li>Packages created by authors from R core group</li>
+<li>Packages created by authors from R secondary group</li>
+<li>Packages created by R related authors</li>
+<li>Packages created by top 20 prolific maintainers (This is resourced at <span class="citation"><a href="#ref-revolutions" role="doc-biblioref"><span>“The Most Prolific Package Maintainers on CRAN”</span></a> (<a href="#ref-revolutions" role="doc-biblioref">n.d.</a>)</span>)</li>
+</ul>
+<p>However, the existence of these packages may make it difficult to reflect the popularity of other packages, we excluded these packages for the analysis of user preferences. And we found that the topic of newly added packages on 1st Oct of each year come from quite different areas, while the packages remaining most stably popular during 2017 to 2019 is about JAVA dependency. Definitely, JAVA always ranked the top three among programming languages according to TIOBE Index<span class="citation">(<a href="#ref-tiobe" role="doc-biblioref"><span>“Latest News,”</span> n.d.</a>)</span>, which shows that the number of users under JAVA related packages would be probably huge.</p>
+<p>As for R itself, its download pattern is quite similar to that of total R packages on CRAN. And the most used OS for R users is windows OS. Also, the most popular version of R is 3.2.1.</p>
+<p>After exploration of the characteristics of download pattern for R package and R itself, we then extracted the release dates of all packages and taskview packages from CRAN to compare the total download count of last half a year among packages with different release date or with different numbers of updates. And we found that for packages from the same topic, earlier release date usually would bring more download count, while packages with more times of updates would not always have higher downloads. So to sum up, packages released earlier and kept updated are more likely to have higher downloads.</p>
+<p>In the next section, we initially tried to scrape the number of commits in Github repository of all packages on CRAN through Github API by R, to check whether more commits would result in more downloads or not. But there came a tricky problem on the rate limit of Github API. As documented in <span class="citation"><a href="#ref-githubapi" role="doc-biblioref"><span>“Resources in the REST API”</span></a> (<a href="#ref-githubapi" role="doc-biblioref">n.d.</a>)</span>, unauthenticated users could only be permitted to send 60 requests per hour. And only after get authentication, could the rate limit be expanded up to 5000 per hour. However, after trying several methods to get authentication, the rate limit was failed increase. So, we switched to make this done with python by setting random agent to avoid the API limit.Meanwhile, in order to display our initial research idea, we still had a look at the last 1% downloaded packages on this question with the original method, and that is also adapted as well. Therefore, we would expect that generally, if a package has more commits on Github repository, it would probably gain more download count.</p>
+<p>The last two parts are about analysis for package name. We compared the average downloads among packages with different name length and different alphabetical orders. It is believed that over half of the packages tend to have shorter names probably for the sake of being easily remembered by users. And alphabetical order played little roles in promoting the download volume.</p>
+<div style="page-break-after: always;"></div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-tiobe" class="csl-entry">
+<span>“Latest News.”</span> n.d. <em>TIOBE</em>. <a href="https://www.tiobe.com/tiobe-index/">https://www.tiobe.com/tiobe-index/</a>.
+</div>
+<div id="ref-githubapi" class="csl-entry">
+<span>“Resources in the REST API.”</span> n.d. <em>Resources in the REST API - GitHub Docs</em>. <a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api">https://docs.github.com/en/rest/overview/resources-in-the-rest-api</a>.
+</div>
+<div id="ref-rhub" class="csl-entry">
+———. n.d.a. <span>“R-Hub/Cranlogs.app.”</span> <em>GitHub</em>. <a href="https://github.com/r-hub/cranlogs.app#the-api-of-the-cran-downloads-database">https://github.com/r-hub/cranlogs.app#the-api-of-the-cran-downloads-database</a>.
+</div>
+<div id="ref-revolutions" class="csl-entry">
+<span>“The Most Prolific Package Maintainers on CRAN.”</span> n.d. <em>Revolutions</em>. <a href="https://blog.revolutionanalytics.com/2018/03/the-most-prolific-package-maintainers-on-cran.html">https://blog.revolutionanalytics.com/2018/03/the-most-prolific-package-maintainers-on-cran.html</a>.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="daily-download-of-r-packages.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="compare-download-counts-with-alphabetical-order-of-name.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -192,6 +227,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

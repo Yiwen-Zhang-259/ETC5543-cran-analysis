@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.3 Daily top 15 downloaded packages | What do CRAN download counts mean? [probably need a catchier title than this]</title>
+  <meta name="description" content="3.3 Daily top 15 downloaded packages | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.3 Daily top 15 downloaded packages | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="Yiwen-Zhang-259/ETC5543-cran-analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.3 Daily top 15 downloaded packages | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  
+  
+  
+
+<meta name="author" content="Yiwen Zhang" />
+
+
+<meta name="date" content="2021-06-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="daily-downloads-of-r.html"/>
+<link rel="next" href="compare-last-years-downloads-with-the-earliest-release-date.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ETC5543 Yiwen Zhang</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>1</b> Abstract</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="other-work.html"><a href="other-work.html"><i class="fa fa-check"></i><b>1.1</b> Other work</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>2</b> Methods</a></li>
+<li class="chapter" data-level="3" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>3</b> Results</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>3.1</b> Daily download of R-packages</a></li>
+<li class="chapter" data-level="3.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>3.2</b> Daily downloads of R</a></li>
+<li class="chapter" data-level="3.3" data-path="daily-top-15-downloaded-packages.html"><a href="daily-top-15-downloaded-packages.html"><i class="fa fa-check"></i><b>3.3</b> Daily top 15 downloaded packages</a></li>
+<li class="chapter" data-level="3.4" data-path="compare-last-years-downloads-with-the-earliest-release-date.html"><a href="compare-last-years-downloads-with-the-earliest-release-date.html"><i class="fa fa-check"></i><b>3.4</b> Compare last year’s downloads with the earliest release date</a></li>
+<li class="chapter" data-level="3.5" data-path="compare-moving-average-of-fable-and-forecast.html"><a href="compare-moving-average-of-fable-and-forecast.html"><i class="fa fa-check"></i><b>3.5</b> Compare moving average of fable and forecast</a></li>
+<li class="chapter" data-level="3.6" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>3.6</b> Compare download counts with the number of commits on master branch</a></li>
+<li class="chapter" data-level="3.7" data-path="compare-download-counts-with-alphabetical-order-of-name.html"><a href="compare-download-counts-with-alphabetical-order-of-name.html"><i class="fa fa-check"></i><b>3.7</b> Compare download counts with alphabetical order of name</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>4</b> Summary</a></li>
+<li class="chapter" data-level="5" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>5</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">What do CRAN download counts mean? [probably need a catchier title than this]</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="daily-top-15-downloaded-packages" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Daily top 15 downloaded packages</h2>
+<p>In this section, we studied the top 15 downloaded packages from 2013-04-01 to 2021-04-01 to see how user preferences has been changing. The data was obtained from CRAN website [<a href="http://cran.rstudio.com/web/packages/packages.rds" class="uri">http://cran.rstudio.com/web/packages/packages.rds</a>].</p>
+<p>We are supposed to know that some packages are hold by Rstudio, and some are developed by core personnel or personnel closely related to R, or some prolific developers. Naturally, the number of downloads of these packages will probably be higher. On the one hand, the packages developed by these experienced developers may be more mature and perfect, on the other hand, users are more inclined to use the packages from famous authors, which can be regarded as a kind of “good use” guarantee.</p>
+<p>However, the existence of these packages will make the results biased. Therefore, in order to explore the packages constructed by non-special creators, we have screened out four types of packages, namely:</p>
+<ul>
+<li>Packages maintained by R studio</li>
+<li>Packages created by authors from R core group</li>
+<li>Packages created by authors from R secondary group</li>
+<li>Packages created by R related authors</li>
+<li>Packages created by top 20 prolific maintainers (This is resourced at <span class="citation"><a href="#ref-revolutions" role="doc-biblioref"><span>“The Most Prolific Package Maintainers on CRAN”</span></a> (<a href="#ref-revolutions" role="doc-biblioref">n.d.</a>)</span>)</li>
+</ul>
+<p>And after that, we generated the lorenz curve here again in Figure <a href="daily-top-15-downloaded-packages.html#fig:lorenz-filter">3.9</a>, it can be observed that the distribution of packages in each download group is quite equal now and the Gini value decreases a lot as well, for the ‘extreme effect’ brought by highly-downloaded packages has disappeared. Thus, the user preferences could be shown more clearly. But as after filtering, the number of remaining packages is only 58, which is a too small-sized sample to construct representative conclusions, we would still focus on all the packages on CRAN in our later analysis.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:lorenz-filter"></span>
+<img src="figures/lorenz-filter-1.png" alt="Percentiles of the download count against cumulative download count of packages after filtering four types of popular and highly-downloaded packages." width="672" />
+<p class="caption">
+Figure 3.9: Percentiles of the download count against cumulative download count of packages after filtering four types of popular and highly-downloaded packages.
+</p>
+</div>
+<div class="discovery">
+<p>
+<strong>Finding 1</strong>: The topic of newly added packages each year come from quite different areas.
+</p>
+</div>
+<p>Table <a href="daily-top-15-downloaded-packages.html#tab:changed-top15pkg">3.9</a> shows the packages that newly come up to the top 15 list each year, from which we can know how the user preference has changed year by year, compared with the previous year. To be more specific :</p>
+<ul>
+<li>For 2014, <code>ncdf</code> ranks first, which is used to provide an interface to netCDF format data.</li>
+<li>For 2015, the first downloaded is <code>XLConnectJars</code> on JAVA dependency.</li>
+<li>For 2016, the first one is <code>reports</code> for standardising the output of R.</li>
+<li>For 2017, <code>lava.tobit</code> aims to help with estimation and simulation of latent variable models.</li>
+<li>For 2018, the ranking-first <code>ReportsRs</code> is for creating Microsoft Word and Powerpoint documents.</li>
+<li>For 2019, <code>CALIBERrfimpute</code> is used to impute missing values in analysis datasets using full conditional specifications.</li>
+<li>For 2020, <code>SparkR</code> is similar to <code>dplyr</code> but for large datasets.</li>
+<li>For 2021, <code>heatmap.plus</code> is an extension of <code>heatmap()</code> function.</li>
+</ul>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
+<table class="table table-hover table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:changed-top15pkg">Table 3.9: </span>Changed top 15 downloaded packages from 2013 to 2019
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package14_13
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package15_14
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package16_15
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package17_16
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package18_17
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package19_18
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package20_19
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package21_20
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+ncdf
+</td>
+<td style="text-align:left;">
+XLConnectJars
+</td>
+<td style="text-align:left;">
+reports
+</td>
+<td style="text-align:left;">
+lava.tobit
+</td>
+<td style="text-align:left;">
+ReporteRs
+</td>
+<td style="text-align:left;">
+freetypeharfbuzz
+</td>
+<td style="text-align:left;">
+ENmisc
+</td>
+<td style="text-align:left;">
+heatmap.plus
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+playwith
+</td>
+<td style="text-align:left;">
+KoNLP
+</td>
+<td style="text-align:left;">
+moonsun
+</td>
+<td style="text-align:left;">
+rggobi
+</td>
+<td style="text-align:left;">
+OceanView
+</td>
+<td style="text-align:left;">
+replyr
+</td>
+<td style="text-align:left;">
+CoxBoost
+</td>
+<td style="text-align:left;">
+lazyrmd
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DMwR
+</td>
+<td style="text-align:left;">
+doRedis
+</td>
+<td style="text-align:left;">
+rPython
+</td>
+<td style="text-align:left;">
+alr3
+</td>
+<td style="text-align:left;">
+ReporteRsjars
+</td>
+<td style="text-align:left;">
+zipcode
+</td>
+<td style="text-align:left;">
+gWidgetstcltk
+</td>
+<td style="text-align:left;">
+packagedocs
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+latticist
+</td>
+<td style="text-align:left;">
+ElemStatLearn
+</td>
+<td style="text-align:left;">
+rmongodb
+</td>
+<td style="text-align:left;">
+tnam
+</td>
+<td style="text-align:left;">
+gWidgetsRGtk2
+</td>
+<td style="text-align:left;">
+rmosek
+</td>
+<td style="text-align:left;">
+citr
+</td>
+<td style="text-align:left;">
+robcp
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bstats
+</td>
+<td style="text-align:left;">
+testthatsomemore
+</td>
+<td style="text-align:left;">
+maxent
+</td>
+<td style="text-align:left;">
+SweaveListingUtils
+</td>
+<td style="text-align:left;">
+d3heatmap
+</td>
+<td style="text-align:left;">
+msgpack
+</td>
+<td style="text-align:left;">
+EMMIXskew
+</td>
+<td style="text-align:left;">
+skedastic
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+geoRglm
+</td>
+<td style="text-align:left;">
+adehabitat
+</td>
+<td style="text-align:left;">
+SDMTools
+</td>
+<td style="text-align:left;">
+ElemStatLearn
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+RcmdrPlugin.mosaic
+</td>
+<td style="text-align:left;">
+nws
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+reports
+</td>
+<td style="text-align:left;">
+wmtsa
+</td>
+<td style="text-align:left;">
+MSBVAR
+</td>
+<td style="text-align:left;">
+zipcode
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+RcmdrPlugin.qual
+</td>
+<td style="text-align:left;">
+SpaDES
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+mixOmics
+</td>
+<td style="text-align:left;">
+d3heatmap
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+OceanView
+</td>
+<td style="text-align:left;">
+SpaDES.core
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+DatABEL
+</td>
+<td style="text-align:left;">
+ReporteRs
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+bomrang
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+snipEM
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+SpaDES.addins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+swissdd
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+tmg
+</td>
+</tr>
+</tbody>
+</table>
+</div></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="discovery">
+<p>
+<strong>Finding 2</strong>: The topic of packages changes least between 2017 and 2019. And the most popular filed is about JAVA dependency.
+</p>
+</div>
+<p>Table <a href="daily-top-15-downloaded-packages.html#tab:unchanged-top15pkg">3.10</a> shows the packages that remain unchanged each year compared with the previous year, from which we can know which packages are relatively stable in popularity.</p>
+<p>To be more specific, packages like <code>XLConnectJars</code>, <code>DMwR</code>, <code>KoNLP</code>, and <code>gWidgets</code> are relatively popular through years from 2014 to 2021. And they are used for providing JAVA dependency, data mining, linguistic research and providing API for building toolkit-independent, interactive GUIs.</p>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
+<table class="table table-hover table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unchanged-top15pkg">Table 3.10: </span>Unchanged top 15 downloaded packages from 2013 to 2019
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package14_13
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package15_14
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package16_15
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package17_16
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package18_17
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package19_18
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package20_19
+</th>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+package21_20
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Defaults
+</td>
+<td style="text-align:left;">
+ncdf
+</td>
+<td style="text-align:left;">
+XLConnectJars
+</td>
+<td style="text-align:left;">
+XLConnectJars
+</td>
+<td style="text-align:left;">
+XLConnectJars
+</td>
+<td style="text-align:left;">
+XLConnectJars
+</td>
+<td style="text-align:left;">
+freetypeharfbuzz
+</td>
+<td style="text-align:left;">
+freetypeharfbuzz
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RSQLite.extfuns
+</td>
+<td style="text-align:left;">
+epicalc
+</td>
+<td style="text-align:left;">
+KoNLP
+</td>
+<td style="text-align:left;">
+KoNLP
+</td>
+<td style="text-align:left;">
+DMwR
+</td>
+<td style="text-align:left;">
+KoNLP
+</td>
+<td style="text-align:left;">
+DMwR
+</td>
+<td style="text-align:left;">
+OceanView
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gWidgetsRGtk2
+</td>
+<td style="text-align:left;">
+gWidgets
+</td>
+<td style="text-align:left;">
+DMwR
+</td>
+<td style="text-align:left;">
+DMwR
+</td>
+<td style="text-align:left;">
+KoNLP
+</td>
+<td style="text-align:left;">
+DMwR
+</td>
+<td style="text-align:left;">
+gWidgets
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gWidgets
+</td>
+<td style="text-align:left;">
+gWidgetsRGtk2
+</td>
+<td style="text-align:left;">
+gWidgets
+</td>
+<td style="text-align:left;">
+reports
+</td>
+<td style="text-align:left;">
+SDMTools
+</td>
+<td style="text-align:left;">
+SDMTools
+</td>
+<td style="text-align:left;">
+d3heatmap
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:left;">
+alr3
+</td>
+<td style="text-align:left;">
+DMwR
+</td>
+<td style="text-align:left;">
+mixOmics
+</td>
+<td style="text-align:left;">
+maxent
+</td>
+<td style="text-align:left;">
+reports
+</td>
+<td style="text-align:left;">
+gWidgets
+</td>
+<td style="text-align:left;">
+alr3
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:left;">
+epicalc
+</td>
+<td style="text-align:left;">
+alr3
+</td>
+<td style="text-align:left;">
+gWidgetsRGtk2
+</td>
+<td style="text-align:left;">
+SDMTools
+</td>
+<td style="text-align:left;">
+mixOmics
+</td>
+<td style="text-align:left;">
+ElemStatLearn
+</td>
+<td style="text-align:left;">
+gWidgetsRGtk2
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rggobi
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+mixOmics
+</td>
+<td style="text-align:left;">
+ElemStatLearn
+</td>
+<td style="text-align:left;">
+reports
+</td>
+<td style="text-align:left;">
+reports
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:left;">
+its
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+gWidgets
+</td>
+<td style="text-align:left;">
+alr3
+</td>
+<td style="text-align:left;">
+gWidgetsRGtk2
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+maxent
+</td>
+<td style="text-align:left;">
+d3heatmap
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+gWidgets
+</td>
+<td style="text-align:left;">
+alr3
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+</tbody>
+</table>
+</div></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Let’s take a look at the trending packages. Trending packages are ones that are downloaded at least 1000 times last week, which have increased significantly compared to the average weekly downloads in the previous 24 weeks<span class="citation">(<a href="#ref-r-hub" role="doc-biblioref">R-Hub, n.d.b</a>)</span>. That is to say, they are packages with high download volume in a recent short time. Through their topic, we can know what areas of packages people are concerned about recently.</p>
+<div class="discovery">
+<p>
+<strong>Finding 3</strong>: The most popular topic of trending packages is for <code>r pkg_trendcom_count$topic[1]</code>.
+</p>
+</div>
+<p>Table <a href="daily-top-15-downloaded-packages.html#tab:trending-topic">3.11</a> shows the first 15 trending packages along with their topics.</p>
+<table class="table table-hover table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:trending-topic">Table 3.11: </span>trending packages with topics
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+package
+</th>
+<th style="text-align:left;">
+topic
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+mgcv
+</td>
+<td style="text-align:left;">
+Bayesian
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+clusterSim
+</td>
+<td style="text-align:left;">
+Cluster
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fastcluster
+</td>
+<td style="text-align:left;">
+Cluster
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Matrix
+</td>
+<td style="text-align:left;">
+Econometrics
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mgcv
+</td>
+<td style="text-align:left;">
+Econometrics
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mgcv
+</td>
+<td style="text-align:left;">
+Environmetrics
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DiceDesign
+</td>
+<td style="text-align:left;">
+ExperimentalDesign
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rgl
+</td>
+<td style="text-align:left;">
+Graphics
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C50
+</td>
+<td style="text-align:left;">
+MachineLearning
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cubist
+</td>
+<td style="text-align:left;">
+MachineLearning
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SuperLearner
+</td>
+<td style="text-align:left;">
+MachineLearning
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mi
+</td>
+<td style="text-align:left;">
+MissingData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+norm
+</td>
+<td style="text-align:left;">
+MissingData
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+arulesSequences
+</td>
+<td style="text-align:left;">
+ModelDeployment
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+clusterSim
+</td>
+<td style="text-align:left;">
+Multivariate
+</td>
+</tr>
+</tbody>
+</table>
+<p>And Table <a href="daily-top-15-downloaded-packages.html#tab:trending-count">3.12</a> shows the first 10 topics for trending packages. The most popular topic is Bayesian, followed by Cluster and Econometrics. This is easy to understand, because the number of users from different fields is different, so there are also differences in the number of packages used in different topics. And it seems that Bayesian is quite a hit recently.</p>
+<table class="table table-hover table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:trending-count">Table 3.12: </span>Topics of trending packages
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+topic
+</th>
+<th style="text-align:right;">
+download times
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+WebTechnologies
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Multivariate
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MachineLearning
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SocialSciences
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TimeSeries
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cluster
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Econometrics
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MissingData
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OfficialStatistics
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Optimization
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+</tbody>
+</table>
+<p>So, apart from the topic of the package itself, what other factors will affect its download volume? With this problem in mind, we mainly explored the relationship between the total number of download counts of packages in the past half a year and the earliest release date, the number of updates, the number of commits on GitHub repositories, the length of the name and the alphabetical order of the first letter of the name in the next following sections.</p>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-r-hub" class="csl-entry">
+R-Hub. n.d.b. <span>“R-Hub/Cranlogs.app.”</span> <em>GitHub</em>. <a href="https://github.com/r-hub/cranlogs.app">https://github.com/r-hub/cranlogs.app</a>.
+</div>
+<div id="ref-revolutions" class="csl-entry">
+<span>“The Most Prolific Package Maintainers on CRAN.”</span> n.d. <em>Revolutions</em>. <a href="https://blog.revolutionanalytics.com/2018/03/the-most-prolific-package-maintainers-on-cran.html">https://blog.revolutionanalytics.com/2018/03/the-most-prolific-package-maintainers-on-cran.html</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="daily-downloads-of-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="compare-last-years-downloads-with-the-earliest-release-date.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Yiwen-Zhang-259/ETC5543-cran-analysis/edit/master/02-analysis.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ETC5543-Yiwen-Zhang.pdf", "ETC5543-Yiwen-Zhang.epub"],
+"toc": {
+"collapse": "subsection"
+},
+"collapse": "subsection",
+"scroll_highlight": true,
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

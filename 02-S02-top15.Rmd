@@ -301,7 +301,7 @@ pkg_remain %>%
 Let's take a look at the trending packages. Trending packages are ones that are downloaded at least 1000 times last week, which have increased significantly compared to the average weekly downloads in the previous 24 weeks[@r-hub]. That is to say, they are packages with high download volume in a recent short time. Through their topic, we can know what areas of packages people are concerned about recently.
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 3**: The most popular topic of trending packages is for Time series analysis.
+**Finding 3**: The most popular topic of trending packages is for `r pkg_trendcom_count$topic[1]`.
 ```
 
 ```{r taskview-function}
@@ -364,13 +364,14 @@ pkg_trending_compare %>%
 ```{r trendingcount}
 pkg_trendcom_count <- pkg_trending_compare %>%
   dplyr::count(topic) %>%
-  arrange(desc(n))
+  rename(`download times` = n)
 ```
 
 And Table \@ref(tab:trending-count) shows the first 10 topics for trending packages. The most popular topic is `r pkg_trendcom_count$topic[1]`, followed by `r pkg_trendcom_count$topic[2]` and `r pkg_trendcom_count$topic[3]`. This is easy to understand, because the number of users from different fields is different, so there are also differences in the number of packages used in different topics. And it seems that `r pkg_trendcom_count$topic[1]` is quite a hit recently.
 
 ```{r trending-count}
 pkg_trendcom_count %>%
+  arrange(desc(`download times`))%>%
   head(10) %>%
   kable(caption = "Topics of trending packages") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))

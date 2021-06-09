@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.6 Compare download counts with the number of commits on master branch | What do CRAN download counts mean? [probably need a catchier title than this]</title>
+  <meta name="description" content="3.6 Compare download counts with the number of commits on master branch | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.6 Compare download counts with the number of commits on master branch | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="Yiwen-Zhang-259/ETC5543-cran-analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.6 Compare download counts with the number of commits on master branch | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  
+  
+  
+
+<meta name="author" content="Yiwen Zhang" />
+
+
+<meta name="date" content="2021-06-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="compare-moving-average-of-fable-and-forecast.html"/>
+<link rel="next" href="compare-download-counts-with-alphabetical-order-of-name.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ETC5543 Yiwen Zhang</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>1</b> Abstract</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="other-work.html"><a href="other-work.html"><i class="fa fa-check"></i><b>1.1</b> Other work</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>2</b> Methods</a></li>
+<li class="chapter" data-level="3" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>3</b> Results</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>3.1</b> Daily download of R-packages</a></li>
+<li class="chapter" data-level="3.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>3.2</b> Daily downloads of R</a></li>
+<li class="chapter" data-level="3.3" data-path="daily-top-15-downloaded-packages.html"><a href="daily-top-15-downloaded-packages.html"><i class="fa fa-check"></i><b>3.3</b> Daily top 15 downloaded packages</a></li>
+<li class="chapter" data-level="3.4" data-path="compare-last-years-downloads-with-the-earliest-release-date.html"><a href="compare-last-years-downloads-with-the-earliest-release-date.html"><i class="fa fa-check"></i><b>3.4</b> Compare last year’s downloads with the earliest release date</a></li>
+<li class="chapter" data-level="3.5" data-path="compare-moving-average-of-fable-and-forecast.html"><a href="compare-moving-average-of-fable-and-forecast.html"><i class="fa fa-check"></i><b>3.5</b> Compare moving average of fable and forecast</a></li>
+<li class="chapter" data-level="3.6" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>3.6</b> Compare download counts with the number of commits on master branch</a></li>
+<li class="chapter" data-level="3.7" data-path="compare-download-counts-with-alphabetical-order-of-name.html"><a href="compare-download-counts-with-alphabetical-order-of-name.html"><i class="fa fa-check"></i><b>3.7</b> Compare download counts with alphabetical order of name</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>4</b> Summary</a></li>
+<li class="chapter" data-level="5" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>5</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">What do CRAN download counts mean? [probably need a catchier title than this]</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="compare-download-counts-with-the-number-of-commits-on-master-branch" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Compare download counts with the number of commits on master branch</h2>
+<p>In this section, we compared last half year’s total downloads with the number of commits on master branch in Github repositories. And this turn, we initially planned to replace the research object with all the packages on CRAN, 17674 packages up to 2021-06-06. But we soon found out that there were only 6185 packages that have a Github repository, and after cleaning up, only 5610 remained.</p>
+<div class="discovery">
+<p>
+<strong>Assumption</strong>: In our initial assumption, more commits on master branch of Github repository tends to bring more download counts to packages. On the one hand, the number of commits indicates that developers are constantly supplementing and updating the package, which will lead to more downloads. On the other hand, the number of commits also reflects the attention developers attach to the package to a certain extent. So, if a package has more commits, then developers may invest more in advertising and other ways to promote it, so as to expand the popularity and improve the download count.
+</p>
+</div>
+<p>The way we initially applied was extracting the commits through accessing the Github API. To achieve this, we first scraped the Github URLs from ‘description’ page for all the packages, and cleaned up the multiple URLs or some other redundant symbols and characters. And the URL of scraping the commits through Github API is formatted as <em>“<a href="https://api.github.com/repos/%7Buser_repo%7D/commits?per_page=1" class="uri">https://api.github.com/repos/{user_repo}/commits?per_page=1</a>”</em>. For example, the URL for package <code>tidyverse</code> can be like <em>“<a href="https://api.github.com/repos/tidyverse/tidyverse/commits?per_page=1" class="uri">https://api.github.com/repos/tidyverse/tidyverse/commits?per_page=1</a>”</em>. So, practically, by replacing the <code>user_repo</code> part that consists of the name of the related repository and the name of the package holder, we could access the content of all the package URLs through Github API.</p>
+<p>Based on that, Table <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#tab:userrepo-tbl">3.13</a> shows the first 5 packages of the whole, their Github URLs and the <code>user_repo</code> part.</p>
+<p>However, the Github API has a rate limits allowing for up to 60 requests per hour for unauthenticated requests, and this can be extended to 5000 per hour after authentication<span class="citation">(<a href="#ref-githubapi" role="doc-biblioref"><span>“Resources in the REST API,”</span> n.d.</a>)</span>. But even after getting authentication, our rate limit didn’t get promoted. So, we switched to scrape commits by python spider. And by setting random agent, we successfully avoided the API limit. And as this method is quite time consuming, we saved the output as a txt file and load it in R studio to speed up the compiling process.</p>
+<table class="table table-hover table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:userrepo-tbl">Table 3.13: </span>First 5 packages with their ‘user_repo’ element
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+package
+</th>
+<th style="text-align:left;">
+URL
+</th>
+<th style="text-align:left;">
+user_repo
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+abbyyR
+</td>
+<td style="text-align:left;">
+<a href="http://github.com/soodoku/abbyyR" class="uri">http://github.com/soodoku/abbyyR</a>
+</td>
+<td style="text-align:left;">
+soodoku/abbyyR
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ABCoptim
+</td>
+<td style="text-align:left;">
+<a href="http://github.com/gvegayon/ABCoptim" class="uri">http://github.com/gvegayon/ABCoptim</a>
+</td>
+<td style="text-align:left;">
+gvegayon/ABCoptim
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+abctools
+</td>
+<td style="text-align:left;">
+<a href="http://github.com/dennisprangle/abctools" class="uri">http://github.com/dennisprangle/abctools</a>
+</td>
+<td style="text-align:left;">
+dennisprangle/abctools
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+abdiv
+</td>
+<td style="text-align:left;">
+<a href="http://github.com/kylebittinger/abdiv" class="uri">http://github.com/kylebittinger/abdiv</a>
+</td>
+<td style="text-align:left;">
+kylebittinger/abdiv
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+abess
+</td>
+<td style="text-align:left;">
+<a href="http://github.com/abess-team/abess" class="uri">http://github.com/abess-team/abess</a>
+</td>
+<td style="text-align:left;">
+abess-team/abess
+</td>
+</tr>
+</tbody>
+</table>
+<p>Table <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#tab:commits-tbl">3.14</a> shows the first 5 packages of all, along with their last half a year’s total downloads and the number of commits on Github master branch.</p>
+<table class="table table-hover table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:commits-tbl">Table 3.14: </span>First 5 packages with commits on Github and last half year’s total downloads
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+package
+</th>
+<th style="text-align:left;">
+commits
+</th>
+<th style="text-align:right;">
+total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+rlang
+</td>
+<td style="text-align:left;">
+4,427
+</td>
+<td style="text-align:right;">
+14748569
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dplyr
+</td>
+<td style="text-align:left;">
+7150
+</td>
+<td style="text-align:right;">
+12054840
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ggplot2
+</td>
+<td style="text-align:left;">
+4,756
+</td>
+<td style="text-align:right;">
+11825489
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lifecycle
+</td>
+<td style="text-align:left;">
+206
+</td>
+<td style="text-align:right;">
+10438007
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tibble
+</td>
+<td style="text-align:left;">
+4,286
+</td>
+<td style="text-align:right;">
+10340887
+</td>
+</tr>
+</tbody>
+</table>
+<p>Figure <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#fig:commits-pattern">3.14</a> shows the scatterplot along with a smoothing line. In general, more commits, more downloads. But as this only covers a very tiny sample with 60 packages, we are not quite sure whether this conclusion is applicable to all packages on CRAN. Anyway, from the pattern shown by this small sample, our assumption seems relatively reasonable to some extent. That is, the total download count gained by package will tend to rise with the increasing of the number of commits in Github repository. Meanwhile, we could also notice that when the commits count is over 1000, the total download count has a small jump. And we suppose that could result from the very small sample size. And when if we could get enough data, the trend may rise again.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:commits-pattern"></span>
+<img src="figures/commits-pattern-1.png" alt="The commits on master branch of Github repository against the last half a year’s total download count." width="672" />
+<p class="caption">
+Figure 3.14: The commits on master branch of Github repository against the last half a year’s total download count.
+</p>
+</div>
+<p>Another method to explore this question is by looking at the ultra-low-downloaded packages, whose download count only ranks at last 1% of all. And another purpose for this part is to show how we initially intended to scrape commits through Github API with R (as the sample size is less than 60 packages under this situation).</p>
+<p>From Table <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#tab:quantileall">3.15</a> we could see the last 1% downloaded count is around 401. And as these download counts are extremely low, we could assume that many factors will have little effect on their downloads. Thus, we can further assume that the only two differences between them are the number of commits on Github master branch and the total download count.</p>
+<p>So, we could filter these ultra-low-downloaded packages and extract the commits on Github, then explore the pattern in total download count against the number of commits in Figure <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#fig:pkg-low">3.15</a>. It could be believed that when the number of commits increases from 0 to 100, the download count first increases and then decreases. After that, the download volume keeps rising and appears to have a little jump at the end, but we supposed it might be due to the the too small-sized sample, and the observation causing the decline may be an outlier. So, if expanding the observation horizon, we expected the curve might increase again. Therefore, it can be seen that even for these last 1% downloaded packages, there also exist the phenomenon - “the more commits, the more downloads.”</p>
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:quantileall">Table 3.15: </span>Quantile of total download count for all the packages on CRAN
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;">
+</th>
+<th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;">
+download count
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+0%
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1%
+</td>
+<td style="text-align:right;">
+393.26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2%
+</td>
+<td style="text-align:right;">
+728.26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3%
+</td>
+<td style="text-align:right;">
+1098.89
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4%
+</td>
+<td style="text-align:right;">
+1382.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5%
+</td>
+<td style="text-align:right;">
+1682.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6%
+</td>
+<td style="text-align:right;">
+1929.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+7%
+</td>
+<td style="text-align:right;">
+2193.41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8%
+</td>
+<td style="text-align:right;">
+2344.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9%
+</td>
+<td style="text-align:right;">
+2524.67
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10%
+</td>
+<td style="text-align:right;">
+2697.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+11%
+</td>
+<td style="text-align:right;">
+2801.93
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+12%
+</td>
+<td style="text-align:right;">
+2867.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+13%
+</td>
+<td style="text-align:right;">
+2918.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+14%
+</td>
+<td style="text-align:right;">
+2969.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+15%
+</td>
+<td style="text-align:right;">
+3029.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+16%
+</td>
+<td style="text-align:right;">
+3091.16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+17%
+</td>
+<td style="text-align:right;">
+3159.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+18%
+</td>
+<td style="text-align:right;">
+3251.34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+19%
+</td>
+<td style="text-align:right;">
+3338.94
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+20%
+</td>
+<td style="text-align:right;">
+3410.60
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+21%
+</td>
+<td style="text-align:right;">
+3469.23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+22%
+</td>
+<td style="text-align:right;">
+3535.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+23%
+</td>
+<td style="text-align:right;">
+3584.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+24%
+</td>
+<td style="text-align:right;">
+3629.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+25%
+</td>
+<td style="text-align:right;">
+3665.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+26%
+</td>
+<td style="text-align:right;">
+3700.38
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+27%
+</td>
+<td style="text-align:right;">
+3733.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+28%
+</td>
+<td style="text-align:right;">
+3767.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+29%
+</td>
+<td style="text-align:right;">
+3810.27
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+30%
+</td>
+<td style="text-align:right;">
+3847.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+31%
+</td>
+<td style="text-align:right;">
+3885.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+32%
+</td>
+<td style="text-align:right;">
+3930.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+33%
+</td>
+<td style="text-align:right;">
+3974.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+34%
+</td>
+<td style="text-align:right;">
+4017.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+35%
+</td>
+<td style="text-align:right;">
+4062.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+36%
+</td>
+<td style="text-align:right;">
+4101.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+37%
+</td>
+<td style="text-align:right;">
+4142.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+38%
+</td>
+<td style="text-align:right;">
+4188.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+39%
+</td>
+<td style="text-align:right;">
+4227.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+40%
+</td>
+<td style="text-align:right;">
+4270.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+41%
+</td>
+<td style="text-align:right;">
+4311.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+42%
+</td>
+<td style="text-align:right;">
+4352.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+43%
+</td>
+<td style="text-align:right;">
+4391.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+44%
+</td>
+<td style="text-align:right;">
+4435.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+45%
+</td>
+<td style="text-align:right;">
+4478.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+46%
+</td>
+<td style="text-align:right;">
+4527.98
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+47%
+</td>
+<td style="text-align:right;">
+4568.61
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+48%
+</td>
+<td style="text-align:right;">
+4618.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+49%
+</td>
+<td style="text-align:right;">
+4660.87
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+50%
+</td>
+<td style="text-align:right;">
+4704.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+51%
+</td>
+<td style="text-align:right;">
+4746.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+52%
+</td>
+<td style="text-align:right;">
+4786.76
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+53%
+</td>
+<td style="text-align:right;">
+4830.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+54%
+</td>
+<td style="text-align:right;">
+4880.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+55%
+</td>
+<td style="text-align:right;">
+4932.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+56%
+</td>
+<td style="text-align:right;">
+4984.56
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+57%
+</td>
+<td style="text-align:right;">
+5050.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+58%
+</td>
+<td style="text-align:right;">
+5103.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+59%
+</td>
+<td style="text-align:right;">
+5168.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+60%
+</td>
+<td style="text-align:right;">
+5233.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+61%
+</td>
+<td style="text-align:right;">
+5294.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+62%
+</td>
+<td style="text-align:right;">
+5357.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+63%
+</td>
+<td style="text-align:right;">
+5411.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+64%
+</td>
+<td style="text-align:right;">
+5471.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+65%
+</td>
+<td style="text-align:right;">
+5543.95
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+66%
+</td>
+<td style="text-align:right;">
+5612.58
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+67%
+</td>
+<td style="text-align:right;">
+5693.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+68%
+</td>
+<td style="text-align:right;">
+5774.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+69%
+</td>
+<td style="text-align:right;">
+5866.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+70%
+</td>
+<td style="text-align:right;">
+5967.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+71%
+</td>
+<td style="text-align:right;">
+6086.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+72%
+</td>
+<td style="text-align:right;">
+6233.36
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+73%
+</td>
+<td style="text-align:right;">
+6396.98
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+74%
+</td>
+<td style="text-align:right;">
+6581.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+75%
+</td>
+<td style="text-align:right;">
+6772.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+76%
+</td>
+<td style="text-align:right;">
+6989.64
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+77%
+</td>
+<td style="text-align:right;">
+7230.55
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+78%
+</td>
+<td style="text-align:right;">
+7531.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+79%
+</td>
+<td style="text-align:right;">
+7885.77
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+80%
+</td>
+<td style="text-align:right;">
+8312.40
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+81%
+</td>
+<td style="text-align:right;">
+8749.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+82%
+</td>
+<td style="text-align:right;">
+9434.98
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+83%
+</td>
+<td style="text-align:right;">
+10241.87
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+84%
+</td>
+<td style="text-align:right;">
+11406.60
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+85%
+</td>
+<td style="text-align:right;">
+12847.15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+86%
+</td>
+<td style="text-align:right;">
+14527.72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+87%
+</td>
+<td style="text-align:right;">
+16521.53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+88%
+</td>
+<td style="text-align:right;">
+18979.88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+89%
+</td>
+<td style="text-align:right;">
+21783.26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+90%
+</td>
+<td style="text-align:right;">
+25500.80
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+91%
+</td>
+<td style="text-align:right;">
+30927.88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+92%
+</td>
+<td style="text-align:right;">
+39937.68
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+93%
+</td>
+<td style="text-align:right;">
+52248.13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+94%
+</td>
+<td style="text-align:right;">
+69219.48
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+95%
+</td>
+<td style="text-align:right;">
+100841.30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+96%
+</td>
+<td style="text-align:right;">
+150397.12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+97%
+</td>
+<td style="text-align:right;">
+255813.44
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+98%
+</td>
+<td style="text-align:right;">
+475915.88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+99%
+</td>
+<td style="text-align:right;">
+1905298.00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+100%
+</td>
+<td style="text-align:right;">
+15572507.00
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="figure" style="text-align: center"><span id="fig:pkg-low"></span>
+<img src="figures/pkg-low-1.png" alt="The commits on master branch of Github repository against the last half a year’s total download count for last 1% downloaded packages on CRAN." width="672" />
+<p class="caption">
+Figure 3.15: The commits on master branch of Github repository against the last half a year’s total download count for last 1% downloaded packages on CRAN.
+</p>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-githubapi" class="csl-entry">
+<span>“Resources in the REST API.”</span> n.d. <em>Resources in the REST API - GitHub Docs</em>. <a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api">https://docs.github.com/en/rest/overview/resources-in-the-rest-api</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="compare-moving-average-of-fable-and-forecast.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="compare-download-counts-with-alphabetical-order-of-name.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Yiwen-Zhang-259/ETC5543-cran-analysis/edit/master/02-analysis.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ETC5543-Yiwen-Zhang.pdf", "ETC5543-Yiwen-Zhang.epub"],
+"toc": {
+"collapse": "subsection"
+},
+"collapse": "subsection",
+"scroll_highlight": true,
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.5 Compare moving average of fable and forecast | What do CRAN download counts mean? [probably need a catchier title than this]</title>
+  <meta name="description" content="3.5 Compare moving average of fable and forecast | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.5 Compare moving average of fable and forecast | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="Yiwen-Zhang-259/ETC5543-cran-analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.5 Compare moving average of fable and forecast | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  
+  
+  
+
+<meta name="author" content="Yiwen Zhang" />
+
+
+<meta name="date" content="2021-06-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="compare-last-years-downloads-with-the-earliest-release-date.html"/>
+<link rel="next" href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ETC5543 Yiwen Zhang</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>1</b> Abstract</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="other-work.html"><a href="other-work.html"><i class="fa fa-check"></i><b>1.1</b> Other work</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>2</b> Methods</a></li>
+<li class="chapter" data-level="3" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>3</b> Results</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>3.1</b> Daily download of R-packages</a></li>
+<li class="chapter" data-level="3.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>3.2</b> Daily downloads of R</a></li>
+<li class="chapter" data-level="3.3" data-path="daily-top-15-downloaded-packages.html"><a href="daily-top-15-downloaded-packages.html"><i class="fa fa-check"></i><b>3.3</b> Daily top 15 downloaded packages</a></li>
+<li class="chapter" data-level="3.4" data-path="compare-last-years-downloads-with-the-earliest-release-date.html"><a href="compare-last-years-downloads-with-the-earliest-release-date.html"><i class="fa fa-check"></i><b>3.4</b> Compare last year’s downloads with the earliest release date</a></li>
+<li class="chapter" data-level="3.5" data-path="compare-moving-average-of-fable-and-forecast.html"><a href="compare-moving-average-of-fable-and-forecast.html"><i class="fa fa-check"></i><b>3.5</b> Compare moving average of fable and forecast</a></li>
+<li class="chapter" data-level="3.6" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>3.6</b> Compare download counts with the number of commits on master branch</a></li>
+<li class="chapter" data-level="3.7" data-path="compare-download-counts-with-alphabetical-order-of-name.html"><a href="compare-download-counts-with-alphabetical-order-of-name.html"><i class="fa fa-check"></i><b>3.7</b> Compare download counts with alphabetical order of name</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>4</b> Summary</a></li>
+<li class="chapter" data-level="5" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>5</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">What do CRAN download counts mean? [probably need a catchier title than this]</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="compare-moving-average-of-fable-and-forecast" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Compare moving average of fable and forecast</h2>
+<div class="discovery">
+<p>
+<strong>Finding</strong>: Package ‘forecast’ has a more stable download trend comparing to ‘fable.’ And when ‘fable’ gets updated, its downloads peaked, while ‘forecast’ suffers a dropping on the contrast.
+</p>
+</div>
+<p>As we stated in the previous section, the earlier the package is released, the easier it is to get a relatively higher total download. But that doesn’t mean a better growth will exist. Due to that, in this section, we compared package <code>fable</code> and <code>forecast</code>. They are two closely related packages, for <code>fable</code> is the later released tidy version of <code>forecast</code>. And in this way, we can approximately fix all the factors except the initial release date, so that we can compare the growth and changes of these two more clearly.</p>
+<p>Figure <a href="compare-moving-average-of-fable-and-forecast.html#fig:daily-fbl">3.11</a> and Figure <a href="compare-moving-average-of-fable-and-forecast.html#fig:daily-fcst">3.12</a> show the daily download count changing during last half a year, which indicates strong weekly seasonality. And that means the downloads tend to be higher in week days and thus lower on weekends, which is consistent with total package trend analyzed before.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:daily-fbl"></span>
+<img src="figures/daily-fbl-1.png" alt="The daily download of package “fable”" width="672" />
+<p class="caption">
+Figure 3.11: The daily download of package “fable”
+</p>
+</div>
+
+<div class="figure" style="text-align: center"><span id="fig:daily-fcst"></span>
+<img src="figures/daily-fcst-1.png" alt="The daily download of package “forecast.”" width="672" />
+<p class="caption">
+Figure 3.12: The daily download of package “forecast.”
+</p>
+</div>
+<p>Therefore, in order to estimate the trend-cycle and reduce the weekly seasonality to see the changes more clearly, we introduced the Moving average (MA).</p>
+<p>A moving average of order <strong>m</strong> can be written as :</p>
+<p><span class="math display">\[T_t = \frac1m\ \Sigma_{j = -k}^{k}y_{t+j} \]</span></p>
+<p>where <strong>m=2k+1</strong>. That is, the estimate of the trend-cycle at time <strong>t</strong> is obtained by averaging values of the time series within <strong>k</strong> periods of <strong>t</strong>.</p>
+<p>And here, we considered the equal weighed 7 moving average. That is, it calculates the weighted average for every seven consecutive time series with the following weights : <em>[1/7,1/7,1/7,1/7,1/7,1/7,1/7]</em>.</p>
+<p>Figure <a href="compare-moving-average-of-fable-and-forecast.html#fig:ff-ma">3.13</a> shows the moving average (MA) of <code>fable</code> and <code>forecast</code> respectively. They have quite different moving average patterns with <code>forecast</code>’s download volume much higher than <code>fable</code>’s. That is, the MA of <code>forecast</code> is relatively stable than that of <code>fable</code> except for the time around New Year’s Eve when <code>forecast</code> has a significant drop. But during that time, a drop also appears in <code>fable</code>, which was probably due to the big New Year holiday. In addition, the purple vertical dashed line in plot of <code>fable</code> marks the update day of it which is on 2021-1-29. And soon after that day, its downloads peaked, which was because the number of download counts will increase on the update day. At the same time, <code>forecast</code> drops and then only gets a gentle increase.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:ff-ma"></span>
+<img src="figures/ff-ma-1.png" alt="The moving average of package “forecast” and “fable.”" width="672" />
+<p class="caption">
+Figure 3.13: The moving average of package “forecast” and “fable.”
+</p>
+</div>
+<p>In conclusion, the download variance of <code>forecast</code> is larger than that of <code>fable</code> while the former looks relatively more stable than the latter after applying the moving average. And once again, it coincides with the conclusion of the previous section, that is, the earlier released package tends to gain more cumulative downloads. In addition, we can also see that the growth of both of them sometimes increases at the same time, while sometimes the growth of one corresponds to the decline of the other. As for as we concerned, the shared growth may be due to their similarity. Users may download both at the same time or compare them like us. And the trade-off may also be due to the similarity of their functions, one can be replaced by the other in the process of using. Finally, we can also know that earlier release does not guarantee a faster growth. For example, <code>fable</code> has a more dramatic growth than <code>forecast</code> from 2021-01-21 to 2021-02-06.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="compare-last-years-downloads-with-the-earliest-release-date.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Yiwen-Zhang-259/ETC5543-cran-analysis/edit/master/02-analysis.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ETC5543-Yiwen-Zhang.pdf", "ETC5543-Yiwen-Zhang.epub"],
+"toc": {
+"collapse": "subsection"
+},
+"collapse": "subsection",
+"scroll_highlight": true,
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -9,11 +9,8 @@ In this part, our analysis object is still all the packages.
 
 
 ```{r updates-downloads-all}
-cran_names1_1 <- cran_names1 %>%
-  slice(1:100)
-
 # to get the number of updates
-cran_names1_1release <- map_dfr(cran_names1_1$package, function(x) releases(x)) %>%
+cran_names1_release <- map_dfr(cran_names1$package, function(x) releases(x)) %>%
   group_by(package) 
 
 cran_names2_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%

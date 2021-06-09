@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.3 Compare last year’s downloads with the earliest release date | What do CRAN download counts mean?</title>
-  <meta name="description" content="2.3 Compare last year’s downloads with the earliest release date | What do CRAN download counts mean?" />
-  <meta name="generator" content="bookdown 0.21.4 and GitBook 2.6.7" />
+  <title>3.4 Compare last year’s downloads with the earliest release date | What do CRAN download counts mean? [probably need a catchier title than this]</title>
+  <meta name="description" content="3.4 Compare last year’s downloads with the earliest release date | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.3 Compare last year’s downloads with the earliest release date | What do CRAN download counts mean?" />
+  <meta property="og:title" content="3.4 Compare last year’s downloads with the earliest release date | What do CRAN download counts mean? [probably need a catchier title than this]" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="Yiwen-Zhang-259/ETC5543-cran-analysis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.3 Compare last year’s downloads with the earliest release date | What do CRAN download counts mean?" />
+  <meta name="twitter:title" content="3.4 Compare last year’s downloads with the earliest release date | What do CRAN download counts mean? [probably need a catchier title than this]" />
   
   
   
@@ -24,16 +24,16 @@
 <meta name="author" content="Yiwen Zhang" />
 
 
-<meta name="date" content="2021-05-02" />
+<meta name="date" content="2021-06-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="daily-downloads-of-r.html"/>
-<link rel="next" href="summary.html"/>
-<script src="libs/header-attrs-2.7/header-attrs.js"></script>
+<link rel="prev" href="daily-top-15-downloaded-packages.html"/>
+<link rel="next" href="compare-moving-average-of-fable-and-forecast.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,8 +51,35 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -71,17 +98,23 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<li class="chapter" data-level="1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>1</b> Abstract</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="rtrends.html"><a href="rtrends.html"><i class="fa fa-check"></i><b>1.1</b> rtrends</a></li>
+<li class="chapter" data-level="1.1" data-path="other-work.html"><a href="other-work.html"><i class="fa fa-check"></i><b>1.1</b> Other work</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>2</b> Analysis</a>
+<li class="chapter" data-level="2" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>2</b> Methods</a></li>
+<li class="chapter" data-level="3" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>3</b> Results</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>2.1</b> Daily download of R-packages</a></li>
-<li class="chapter" data-level="2.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>2.2</b> Daily downloads of R</a></li>
-<li class="chapter" data-level="2.3" data-path="compare-last-years-downloads-with-the-earliest-release-date.html"><a href="compare-last-years-downloads-with-the-earliest-release-date.html"><i class="fa fa-check"></i><b>2.3</b> Compare last year’s downloads with the earliest release date</a></li>
+<li class="chapter" data-level="3.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>3.1</b> Daily download of R-packages</a></li>
+<li class="chapter" data-level="3.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>3.2</b> Daily downloads of R</a></li>
+<li class="chapter" data-level="3.3" data-path="daily-top-15-downloaded-packages.html"><a href="daily-top-15-downloaded-packages.html"><i class="fa fa-check"></i><b>3.3</b> Daily top 15 downloaded packages</a></li>
+<li class="chapter" data-level="3.4" data-path="compare-last-years-downloads-with-the-earliest-release-date.html"><a href="compare-last-years-downloads-with-the-earliest-release-date.html"><i class="fa fa-check"></i><b>3.4</b> Compare last year’s downloads with the earliest release date</a></li>
+<li class="chapter" data-level="3.5" data-path="compare-moving-average-of-fable-and-forecast.html"><a href="compare-moving-average-of-fable-and-forecast.html"><i class="fa fa-check"></i><b>3.5</b> Compare moving average of fable and forecast</a></li>
+<li class="chapter" data-level="3.6" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>3.6</b> Compare download counts with the number of commits on master branch</a></li>
+<li class="chapter" data-level="3.7" data-path="compare-download-counts-with-alphabetical-order-of-name.html"><a href="compare-download-counts-with-alphabetical-order-of-name.html"><i class="fa fa-check"></i><b>3.7</b> Compare download counts with alphabetical order of name</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>3</b> Summary</a></li>
+<li class="chapter" data-level="4" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>4</b> Summary</a></li>
+<li class="chapter" data-level="5" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>5</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -95,7 +128,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">What do CRAN download counts mean?</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">What do CRAN download counts mean? [probably need a catchier title than this]</a>
           </h1>
         </div>
 
@@ -103,40 +136,48 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="compare-last-years-downloads-with-the-earliest-release-date" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Compare last year’s downloads with the earliest release date</h2>
+<div id="compare-last-years-downloads-with-the-earliest-release-date" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Compare last year’s downloads with the earliest release date</h2>
 <div class="discovery">
 <p>
-<strong>Finding x</strong>: Packages that were initially released earlier on CRAN have a higher download in the past year. This perhaps is because …
+<strong>Finding</strong>: Packages that are initially released earlier on CRAN tend to have a higher download count in the past year. This perhaps is because in earlier times, there were fewer packages in the same category, so users had ‘no choice’ but to use them. Due to this, these packages accumulate a certain user base, which makes it more possible to attract new users.
 </p>
 </div>
-<p><img src="figures/release-downloads-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>[ET: removed plots to replace with above. Comments left as is.]</p>
-<p>In our common cognition, we think that the earlier a package is released, the more people will know about it, and thus the more downloads it will have. However, packages related to different topics cannot be directly compared, because it is possible that the total download amount of packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, I selected three domain packages through CRAN task view, calculated their respective downloads in the previous half a year, and found their earliest release dates for comparison.</p>
-<ol style="list-style-type: decimal">
+<p>In our common cognition, we may assume that the earlier a package is released, the more people will know about it, and thus the more downloads it will have. However, packages related to different topics cannot be directly compared, because it is possible that the total download amount of packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, we selected three domain packages through CRAN task view<span class="citation">(<a href="#ref-crantaskviews" role="doc-biblioref">n.d.</a>)</span>, calculated their respective downloads in the previous half a year, and extracted their earliest release dates for comparison. Those three topics are :</p>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
 <li>Packages for Time Series Analysis</li>
-</ol>
+</ol></li>
+</ul>
 <p>The first topic is Time Series Analysis. Time Series Analysis is a statistical technique that deals with time series data, or trend analysis. Time series data means that data is in a series of particular time periods or intervals<span class="citation">(<a href="#ref-timeseries" role="doc-biblioref"><span>“Time Series Analysis”</span> 2020</a>)</span>.</p>
-<p>Table <a href="#tab:timeseris-updates"><strong>??</strong></a> shows the first 15 timeseries packages along with their earliest release date and last half year’s total counts. It can be seen that <code>lubridate</code> ranks first on download count with release date XX. Except that, other first four packages are all released before 2010, which is over 10 years ago.</p>
-<p>Figure <a href="#fig:timeseries"><strong>??</strong></a> displays the scatterplot of the last half year’s download count and the earliest release date of timeseries packages. It can be seen that generally, as the earliest release date gets later and later, the number of download logs becomes lower and lower. And most of the high downloaded packages are from a period of time between 2004 and 2011. For timeseries packages, they are mainly released between 2012 and 2019.</p>
-<ol start="2" style="list-style-type: decimal">
+<ul>
+<li><ol start="2" style="list-style-type: lower-alpha">
 <li>Bayesian packages for general model fitting</li>
-</ol>
+</ol></li>
+</ul>
 <p>The second topic is Bayesian Inference. Bayesian statistics is a mathematical procedure that applies probabilities to statistical problems. It provides people the tools to update their beliefs in the evidence of new data<span class="citation">(<a href="#ref-bayesian" role="doc-biblioref">perpetual 2019</a>)</span>.</p>
-<p>Table <a href="#tab:bayesian-updates"><strong>??</strong></a> shows the first 15 econometric packages along with their earliest release date and last half year’s total counts. It can be seen that the first-rank package is XX released on XX. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010.</p>
-<p>It can be seen from Figure <a href="#fig:bayesian"><strong>??</strong></a> that similarly, the earlier packages is released, the more downloads it will have. And most of the packages are from 2007 to 2012.</p>
-<ol start="3" style="list-style-type: decimal">
-<li>Econometrics</li>
-</ol>
-<p>In order to test whether this is the case in other areas, let’s turn our attention to econometrics packages. Econometrics is the use of statistical methods using quantitative data to develop theories or test existing hypotheses in economics or finance, which relies on techniques such as regression models and null hypothesis testing<span class="citation">(<a href="#ref-econometrics" role="doc-biblioref">Hayes 2020</a>)</span>.</p>
-<p>Table <a href="#tab:eco-updates"><strong>??</strong></a> shows the first 15 econometric packages along with their earliest release date and last half year’s total counts. It can be seen that the first-rank package is <code>zoo</code> released on XX. All the top 3 packages are released before 2005, and all the top 10 packages comes before 2010.</p>
-<p>In Figure <a href="#fig:eco-lm"><strong>??</strong></a>, as we can see, for this kind of package, the download volume decreases more obviously with the release date, which is quite consistent with both timeseries and bayesian situations. And most of the packages are centered between 2013 and 2016.</p>
-<p>In conclusion, I’m not surprised to find that the earlier the package is released, the more downloads it will has, which is reflected in bayesian, econometrics, time series cases. That is because,t he packages released earlier will be better known. When they are released early, there may be a relatively small number of packages of the same type, so the competition is relatively small. In contrast, the packages released later can easily be covered up, because people tend to use the well-known, mature and habitual packages.</p>
+<ul>
+<li><ol start="3" style="list-style-type: lower-alpha">
+<li>Econometrics packages</li>
+</ol></li>
+</ul>
+<p>In order to test whether this is the case in other areas, the last topic is for econometrics packages. Econometrics is the use of statistical methods using quantitative data to develop theories or test existing hypotheses in economics or finance, which relies on techniques such as regression models and null hypothesis testing<span class="citation">(<a href="#ref-econometrics" role="doc-biblioref">Hayes 2020</a>)</span>.</p>
+<p>Figure <a href="compare-last-years-downloads-with-the-earliest-release-date.html#fig:release-downloads">3.10</a> displays the scatterplot of the last half year’s download count and the earliest release date for <code>Time Series Analysis</code>, <code>Econometrics</code> and <code>Bayesian</code> packages. It can be seen that generally, as the earliest release date gets later and later, the number of download logs becomes lower and lower. And for <code>Time Series Analysis</code> packages, they are mainly released between 2012 and 2019. For <code>Bayesian</code> packages, most of the packages are from 2007 to 2012. And most <code>Econometrics</code> are centered between 2013 and 2016.</p>
 
+<div class="figure" style="text-align: center"><span id="fig:release-downloads"></span>
+<img src="figures/release-downloads-1.png" alt="The download count decrease with the initial release date." width="672" />
+<p class="caption">
+Figure 3.10: The download count decrease with the initial release date.
+</p>
 </div>
-<!-- </div> -->
+<p>In conclusion, we are not surprised to find that the earlier the package is released, the more downloads it will has, which is reflected in all of three topics of packages above. That is probably because the packages released earlier will be better known. When they are released early, there may be a relatively small number of packages of the same topic, under non-serious competition. As a result, the packages coming later can easily be covered up, since people generally tend to use well-known, mature and habitual packages.</p>
+<p>That is to say, earlier packages are more conducive to the cultivation of user habits. After all, habits are influenced by the length of time. For example, if the teacher is an old user of some packages, they may recommend these packages to their students when they teach, or colleagues may prefer to recommend familiar packages to others especially when they get a satisfying user experience.</p>
+</div>
 <h3>References</h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-crantaskviews" class="csl-entry">
+n.d. <em>CRAN Task Views</em>. <a href="https://cran.r-project.org/web/views/">https://cran.r-project.org/web/views/</a>.
+</div>
 <div id="ref-econometrics" class="csl-entry">
 Hayes, Adam. 2020. <span>“Econometrics: What It Means, and How It’s Used.”</span> <em>Investopedia</em>. Investopedia. <a href="https://www.investopedia.com/terms/e/econometrics.asp">https://www.investopedia.com/terms/e/econometrics.asp</a>.
 </div>
@@ -152,8 +193,8 @@ perpetual, NSSI am a. 2019. <span>“Bayesian Statistics Explained in Simple Eng
           </div>
         </div>
       </div>
-<a href="daily-downloads-of-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="summary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="daily-top-15-downloaded-packages.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="compare-moving-average-of-fable-and-forecast.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -176,6 +217,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -208,6 +250,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
