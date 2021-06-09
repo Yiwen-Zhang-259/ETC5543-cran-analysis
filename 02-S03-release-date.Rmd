@@ -20,7 +20,7 @@ The second topic is Bayesian Inference. Bayesian statistics is a mathematical pr
 
 In order to test whether this is the case in other areas, the last topic is for econometrics packages. Econometrics is the use of statistical methods using quantitative data to develop theories or test existing hypotheses in economics or finance, which relies on techniques such as regression models and null hypothesis testing[@econometrics].
 
-```{r vars-release-date, cache = TRUE}
+```{r vars-release-date, cache = TRUE,eval=FALSE}
 # function used to get the release dates from CRAN
 pkg_url <- "https://cran.r-project.org/web/packages/{pkg}/index.html"
 pkg_archive <- "https://cran.r-project.org/src/contrib/Archive/{pkg}/"
@@ -53,9 +53,11 @@ pkg_releases <- map_dfr(taskviews, ~{
     map_dfr(pkgs, function(x) releases(x)) %>% 
       mutate(taskview = .x)
   })
+
 ```
 
-```{r vars-taskview-downloads, cache = TRUE}
+```{r vars-taskview-downloads, cache = TRUE,eval=FALSE}
+#get total downloads for three types of Taskview packages
 td_start <- Sys.Date() - 365 - 2 # one year 
 td_end <- Sys.Date() - 2
 
@@ -65,6 +67,13 @@ taskview_downloads <- map_dfr(taskviews, ~{
   cran_downloads(pkgs, from = td_start, to = td_end) %>% 
     mutate(taskview = .x) 
 })
+```
+
+```{r loadtaskview}
+#save(taskview_downloads, file=here::here("data/taskview_downloads.rda"))
+#save(pkg_releases, file=here::here("data/pkg_releases.rda"))
+load("data/taskview_downloads.rda")
+load("data/pkg_releases.rda")
 ```
 
 Figure \@ref(fig:release-downloads) displays the scatterplot of the last half year's download count and the earliest release date for `Time Series Analysis`, `Econometrics` and `Bayesian` packages. It can be seen that generally, as the earliest release date gets later and later, the number of download logs becomes lower and lower. And for `Time Series Analysis` packages, they are mainly released between 2012 and 2019. For `Bayesian` packages, most of the packages are from 2007 to 2012. And most `Econometrics` are centered between 2013 and 2016.  
