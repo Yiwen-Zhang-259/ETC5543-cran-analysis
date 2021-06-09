@@ -651,55 +651,18 @@ lorenz_curve
 ### Packages that are initially released earlier on CRAN tend to have a higher download count in the past year.
 
 ---
-### `r emo::ji("gold")`The initial release date
 
-```{r get-release,include=FALSE}
-# function used to get the release dates from CRAN
-pkg_url <- "https://cran.r-project.org/web/packages/{pkg}/index.html"
-pkg_archive <- "https://cran.r-project.org/src/contrib/Archive/{pkg}/"
-releases <- function(pkg) {
-      archive_dates <- tryCatch({ 
-        read_html(glue(pkg_archive)) %>% 
-          html_table() %>%
-          .[[1]] %>% 
-          pull(`Last modified`) %>% 
-          ymd_hm() %>% 
-          na.omit() %>% 
-          as.Date()
-      }, error = function(e) {
-        NULL
-      })
-      last_update <- read_html(glue(pkg_url)) %>%
-        html_table() %>% 
-        .[[1]] %>% 
-        filter(X1=="Published:") %>% 
-        pull(X2) %>% 
-        as.Date()
-      
-      data.frame(package = pkg, 
-                 release = as.character(c(archive_dates, last_update)))
-}
-taskviews <- c("Econometrics", "TimeSeries", "Bayesian")
-pkg_releases <- map_dfr(taskviews, ~{
-    pkgs <- ctv:::.get_pkgs_from_ctv_or_repos(.x, 
-                                              repos = "http://cran.rstudio.com/")[[1]]
-    map_dfr(pkgs, function(x) releases(x)) %>% 
-      mutate(taskview = .x)
-  })
+.center[
+### `r emo::ji("gold")`Initial release date VS total download count
+]
 
-td_start <- Sys.Date() - 365 - 2 # one year 
-td_end <- Sys.Date() - 2
-
-taskview_downloads <- map_dfr(taskviews, ~{
-  pkgs <- ctv:::.get_pkgs_from_ctv_or_repos(.x, 
-                                            repos = "http://cran.rstudio.com/")[[1]]
-  cran_downloads(pkgs, from = td_start, to = td_end) %>% 
-    mutate(taskview = .x) 
-})
-
+```{r readtaskview,include=FALSE}
+load("data/taskview_downloads.rda")
+load("data/pkg_releases.rda")
 ```
 
-```{r initial-release-plot}
+.center[
+```{r release-downloads}
 initial_release <- pkg_releases %>% 
   mutate(releases = as.Date(release)) %>% 
   group_by(package) %>% 
@@ -717,9 +680,7 @@ taskview_downloads %>%
   facet_wrap(~taskview, ncol = 1) +
   scale_y_log10() +
   labs(x = "Initial release date",
-       y = "Download counts",
-       title = "Initial release date VS total download count",
-       subtitle = "for Time Series Analysis, Bayesian and Econometrics packages") +
+       y = "Download counts") +
   theme(panel.grid.major = element_blank()) +
   theme(
   axis.text=element_text(size=10),
@@ -728,7 +689,7 @@ taskview_downloads %>%
   plot.subtitle = element_text(h = 0.5)
   )
 ```
-
+]
 
 ---
 ### `r emo::ji("gold")`Compare between fable and forecast
@@ -801,7 +762,7 @@ grid.draw(gff)
 
 
 ---
-# `r emo::ji("gold")`The number of commits on Githun repo
+# `r emo::ji("gold")`The number of commits on Github repo
 
 --
 
@@ -810,12 +771,12 @@ grid.draw(gff)
 --
 
 .center[
-*5610*
+###*5769*###
 ]
 
 --
 
-### `r emo::ji("smile")`Gnerally, more commits, more download counts.
+### `r emo::ji("smile")`Generally, more commits, more download counts.
 
 ---
 
@@ -866,9 +827,7 @@ pkg_commits_all %>%
 
 ### `r emo::ji("gold")`The update times
 
-```{r}
-
-```
+[need add figure here]
 
 ---
 # `r emo::ji("gold")`Name Analysis
@@ -877,8 +836,68 @@ pkg_commits_all %>%
 
 ##`r emo::ji("thinking")` **alphabetical name order**
 
+---
+### `r emo::ji("thinking")`Over half of the packages tend to have shorter names
+
+```{r name-length, include=FALSE}
+cran_namelth_download <- cran_names_download %>%
+  mutate(length_name = nchar(package)) %>%
+  rowwise()%>%
+  mutate(length_name = as.numeric(length_name)) 
+
+
+cran_namelth_download <- cran_namelth_download %>%
+  arrange(desc(total)) 
+
+`total average name length`  <- as.numeric(mean(cran_namelth_download$length_name))
+`pkg_trending_total` <- as.numeric(length(cran_namelth_download$package))
+
+cran_namelth_download1 <- cran_namelth_download %>%
+  group_by(package) %>%
+  dplyr::filter(length_name < `total average name length`) %>%
+  ungroup() %>%
+  dplyr::summarise(`number of short names` = length(package)) %>%
+  mutate(`percentage of short names` = (`number of short names`/pkg_trending_total)*100)
+
+compare_all_namelth <- cbind(cran_namelth_download1,`total average name length`)
+
+```
+
+```{r}
+compare_all_namelth %>%
+  kable(caption = "Percentage of packages whose updates are less than average") %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+```
+
+--
+
+### `r emo::ji("smile")`Probably, shorter names are easier to be remembered by users !
+
+---
+
+### `r emo::ji("wink")` life experience : name of novel book
+
+[add pics for same type of novels but with different name length and published date]
+
+---
+
+### `r emo::ji("thinking")` For all packages on CRAN, the average name length tends to generally increase each year.
+
+[need a figure here]
+
+---
+
+### `r emo::ji("thinking")` The difference in downloads for each alphabetical groups varies little
+
+```{r}
+
+```
 
 ---
 
 # `r emo::ji("heart")`Acknowledgements
 
+
+---
+
+# `r emo::ji("gold")`References
