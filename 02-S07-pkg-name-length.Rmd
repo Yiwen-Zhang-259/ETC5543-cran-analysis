@@ -69,7 +69,7 @@ Table \@ref(tab:pct-lngname) shows that the average name length all packages is 
 ```{r pct-lngname}
 library(kableExtra)
 compare_all_namelth %>%
-  kable(caption = "Percentage of packages whose updates are less than average") %>%
+  kable(caption = "Percentage of packages whose name length are less than average") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
