@@ -1,5 +1,5 @@
 --- 
-title: "What do CRAN download counts mean?"
+title: "What do CRAN download counts mean? [probably need a catchier title than this]"
 author: "Yiwen Zhang"
 date: "`r Sys.Date()`"
 documentclass: book
@@ -13,6 +13,7 @@ description: ""
 
 # Preface {-}
 
+[need to add more context here]
 This is written as part of the ETC5543 research project supervised by Drs Emi Tanaka and Hien Nguyen.
 
 ```{r, include=FALSE}
