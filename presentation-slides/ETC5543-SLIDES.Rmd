@@ -1033,10 +1033,48 @@ ggplot(pkg_alpha_download,aes(x = group, y = total)) +
 ---
 # `r emo::ji("star")`Conclusion
 
+--
+
+### .grey[Many factors do affect download cout of R packages on CRAN]
+
+--
+
+- earlier release
+
+- more update times
+
+- more commits on Github (if have a Github repo)
+
+- shorter name length
+
+- famous developer (would be better)
+
+- heated topic (have a larger user base)
+
+--
+
+**make a CRAN R-package .orange[popular]** !
+
+---
+### More detailed findings in my report from Github :
+
+_.grey[https://github.com/Yiwen-Zhang-259/ETC5543-cran-analysis]_
+
+- last 1% downloaded packages
+
+- the name length interval
+
+- ...
 
 ---
 
 # `r emo::ji("wise")`Acknowledgements
+
+I would like to express my very great appreciation to my supervisors:
+
+- Dr Emi Tanaka
+
+- Dr Hien Nguyen
 
 
 ---
