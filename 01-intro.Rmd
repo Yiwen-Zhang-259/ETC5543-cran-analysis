@@ -1,19 +1,4 @@
 
-```{r all-pkgs}
-library(formattable)
-library(tidyverse)
-url <- "http://cran.rstudio.com/web/packages/packages.rds"
-pkgs <- readRDS(url(url)) %>% 
-  as.data.frame() %>%
-  rename(package = Package)
-```
-
-
-# Abstract
-
-Data are closely related to social and economic activities in our daily life, so data mining and analysis will definitely benefit us. In many statistical and data analysis tools, we focus on R in this project, and aim to explore the evolution of R packages. By obtaining the daily and recent half year total download count of 17700 R packages (up to 2021-06-07) and R itself, we analyze their pattern characteristics, as well as the relationship between the release date, update times, number of commits on Github, name length and alphabetic order of the packages. Finally, we also check the changes of the top 15 downloaded packages on 1st April from 2013 to 2021, to have a glance of how the user preferences changes to some extent.
-
-\pagebreak
 
 # Introduction {#intro}
 
