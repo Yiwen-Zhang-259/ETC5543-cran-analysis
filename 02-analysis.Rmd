@@ -1,6 +1,6 @@
 # Methods
 
-In this project, we extracted R packages names from CRAN and got summary daily download logs of R packages through web API maintained by r-hub[@rhub]. And we also collected release dates of R packages through CRAN. In addition, we also tried to scrap the number of commits in Github repository for R packages. However, due to the rate limit of Github API, we only captured part of the data in the end. Then we constructed eight exploratory data analysis sections: 
+In this project, we extracted R package names from CRAN and got summary daily download logs of R packages through web API maintained by r-hub[@rhub]. And we also collected release dates of R packages through CRAN. In addition, we also tried to scrap the number of commits in Github repository for R packages. Then we constructed eight exploratory data analysis sections: 
 
 - a) we explored the daily download of all the packages on CRAN and figured out the number of packages occupied by different downloaded groups; 
 
@@ -29,6 +29,9 @@ knitr::opts_chunk$set(echo = FALSE,
                       fig.align = "center",
                       message = FALSE,
                       warning = FALSE)
+
+knitr::opts_knit$set(root.dir = "/Users/mac/ETC5543-cran-analysis2")
+
  library(tidyverse)
  library(cranlogs)
  library(glue)
@@ -53,19 +56,23 @@ knitr::opts_chunk$set(echo = FALSE,
  library(yaml)
 
 theme_set(theme_bw(base_size = 14) +
-            theme(plot.title.position = "plot"))
+            theme(plot.title.position = "plot",
+                  axis.text=element_text(size=10),
+                  axis.title=element_text(size=12,face="bold"),
+                  plot.title = element_text(h = 0.5))
+          )
 
 # comment out below to include/exclude analysis
 child_docs <- c(
                 "02-S01-pkg-downloads.Rmd",
-                #"02-S01B-R-downloads.Rmd",
-                #"02-S02-top15.Rmd",
-                #"02-S03-release-date.Rmd",
-                #"02-S04-similarpkg-fable-forecast.Rmd",
-                #"02-S05-github-commits.Rmd",
+                "02-S01B-R-downloads.Rmd",
+                "02-S02-top15.Rmd",
+                "02-S03-release-date.Rmd",
+                "02-S04-similarpkg-fable-forecast.Rmd",
+                "02-S05-github-commits.Rmd",
                 #"02-S06-update-times.Rmd",
                 #"02-S07-pkg-name-length.Rmd",
-                #"02-S08-pkg-name-order.Rmd",
+                "02-S08-pkg-name-order.Rmd",
                 NULL)
 ```
 
