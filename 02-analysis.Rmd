@@ -53,7 +53,6 @@ knitr::opts_knit$set(root.dir = "/Users/mac/ETC5543-cran-analysis2")
  library(xml2)
  library(stats)
  library(gglorenz)
- library(yaml)
 
 theme_set(theme_bw(base_size = 14) +
             theme(plot.title.position = "plot",
