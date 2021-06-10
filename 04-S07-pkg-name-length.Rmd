@@ -154,18 +154,18 @@ Although we'd better explore this question among the same topic of R-packages, w
 
 Figure \@ref(fig:avgnamelth-year) shows the average name length of all R-packages on CRAN released in each year. It is obvious that the name length of these R-package generally increases year by year.
 
-(ref:random-release) The average name length of all R-packages on CRAN each year tends to rise along the time.
+(ref:random-release) The average name length of all R-packages on CRAN released in each year tends to rise along the time.
 
 ```{r avgnamelth-year,fig.cap="(ref:avgnamelth-year)"}
-pkg_namelth_release <- pkg_updates_all %>%
-  mutate(releases = as.Date(release)) %>% 
-  group_by(package) %>% 
-  summarise(initial = min(releases)) %>% 
+ pkg_updates_all %>%
+  mutate(release = ymd(release)) %>%
+  na.omit() %>%
+  group_by(package) %>%
+  arrange(release, .by_group = TRUE) %>% #arrange within group
+  top_n(-1, release) %>% 
   ungroup()%>%
-  mutate(length_name = nchar(package)) 
-
-pkg_namelth_release %>%
-  mutate(Year = year(initial)) %>%
+  mutate(length_name = nchar(package))  %>%
+  mutate(Year = year(release)) %>%
   group_by(Year) %>%
   summarise(avg_namelth = mean(length_name)) %>%
   ggplot(aes(x = Year,y = avg_namelth)) +
@@ -173,8 +173,8 @@ pkg_namelth_release %>%
   geom_smooth(se = F) +
   labs( y = 'Average name length',
         x = 'The initial release date',
-    title = "Average name length each year",
-    subtitle = "for all R-packages on CRAN") +
+    title = "Average name length of R-packages",
+    subtitle = "released in each year") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(

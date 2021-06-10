@@ -8,8 +8,9 @@ In this part, our analysis object is still all the packages.
 ```
 
 
-```{r updates-downloads-all}
+```{r updates-downloads-all,eval=FALSE}
 # to get the number of updates
+#slice into smaller sample to speed up
 cran_names1_release <- map_dfr(cran_names1$package, function(x) releases(x)) %>%
   group_by(package) 
 
@@ -73,23 +74,96 @@ cran_names20_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>
 cran_names21_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>%
   group_by(package) 
 
-pkg_updates_all <- rbind(cran_names1_release,cran_names2_release,cran_names3_release,cran_names4_release,cran_names5_release,cran_names6_release,cran_names7_release,cran_names8_release,cran_names9_release,cran_names10_release,cran_names11_release,cran_names12_release,cran_names13_release,cran_names14_release,cran_names15_release,cran_names16_release,cran_names17_release,cran_names18_release,cran_names19_release,cran_names20_release,cran_names21_release)
+pkg_updates_all <- rbind(cran_names1_release,cran_names2_release),cran_names3_release,cran_names4_release,cran_names5_release,cran_names6_release,cran_names7_release,cran_names8_release,cran_names9_release,cran_names10_release,cran_names11_release,cran_names12_release,cran_names13_release,cran_names14_release,cran_names15_release,cran_names16_release,cran_names17_release,cran_names18_release,cran_names19_release,cran_names21_release) 
 
-pkg_updates <- pkg_updates_all %>%
-  group_by(package)%>%
+# save the data into local for each time running is quite time comsuming
+#save(pkg_updates_all, file=here::here("data/pkg_updates_all.rda"))
+
+cran_names1_updates <- cran_names1_release %>%
   count(package)
+
+cran_names2_updates <- cran_names2_release %>%
+  count(package)
+
+cran_names3_updates <- cran_names3_release %>%
+  count(package)
+
+cran_names4_updates <- cran_names4_release %>%
+  count(package)
+
+cran_names5_updates <- cran_names5_release %>%
+  count(package)
+
+cran_names6_updates <- cran_names6_release %>%
+  count(package)
+
+cran_names7_updates <- cran_names7_release %>%
+  count(package)
+
+cran_names8_updates <- cran_names8_release %>%
+  count(package)
+
+cran_names9_updates <- cran_names9_release %>%
+  count(package)
+
+cran_names10_updates <- cran_names10_release %>%
+  count(package)
+
+cran_names11_updates <- cran_names11_release %>%
+  count(package)
+
+cran_names12_updates <- cran_names12_release %>%
+  count(package)
+
+cran_names13_updates <- cran_names13_release %>%
+  count(package)
+
+cran_names14_updates <- cran_names14_release %>%
+  count(package)
+
+cran_names15_updates <- cran_names15_release %>%
+  count(package)
+
+cran_names16_updates <- cran_names16_release %>%
+  count(package)
+
+cran_names17_updates <- cran_names17_release %>%
+  count(package)
+
+cran_names18_updates <- cran_names18_release %>%
+  count(package)
+
+cran_names19_updates <- cran_names19_release %>%
+  count(package)
+
+cran_names21_updates <- cran_names21_release %>%
+  count(package)
+
+
+cran_updates <- rbind(cran_names1_updates,cran_names2_updates,cran_names3_updates,cran_names4_updates,cran_names5_updates,cran_names6_updates,cran_names7_updates,cran_names8_updates,cran_names9_updates,cran_names10_updates,cran_names11_updates,cran_names12_updates,cran_names13_updates,cran_names14_updates,cran_names15_updates,cran_names16_updates,cran_names17_updates,cran_names18_updates,cran_names19_updates,cran_names21_updates)
+
+# save the data into local for each time running is quite time comsuming
+#save(cran_updates, file=here::here("data/cran_updates.rda"))
 ```
 
-Figure \@ref(fig:all-updates) shows that the number of downloads increases with the update times. And most R-packages are updated between 1 and 6 times.
+```{r loadupdates-all}
+load("data/cran_updates.rda")
+
+cran_updates_download <- cran_updates %>%
+  left_join(cran_names_download,by = "package") %>%
+  rename(updates = n)
+```
+
+Figure \@ref(fig:all-updates) shows that the number of downloads increases with the update times. And most R-packages are updated no more than 30 times.
 
 (ref:all-updates) The download count increase with the number of updates.
 
 ```{r  all-updates, fig.cap="(ref:all-updates)"}
-pkg_updates %>%
-  ggplot(aes(x = n, y = total)) +
+cran_updates_download %>%
+  ggplot(aes(x = updates, y = total)) +
   geom_point() +
   geom_smooth(se = F) +
-  scale_x_log10() +
+  scale_y_log10() +
     labs( x = 'The number of updates',
           y = 'Total download count',
     title = "Update counts against download counts",
@@ -107,36 +181,29 @@ pkg_updates %>%
 **Finding 2**: Over half of the R-packages don't tend to update very frequently.
 ```
 
-Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage of trending R-packages whose updates are less than average is 71 %, which means much more than half of the R-packages do not tend to update very frequently. 
-
 ```{r  function-lowupdates}
-# function used to compute packages lying in the low-updated range
+# compute packages lying in the low-updated range
+load("data/pkg_updates_all.rda")
 
-compute_pct_lowupdated <- function(pkg_updates){
-  
-avg_updates <- mean(as.numeric(pkg_updates$n))
+avg_updates <- mean(as.numeric(cran_updates_download$updates))
 
-pkg_total <- length(pkg_updates$package)
+pkg_total <- length(cran_updates_download$package)
 
-pct_updates <- pkg_updates %>%
-  mutate(n = as.numeric(n))  %>%
-  dplyr::filter(n < avg_updates) %>%
+pct_updates <- cran_updates_download %>%
+  mutate(updates = as.numeric(updates))  %>%
+  dplyr::filter(updates < avg_updates) %>%
+  ungroup() %>%
   dplyr::summarise(`number of packages with low updates` = length(package)) %>%
   mutate(`percentage of packages with low updates` = (`number of packages with low updates`/pkg_total)*100)
+```
 
+Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage of R-packages whose updates are less than average is `r pct_updates[[2]]` %, which means much more than half of the R-packages do not tend to update very frequently. 
+
+```{r pct-lowupdates}
 pct_updates%>%
   kable(caption = "Percentage of trending R-packages whose updates are less than average") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 
-return(pct_updates)
-
-}
-
-```
-
-```{r pct-lowupdates}
-# get the percentage of packages whose update counts is under the average
-compute_pct_lowupdated(pkg_updates) 
 ```
 
 
@@ -146,23 +213,24 @@ compute_pct_lowupdated(pkg_updates)
 
 
 ```{r latestupdate-all}
-# function used to get the total downloads of a period of time and the latest release date
-
+# get the latest release date
 latest_updates <- pkg_updates_all %>%
+  mutate(release = ymd(release)) %>%
+  na.omit() %>%
   group_by(package) %>%
-  arrange(update, .by_group = TRUE) %>% #arrange within group
-  top_n(1, update) # to get the latest release date, top_n() is used to select the highest value of a column within each group
-  
+  arrange(release, .by_group = TRUE) %>% #arrange within group
+  top_n(-1, release) # to get the latest release date, top_n() is used to select the highest value of a column within each group
+
 ```
 
-It can be seen from Figure \@ref(fig:latestpublish) that most R-packages' latest publish date is after 2021, which indicates that popular R-packages tend to update by time to keep its activity.
+It can be seen from Figure \@ref(fig:latestpublish) that most R-packages' latest publish date is after 2015, which indicates that many R-packages tend to update by time to keep its activity.
 
 (ref:latestpublish) The latest update dates of trending R-packages are almost all the recent dates.
 
 ```{r  latestpublish,fig.cap="(ref:latestpublish)"}
 
-pkg_trending_latest_publish %>%
-  ggplot(aes(update)) +
+latest_updates %>%
+  ggplot(aes(release)) +
   geom_density() +
   labs( 
         x = 'Latest publish date',
@@ -187,26 +255,23 @@ Figure \@ref(fig:updates-perday) shows that with the increase of update interval
 (ref:updates-perday) Most of the time intervals of updates are between 45 and 450 days.
 
 ```{r updates-perday,fig.cap="(ref:updates-perday)"}
+times_updates <- pkg_updates_all %>%
+  mutate(release = ymd(release)) %>%
+  na.omit() %>%
+  group_by(package) %>%
+  arrange(release, .by_group = TRUE) %>% #arrange within group
+  top_n(1, release) %>%
+  left_join(latest_updates, by = "package") %>%
+  rename(latest_release = release.x) %>%
+  rename(earliest_release = release.y) %>%
+  mutate(release_time = as.numeric(latest_release - earliest_release)) %>%
+  left_join(cran_updates_download, by = "package")
 
-pkg_trending_earliest_publish <- unique(downloads_earliest_release(pkg_trending_latest_publish$package))
 
-pkg_trending_daily_update <- left_join(pkg_trending_earliest_publish,pkg_trending_latest_publish,by = "package") %>%
-  select(-count.y) %>%
-  rename(count = count.x) %>%
-  mutate(release_days = as.numeric(update.y - update.x)) 
-
-pkg_trending_daily_update$release_days <- as.character(pkg_trending_daily_update$release_days)
-pkg_trending_daily_update$release_days[pkg_trending_daily_update$release_days == "0"] <- "1"
-
-pkg_trending_daily_update$release_days <- as.numeric(pkg_trending_daily_update$release_days)
-
-pkg_trending_daily_update <- pkg_trending_daily_update %>%
-left_join(get_updates_downloads(pkg_trending_daily_update$package))
-
-pkg_trending_daily_update %>%
-  mutate(days_peruodate = release_days/`number of updates`) %>%
-  ggplot(aes(x = days_peruodate, y = count)) +
-  geom_point(aes(colour = `number of updates`)) +
+times_updates %>%
+  mutate(days_peruodate = release_time/updates) %>%
+  ggplot(aes(x = days_peruodate, y = total)) +
+  geom_point(aes(colour = updates)) +
   geom_smooth(se = F) +
   labs( y = 'Total download counts',
           x = 'Days per update',
@@ -225,5 +290,5 @@ pkg_trending_daily_update %>%
 ```
 
 
-In conclusion, it's not that the more updates the R-package has, the popular it will be. In general, most of the R-packages whose updates are lower than the average occupy the majority. Therefore, we can also know that the total number of updates is not very important for the trending R-package. The important thing is to keep it updated with the time.
+In conclusion, it's not that the more updates the R-package has, the popular it will be. In general, most of the R-packages whose updates are lower than the average occupy the majority. Therefore, we can also know that the total number of updates is not very important for the R-package. The important thing is to keep it updated with the time.
 
