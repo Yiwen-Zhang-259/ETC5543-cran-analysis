@@ -147,12 +147,12 @@ taskview_downloads %>%
 
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 5**: For all packages on CRAN, the average name length tends to generally increase each year.
+**Finding 5**: For all packages on CRAN, the average name length tends to generally increase with the inital release date.
 ```
 
 Although we'd better explore this question among the same topic of packages, we could also have a view on the annual change in the average name length of all packages on CRAN.
 
-Figure \@ref(fig:avgnamelth-year) shows the average name length of all packages on CRAN each year. It is obvious that the name length of these package generally increases year by year.
+Figure \@ref(fig:avgnamelth-year) shows the average name length of all packages on CRAN released in each year. It is obvious that the name length of these package generally increases year by year.
 
 (ref:random-release) The average name length of all packages on CRAN each year tends to rise along the time.
 
