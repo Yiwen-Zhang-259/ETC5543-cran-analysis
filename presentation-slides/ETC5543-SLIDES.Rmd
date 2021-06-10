@@ -1,6 +1,6 @@
 ---
 title: "ETC5543 Presentation"
-subtitle: "The evolution of R Packages"
+subtitle: "What makes an R-package popular?"
 author: "Yiwen Zhang"
 supervisor: "Emi Tanaka"
 date: "`r Sys.Date()`"
