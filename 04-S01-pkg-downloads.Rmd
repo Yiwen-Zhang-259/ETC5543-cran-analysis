@@ -60,7 +60,7 @@ load("data/daily_download_20141117.rda")
 load("data/daily_download_20181021.rda")
 ```
 
-Then let's have a closer look into these two spikes. First, we focused on the spike on 2014-11-17. From Table \@ref(tab:spike14count), we could see that the downloads between top downloaded R-packages on this day differs little, so it's not due to certain package.
+Then let's have a closer look into these two spikes. First, we focused on the spike on 2014-11-17. From Table \@ref(tab:spike14count), we could see that the downloads of top downloaded R-packages on this day differs little, so it's not due to certain package.
 
 ```{r spike14count}
 ## for 2014-11-17
@@ -85,7 +85,7 @@ daily_download_20141117 %>%
   kable_styling(full_width = FALSE) #downloads from Indonesia is much more than any others
 ```
 
-Furthermore, we also checked the IP address in Table \@ref(tab:spike14ip), downloads from `ip3758` is much higher than others. So, it seems that most of the downloads were owing to one certain IP. 
+Furthermore, we also checked the IP address in Table \@ref(tab:spike14ip), downloads from `ip3758` is much higher than others. So, it seems that most of the downloads are owing to one certain IP. 
 
 ```{r spike14ip}
 daily_download_20141117 %>%
@@ -125,7 +125,7 @@ daily_download_20181021 %>%
 
 ```
 
-Finally, the most interesting finding is in IP address displayed in Table \@ref(tab:spike18ip). Several consecutive IP has highly distinguished downloads. It seems that they are from same person, or it is also probably a test server issue in the same short period of time.
+Finally, the most interesting finding is in IP address displayed in Table \@ref(tab:spike18ip). Several consecutive IPs have highly distinguished downloads. It seems that they are from same person, or it is also probably a server test issue in the same short period of time.
 
 ```{r spike18ip}
 daily_download_20181021 %>%
@@ -138,7 +138,7 @@ daily_download_20181021 %>%
 
 ```
 
-Therefore, to sum up, we found that these two unusual spikes have one thing in common, that is, most of the downloads came from a specific country. The difference is that in 2014, a large number of downloads came from several different R-packages, while in 2018, they came from one package `tidyverse`. In addition, in 2014, a large number of downloads came from one IP, while in 2018, they came from several consecutive IPs, At this point, we guess it should come from the same person, and it is likely to be sever issue, for it may be not necessary and reasonable for an individual to generate such a high amount of downloads in one day.
+To sum up, we found that these two unusual spikes have one thing in common, that is, most of the downloads came from a specific country. The difference is that in 2014, a large number of downloads came from several different R-packages, while in 2018, they came from only one package `tidyverse`. In addition, in 2014, a large number of downloads came from one IP, while in 2018, they came from several consecutive IPs, At this point, we guess it should come from the same person, and it is likely to be sever test issue, for it may be not necessary or reasonable for an individual to generate such a large quantities of downloads in one day.
 
 ```{block, type="discovery", echo = TRUE}
 **Finding 2**: There is an increasing number of downloads over time. This likely attests to the growing number of R users. 

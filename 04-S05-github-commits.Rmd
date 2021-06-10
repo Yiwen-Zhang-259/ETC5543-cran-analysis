@@ -1,6 +1,6 @@
 ## Compare download counts with the number of commits on master branch
 
-In this section, we compared last half year's total downloads with the number of commits on master branch in Github repositories. And this turn, we initially planned to replace the research object with all the R-packages on CRAN, `r comma(length(pkgs$package),digits =0)` up to now. But we soon found out that there were only 6185 R-packages that have a Github repository, and after cleaning up, only 5610 remained.
+In this section, we compared last half a year's total downloads with the number of commits on master branch in Github repositories. And this turn, we initially planned to replace the research object with all the R-packages on CRAN, `r comma(length(pkgs$package),digits =0)` up to now. But we soon found out that there were only 6185 R-packages that have a Github repository, and after cleaning up, only 5769 remained.
 
 ```{block, type="discovery", echo = TRUE}
 **Finding**: In our initial assumption, more commits on master branch of Github repository tends to bring more download counts to R-packages. On the one hand, the number of commits indicates that developers are constantly supplementing and updating the R-package, which will lead to more downloads. On the other hand, the number of commits also reflects the attention developers attach to the R-package to a certain extent. So, if an R-package has more commits, then developers may invest more in advertising and other ways to promote it, so as to expand the popularity and improve the download count.
@@ -10,7 +10,7 @@ The way we initially applied was extracting the commits through accessing the Gi
 
 Based on that, Table \@ref(tab:userrepo-tbl) shows the first 5 R-packages of the whole, their Github URLs and the `user_repo` part.
 
-However, the Github API has a rate limits allowing for up to 60 requests per hour for unauthenticated requests, and this can be extended to 5000 per hour after authentication[@githubapi]. But even after getting authentication, our rate limit didn't get promoted. So, we switched to scrape commits by python spider. And by setting random agent, we successfully avoided the API limit. And as this method is quite time consuming, we saved the output as a txt file and load it in R studio to speed up the compiling process. 
+However, the Github API has a rate limits allowing for up to 60 requests per hour for unauthenticated requests, and this can be extended to 5000 per hour after authentication[@githubapi]. But even after getting authentication, our rate limit didn't get promoted. So, we switched to scrape commits by python spider. And by setting random user agent, we successfully avoided the API limit. And as this method is quite time consuming (around 5 hours), we saved the output as a .txt file then load it in R studio to speed up the compiling process. 
 
 ```{r userrepo,eval=FALSE}
 #code used to extract Github URL for CRAN packages
@@ -140,7 +140,7 @@ pkg_commits_all %>%
   kable_styling(bootstrap_options = c("hover", "striped")) 
 ```
 
-Figure \@ref(fig:commits-pattern) shows the scatterplot along with a smoothing line. In general, more commits, more downloads. But as this only covers a very tiny sample with 60 R-packages, we are not quite sure whether this conclusion is applicable to all packages on CRAN. Anyway, from the pattern shown by this small sample, our assumption seems relatively reasonable to some extent. That is, the total download count gained by package will tend to rise with the increasing of the number of commits in Github repository. Meanwhile, we could also notice that when the commits count is over 1000, the total download count has a small jump. And we suppose that could result from the very small sample size. And when if we could get enough data, the trend may rise again.
+Figure \@ref(fig:commits-pattern) shows the scatterplot along with a smoothing line. In general, more commits, more downloads. 
 
 (ref:commits-pattern) The commits on master branch of Github repository against the last half a year's total download count.
 

@@ -377,4 +377,4 @@ pkg_trendcom_count %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
-So, apart from the topic of the R-package itself, what other factors will probably have correlation with its download volume? With this problem in mind, we mainly explored the relationship between the total number of download counts of r-packages in the past half a year and the earliest release date, the number of updates, the number of commits on GitHub repositories, the length of the name and the alphabetical order of the first letter of the name in the next following sections.
+So, apart from the topic of the R-package itself, what other factors will probably be linked to its download volume? With this question in mind, we mainly explored the relationship between the total number of download counts of R-packages in the past year and the earliest release date, the relationship between the last half a year's total download volume and the number of updates, the number of commits on GitHub repositories, the length of the name and the alphabetical order of the first letter of the name in the next following sections.

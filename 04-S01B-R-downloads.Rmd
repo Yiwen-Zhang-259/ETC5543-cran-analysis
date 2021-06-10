@@ -128,4 +128,4 @@ R_version %>%
 
 ```
 
-In conclusion, the daily download trend of R is quite similar to that of R-packages, and they are both significantly affected by weekly calendar issue, unusual downloads from CRAN mirrors. But in general, they both tend to increase with the growing of users.
+In conclusion, the daily download trend of R is quite similar to that of R-packages, and they are both significantly affected by weekly calendar issue, unusual downloads from CRAN mirrors. But in general, they both tend to increase with the growing of R users.

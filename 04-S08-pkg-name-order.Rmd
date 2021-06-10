@@ -2,7 +2,7 @@
 
 We might also have such experiences in our life. For example, when we go shopping in the supermarket, the goods placed in front of the shelves will be easier to attract our attention and be selected by us, because we may no longer want to seek products with similar functions for a long time.
 
-From the perspective of R-package name, in addition to the length, does the alphabetical order of the first letter also affect the download volume? For R-packages with earlier alphabetical order will be placed at the first part of the R-package list on CRAN[@cranpkgsname]. To answer this question, we grouped the R-packages in 26-letter order, calculated the average downloads of each group, and then made comparison.
+From the perspective of R-package name, in addition to the length, is the alphabetical order of the first letter also linked the download volume? For R-packages with earlier alphabetical order will be placed at the first part of the R-package list on CRAN[@cranpkgsname]. To answer this question, we grouped the R-packages by 26-letter order, calculated the average downloads of each group, and then made comparison.
 
 ```{block, type="discovery", echo = TRUE}
 **Finding 1**: For all R-packages, the average downloads of different alphabetical group are slightly increasing by its order, while the total download tends to decrease a little, instead.
@@ -71,9 +71,9 @@ alphabetic_downloads <- pkg_alpha_download %>%
             total_downloads = sum(total))
 ```
 
-From Figure \@ref(fig:ahlpha-downloads) we could see that the average downloads of different alphabetic group are slightly increasing by alphabetic order, while the total downloads tends to decrease a little, instead. This is because the later-ordered group contains fewer R-packages. It can be seen that developers may prefer to name their packages with a top alphabetical order, which might be easier for users to notice.
+From Figure \@ref(fig:ahlpha-downloads) we could see that the average downloads of different alphabetical group are slightly increasing by alphabetical order, while the total downloads tends to decrease a little, instead. This is because the later-ordered group contains fewer R-packages. It can be seen that developers may prefer to name their packages with a top alphabetical order, which might be easier for users to notice.
 
-(ref:ahlpha-downloads) The average total download count of each group is little affected by the alphabetical order of R-package name.
+(ref:ahlpha-downloads) The average total download count of each group is little linked to the alphabetical order of R-package name.
 
 ```{r ahlpha-downloads,fig.cap="(ref:ahlpha-downloads)"}
 
@@ -122,7 +122,7 @@ ggplot(pkg_alpha_download,aes(x = group, y = total)) +
   axis.title.x = element_blank())
 ```
 
-In order to further verify our conclusion, we turned to the ultra-low-downloaded R-packages. As we have mentioned previously, when it comes to the ultra-low-downloaded R-packages, we could assume the only variable that affects the amount of downloads is name order here.
+In order to further verify our conclusion, we turned to the ultra-low-downloaded R-packages. As we have mentioned previously, when it comes to the ultra-low-downloaded R-packages, we could approximately assume the only variable that may affect the amount of downloads is name order here.
 From Figure \@ref(fig:lowdownload-boxplot), we could see that the difference in median download count of each alphabetical group is not significant as we expected.
 
 ```{r lowdownload-boxplot,fig.cap="(ref:random-boxplot)"}

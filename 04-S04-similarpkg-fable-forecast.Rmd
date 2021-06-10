@@ -64,7 +64,7 @@ forecast %>%
 
 ```
 
-Therefore, in order to estimate the trend-cycle and reduce the weekly seasonality to see the changes more clearly, we introduced the Moving average (MA). 
+Therefore, in order to estimate the trend-cycle and reduce the weekly seasonality to see the changes more clearly, we introduced the Moving Average (MA). 
 
 A moving average of order **m** can be written as :
 
