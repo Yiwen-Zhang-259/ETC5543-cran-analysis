@@ -13,3 +13,8 @@ The main source of data used in this report is the download logs from the RStudi
 * Anonymised daily unique id (`ip_id`).
 
 A similar log file is also created for every download of R from the RStudio CRAN mirror with the processed log file generating a CSV file that contains the same variables except `r_arch` and `package`, and `r_version` and `r_os` are named as `version` and `os`. These CSV files are hosted at http://cran-logs.rstudio.com/ and updated daily with data available from 1st October 2012. 
+
+The log files of a particular day is processed and compressed into a single CSV file of about 40 megabytes (file sizes of earlier years are much smaller due to lower number of download logs). As there are over 700,000 CSV files, a simple estimate of the size of the data is 28 terabytes - far exceeding typical portable hard drives which are 1-4 terabytes. 
+
+The summarised version of data, where the data shows the total daily download count for each package, is accessible using the `cranlogs` R-package. The `cranlogs` package accesses this summary data through the web application programming interface (API) maintained by r-hub [@rhub].
+
