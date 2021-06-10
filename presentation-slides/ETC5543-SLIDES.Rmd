@@ -1080,3 +1080,107 @@ I would like to express my very great appreciation to my supervisors:
 ---
 
 # `r emo::ji("wise")`References
+
+```{r, load_refs, echo=FALSE}
+library(RefManageR)
+bib <- ReadBib("my_bib.bib", check = FALSE)
+ui <- "- "
+```
+
+```{r, print_refs1, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
+writeLines(ui)
+print(bib[key = "R-available"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "R-base"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "R-cranlogs"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "R-ctv"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "R-fpp3"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "R-gglorenz"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+```
+
+---
+
+# `r emo::ji("wise")`References
+
+
+```{r print_refs2, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
+writeLines(ui)
+print(bib[key = "R-glue"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "R-htmltools"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "R-httr"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "R-kableExtra"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "R-knitr"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "R-lubridate"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+```
+
+---
+
+# `r emo::ji("wise")`References
+
+```{r print_refs3, results='asis', echo=FALSE, warning=FALSE, message=FALSE}
+print(bib[key = "R-packageRank"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "R-pkgsearch"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "R-rvest"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "xaringan"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+```
+
