@@ -57,6 +57,70 @@
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
@@ -99,16 +163,20 @@ div.csl-indent {
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
 <li class="chapter" data-level="1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>1</b> Abstract</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="other-work.html"><a href="other-work.html"><i class="fa fa-check"></i><b>2.1</b> Other work</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a></li>
 <li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>4.1</b> Daily download of R-packages</a></li>
 <li class="chapter" data-level="4.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>4.2</b> Daily downloads of R</a></li>
 <li class="chapter" data-level="4.3" data-path="daily-top-15-downloaded-packages.html"><a href="daily-top-15-downloaded-packages.html"><i class="fa fa-check"></i><b>4.3</b> Daily top 15 downloaded packages</a></li>
-<li class="chapter" data-level="4.4" data-path="compare-moving-average-of-fable-and-forecast.html"><a href="compare-moving-average-of-fable-and-forecast.html"><i class="fa fa-check"></i><b>4.4</b> Compare moving average of fable and forecast</a></li>
-<li class="chapter" data-level="4.5" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>4.5</b> Compare download counts with the number of commits on master branch</a></li>
-<li class="chapter" data-level="4.6" data-path="compare-download-counts-with-alphabetical-order-of-name.html"><a href="compare-download-counts-with-alphabetical-order-of-name.html"><i class="fa fa-check"></i><b>4.6</b> Compare download counts with alphabetical order of name</a></li>
+<li class="chapter" data-level="4.4" data-path="compare-last-years-downloads-with-the-earliest-release-date.html"><a href="compare-last-years-downloads-with-the-earliest-release-date.html"><i class="fa fa-check"></i><b>4.4</b> Compare last year’s downloads with the earliest release date</a></li>
+<li class="chapter" data-level="4.5" data-path="compare-moving-average-of-fable-and-forecast.html"><a href="compare-moving-average-of-fable-and-forecast.html"><i class="fa fa-check"></i><b>4.5</b> Compare moving average of fable and forecast</a></li>
+<li class="chapter" data-level="4.6" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>4.6</b> Compare download counts with the number of commits on master branch</a></li>
+<li class="chapter" data-level="4.7" data-path="compare-download-counts-with-alphabetical-order-of-name.html"><a href="compare-download-counts-with-alphabetical-order-of-name.html"><i class="fa fa-check"></i><b>4.7</b> Compare download counts with alphabetical order of name</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>5</b> Summary</a></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
@@ -159,13 +227,16 @@ Csárdi, Gábor, and Maëlle Salmon. 2020. <em>Pkgsearch: Search and Query CRAN 
 <span>“Forecasting: Principles and Practice (3rd Ed).”</span> n.d. <em>3.6 STL Decomposition</em>. <a href="https://otexts.com/fpp3/stl.html">https://otexts.com/fpp3/stl.html</a>.
 </div>
 <div class="csl-entry">
+Hayes, Adam. 2020. <span>“Econometrics: What It Means, and How It’s Used.”</span> <em>Investopedia</em>. Investopedia. <a href="https://www.investopedia.com/terms/e/econometrics.asp">https://www.investopedia.com/terms/e/econometrics.asp</a>.
+</div>
+<div class="csl-entry">
 <span>“Latest News.”</span> n.d. <em>TIOBE</em>. <a href="https://www.tiobe.com/tiobe-index/">https://www.tiobe.com/tiobe-index/</a>.
 </div>
 <div class="csl-entry">
 Morgan-Wall, Tyler. 2017. <em>Adjustedcranlogs: Remove Automated and Repeated Downloads from ’RStudio’ ’CRAN’ Download Logs</em>. <a href="https://github.com/tylermorganwall/adjustedcranlogs">https://github.com/tylermorganwall/adjustedcranlogs</a>.
 </div>
 <div class="csl-entry">
-<span>“Open Source &amp; Professional Software for Data Science Teams.”</span> 2021. <em>RStudio</em>. <a href="https://www.rstudio.com/">https://www.rstudio.com/</a>.
+perpetual, NSSI am a. 2019. <span>“Bayesian Statistics Explained in Simple English for Beginners.”</span> <em>Analytics Vidhya</em>. <a href="https://www.analyticsvidhya.com/blog/2016/06/bayesian-statistics-beginners-simple-english/">https://www.analyticsvidhya.com/blog/2016/06/bayesian-statistics-beginners-simple-english/</a>.
 </div>
 <div class="csl-entry">
 Peter Li. 2021. <em>packageRank: Computation and Visualization of Package Download Counts and Percentiles</em>. <a href="https://CRAN.R-project.org/package=packageRank">https://CRAN.R-project.org/package=packageRank</a>.
@@ -175,6 +246,9 @@ Pettinger, Tejvan. n.d. <span>“Lorenz Curve.”</span> <em>Economics Help</em>
 </div>
 <div class="csl-entry">
 Ponce, Marcelo. 2021. <em>Visualize.CRAN.downloads: Visualize Downloads from ’CRAN’ Packages</em>. <a href="https://CRAN.R-project.org/package=Visualize.CRAN.Downloads">https://CRAN.R-project.org/package=Visualize.CRAN.Downloads</a>.
+</div>
+<div class="csl-entry">
+R Core Team. 2021. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
 </div>
 <div class="csl-entry">
 <span>“Resources in the REST API.”</span> n.d. <em>Resources in the REST API - GitHub Docs</em>. <a href="https://docs.github.com/en/rest/overview/resources-in-the-rest-api">https://docs.github.com/en/rest/overview/resources-in-the-rest-api</a>.
@@ -190,6 +264,9 @@ R-Hub. n.d.b. <span>“R-Hub/Cranlogs.app.”</span> <em>GitHub</em>. <a href="h
 </div>
 <div class="csl-entry">
 <span>“The Most Prolific Package Maintainers on CRAN.”</span> n.d. <em>Revolutions</em>. <a href="https://blog.revolutionanalytics.com/2018/03/the-most-prolific-package-maintainers-on-cran.html">https://blog.revolutionanalytics.com/2018/03/the-most-prolific-package-maintainers-on-cran.html</a>.
+</div>
+<div class="csl-entry">
+<span>“Time Series Analysis.”</span> 2020. <em>Statistics Solutions</em>. <a href="https://www.statisticssolutions.com/time-series-analysis/">https://www.statisticssolutions.com/time-series-analysis/</a>.
 </div>
 <div class="csl-entry">
 Warren, Tom. 2017. <span>“Apple Reveals Windows 10 Is Four Times More Popular Than the Mac.”</span> <em>The Verge</em>. The Verge. <a href="https://www.theverge.com/2017/4/4/15176766/apple-microsoft-windows-10-vs-mac-users-figures-stats">https://www.theverge.com/2017/4/4/15176766/apple-microsoft-windows-10-vs-mac-users-figures-stats</a>.

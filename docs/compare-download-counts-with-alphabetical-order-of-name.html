@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.7 Compare download counts with alphabetical order of name | What do CRAN download counts mean? [probably need a catchier title than this]</title>
-  <meta name="description" content="3.7 Compare download counts with alphabetical order of name | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  <title>4.7 Compare download counts with alphabetical order of name | What do CRAN download counts mean? [probably need a catchier title than this]</title>
+  <meta name="description" content="4.7 Compare download counts with alphabetical order of name | What do CRAN download counts mean? [probably need a catchier title than this]" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.7 Compare download counts with alphabetical order of name | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  <meta property="og:title" content="4.7 Compare download counts with alphabetical order of name | What do CRAN download counts mean? [probably need a catchier title than this]" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="Yiwen-Zhang-259/ETC5543-cran-analysis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.7 Compare download counts with alphabetical order of name | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  <meta name="twitter:title" content="4.7 Compare download counts with alphabetical order of name | What do CRAN download counts mean? [probably need a catchier title than this]" />
   
   
   
@@ -57,6 +57,70 @@
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
@@ -98,23 +162,24 @@ div.csl-indent {
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>1</b> Abstract</a>
+<li class="chapter" data-level="1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>1</b> Abstract</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="other-work.html"><a href="other-work.html"><i class="fa fa-check"></i><b>1.1</b> Other work</a></li>
+<li class="chapter" data-level="2.1" data-path="other-work.html"><a href="other-work.html"><i class="fa fa-check"></i><b>2.1</b> Other work</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>2</b> Methods</a></li>
-<li class="chapter" data-level="3" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>3</b> Results</a>
+<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a></li>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>3.1</b> Daily download of R-packages</a></li>
-<li class="chapter" data-level="3.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>3.2</b> Daily downloads of R</a></li>
-<li class="chapter" data-level="3.3" data-path="daily-top-15-downloaded-packages.html"><a href="daily-top-15-downloaded-packages.html"><i class="fa fa-check"></i><b>3.3</b> Daily top 15 downloaded packages</a></li>
-<li class="chapter" data-level="3.4" data-path="compare-last-years-downloads-with-the-earliest-release-date.html"><a href="compare-last-years-downloads-with-the-earliest-release-date.html"><i class="fa fa-check"></i><b>3.4</b> Compare last year’s downloads with the earliest release date</a></li>
-<li class="chapter" data-level="3.5" data-path="compare-moving-average-of-fable-and-forecast.html"><a href="compare-moving-average-of-fable-and-forecast.html"><i class="fa fa-check"></i><b>3.5</b> Compare moving average of fable and forecast</a></li>
-<li class="chapter" data-level="3.6" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>3.6</b> Compare download counts with the number of commits on master branch</a></li>
-<li class="chapter" data-level="3.7" data-path="compare-download-counts-with-alphabetical-order-of-name.html"><a href="compare-download-counts-with-alphabetical-order-of-name.html"><i class="fa fa-check"></i><b>3.7</b> Compare download counts with alphabetical order of name</a></li>
+<li class="chapter" data-level="4.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>4.1</b> Daily download of R-packages</a></li>
+<li class="chapter" data-level="4.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>4.2</b> Daily downloads of R</a></li>
+<li class="chapter" data-level="4.3" data-path="daily-top-15-downloaded-packages.html"><a href="daily-top-15-downloaded-packages.html"><i class="fa fa-check"></i><b>4.3</b> Daily top 15 downloaded packages</a></li>
+<li class="chapter" data-level="4.4" data-path="compare-last-years-downloads-with-the-earliest-release-date.html"><a href="compare-last-years-downloads-with-the-earliest-release-date.html"><i class="fa fa-check"></i><b>4.4</b> Compare last year’s downloads with the earliest release date</a></li>
+<li class="chapter" data-level="4.5" data-path="compare-moving-average-of-fable-and-forecast.html"><a href="compare-moving-average-of-fable-and-forecast.html"><i class="fa fa-check"></i><b>4.5</b> Compare moving average of fable and forecast</a></li>
+<li class="chapter" data-level="4.6" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>4.6</b> Compare download counts with the number of commits on master branch</a></li>
+<li class="chapter" data-level="4.7" data-path="compare-download-counts-with-alphabetical-order-of-name.html"><a href="compare-download-counts-with-alphabetical-order-of-name.html"><i class="fa fa-check"></i><b>4.7</b> Compare download counts with alphabetical order of name</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>4</b> Summary</a></li>
-<li class="chapter" data-level="5" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>5</b> Conclusion</a></li>
+<li class="chapter" data-level="5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>5</b> Summary</a></li>
+<li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -136,8 +201,8 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="compare-download-counts-with-alphabetical-order-of-name" class="section level2" number="3.7">
-<h2><span class="header-section-number">3.7</span> Compare download counts with alphabetical order of name</h2>
+<div id="compare-download-counts-with-alphabetical-order-of-name" class="section level2" number="4.7">
+<h2><span class="header-section-number">4.7</span> Compare download counts with alphabetical order of name</h2>
 <p>We might also have such experiences in our life. For example, when we go shopping in the supermarket, the goods placed in front of the shelves will be easier to attract our attention and be selected by us, because we may no longer want to seek products with similar functions for a long time.</p>
 <p>From the perspective of package name, in addition to the length, does the alphabetical order of the first letter also affect the download volume? For packages with earlier alphabetical order will be placed at the first part of the package list on CRAN<span class="citation">(<a href="#ref-cranpkgsname" role="doc-biblioref"><span>“Available CRAN Packages by Name,”</span> n.d.</a>)</span>. To answer this question, we grouped the packages in 26-letter order, calculated the average downloads of each group, and then made comparison.</p>
 <div class="discovery">
@@ -145,12 +210,12 @@ div.csl-indent {
 <strong>Finding 1</strong>: For all packages, the average downloads of different alphabetical group are slightly increasing by its order, while the total download tends to decrease a little, instead.
 </p>
 </div>
-<p>From Figure <a href="compare-download-counts-with-alphabetical-order-of-name.html#fig:ahlpha-downloads">3.16</a> we could see that the average downloads of different alphabetic group are slightly increasing by alphabetic order, while the total downloads tends to decrease a little, instead. This is because the later-ordered group contains fewer packages. It can be seen that developers may prefer to name their packages with a top alphabetical order, which might be easier for users to notice.</p>
+<p>From Figure <a href="compare-download-counts-with-alphabetical-order-of-name.html#fig:ahlpha-downloads">4.16</a> we could see that the average downloads of different alphabetic group are slightly increasing by alphabetic order, while the total downloads tends to decrease a little, instead. This is because the later-ordered group contains fewer packages. It can be seen that developers may prefer to name their packages with a top alphabetical order, which might be easier for users to notice.</p>
 
 <div class="figure" style="text-align: center"><span id="fig:ahlpha-downloads"></span>
 <img src="figures/ahlpha-downloads-1.png" alt="The average total download count of each group is little affected by the alphabetical order of package name." width="672" />
 <p class="caption">
-Figure 3.16: The average total download count of each group is little affected by the alphabetical order of package name.
+Figure 4.16: The average total download count of each group is little affected by the alphabetical order of package name.
 </p>
 </div>
 <div class="discovery">
@@ -158,20 +223,20 @@ Figure 3.16: The average total download count of each group is little affected b
 <strong>Finding 2</strong>: For all packages on CRAN, the group with higher total download tends to have greater variance, owing to more outliers.
 </p>
 </div>
-<p>Then, let’s take a look for how the variance varies across groups. Figure <a href="compare-download-counts-with-alphabetical-order-of-name.html#fig:all-boxplot">3.17</a> shows the data range and the median value for each alphabetical group. It can be seen that the group “R/r” has the highest outlier and the group “X/x” has the largest variation. At the same time, we could also see that the variance between different groups is not very obvious, which means that for each group, 50% of the package download count is relatively concentrated. The real difference is the highest and lowest downloads per group. In general, the larger the total number of downloads (which also means the more packages in the group), the more outliers will be included, such as group “F/f,” “L/l” and “R/r.”</p>
+<p>Then, let’s take a look for how the variance varies across groups. Figure <a href="compare-download-counts-with-alphabetical-order-of-name.html#fig:all-boxplot">4.17</a> shows the data range and the median value for each alphabetical group. It can be seen that the group “R/r” has the highest outlier and the group “X/x” has the largest variation. At the same time, we could also see that the variance between different groups is not very obvious, which means that for each group, 50% of the package download count is relatively concentrated. The real difference is the highest and lowest downloads per group. In general, the larger the total number of downloads (which also means the more packages in the group), the more outliers will be included, such as group “F/f,” “L/l” and “R/r.”</p>
 
 <div class="figure" style="text-align: center"><span id="fig:all-boxplot"></span>
 <img src="figures/all-boxplot-1.png" alt="The packages with name starting with “j” has the largest variation." width="672" />
 <p class="caption">
-Figure 3.17: The packages with name starting with “j” has the largest variation.
+Figure 4.17: The packages with name starting with “j” has the largest variation.
 </p>
 </div>
 <p>In order to further verify our conclusion, we turned to the ultra-low-downloaded packages. As we have mentioned previously, when it comes to the ultra-low-downloaded packages, we could assume the only variable that affects the amount of downloads is name order here.
-From Figure <a href="compare-download-counts-with-alphabetical-order-of-name.html#fig:lowdownload-boxplot">3.18</a>, we could see that the difference in median download count of each alphabetical group is not significant as we expected.</p>
+From Figure <a href="compare-download-counts-with-alphabetical-order-of-name.html#fig:lowdownload-boxplot">4.18</a>, we could see that the difference in median download count of each alphabetical group is not significant as we expected.</p>
 <div class="figure" style="text-align: center"><span id="fig:lowdownload-boxplot"></span>
 <img src="figures/lowdownload-boxplot-1.png" alt="(ref:random-boxplot)" width="672" />
 <p class="caption">
-Figure 3.18: (ref:random-boxplot)
+Figure 4.18: (ref:random-boxplot)
 </p>
 </div>
 <p>Therefore, we could approximately draw a conclusion : In general, the packages with the top alphabetical order are easier to get relatively high download volume, but the gap is not significant. At the same time, the higher the number of downloads, the greater the variance will appears in this group.</p>

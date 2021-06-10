@@ -1,0 +1,60 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      cache = TRUE,
+                      cache.path = paste0("cache/",
+                                          ifelse(knitr::is_html_output(), "html/", "latex/")),
+                      fig.path = "figures/",
+                      fig.align = "center",
+                      message = FALSE,
+                      warning = FALSE)
+
+## This is bad for reproducibility!!
+# knitr::opts_knit$set(root.dir = "/Users/mac/ETC5543-cran-analysis2")
+
+ library(tidyverse)
+ library(cranlogs)
+ library(glue)
+ library(grid)
+ library(pkgsearch)
+ library(ctv)
+ library(lubridate)
+ library(jsonlite)
+ library(htmltools)
+ library(httpuv)
+ library(httr)
+ library(kableExtra)
+ library(packageRank)
+ library(fpp3)
+ library(slider)
+ library(rvest)
+ library(rlist)
+ library(available)
+ library(xml2)
+ library(stats)
+ library(gglorenz)
+ library(yaml)
+
+theme_set(theme_bw(base_size = 14) +
+            theme(plot.title.position = "plot",
+                  axis.text=element_text(size=10),
+                  axis.title=element_text(size=12,face="bold"),
+                  plot.title = element_text(h = 0.5))
+          )
+
+# comment out below to include/exclude analysis
+child_docs <- c(
+                "03-S01-pkg-downloads.Rmd",
+                "03-S01B-R-downloads.Rmd",
+                "03-S02-top15.Rmd",
+                "03-S03-release-date.Rmd",
+                "03-S04-similarpkg-fable-forecast.Rmd",
+                "03-S05-github-commits.Rmd",
+                #"03-S06-update-times.Rmd",
+                #"03-S07-pkg-name-length.Rmd",
+                "03-S08-pkg-name-order.Rmd",
+                NULL)
+```
+
+```{r child=child_docs}
+```

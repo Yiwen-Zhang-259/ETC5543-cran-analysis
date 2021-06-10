@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.6 Compare download counts with the number of commits on master branch | What do CRAN download counts mean? [probably need a catchier title than this]</title>
-  <meta name="description" content="3.6 Compare download counts with the number of commits on master branch | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  <title>4.6 Compare download counts with the number of commits on master branch | What do CRAN download counts mean? [probably need a catchier title than this]</title>
+  <meta name="description" content="4.6 Compare download counts with the number of commits on master branch | What do CRAN download counts mean? [probably need a catchier title than this]" />
   <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.6 Compare download counts with the number of commits on master branch | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  <meta property="og:title" content="4.6 Compare download counts with the number of commits on master branch | What do CRAN download counts mean? [probably need a catchier title than this]" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="Yiwen-Zhang-259/ETC5543-cran-analysis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.6 Compare download counts with the number of commits on master branch | What do CRAN download counts mean? [probably need a catchier title than this]" />
+  <meta name="twitter:title" content="4.6 Compare download counts with the number of commits on master branch | What do CRAN download counts mean? [probably need a catchier title than this]" />
   
   
   
@@ -57,6 +57,70 @@
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
@@ -98,23 +162,24 @@ div.csl-indent {
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>1</b> Abstract</a>
+<li class="chapter" data-level="1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>1</b> Abstract</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="other-work.html"><a href="other-work.html"><i class="fa fa-check"></i><b>1.1</b> Other work</a></li>
+<li class="chapter" data-level="2.1" data-path="other-work.html"><a href="other-work.html"><i class="fa fa-check"></i><b>2.1</b> Other work</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>2</b> Methods</a></li>
-<li class="chapter" data-level="3" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>3</b> Results</a>
+<li class="chapter" data-level="3" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>3</b> Methods</a></li>
+<li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>3.1</b> Daily download of R-packages</a></li>
-<li class="chapter" data-level="3.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>3.2</b> Daily downloads of R</a></li>
-<li class="chapter" data-level="3.3" data-path="daily-top-15-downloaded-packages.html"><a href="daily-top-15-downloaded-packages.html"><i class="fa fa-check"></i><b>3.3</b> Daily top 15 downloaded packages</a></li>
-<li class="chapter" data-level="3.4" data-path="compare-last-years-downloads-with-the-earliest-release-date.html"><a href="compare-last-years-downloads-with-the-earliest-release-date.html"><i class="fa fa-check"></i><b>3.4</b> Compare last year’s downloads with the earliest release date</a></li>
-<li class="chapter" data-level="3.5" data-path="compare-moving-average-of-fable-and-forecast.html"><a href="compare-moving-average-of-fable-and-forecast.html"><i class="fa fa-check"></i><b>3.5</b> Compare moving average of fable and forecast</a></li>
-<li class="chapter" data-level="3.6" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>3.6</b> Compare download counts with the number of commits on master branch</a></li>
-<li class="chapter" data-level="3.7" data-path="compare-download-counts-with-alphabetical-order-of-name.html"><a href="compare-download-counts-with-alphabetical-order-of-name.html"><i class="fa fa-check"></i><b>3.7</b> Compare download counts with alphabetical order of name</a></li>
+<li class="chapter" data-level="4.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>4.1</b> Daily download of R-packages</a></li>
+<li class="chapter" data-level="4.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>4.2</b> Daily downloads of R</a></li>
+<li class="chapter" data-level="4.3" data-path="daily-top-15-downloaded-packages.html"><a href="daily-top-15-downloaded-packages.html"><i class="fa fa-check"></i><b>4.3</b> Daily top 15 downloaded packages</a></li>
+<li class="chapter" data-level="4.4" data-path="compare-last-years-downloads-with-the-earliest-release-date.html"><a href="compare-last-years-downloads-with-the-earliest-release-date.html"><i class="fa fa-check"></i><b>4.4</b> Compare last year’s downloads with the earliest release date</a></li>
+<li class="chapter" data-level="4.5" data-path="compare-moving-average-of-fable-and-forecast.html"><a href="compare-moving-average-of-fable-and-forecast.html"><i class="fa fa-check"></i><b>4.5</b> Compare moving average of fable and forecast</a></li>
+<li class="chapter" data-level="4.6" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>4.6</b> Compare download counts with the number of commits on master branch</a></li>
+<li class="chapter" data-level="4.7" data-path="compare-download-counts-with-alphabetical-order-of-name.html"><a href="compare-download-counts-with-alphabetical-order-of-name.html"><i class="fa fa-check"></i><b>4.7</b> Compare download counts with alphabetical order of name</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>4</b> Summary</a></li>
-<li class="chapter" data-level="5" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>5</b> Conclusion</a></li>
+<li class="chapter" data-level="5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>5</b> Summary</a></li>
+<li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -136,20 +201,20 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="compare-download-counts-with-the-number-of-commits-on-master-branch" class="section level2" number="3.6">
-<h2><span class="header-section-number">3.6</span> Compare download counts with the number of commits on master branch</h2>
+<div id="compare-download-counts-with-the-number-of-commits-on-master-branch" class="section level2" number="4.6">
+<h2><span class="header-section-number">4.6</span> Compare download counts with the number of commits on master branch</h2>
 <p>In this section, we compared last half year’s total downloads with the number of commits on master branch in Github repositories. And this turn, we initially planned to replace the research object with all the packages on CRAN, 17674 packages up to 2021-06-06. But we soon found out that there were only 6185 packages that have a Github repository, and after cleaning up, only 5610 remained.</p>
 <div class="discovery">
 <p>
-<strong>Assumption</strong>: In our initial assumption, more commits on master branch of Github repository tends to bring more download counts to packages. On the one hand, the number of commits indicates that developers are constantly supplementing and updating the package, which will lead to more downloads. On the other hand, the number of commits also reflects the attention developers attach to the package to a certain extent. So, if a package has more commits, then developers may invest more in advertising and other ways to promote it, so as to expand the popularity and improve the download count.
+<strong>Finding</strong>: In our initial assumption, more commits on master branch of Github repository tends to bring more download counts to packages. On the one hand, the number of commits indicates that developers are constantly supplementing and updating the package, which will lead to more downloads. On the other hand, the number of commits also reflects the attention developers attach to the package to a certain extent. So, if a package has more commits, then developers may invest more in advertising and other ways to promote it, so as to expand the popularity and improve the download count.
 </p>
 </div>
 <p>The way we initially applied was extracting the commits through accessing the Github API. To achieve this, we first scraped the Github URLs from ‘description’ page for all the packages, and cleaned up the multiple URLs or some other redundant symbols and characters. And the URL of scraping the commits through Github API is formatted as <em>“<a href="https://api.github.com/repos/%7Buser_repo%7D/commits?per_page=1" class="uri">https://api.github.com/repos/{user_repo}/commits?per_page=1</a>”</em>. For example, the URL for package <code>tidyverse</code> can be like <em>“<a href="https://api.github.com/repos/tidyverse/tidyverse/commits?per_page=1" class="uri">https://api.github.com/repos/tidyverse/tidyverse/commits?per_page=1</a>”</em>. So, practically, by replacing the <code>user_repo</code> part that consists of the name of the related repository and the name of the package holder, we could access the content of all the package URLs through Github API.</p>
-<p>Based on that, Table <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#tab:userrepo-tbl">3.13</a> shows the first 5 packages of the whole, their Github URLs and the <code>user_repo</code> part.</p>
+<p>Based on that, Table <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#tab:userrepo-tbl">4.13</a> shows the first 5 packages of the whole, their Github URLs and the <code>user_repo</code> part.</p>
 <p>However, the Github API has a rate limits allowing for up to 60 requests per hour for unauthenticated requests, and this can be extended to 5000 per hour after authentication<span class="citation">(<a href="#ref-githubapi" role="doc-biblioref"><span>“Resources in the REST API,”</span> n.d.</a>)</span>. But even after getting authentication, our rate limit didn’t get promoted. So, we switched to scrape commits by python spider. And by setting random agent, we successfully avoided the API limit. And as this method is quite time consuming, we saved the output as a txt file and load it in R studio to speed up the compiling process.</p>
 <table class="table table-hover table-striped" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:userrepo-tbl">Table 3.13: </span>First 5 packages with their ‘user_repo’ element
+<span id="tab:userrepo-tbl">Table 4.13: </span>First 5 packages with their ‘user_repo’ element
 </caption>
 <thead>
 <tr>
@@ -222,10 +287,10 @@ abess-team/abess
 </tr>
 </tbody>
 </table>
-<p>Table <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#tab:commits-tbl">3.14</a> shows the first 5 packages of all, along with their last half a year’s total downloads and the number of commits on Github master branch.</p>
+<p>Table <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#tab:commits-tbl">4.14</a> shows the first 5 packages of all, along with their last half a year’s total downloads and the number of commits on Github master branch.</p>
 <table class="table table-hover table-striped" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:commits-tbl">Table 3.14: </span>First 5 packages with commits on Github and last half year’s total downloads
+<span id="tab:commits-tbl">Table 4.14: </span>First 5 packages with commits on Github and last half year’s total downloads
 </caption>
 <thead>
 <tr>
@@ -298,21 +363,21 @@ tibble
 </tr>
 </tbody>
 </table>
-<p>Figure <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#fig:commits-pattern">3.14</a> shows the scatterplot along with a smoothing line. In general, more commits, more downloads. But as this only covers a very tiny sample with 60 packages, we are not quite sure whether this conclusion is applicable to all packages on CRAN. Anyway, from the pattern shown by this small sample, our assumption seems relatively reasonable to some extent. That is, the total download count gained by package will tend to rise with the increasing of the number of commits in Github repository. Meanwhile, we could also notice that when the commits count is over 1000, the total download count has a small jump. And we suppose that could result from the very small sample size. And when if we could get enough data, the trend may rise again.</p>
+<p>Figure <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#fig:commits-pattern">4.14</a> shows the scatterplot along with a smoothing line. In general, more commits, more downloads. But as this only covers a very tiny sample with 60 packages, we are not quite sure whether this conclusion is applicable to all packages on CRAN. Anyway, from the pattern shown by this small sample, our assumption seems relatively reasonable to some extent. That is, the total download count gained by package will tend to rise with the increasing of the number of commits in Github repository. Meanwhile, we could also notice that when the commits count is over 1000, the total download count has a small jump. And we suppose that could result from the very small sample size. And when if we could get enough data, the trend may rise again.</p>
 
 <div class="figure" style="text-align: center"><span id="fig:commits-pattern"></span>
 <img src="figures/commits-pattern-1.png" alt="The commits on master branch of Github repository against the last half a year’s total download count." width="672" />
 <p class="caption">
-Figure 3.14: The commits on master branch of Github repository against the last half a year’s total download count.
+Figure 4.14: The commits on master branch of Github repository against the last half a year’s total download count.
 </p>
 </div>
 <p>Another method to explore this question is by looking at the ultra-low-downloaded packages, whose download count only ranks at last 1% of all. And another purpose for this part is to show how we initially intended to scrape commits through Github API with R (as the sample size is less than 60 packages under this situation).</p>
-<p>From Table <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#tab:quantileall">3.15</a> we could see the last 1% downloaded count is around 401. And as these download counts are extremely low, we could assume that many factors will have little effect on their downloads. Thus, we can further assume that the only two differences between them are the number of commits on Github master branch and the total download count.</p>
-<p>So, we could filter these ultra-low-downloaded packages and extract the commits on Github, then explore the pattern in total download count against the number of commits in Figure <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#fig:pkg-low">3.15</a>. It could be believed that when the number of commits increases from 0 to 100, the download count first increases and then decreases. After that, the download volume keeps rising and appears to have a little jump at the end, but we supposed it might be due to the the too small-sized sample, and the observation causing the decline may be an outlier. So, if expanding the observation horizon, we expected the curve might increase again. Therefore, it can be seen that even for these last 1% downloaded packages, there also exist the phenomenon - “the more commits, the more downloads.”</p>
+<p>From Table <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#tab:quantileall">4.15</a> we could see the last 1% downloaded count is around 401. And as these download counts are extremely low, we could assume that many factors will have little effect on their downloads. Thus, we can further assume that the only two differences between them are the number of commits on Github master branch and the total download count.</p>
+<p>So, we could filter these ultra-low-downloaded packages and extract the commits on Github, then explore the pattern in total download count against the number of commits in Figure <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#fig:pkg-low">4.15</a>. It could be believed that when the number of commits increases from 0 to 100, the download count first increases and then decreases. After that, the download volume keeps rising and appears to have a little jump at the end, but we supposed it might be due to the the too small-sized sample, and the observation causing the decline may be an outlier. So, if expanding the observation horizon, we expected the curve might increase again. Therefore, it can be seen that even for these last 1% downloaded packages, there also exist the phenomenon - “the more commits, the more downloads.”</p>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; ">
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:quantileall">Table 3.15: </span>Quantile of total download count for all the packages on CRAN
+<span id="tab:quantileall">Table 4.15: </span>Quantile of total download count for all the packages on CRAN
 </caption>
 <thead>
 <tr>
@@ -1139,7 +1204,7 @@ download count
 <div class="figure" style="text-align: center"><span id="fig:pkg-low"></span>
 <img src="figures/pkg-low-1.png" alt="The commits on master branch of Github repository against the last half a year’s total download count for last 1% downloaded packages on CRAN." width="672" />
 <p class="caption">
-Figure 3.15: The commits on master branch of Github repository against the last half a year’s total download count for last 1% downloaded packages on CRAN.
+Figure 4.15: The commits on master branch of Github repository against the last half a year’s total download count for last 1% downloaded packages on CRAN.
 </p>
 </div>
 </div>
