@@ -46,7 +46,7 @@ library(grid)
  library(xml2)
  library(stats)
  library(gglorenz)
-
+ library(formattable)
 
 our_theme <- theme(rect = element_rect(fill = "#4e5a65"),
         text = element_text(color = "white", size = 10),
@@ -104,7 +104,6 @@ style_duo_accent(
 --
 
 ```{r total-number-pkg,include=FALSE}
-library(formattable)
 library(tidyverse)
 url <- "http://cran.rstudio.com/web/packages/packages.rds"
 pkgs <- readRDS(url(url)) %>% 
@@ -183,7 +182,6 @@ pkg_trendcom_count <- pkg_trending_compare %>%
 - explore **influential factors**
 
 ---
-
 ## `r emo::ji("book")`Data source
 
 - download logs from the RStudio CRAN mirror site .grey[https://cran.rstudio.com/]
@@ -656,20 +654,6 @@ theme_bw()+
 lorenz_curve
 ```
 
----
-
-### Other interesting findings for R
-
-- The **most used** operation system is **Windows**
-
---
-
-- The **most popular** version is **3.2.1**
-
---
-
-
-- The most stably popular packages during 2017 to 2019 is about **JAVA dependency**
 
 ---
 # `r emo::ji("thinking")` Question :
@@ -885,9 +869,6 @@ pkg_commits_all %>%
 
 ---
 
-### `r emo::ji("gold")`The update times
-
-[need add figure here]
 
 ---
 # `r emo::ji("gold")`Name Analysis
@@ -913,6 +894,34 @@ pkg_commits_all %>%
 <img src="sherlock1995.jpg" width="150">
 
 ]
+
+---
+
+class: hide-logo
+*`r emo::ji("gold")` For taskview packages, the .orange[length] of the package name .orange[increases] with the .orange[initial release date], especially for Bayesian packages.*
+
+```{r taskview-namelength}
+taskview_downloads %>% 
+  group_by(package) %>% 
+  summarise(total = sum(count), 
+            taskview = unique(taskview)) %>% 
+  left_join(initial_release, by = "package") %>%
+  mutate(length_name = nchar(package))%>%
+  ggplot(aes(x = initial, y = length_name)) +
+  geom_point(colour = "grey")+
+  geom_smooth(aes(colour = taskview),se = F) +
+  facet_wrap(~taskview, ncol = 1) +
+  scale_y_log10() +
+  labs( y = 'Name length',
+        x = 'The initial release date') +
+  #theme_minimal()  +
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5))
+```
 
 ---
 class: hide-logo
@@ -955,92 +964,6 @@ compare_all_namelth %>%
 
 
 ---
-class: hide-logo
-### `r emo::ji("gold")` For all R-packages on CRAN, the average name length tends to generally increase each year.
-
-[need a figure here]
-
----
-
-### `r emo::ji("gold")` The difference in downloads for each alphabetical groups varies **.red[little]**
-
---
-
-```{r get-alphabetic, include=FALSE}
-library(available)
-cran_names <- rownames(available:::available_packages(repos = available:::default_cran_repos)) %>%
-  as.data.frame() 
-
-colnames(cran_names)[1] <- "package"
-
-
-  get_pkg_alphabetic <- function(df,letter1,letter2){
-  
-  pkg <- df %>%
-  filter(str_detect(package, paste0(letter1)))%>%
-  mutate(group = paste0(letter2))
-
-  return(pkg)
-  
-  }
-
-#group the pkgs by alphabetical order
-pkg_a <- get_pkg_alphabetic(cran_names,"^a|^A","A/a")
-pkg_b <- get_pkg_alphabetic(cran_names,"^b|^B","B/b")
-pkg_c <- get_pkg_alphabetic(cran_names,"^c|^C","C/c")
-pkg_d <- get_pkg_alphabetic(cran_names,"^d|^D","D/d")
-pkg_e <- get_pkg_alphabetic(cran_names,"^e|^E","E/e")
-pkg_f <- get_pkg_alphabetic(cran_names,"^f|^F","F/f")
-pkg_g <- get_pkg_alphabetic(cran_names,"^g|^G","G/g")
-pkg_h <- get_pkg_alphabetic(cran_names,"^h|^H","H/h")
-pkg_i <- get_pkg_alphabetic(cran_names,"^i|^I","I/i")
-pkg_j <- get_pkg_alphabetic(cran_names,"^j|^J","J/j")
-pkg_k <- get_pkg_alphabetic(cran_names,"^k|^K","K/k")
-pkg_l <- get_pkg_alphabetic(cran_names,"^l|^L","L/l")
-pkg_m <- get_pkg_alphabetic(cran_names,"^m|^M","M/m")
-pkg_n <- get_pkg_alphabetic(cran_names,"^n|^N","N/n")
-pkg_o <- get_pkg_alphabetic(cran_names,"^o|^O","O/o")
-pkg_p <- get_pkg_alphabetic(cran_names,"^p|^P","P/p")
-pkg_q <- get_pkg_alphabetic(cran_names,"^q|^Q","Q/q")
-pkg_r <- get_pkg_alphabetic(cran_names,"^r|^R","R/r")
-pkg_s <- get_pkg_alphabetic(cran_names,"^s|^S","S/s")
-pkg_t <- get_pkg_alphabetic(cran_names,"^t|^T","T/t")
-pkg_u <- get_pkg_alphabetic(cran_names,"^u|^U","U/u")
-pkg_v <- get_pkg_alphabetic(cran_names,"^v|^V","V/v")
-pkg_w <- get_pkg_alphabetic(cran_names,"^w|^W","W/w")
-pkg_x <- get_pkg_alphabetic(cran_names,"^x|^X","X/x")
-pkg_y <- get_pkg_alphabetic(cran_names,"^y|^Y","Y/y")
-pkg_z <- get_pkg_alphabetic(cran_names,"^z|^Z","Z/z")
-
-pkg_alphabetic <- rbind(pkg_a,pkg_b,pkg_c,pkg_d,pkg_e,pkg_f,pkg_g,pkg_h,pkg_i,pkg_j,pkg_k,pkg_l,pkg_m,pkg_n,pkg_o,pkg_p,pkg_q,pkg_r,pkg_s,pkg_t,pkg_u,pkg_v,pkg_w,pkg_x,pkg_y,pkg_z) %>%
-  group_by(group)
-
-```
-
-```{r alpha-boxplot}
-pkg_alpha_download <- pkg_alphabetic%>%
-  left_join(cran_names_download,by = "package") %>%
-  na.omit()
-
-ggplot(pkg_alpha_download,aes(x = group, y = total)) +
-  geom_boxplot() +
-  labs( y = 'Total download counts',
-    title = "Total download counts against different alphabetic group",
-    subtitle = "for all R-packages of each group") +
-  scale_y_log10() +
-  #ylim(0, 10000) +
-  theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  plot.title = element_text(h = 0.5),
-  plot.subtitle = element_text(h = 0.5),
-  axis.title.x = element_blank())
-```
-
-
----
 # `r emo::ji("bulb")`Conclusion
 
 --
@@ -1075,10 +998,17 @@ _.grey[https://github.com/Yiwen-Zhang-259/ETC5543-cran-analysis]_
 
 - the name length interval
 
+- alphabetical order
+
+- The **most used** operation system is **Windows**
+
+- The **most popular** version is **3.2.1**
+
+- The most stably popular packages during 2017 to 2019 is about **JAVA dependency**
+
 - ...
 
 ---
-
 # `r emo::ji("wise")`Acknowledgements
 
 I would like to express my very great appreciation to my supervisors:
@@ -1185,6 +1115,11 @@ print(bib[key = "R-pkgsearch"],
                bib.style = "authoryear"))
 
 print(bib[key = "R-rvest"], 
+  .opts = list(check.entries = FALSE, 
+               style = "html", 
+               bib.style = "authoryear"))
+
+print(bib[key = "rhub"], 
   .opts = list(check.entries = FALSE, 
                style = "html", 
                bib.style = "authoryear"))
