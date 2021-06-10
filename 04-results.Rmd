@@ -9,8 +9,6 @@ knitr::opts_chunk$set(echo = FALSE,
                       message = FALSE,
                       warning = FALSE)
 
-## This is bad for reproducibility!!
-# knitr::opts_knit$set(root.dir = "/Users/mac/ETC5543-cran-analysis2")
 
  library(tidyverse)
  library(cranlogs)
