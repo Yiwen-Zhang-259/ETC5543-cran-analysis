@@ -44,15 +44,15 @@ theme_set(theme_bw(base_size = 14) +
 
 # comment out below to include/exclude analysis
 child_docs <- c(
-                "03-S01-pkg-downloads.Rmd",
-                "03-S01B-R-downloads.Rmd",
-                "03-S02-top15.Rmd",
-                "03-S03-release-date.Rmd",
-                "03-S04-similarpkg-fable-forecast.Rmd",
-                "03-S05-github-commits.Rmd",
+                "04-S01-pkg-downloads.Rmd",
+                "04-S01B-R-downloads.Rmd",
+                "04-S02-top15.Rmd",
+                "04-S03-release-date.Rmd",
+                "04-S04-similarpkg-fable-forecast.Rmd",
+                "04-S05-github-commits.Rmd",
                 #"03-S06-update-times.Rmd",
                 #"03-S07-pkg-name-length.Rmd",
-                "03-S08-pkg-name-order.Rmd",
+                "04-S08-pkg-name-order.Rmd",
                 NULL)
 ```
 
