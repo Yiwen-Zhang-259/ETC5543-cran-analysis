@@ -184,6 +184,16 @@ pkg_trendcom_count <- pkg_trending_compare %>%
 
 ---
 
+## `r emo::ji("gold")`Data source
+
+- download logs from the RStudio CRAN mirror site .grey[https://cran.rstudio.com/]
+
+- summary download logs from `cranlogs` R-package, based on web API maintained by r-hub
+
+- commits number scraped from Github repository
+
+---
+
 ## `r emo::ji("gold")`The daily download of packages
 
 .center[
