@@ -675,7 +675,7 @@ lorenz_curve
 # `r emo::ji("thinking")` Question :
 
 .center[
-## *What would affect the download counts?*
+## *What may have correlation with download count?*
 ]
 
 --
@@ -1045,7 +1045,7 @@ ggplot(pkg_alpha_download,aes(x = group, y = total)) +
 
 --
 
-### .grey[Many factors do affect download cout of R packages on CRAN]
+### .grey[Many factors are related to the download count]
 
 --
 
