@@ -303,21 +303,7 @@ US
 
 ]
 ---
-###About unsual spike
 
-####It is usually due to ：
-
-- update of packages
-
---
-
-- repeated download from the same IP
-
---
-
-- test server issue
-
----
 class: hide-logo
 ### *Finding 2* **10%** packages share **90%** cumulative download count
 
@@ -850,26 +836,6 @@ pkg_commits_all %>%
   plot.subtitle = element_text(h = 0.5))
 ```
 
-
----
-
-# `r emo::ji("gold")`The update times
-
---
-
-## .grey[All available CRAN R-packages]
-
---
-
-### Download count *.orange[slightly]* rise with the update times
-
---
-
-### .red[Keep updating] really matters
-
----
-
-
 ---
 # `r emo::ji("gold")`Name Analysis
 
@@ -1000,11 +966,11 @@ _.grey[https://github.com/Yiwen-Zhang-259/ETC5543-cran-analysis]_
 
 - alphabetical order
 
+- update times
+
 - The **most used** operation system is **Windows**
 
 - The **most popular** version is **3.2.1**
-
-- The most stably popular packages during 2017 to 2019 is about **JAVA dependency**
 
 - ...
 
