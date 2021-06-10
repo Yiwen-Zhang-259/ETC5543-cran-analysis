@@ -1,5 +1,5 @@
 --- 
-title: "What makes a R-package popular?"
+title: "What makes an R-package popular?"
 author: "Yiwen Zhang"
 date: "`r Sys.Date()`"
 documentclass: book
