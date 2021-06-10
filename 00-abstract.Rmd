@@ -1,5 +1,5 @@
 
-```{r all-pkgs, echo = FALSE}
+```{r all-pkgs, include=FALSE}
 library(formattable)
 library(tidyverse)
 url <- "http://cran.rstudio.com/web/packages/packages.rds"
