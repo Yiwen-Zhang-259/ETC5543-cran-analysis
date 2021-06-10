@@ -675,7 +675,7 @@ lorenz_curve
 # `r emo::ji("thinking")` Question :
 
 .center[
-## *What may have correlation with download count?*
+## *What factors are linked to download counts?*
 ]
 
 --
@@ -703,11 +703,11 @@ lorenz_curve
 
 --
 
-### .grey[CRAN task view packages]
+### .grey[CRAN task view R-packages]
 
 --
 
-### Packages that are .orange[initially] released .orange[earlier] on CRAN tend to have a .orange[higher] download count in the past year.
+### R-packages that are .orange[initially] released .orange[earlier] on CRAN tend to have a .orange[higher] download count in the past year.
 
 ---
 class: hide-logo
@@ -826,7 +826,7 @@ class: hide-logo
 
 --
 
-### .grey[All available CRAN packages with Github repo]
+### .grey[All available CRAN R-packages with Github repo]
 
 --
 
@@ -855,7 +855,7 @@ pkg_commits_all %>%
   labs( y = 'Total download count',
           x = 'The number of commits',
     title = "Commits counts against download counts",
-    subtitle = "of 5769 packages for last half a year") +
+    subtitle = "of 5769 R-packages for last half a year") +
     #annotate("text",y= 70000,x= 500,label="In general, more commits, more downloads.",color="red") +
   #theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
@@ -873,7 +873,7 @@ pkg_commits_all %>%
 
 --
 
-## .grey[All available CRAN packages]
+## .grey[All available CRAN R-packages]
 
 --
 
@@ -916,7 +916,7 @@ pkg_commits_all %>%
 
 ---
 class: hide-logo
-### `r emo::ji("thinking")`Over half of the packages tend to have *.orange[shorter]* names
+### `r emo::ji("thinking")`Over half of the R-packages tend to have *.orange[shorter]* names
 
 ```{r name-length, include=FALSE}
 cran_namelth_download <- cran_names_download %>%
@@ -944,7 +944,7 @@ compare_all_namelth <- cbind(cran_namelth_download1,`total average name length`)
 
 ```{r}
 compare_all_namelth %>%
-  kable(caption = "Percentage of packages whose name length are less than average") %>%
+  kable(caption = "Percentage of R-packages whose name length are less than average") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
@@ -956,7 +956,7 @@ compare_all_namelth %>%
 
 ---
 class: hide-logo
-### `r emo::ji("gold")` For all packages on CRAN, the average name length tends to generally increase each year.
+### `r emo::ji("gold")` For all R-packages on CRAN, the average name length tends to generally increase each year.
 
 [need a figure here]
 
@@ -1026,7 +1026,7 @@ ggplot(pkg_alpha_download,aes(x = group, y = total)) +
   geom_boxplot() +
   labs( y = 'Total download counts',
     title = "Total download counts against different alphabetic group",
-    subtitle = "for all packages of each group") +
+    subtitle = "for all R-packages of each group") +
   scale_y_log10() +
   #ylim(0, 10000) +
   theme_minimal()  +
@@ -1070,7 +1070,7 @@ ggplot(pkg_alpha_download,aes(x = group, y = total)) +
 
 _.grey[https://github.com/Yiwen-Zhang-259/ETC5543-cran-analysis]_
 
-- last 1% downloaded packages
+- last 1% downloaded R-packages
 
 - the name length interval
 
