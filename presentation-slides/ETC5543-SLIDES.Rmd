@@ -1066,6 +1066,7 @@ ggplot(pkg_alpha_download,aes(x = group, y = total)) +
 **make a CRAN R-package .orange[popular]** !
 
 ---
+class: hide-logo
 ### More detailed findings in my report from Github :
 
 _.grey[https://github.com/Yiwen-Zhang-259/ETC5543-cran-analysis]_
