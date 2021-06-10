@@ -80,7 +80,7 @@ pkg_updates <- pkg_updates_all %>%
   count(package)
 ```
 
-Figure \@ref(fig:all-updates) shows that the number of downloads increases with the update times. And most packages are updated between 1 and 6 times.
+Figure \@ref(fig:all-updates) shows that the number of downloads increases with the update times. And most R-packages are updated between 1 and 6 times.
 
 (ref:all-updates) The download count increase with the number of updates.
 
@@ -93,7 +93,7 @@ pkg_updates %>%
     labs( x = 'The number of updates',
           y = 'Total download count',
     title = "Update counts against download counts",
-    subtitle = "for all packages on CRAN") +
+    subtitle = "for all R-packages on CRAN") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank()) +
   theme(
@@ -104,10 +104,10 @@ pkg_updates %>%
 ```
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 2**: Over half of the packages don't tend to update very frequently.
+**Finding 2**: Over half of the R-packages don't tend to update very frequently.
 ```
 
-Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage of trending packages whose updates are less than average is 71 %, which means much more than half of the packages do not tend to update very frequently. 
+Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage of trending R-packages whose updates are less than average is 71 %, which means much more than half of the R-packages do not tend to update very frequently. 
 
 ```{r  function-lowupdates}
 # function used to compute packages lying in the low-updated range
@@ -125,7 +125,7 @@ pct_updates <- pkg_updates %>%
   mutate(`percentage of packages with low updates` = (`number of packages with low updates`/pkg_total)*100)
 
 pct_updates%>%
-  kable(caption = "Percentage of trending packages whose updates are less than average") %>%
+  kable(caption = "Percentage of trending R-packages whose updates are less than average") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 
 return(pct_updates)
@@ -141,7 +141,7 @@ compute_pct_lowupdated(pkg_updates)
 
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 3**: Most packages keep updating with the time to keep its activity.
+**Finding 3**: Most R-packages keep updating with the time to keep its activity.
 ```
 
 
@@ -155,9 +155,9 @@ latest_updates <- pkg_updates_all %>%
   
 ```
 
-It can be seen from Figure \@ref(fig:latestpublish) that most packages' latest publish date is after 2021, which indicates that popular packages tend to update by time to keep its activity.
+It can be seen from Figure \@ref(fig:latestpublish) that most R-packages' latest publish date is after 2021, which indicates that popular R-packages tend to update by time to keep its activity.
 
-(ref:latestpublish) The latest update dates of trending packages are almost all the recent dates.
+(ref:latestpublish) The latest update dates of trending R-packages are almost all the recent dates.
 
 ```{r  latestpublish,fig.cap="(ref:latestpublish)"}
 
@@ -167,7 +167,7 @@ pkg_trending_latest_publish %>%
   labs( 
         x = 'Latest publish date',
     title = "Distribution of latest publish date",
-    subtitle = "for all packages") +
+    subtitle = "for all R-packages") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -179,7 +179,7 @@ pkg_trending_latest_publish %>%
 
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 4**: Most of the packages are likely to update at a longer time interval.
+**Finding 4**: Most of the R-packages are likely to update at a longer time interval.
 ```
 
 Figure \@ref(fig:updates-perday) shows that with the increase of update interval, the number of downloads first increases and then decreases slightly. And most of the time intervals are between 45 and 450 days, which shows that their update frequency is not very high.
@@ -211,7 +211,7 @@ pkg_trending_daily_update %>%
   labs( y = 'Total download counts',
           x = 'Days per update',
     title = "Daily update counts against the download counts",
-    subtitle = "for trending packages") +
+    subtitle = "for trending R-packages") +
   scale_color_continuous(trans = 'log10') +
   scale_x_log10() +
   scale_y_sqrt() +
@@ -225,5 +225,5 @@ pkg_trending_daily_update %>%
 ```
 
 
-In conclusion, it's not that the more updates the package has, the popular it will be. In general, most of the packages whose updates are lower than the average occupy the majority. Therefore, we can also know that the total number of updates is not very important for the trending package. The important thing is to keep it updated with the time.
+In conclusion, it's not that the more updates the R-package has, the popular it will be. In general, most of the R-packages whose updates are lower than the average occupy the majority. Therefore, we can also know that the total number of updates is not very important for the trending R-package. The important thing is to keep it updated with the time.
 

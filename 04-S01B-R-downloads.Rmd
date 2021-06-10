@@ -13,7 +13,7 @@ R_downloads <- cran_downloads("R", from = dd_start, to = dd_end) %>%
 **Finding 1**: The number of downloads shows an upward trend over time, and the variance also increases with the downloads.
 ```
 
-Figure \@ref(fig:R-download-trend) shows the download trend of R on CRAN over time. It shows an upward trend over time, and the variance also increases with the download count, which indicates the volatility of the data is increasing as well. And that is resulted from the pump of R users. As for the significant spikes, it is probably quite similar to the situation of R packages, which is due to repeated downloads, weekly calendar effect and server test.
+Figure \@ref(fig:R-download-trend) shows the download trend of R on CRAN over time. It shows an upward trend over time, and the variance also increases with the download count, which indicates the volatility of the data is increasing as well. And that is resulted from the pump of R users. As for the significant spikes, it is probably quite similar to the situation of R-packages, which is due to repeated downloads, weekly calendar effect and server test.
 
 (ref:R-download-trend) The download trend of R on CRAN over time. 
 
@@ -128,4 +128,4 @@ R_version %>%
 
 ```
 
-In conclusion, the daily download trend of R is quite similar to that of R packages, and they are both significantly affected by weekly calendar issue, unusual downloads from CRAN mirrors. But in general, they both tend to increase with the growing of users.
+In conclusion, the daily download trend of R is quite similar to that of R-packages, and they are both significantly affected by weekly calendar issue, unusual downloads from CRAN mirrors. But in general, they both tend to increase with the growing of users.

@@ -116,9 +116,9 @@ After we found that there is no obvious relationship between the name length of 
 ```
 
 We have such an experience in life, that is, for the same type of goods, such as detective novels, the later they are released, the narrower the choice of naming is, because there are certain restrictions on the name of a particular type, but many names have been occupied by the books published earlier. Therefore, these later published books often have to lengthen their names to distinguish themselves from the existing books in the same type or even the same name. 
-Coincidentally, we assumed the naming of packages from the same type would also be affected by the initial release time, to a certain extent. So, here, we looked back to the CRAN task view packages for constructing comparison among packages from the same topic. Figure \@ref(fig:namelth-taskview) shows the name length of CRAN task view packages against the initial release date. It is obvious that the length of the package name increases with the initial release date, especially for Bayesian packages.
+Coincidentally, we assumed the naming of packages from the same type would also be affected by the initial release time, to a certain extent. So, here, we looked back to the CRAN task view R-packages for constructing comparison among R-packages from the same topic. Figure \@ref(fig:namelth-taskview) shows the name length of CRAN task view R-packages against the initial release date. It is obvious that the length of the R-package name increases with the initial release date, especially for Bayesian R-packages.
 
-(ref:namelth-taskview) The name length of taskview packages slightly increase with the initial release date.
+(ref:namelth-taskview) The name length of taskview R-packages slightly increase with the initial release date.
 
 ```{r namelth-taskview,fig.height = 10,fig.cap="(ref:namelth-taskview)"}
 taskview_downloads %>% 
@@ -135,7 +135,7 @@ taskview_downloads %>%
   labs( y = 'Name length',
         x = 'The initial release date',
     title = "Name length against the initail release date",
-    subtitle = "for three types of packages from CRAN task view") +
+    subtitle = "for three types of R-packages from CRAN task view") +
   #theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -147,14 +147,14 @@ taskview_downloads %>%
 
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 5**: For all packages on CRAN, the average name length tends to generally increase with the inital release date.
+**Finding 5**: For all R-packages on CRAN, the average name length tends to generally increase with the inital release date.
 ```
 
-Although we'd better explore this question among the same topic of packages, we could also have a view on the annual change in the average name length of all packages on CRAN.
+Although we'd better explore this question among the same topic of R-packages, we could also have a view on the annual change in the average name length of all R-packages on CRAN.
 
-Figure \@ref(fig:avgnamelth-year) shows the average name length of all packages on CRAN released in each year. It is obvious that the name length of these package generally increases year by year.
+Figure \@ref(fig:avgnamelth-year) shows the average name length of all R-packages on CRAN released in each year. It is obvious that the name length of these R-package generally increases year by year.
 
-(ref:random-release) The average name length of all packages on CRAN each year tends to rise along the time.
+(ref:random-release) The average name length of all R-packages on CRAN each year tends to rise along the time.
 
 ```{r avgnamelth-year,fig.cap="(ref:avgnamelth-year)"}
 pkg_namelth_release <- pkg_updates_all %>%
@@ -174,7 +174,7 @@ pkg_namelth_release %>%
   labs( y = 'Average name length',
         x = 'The initial release date',
     title = "Average name length each year",
-    subtitle = "for all packages on CRAN") +
+    subtitle = "for all R-packages on CRAN") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
