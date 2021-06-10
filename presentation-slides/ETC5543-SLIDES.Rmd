@@ -184,7 +184,7 @@ pkg_trendcom_count <- pkg_trending_compare %>%
 
 ---
 
-## `r emo::ji("gold")`Data source
+## `r emo::ji("book")`Data source
 
 - download logs from the RStudio CRAN mirror site .grey[https://cran.rstudio.com/]
 
@@ -956,13 +956,13 @@ compare_all_namelth %>%
 
 ---
 class: hide-logo
-### `r emo::ji("thinking")` For all packages on CRAN, the average name length tends to generally increase each year.
+### `r emo::ji("gold")` For all packages on CRAN, the average name length tends to generally increase each year.
 
 [need a figure here]
 
 ---
 
-### `r emo::ji("thinking")` The difference in downloads for each alphabetical groups varies **.red[little]**
+### `r emo::ji("gold")` The difference in downloads for each alphabetical groups varies **.red[little]**
 
 --
 
@@ -1041,7 +1041,7 @@ ggplot(pkg_alpha_download,aes(x = group, y = total)) +
 
 
 ---
-# `r emo::ji("star")`Conclusion
+# `r emo::ji("bulb")`Conclusion
 
 --
 
