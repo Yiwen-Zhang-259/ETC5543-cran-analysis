@@ -789,53 +789,6 @@ grid.newpage()
 grid.draw(gff)
 ```
 
-
----
-class: hide-logo
-# `r emo::ji("gold")`The number of commits on Github repo
-
---
-
-### .grey[All available CRAN R-packages with Github repo]
-
---
-
-.center[
-###.orange[*5769*]###
-]
-
---
-
-### `r emo::ji("smile")`Generally, more commits, more download counts.
-
----
-
-### `r emo::ji("gold")`The number of commits on Github repo
-
-```{r commits}
-load("data/pkg_commits_all.rda")
-
-pkg_commits_all %>%
-  mutate(total = as.numeric(total)) %>%
-  mutate(commits = as.numeric(commits)) %>%
-  ggplot(aes(x = commits, y = total)) +
-  geom_point() +
-  geom_smooth(se = F) +
-  scale_y_log10() +
-  labs( y = 'Total download count',
-          x = 'The number of commits',
-    title = "Commits counts against download counts",
-    subtitle = "of 5769 R-packages for last half a year") +
-    #annotate("text",y= 70000,x= 500,label="In general, more commits, more downloads.",color="red") +
-  #theme_minimal()  +
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  plot.title = element_text(h = 0.5),
-  plot.subtitle = element_text(h = 0.5))
-```
-
 ---
 # `r emo::ji("gold")`Name Analysis
 
@@ -890,46 +843,6 @@ taskview_downloads %>%
 ```
 
 ---
-class: hide-logo
-### `r emo::ji("thinking")`Over half of the R-packages tend to have *.orange[shorter]* names
-
-```{r name-length, include=FALSE}
-cran_namelth_download <- cran_names_download %>%
-  mutate(length_name = nchar(package)) %>%
-  rowwise()%>%
-  mutate(length_name = as.numeric(length_name)) 
-
-
-cran_namelth_download <- cran_namelth_download %>%
-  arrange(desc(total)) 
-
-`total average name length`  <- as.numeric(mean(cran_namelth_download$length_name))
-`pkg_trending_total` <- as.numeric(length(cran_namelth_download$package))
-
-cran_namelth_download1 <- cran_namelth_download %>%
-  group_by(package) %>%
-  dplyr::filter(length_name < `total average name length`) %>%
-  ungroup() %>%
-  dplyr::summarise(`number of short names` = length(package)) %>%
-  mutate(`percentage of short names` = (`number of short names`/pkg_trending_total)*100)
-
-compare_all_namelth <- cbind(cran_namelth_download1,`total average name length`)
-
-```
-
-```{r}
-compare_all_namelth %>%
-  kable(caption = "Percentage of R-packages whose name length are less than average") %>%
-  kable_styling(bootstrap_options = c("hover", "striped"))
-```
-
---
-
-### `r emo::ji("smile")`Probably, shorter names are easier to be remembered by users !
-
-
-
----
 # `r emo::ji("bulb")`Conclusion
 
 --
@@ -967,6 +880,8 @@ _.grey[https://github.com/Yiwen-Zhang-259/ETC5543-cran-analysis]_
 - alphabetical order
 
 - update times
+
+- Github commits
 
 - The **most used** operation system is **Windows**
 
@@ -1095,4 +1010,3 @@ print(bib[key = "xaringan"],
                style = "html", 
                bib.style = "authoryear"))
 ```
-
