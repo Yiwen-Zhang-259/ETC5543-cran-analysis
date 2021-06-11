@@ -2,20 +2,20 @@
 
 In this project, we extracted R-package names from CRAN and got summary daily download logs of R-packages through web Application Programming Interface (API) maintained by r-hub[@rhub]. And we also collected release dates of R-packages through CRAN. In addition, we also tried to scrap the number of commits in Github repository for R-packages. Then we constructed eight exploratory data analysis sections: 
 
-- a) we explored the daily download of all the packages on CRAN and figured out the number of R-packages occupied by different downloaded groups; 
+- we explored the daily download of all the packages on CRAN and figured out the number of R-packages occupied by different downloaded groups; 
 
-- b) we analyzed the daily download trend of R itself and the found out the most popular version of R; 
+- we analyzed the daily download trend of R itself and the found out the most popular version of R; 
 
-- c) we compared the top 15 downloaded R-packages on CRAN on 1st April. from year 2013 to 2021 to see how the user preference changes;
+- we compared the top 15 downloaded R-packages on CRAN on 1st April. from year 2013 to 2021 to see how the user preference changes;
 
-- d) we figured out the relationship between initial release date and the total download count for last half a year; 
+- we figured out the relationship between initial release date and the total download count for last half a year; 
 
-- e) we compared two closely related packages `fable` and `forecast` to see the difference between their MA (moving average); 
+- we compared two closely related packages `fable` and `forecast` to see the difference between their MA (moving average); 
 
-- f) we studied how the number of commits of master (main) branch on Github repository may influence the total download count for last half a year; 
+- we studied how the number of commits of master (main) branch on Github repository may influence the total download count for last half a year; 
 
-- g) we explored the relationship between the number of updates of R-packages and its download count; 
+- we explored the relationship between the number of updates of R-packages and its download count; 
 
-- h) we analyzed the name length pattern for both CRAN task view packages and all the R-packages on CRAN; 
+- we analyzed the name length pattern for both CRAN task view packages and all the R-packages on CRAN; 
 
-- i) we explored how the alphabetical order of R-packages would related to the download count and its statistic features (variance, median).
+- we explored how the alphabetical order of R-packages would related to the download count and its statistic features (variance, median).
