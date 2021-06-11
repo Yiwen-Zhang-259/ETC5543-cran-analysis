@@ -892,7 +892,9 @@ _.grey[https://github.com/Yiwen-Zhang-259/ETC5543-cran-analysis]_
 ---
 # `r emo::ji("wise")`Acknowledgements
 
-I would like to express my very great appreciation to my supervisors:
+I would like to express my very great appreciation :
+
+- Professor Rob J Hyndman
 
 - Dr Emi Tanaka
 
