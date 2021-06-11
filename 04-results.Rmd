@@ -48,8 +48,8 @@ child_docs <- c(
                 "04-S03-release-date.Rmd",
                 "04-S04-similarpkg-fable-forecast.Rmd",
                 "04-S05-github-commits.Rmd",
-                #"03-S06-update-times.Rmd",
-                #"03-S07-pkg-name-length.Rmd",
+                "04-S06-update-times.Rmd",
+                "04-S07-pkg-name-length.Rmd",
                 "04-S08-pkg-name-order.Rmd",
                 NULL)
 ```
