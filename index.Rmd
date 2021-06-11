@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 documentclass: book
 site: bookdown::bookdown_site
 bibliography: [book.bib, packages.bib]
-biblio-style: apalike
+biblio-style: authoryear
 link-citations: yes
 github-repo: Yiwen-Zhang-259/ETC5543-cran-analysis
 description: ""

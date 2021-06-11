@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5.7 Compare download counts with the number of updates | What makes an R-package popular?</title>
+  <meta name="description" content="5.7 Compare download counts with the number of updates | What makes an R-package popular?" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5.7 Compare download counts with the number of updates | What makes an R-package popular?" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="Yiwen-Zhang-259/ETC5543-cran-analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5.7 Compare download counts with the number of updates | What makes an R-package popular?" />
+  
+  
+  
+
+<meta name="author" content="Yiwen Zhang" />
+
+
+<meta name="date" content="2021-06-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"/>
+<link rel="next" href="compare-the-package-name-length-with-download-counts.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ETC5543 Yiwen Zhang</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>1</b> Abstract</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="other-work.html"><a href="other-work.html"><i class="fa fa-check"></i><b>2.1</b> Other work</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> Data</a></li>
+<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>5.1</b> Daily download of R-packages</a></li>
+<li class="chapter" data-level="5.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>5.2</b> Daily downloads of R</a></li>
+<li class="chapter" data-level="5.3" data-path="daily-top-15-downloaded-r-packages.html"><a href="daily-top-15-downloaded-r-packages.html"><i class="fa fa-check"></i><b>5.3</b> Daily top 15 downloaded R-packages</a></li>
+<li class="chapter" data-level="5.4" data-path="compare-last-years-downloads-with-the-earliest-release-date.html"><a href="compare-last-years-downloads-with-the-earliest-release-date.html"><i class="fa fa-check"></i><b>5.4</b> Compare last year’s downloads with the earliest release date</a></li>
+<li class="chapter" data-level="5.5" data-path="compare-moving-average-of-fable-and-forecast.html"><a href="compare-moving-average-of-fable-and-forecast.html"><i class="fa fa-check"></i><b>5.5</b> Compare moving average of fable and forecast</a></li>
+<li class="chapter" data-level="5.6" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>5.6</b> Compare download counts with the number of commits on master branch</a></li>
+<li class="chapter" data-level="5.7" data-path="compare-download-counts-with-the-number-of-updates.html"><a href="compare-download-counts-with-the-number-of-updates.html"><i class="fa fa-check"></i><b>5.7</b> Compare download counts with the number of updates</a></li>
+<li class="chapter" data-level="5.8" data-path="compare-the-package-name-length-with-download-counts.html"><a href="compare-the-package-name-length-with-download-counts.html"><i class="fa fa-check"></i><b>5.8</b> Compare the package name length with download counts</a></li>
+<li class="chapter" data-level="5.9" data-path="compare-download-counts-with-alphabetical-order-of-name.html"><a href="compare-download-counts-with-alphabetical-order-of-name.html"><i class="fa fa-check"></i><b>5.9</b> Compare download counts with alphabetical order of name</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>6</b> Summary</a></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">What makes an R-package popular?</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="compare-download-counts-with-the-number-of-updates" class="section level2" number="5.7">
+<h2><span class="header-section-number">5.7</span> Compare download counts with the number of updates</h2>
+<p>Next, let’s look at the relationship between the number of updates and the number of downloads.
+In this part, our analysis object is still all the packages.</p>
+<div class="discovery">
+<p>
+<strong>Finding 1</strong>: The download count tends to rise with the number of updates.This is because as we have known before, when a package is updated, there will be a significant increase in the number of downloads. That is to say, when a package is updated, not only old users will download the latest version, but also it is easier to attract new users at this time, for the increase of downloads in a short time may bring it into the trending list.
+</p>
+</div>
+<p>Figure <a href="compare-download-counts-with-the-number-of-updates.html#fig:all-updates">5.16</a> shows that the number of downloads increases with the update times. And most R-packages are updated no more than 30 times.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:all-updates"></span>
+<img src="figures/all-updates-1.png" alt="The download count increase with the number of updates." width="672" />
+<p class="caption">
+Figure 5.16: The download count increase with the number of updates.
+</p>
+</div>
+<div class="discovery">
+<p>
+<strong>Finding 2</strong>: Over half of the R-packages don’t tend to update very frequently.
+</p>
+</div>
+<p>Also checking Table <a href="compare-download-counts-with-the-number-of-updates.html#tab:pct-lowupdates">5.16</a>, we can know that the percentage of R-packages whose updates are less than average is 70.2920266 %, which means much more than half of the R-packages do not tend to update very frequently.</p>
+<table class="table table-hover table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:pct-lowupdates">Table 5.16: </span>Percentage of trending R-packages whose updates are less than average
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+number of packages with low updates
+</th>
+<th style="text-align:right;">
+percentage of packages with low updates
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+11963
+</td>
+<td style="text-align:right;">
+70.29203
+</td>
+</tr>
+</tbody>
+</table>
+<div class="discovery">
+<p>
+<strong>Finding 3</strong>: Most R-packages keep updating with the time to keep its activity.
+</p>
+</div>
+<p>It can be seen from Figure <a href="compare-download-counts-with-the-number-of-updates.html#fig:latestpublish">5.17</a> that most R-packages’ latest publish date is after 2015, which indicates that many R-packages tend to update by time to keep its activity.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:latestpublish"></span>
+<img src="figures/latestpublish-1.png" alt="The latest update dates of trending R-packages are almost all the recent dates." width="672" />
+<p class="caption">
+Figure 5.17: The latest update dates of trending R-packages are almost all the recent dates.
+</p>
+</div>
+<div class="discovery">
+<p>
+<strong>Finding 4</strong>: Most of the R-packages are likely to update at a longer time interval.
+</p>
+</div>
+<p>Figure <a href="compare-download-counts-with-the-number-of-updates.html#fig:updates-perday">5.18</a> shows that with the increase of update interval, the number of downloads first increases and then decreases slightly. And most of the time intervals are between 45 and 450 days, which shows that their update frequency is not very high.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:updates-perday"></span>
+<img src="figures/updates-perday-1.png" alt="Most of the time intervals of updates are between 45 and 450 days." width="672" />
+<p class="caption">
+Figure 5.18: Most of the time intervals of updates are between 45 and 450 days.
+</p>
+</div>
+<p>In conclusion, it’s not that the more updates the R-package has, the popular it will be. In general, most of the R-packages whose updates are lower than the average occupy the majority. Therefore, we can also know that the total number of updates is not very important for the R-package. The important thing is to keep it updated with the time.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="compare-the-package-name-length-with-download-counts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Yiwen-Zhang-259/ETC5543-cran-analysis/edit/master/04-results.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ETC5543-Yiwen-Zhang.pdf", "ETC5543-Yiwen-Zhang.epub"],
+"toc": {
+"collapse": "subsection"
+},
+"collapse": "subsection",
+"scroll_highlight": true,
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
