@@ -18,7 +18,3 @@ Moreover, results show that the daily download of R-packages has a strong weekly
 
 
 KEY WORDS : R-package popularity, CRAN download count, Web scraping, Github API, EDA
-
-
-
-\pagebreak
