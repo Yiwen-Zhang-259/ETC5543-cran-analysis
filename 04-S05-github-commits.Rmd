@@ -89,7 +89,7 @@ dd2_new <- dd2_new %>%
 pkg_url_new <- dd2_new %>%
   select(package,URL)
 
-#save the clean-up pkg and github URL to scrape data in python
+#save the clean-up pkgs and github URLs to scrape data by python
 ##write_csv(pkg_url_new, file=here::here("data/pkg_url_new.csv"))
 #save(dd2_new, file=here::here("data/dd2_new.rda")) 
 ```
@@ -106,7 +106,7 @@ dd2_new %>%
 ```
 
 
-```{r combine-commits,eval=FALSE}
+```{r combine-commits}
 #read data of commits
 ##the code used to scrape the commits is in python script 'spider.py'
 commits_all <- read.table("data/commits.txt", comment="", header=TRUE)
@@ -122,12 +122,6 @@ pkg_commits_all <- pkg_commits_all %>%
 pkg_commits_all <- pkg_commits_all %>%
   left_join(cran_names_download, by = "package")
 
-#save(pkg_commits_all, file=here::here("data/pkg_commits_all.rda"))
-
-```
-
-```{r load-commits}
-load("data/pkg_commits_all.rda")
 ```
 
 Table \@ref(tab:commits-tbl) shows the first 5 R-packages of all, along with their last half a year's total downloads and the number of commits on Github master branch.

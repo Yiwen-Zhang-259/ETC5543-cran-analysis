@@ -10,7 +10,7 @@ In this part, our analysis object is still all the packages.
 
 ```{r updates-downloads-all,eval=FALSE}
 # to get the number of updates
-#slice into smaller sample to speed up
+#slice into smaller samples to speed up
 cran_names1_release <- map_dfr(cran_names1$package, function(x) releases(x)) %>%
   group_by(package) 
 
@@ -76,7 +76,7 @@ cran_names21_release <- map_dfr(cran_names2$package, function(x) releases(x)) %>
 
 pkg_updates_all <- rbind(cran_names1_release,cran_names2_release),cran_names3_release,cran_names4_release,cran_names5_release,cran_names6_release,cran_names7_release,cran_names8_release,cran_names9_release,cran_names10_release,cran_names11_release,cran_names12_release,cran_names13_release,cran_names14_release,cran_names15_release,cran_names16_release,cran_names17_release,cran_names18_release,cran_names19_release,cran_names21_release) 
 
-# save the data into local for each time running is quite time comsuming
+#save the data with each update date locally, for running these codes is quite time consuming
 #save(pkg_updates_all, file=here::here("data/pkg_updates_all.rda"))
 
 cran_names1_updates <- cran_names1_release %>%
@@ -142,7 +142,7 @@ cran_names21_updates <- cran_names21_release %>%
 
 cran_updates <- rbind(cran_names1_updates,cran_names2_updates,cran_names3_updates,cran_names4_updates,cran_names5_updates,cran_names6_updates,cran_names7_updates,cran_names8_updates,cran_names9_updates,cran_names10_updates,cran_names11_updates,cran_names12_updates,cran_names13_updates,cran_names14_updates,cran_names15_updates,cran_names16_updates,cran_names17_updates,cran_names18_updates,cran_names19_updates,cran_names21_updates)
 
-# save the data into local for each time running is quite time comsuming
+#save the data with total update times locally for running codes is quite time consuming
 #save(cran_updates, file=here::here("data/cran_updates.rda"))
 ```
 
