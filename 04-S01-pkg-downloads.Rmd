@@ -1,6 +1,6 @@
 # Results
 
-## Daily download of R-packages
+## Daily downloads of R-packages
 
 ```{r vars-pkg-downloads, cache = TRUE}
 dd_start <- "2012-10-01"
@@ -18,10 +18,10 @@ total_downloads <- cran_downloads(from = dd_start, to = dd_end) %>%
 
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 1**: There was unusual download activity in one day of 2014 and 2018. 
+**Finding 1**: There was unusual download activities in one day of 2014 and 2018. 
 ```
 
-In this first section, we studied the daily downloads of CRAN R-packages from `r dd_start` to `r dd_end`. The data was obtained from the `cranlogs` package[@cranlogs], which includes a summary of the download logs from the RStudio CRAN mirror. The daily download data for CRAN R-packages are available from 1st October 2012. Examination of this data showed two unusual observations in 2014 and 2018 as shown in Figure \@ref(fig:unusual-spikes). The one happening in 2014 was on 2014-11-17, which was Monday, while the other one happening in 2018 was on 2018-10-21, which was on Sunday.
+In this first section, we studied the daily downloads of CRAN R-packages from `r dd_start` to `r dd_end`. The data was obtained from the `cranlogs` package[@cranlogs], which includes a summary of the download logs via the RStudio CRAN mirror. The daily download data for CRAN R-packages are available from 1st October 2012. Examination of this data showed two unusual observations in 2014 and 2018 as shown in Figure \@ref(fig:unusual-spikes). The one happening in 2014 was on 2014-11-17, Monday, while the other one happening in 2018 was on 2018-10-21, Sunday.
 
 
 (ref:unusual-spikes) Unusual download spikes on 2014 and 2018. 
@@ -38,7 +38,7 @@ plot_daily <- total_downloads %>%
   geom_line() +
   labs(x = "Day",
        y = 'Download count (in millions)',
-       title = "Daily download for 2014 and 2018") +
+       title = "Daily downloads for 2014 and 2018") +
   facet_grid(facets = year ~ ., 
              scales = "free_y") +
   theme(panel.grid.major.x = element_blank(),
@@ -60,7 +60,7 @@ load("data/daily_download_20141117.rda")
 load("data/daily_download_20181021.rda")
 ```
 
-Then let's have a closer look into these two spikes. First, we focused on the spike on 2014-11-17. From Table \@ref(tab:spike14count), we could see that the downloads of top downloaded R-packages on this day differs little, so it's not due to certain package.
+When having a closer look into those two spikes, we firstly focused on the one on 2014-11-17. From Table \@ref(tab:spike14count), we could see that the downloads of top downloaded R-packages on this day differs little, indicating this spike is not due to a certain package.
 
 ```{r spike14count}
 ## for 2014-11-17
@@ -73,7 +73,7 @@ daily_download_20141117 %>%
   kable_styling(full_width = FALSE)
 ```
 
-Table \@ref(tab:spike14country) shows the downloads from different countries. It is obvious that downloads from Indonesia is much more than any others, which indicates the most downloads are from Indonesia.
+Table \@ref(tab:spike14country) shows the downloads from different countries on 2014-11-17. It is obvious that `Indonesia` obtains much more downloads than any others.
 
 ```{r spike14country}
 daily_download_20141117 %>%
@@ -85,7 +85,7 @@ daily_download_20141117 %>%
   kable_styling(full_width = FALSE) #downloads from Indonesia is much more than any others
 ```
 
-Furthermore, we also checked the IP address in Table \@ref(tab:spike14ip), downloads from `ip3758` is much higher than others. So, it seems that most of the downloads are owing to one certain IP. 
+Furthermore, we also checked IP addresses, displayed in Table \@ref(tab:spike14ip). Downloads from `ip3758` is much higher than others. So, it seems that most of the downloads are owing to one certain IP for the unusual spike in 2014. 
 
 ```{r spike14ip}
 daily_download_20141117 %>%
@@ -93,12 +93,12 @@ daily_download_20141117 %>%
   count() %>%
   arrange(desc(n))%>% 
   head(10) %>%
-  kable(caption = "The IP address downloading from CRAN on 2014-11-17") %>%
+  kable(caption = "The IP addresses downloading from CRAN on 2014-11-17") %>%
   kable_styling(full_width = FALSE) #downloads from ip3758 is much higher than others
 
 ```
 
-Next, let's turn to the one in 2018. Table \@ref(tab:spike18count) shows the downloads from tidyverse is much higher than others with nearly three orders of magnitude. 
+Next, we turned to the unusual spike in 2018. Table \@ref(tab:spike18count) shows the downloads from `tidyverse` is much higher than others, with nearly three orders of magnitude. 
 
 ```{r spike18count}
 ## for 2018-10-21
@@ -112,7 +112,7 @@ daily_download_20181021 %>%
 
 ```
 
-As for the country, from Table \@ref(tab:spike18country) we could know that US is much higher than any other country.
+As for country, from Table \@ref(tab:spike18country), we could know that `US` occupies the most part of downloads on that day.
 
 ```{r spike18country}
 daily_download_20181021 %>%
@@ -125,7 +125,7 @@ daily_download_20181021 %>%
 
 ```
 
-Finally, the most interesting finding is in IP address displayed in Table \@ref(tab:spike18ip). Several consecutive IPs have highly distinguished downloads. It seems that they are from same person, or it is also probably a server test issue in the same short period of time.
+Finally, the most interesting finding is on IP address, displayed in Table \@ref(tab:spike18ip). Several consecutive IPs have highly distinguished downloads. It seems that they are probably from the same individual, or caused by a server test issue, in such a short period of time.
 
 ```{r spike18ip}
 daily_download_20181021 %>%
@@ -133,20 +133,21 @@ daily_download_20181021 %>%
   count() %>%
   arrange(desc(n))%>% 
   head(10) %>%
-  kable(caption = "The IP address downloading from CRAN on 2014-11-17") %>%
+  kable(caption = "The IP addresses downloading from CRAN on 2014-11-17") %>%
   kable_styling(full_width = FALSE) #several ip has highly distiguished downloads and they are contiguous. It seems that they are from same person, and it is also probably that it's a server issue.
 
 ```
 
-To sum up, we found that these two unusual spikes have one thing in common, that is, most of the downloads came from a specific country. The difference is that in 2014, a large number of downloads came from several different R-packages, while in 2018, they came from only one package `tidyverse`. In addition, in 2014, a large number of downloads came from one IP, while in 2018, they came from several consecutive IPs, At this point, we guess it should come from the same person, and it is likely to be sever test issue, for it may be not necessary or reasonable for an individual to generate such a large quantities of downloads in one day.
+To sum up, we found that these two unusual spikes have one thing in common, that is, most of the downloads came from a specific country. The difference is that in 2014, a large number of downloads came from several different R-packages, while in 2018, they came from only one package `tidyverse`. In addition, in 2014, a large quatities of downloads came from one IP, while in 2018, they came from several consecutive IPs, At this point, it is guessed that they should come from the same individual, or it is likely due to sever test issue, for it may be not necessary or reasonable for an individual to generate such a large amount downloads in one day.
+
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 2**: There is an increasing number of downloads over time. This likely attests to the growing number of R users. 
+**Finding 2**: There are increasing numbers of downloads over time, which can attests the growing number of R users. 
 ```
 
-Figure \@ref(fig:download-over-time) shows the download trend of all R-packages on CRAN over time after fixing the unusual spikes. It shows an upward trend over time, and the variance also increases with the download count, which means the volatility of the data is increasing.
+Figure \@ref(fig:download-over-time) shows the download trend of all R-packages on CRAN over a period pf time from `r dd_start` to `r dd_end`, after fixing the unusual spikes mentioned above. There is an upward trend, with an increasing variance in download counts.
 
-(ref:download-over-time) The download trend of all R-packages on CRAN over time. 
+(ref:download-over-time) The download trend of all R-packages on CRAN from `r dd_start` to `r dd_end`. 
 
 ```{r download-over-time, fig.cap="(ref:download-over-time)"}
 total_downloads_fix <- total_downloads %>% 
@@ -159,32 +160,32 @@ total_downloads_fix <- total_downloads %>%
 total_downloads_fix %>% 
   ggplot(aes(date, count/1e6)) +
   geom_line(colour="gray") +
-  labs(x = "Date", y = "Download count (in millions)",title = "Daily download count of total R-packages")
+  labs(x = "Date", y = "Download count (in millions)",title = "Daily download count of all of R-packages")
 ```
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 3**: Weekends have a lower download than weekdays.
+**Finding 3**: Weekends have a lower downloads than weekdays.
 ```
 
-To have a closer look at the weekly pattern, figure \@ref(fig:total-trend) shows the daily downloads of all CRAN R-packages from the RStudio mirror with the grey areas highlighting the weekend. 
+To have a closer look at the weekly pattern, figure \@ref(fig:total-trend) shows the daily downloads of all CRAN R-packages via the RStudio mirror, with the grey areas highlighting the weekend. 
 
-To be more specific, we could know that except for 2012 and 2013, the patterns of other years are very similar, that is, they all show strong weekly seasonality. To be more detailed, in 2012, the download logs showed an overall upward trend, because more and more users began to download R-packages from CRAN after its open. In the following years, there is no obvious trend in download volume, but a strong seasonality, which indicates that in a week, the total downloads always increases first then decreases, and reaches the lowest at the weekend. Although the pattern of 2013 is more volatile, it still conforms to that. We think for 2013, that is because CRAN is only open for a short time at this time, and the amount of data downloaded is not adequate to show its download pattern very clearly. Considering this, we could see that after 2016, the pattern of each year is quite consistent, for the total download has been increasing year by year. Back to weekly seasonality, that is because people are more likely to download and use packages in weekdays, and rest on weekends. And that's why the trough of download curve always occurs on weekends. In addition, we could also notice that the lowest downloads across the year are always at the end of December and the beginning of January, probably due to the Christmas and New Year's holidays. What's more, the downloads is on the rise from August to October and from February to April, which covers the start of semester for most universities. 
+To be more specific, except for 2012 and 2013, the patterns of other years are very similar, with a strong weekly seasonality. To be more detailed, in 2012, the download logs showed an overall upward trend, which also reflected more and more users there after release of CRAN. In the following years, there is no obvious trend in download volume, but a strong seasonality, which indicates that in a week, the total downloads always increases first then decreases, and reaches the lowest on weekends. Although the pattern of 2013 is more volatile, it still conforms to that. We suppose that is because CRAN is only open for a short period of time in 2013, so the amount of download data is not adequate to show the weekly pattern very clearly. After 2016, the pattern of each year is quite consistent, for the total downloads have been increasing year by year. Back to weekly seasonality, people are more likely to download packages during weekdays, and rest on weekends. So, the trough of download curve always occurs on weekends. In addition, the lowest downloads across the year are always happening at the end of December or the beginning of January, probably due to the Christmas and New Year's holidays. Meanwhile, the downloads are on the rise from August to October, and from February to April, which covers the beginning of semester for many universities around the world, a time when related students tend to download CRAN R-packages very often. 
 
-(ref:total-trend) The figure shows the total downloads of all R-packages on CRAN would decrease on weekends.
+(ref:total-trend) The total downloads of all R-packages on CRAN would decrease on weekends and increase during weekdays.
 
 ```{r total-trend, fig.cap="(ref:total-trend)", fig.height = 12,cache = TRUE}
 
 plot_daily_fix <- plot_daily +
-  labs(title = "Total number of R-package downloads on CRAN",
+  labs(title = "Total number of downloads for R-package on CRAN",
        subtitle = glue("from {dd_start} to {dd_end}")) 
 
 plot_daily_fix %+%
    total_downloads_fix
 ```
 
-As there are many fluctuation in daily download pattern which is due to calendar effect and server issue of CRAN mirror, we then applied a model called STL decomposition explained in @stl, to smooth the curve for all the R-packages. 
+As there are many fluctuations in daily download pattern, which is due to calendar effect and test server issue of CRAN mirror, an STL decomposition model explained in @stl, was applied, to smooth the curve for all of the R-packages. 
 
-(ref:daily-smoothing) The figure shows the total downloads of all R-packages on CRAN after smoothing.
+(ref:daily-smoothing) The total downloads of all R-packages on CRAN after smoothing.
 
 ```{r pkg-stl, fig.cap="(ref:daily-smoothing)"}
 # try to use stl model to smooth the curve
@@ -202,7 +203,7 @@ components(pkg_stl) %>%
   geom_line(aes(y=trend), colour = "#D55E00") +
   labs(
     y = "Download count",
-    title = "Daily download count of all R-packages"
+    title = "Daily download count for all of R-packages"
   ) +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -213,10 +214,10 @@ components(pkg_stl) %>%
 
 ```
 
-And this can be applied to any R-package to adjust the daily download pattern. In this case, we selected two packages `fable` and `forecast` as an example in Figure \@ref(fig:example-adjust). It can be seen that the pattern is smoother after removing the seasonality and ignorance of extremum possibly caused by repeated downloads, updates and test downloads from the server.
+And that can be applied to any R-package, to adjust the daily download pattern. In this case, two packages `fable` and `forecast` were selected as an example, in Figure \@ref(fig:example-adjust). It can be seen that the pattern is smoother after removing the seasonality and ignorance of extremum that was possibly caused by repeated downloads, updates or test from the server.
 
 
-(ref:example-adjust) The figure shows the daily downloads of `fable` and `forecast` on CRAN after smoothing.
+(ref:example-adjust) The daily downloads of `fable` and `forecast` after smoothing.
 
 ```{r example-adjust, fig.cap="(ref:example-adjust)", fig.height = 12}
 fable_downloads <- cran_downloads(package = "fable", from = dd_start, to = dd_end) %>% 
@@ -285,7 +286,9 @@ grid.draw(gao)
 ```
 
 
-Figure \@ref(fig:weekend-vs-weekday) shows the distribution and the median of the downloads between weekday and weekends. The distribution of weekdays and weekends are quite different. Weekends are wider and shorter, while weekdays are thinner and higher, because the total download of data on weekends is less than that on weekdays. And in 2012, the median and interquartile range of download logs are not very distinguished between weekdays and weekends, for the data volume was not adequate at this time as mentioned above. But after 2013, the gap between the two becomes more and more obvious, that is, the median downloads of working days is significantly higher than that of weekends, and the overall number of data is also significantly higher than that of weekends as well. But interestingly, the lower adjacent sometimes occurs on weekends, such as in year 2014, 2015, 2018, 2019 and 2021, while sometimes in weekdays, such as in year 2012, 2013, 2016, 2017 and 2020.
+Figure \@ref(fig:weekend-vs-weekday) shows the distributions and the median of the downloads between weekday and weekends, which differ from each other a lot. The violin plots of weekends are wider and shorter, while those of weekdays are thinner and higher, on the contrary. That is because the total downloads on weekends are less than those in weekdays. In 2012, the median and interquartile range of download logs are not very distinguished between weekdays and weekends, for the data volume was not adequate at this time as mentioned before. But after 2013, the gap between the two has been becoming more and more obvious. The median downloads of working days are significantly higher than those of weekends, and the overall download volume is also significantly larger than that of weekends as well. Interestingly, the lower adjacent sometimes occurs on weekends, such as in year 2014, 2015, 2018, 2019 and 2021, while sometimes also in weekdays, such as in year 2012, 2013, 2016, 2017 and 2020.
+
+(ref:weekend-vs-weekday) The violin plot for downloads of all of R-packages on CRAN, between weekday and weekends.
 
 ```{r weekend-vs-weekday, fig.height = 7}
 total_downloads_fix %>% 
@@ -301,10 +304,10 @@ total_downloads_fix %>%
 
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 4**: Top 10% downloaded R-packages share nearly 90% cumulative download count of the whole.
+**Finding 4**: Top 10% downloaded R-packages share nearly 90% cumulative download counts of the whole.
 ```
 
-From the previous analysis, we could see that the cumulative download count of R-packages shows an increasing trend. It would be perfect equality if every R-package had the same download count – the last 20% downloaded R-packages would gain 20% of the total download count or the top 60% downloaded R-packages would get 60% of the total download count. But we know from experience that this is obviously impossible, so here we introduced Lorenz curve[@lorenz] to show the respective number of R-packages of different download levels (groups defined by quantiles of download count). In this way, we could figure out how many download counts contributed by different downloaded R-packages.
+From the previous analysis, we could see that the cumulative download counts of R-packages show an increasing trend. It would be perfect equality if every R-package had the same download count : the last 20% downloaded R-packages would gain 20% of the total download count or the top 60% downloaded R-packages would get 60% of the total download count. But knowing from experience, we know that is hardly possible. So, here, we introduced Lorenz curve[@lorenz] to show the respective numbers of R-packages within different download levels (groups defined by quantiles of download counts). In this way, we could figure out how many download counts contributed by different downloaded R-packages.
 
 ```{r totalpkg}
 #get all the packages from CRAN 
@@ -313,7 +316,7 @@ cran_names <- rownames(available:::available_packages(repos = available:::defaul
 
 colnames(cran_names)[1] <- "package"
 
-#slice into small sample to speed up the execution
+#slice into small samples to speed up the execution
 cran_names1 <- cran_names %>% 
   slice(1:850) 
 
@@ -374,13 +377,14 @@ cran_names19 <- cran_names %>%
 cran_names20 <- cran_names %>% 
   slice(16168:17018)
 
+#although slice too much, this is also reproducible :D
 cran_names21 <- cran_names %>% 
   slice(17019:length(cran_names$package))
 
 td_start <- "2020-10-01"
 td_end <- Sys.Date() - 2
 
-#get total download for slice1
+#get total downloads for slice1
 cran_names1 <- map_dfr(cran_names1, ~{
   pkgs <- cran_names1$package
   
@@ -391,7 +395,7 @@ cran_names1 <- cran_names1 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice2
+#get total downloads for slice2
 cran_names2 <- map_dfr(cran_names2, ~{
   pkgs <- cran_names2$package
   
@@ -402,7 +406,7 @@ cran_names2 <- cran_names2 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice3
+#get total downloads for slice3
 cran_names3 <- map_dfr(cran_names3, ~{
   pkgs <- cran_names3$package
   
@@ -413,7 +417,7 @@ cran_names3 <- cran_names3 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice4
+#get total downloads for slice4
 cran_names4 <- map_dfr(cran_names4, ~{
   pkgs <- cran_names4$package
   
@@ -424,7 +428,7 @@ cran_names4 <- cran_names4 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice5
+#get total downloads for slice5
 cran_names5 <- map_dfr(cran_names5, ~{
   pkgs <- cran_names5$package
   
@@ -435,7 +439,7 @@ cran_names5 <- cran_names5 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice6
+#get total downloads for slice6
 cran_names6 <- map_dfr(cran_names6, ~{
   pkgs <- cran_names6$package
   
@@ -446,7 +450,7 @@ cran_names6 <- cran_names6 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice7
+#get total downloads for slice7
 cran_names7 <- map_dfr(cran_names7, ~{
   pkgs <- cran_names7$package
   
@@ -457,7 +461,7 @@ cran_names7 <- cran_names7 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice8
+#get total downloads for slice8
 cran_names8 <- map_dfr(cran_names8, ~{
   pkgs <- cran_names8$package
   
@@ -468,7 +472,7 @@ cran_names8 <- cran_names8 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice9
+#get total downloads for slice9
 cran_names9 <- map_dfr(cran_names9, ~{
   pkgs <- cran_names9$package
   
@@ -479,7 +483,7 @@ cran_names9 <- cran_names9 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice10
+#get total downloads for slice10
 cran_names10 <- map_dfr(cran_names10, ~{
   pkgs <- cran_names10$package
   
@@ -490,7 +494,7 @@ cran_names10 <- cran_names10 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice11
+#get total downloads for slice11
 cran_names11 <- map_dfr(cran_names11, ~{
   pkgs <- cran_names11$package
   
@@ -501,7 +505,7 @@ cran_names11 <- cran_names11 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice12
+#get total downloads for slice12
 cran_names12 <- map_dfr(cran_names12, ~{
   pkgs <- cran_names12$package
   
@@ -512,7 +516,7 @@ cran_names12 <- cran_names12 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice13
+#get total downloads for slice13
 cran_names13 <- map_dfr(cran_names13, ~{
   pkgs <- cran_names13$package
   
@@ -523,7 +527,7 @@ cran_names13 <- cran_names13 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice14
+#get total downloads for slice14
 cran_names14 <- map_dfr(cran_names14, ~{
   pkgs <- cran_names14$package
   
@@ -534,7 +538,7 @@ cran_names14 <- cran_names14 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice15
+#get total downloads for slice15
 cran_names15 <- map_dfr(cran_names15, ~{
   pkgs <- cran_names15$package
   
@@ -545,7 +549,7 @@ cran_names15 <- cran_names15 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice16
+#get total downloads for slice16
 cran_names16 <- map_dfr(cran_names16, ~{
   pkgs <- cran_names16$package
   
@@ -556,7 +560,7 @@ cran_names16 <- cran_names16 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice17
+#get total downloads for slice17
 cran_names17 <- map_dfr(cran_names17, ~{
   pkgs <- cran_names17$package
   
@@ -567,7 +571,7 @@ cran_names17 <- cran_names17 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice18
+#get total downloads for slice18
 cran_names18 <- map_dfr(cran_names18, ~{
   pkgs <- cran_names18$package
   
@@ -578,7 +582,7 @@ cran_names18 <- cran_names18 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice19
+#get total downloads for slice19
 cran_names19 <- map_dfr(cran_names19, ~{
   pkgs <- cran_names19$package
   
@@ -589,7 +593,7 @@ cran_names19 <- cran_names19 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice20
+#get total downloads for slice20
 cran_names20 <- map_dfr(cran_names20, ~{
   pkgs <- cran_names20$package
   
@@ -600,7 +604,7 @@ cran_names20 <- cran_names20 %>%
   group_by(package) %>%
   summarise(total = sum(count))
 
-#get total download for slice21
+#get total downloads for slice21
 cran_names21 <- map_dfr(cran_names21, ~{
   pkgs <- cran_names21$package
   
@@ -616,9 +620,9 @@ cran_names_download <- rbind(cran_names1,cran_names2,cran_names3,cran_names4,cra
 ```
 
 
-Figure \@ref(fig:download-over-time) shows cumulative download count against each downloaded group. It can be seen that most of the download counts come from the top 10% downloaded R-packages. At the same time, we could also observe that the Gini value is close to 1, which indicates that the download volume among groups is very unbalanced. In fact, the download volume of the top 10% group is extremely distinguished from that of the following groups. It's not hard to understand that this group should contain some R-packages with high popularity and large quantities of users. For example, if we extracted the first 10 packages of this group in Table \@ref(tab:top10), we could find that they are all quite famous and frequently-used ones.
+Figure \@ref(fig:lorenz-all) shows cumulative download counts against each downloaded group. It can be seen that most of the download counts come from the top 10% downloaded R-packages. At the same time, we could also observe that the Gini value is close to 1, which indicates that the download volumes across groups are quite unbalanced. In fact, the download volume of the top 10% group is extremely distinguished from that of the following groups. It's not hard to understand that this group should contain some R-packages with high popularity and large quantities of users. 
 
-(ref:lorenz-all) Percentiles of the download count against cumulative download count of R-packages at or below that percentile.
+(ref:lorenz-all) Percentiles of the download counts against cumulative download counts for R-packages at or below that percentile.
 
 ```{r lorenz-all, fig.cap="(ref:lorenz-all)",cache = TRUE}
 lorenz_curve <- ggplot(cran_names_download, aes(total)) +
@@ -627,7 +631,7 @@ geom_abline(linetype = "dashed") +
 annotate_ineq(cran_names_download$total)+
 theme_bw()+
   labs(
-    y = "Cumulative share of download count",
+    y = "Cumulative share of download counts",
     x = "Download quantile",
     title = "The number of R-packages occupied by each group",
     subtitle = "based on download count quantile"
@@ -642,6 +646,8 @@ theme_bw()+
 
 lorenz_curve
 ```
+
+For example, if we extracted the first 10 packages of this group in Table \@ref(tab:top10), we could find that there are many quite famous and frequently-used R-packages, such as `rlang` and `dplyr`.
 
 ```{r top10}
 #quantile(cran_names_download$total,probs = seq(0, 1, 0.1)) 
