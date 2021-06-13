@@ -10,12 +10,12 @@ R_downloads <- cran_downloads("R", from = dd_start, to = dd_end) %>%
 ```
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 1**: The number of downloads shows an upward trend over time, and the variance also increases with the downloads.
+**Finding 1**: There is an upward trend in the number of downloads, also with an increasing variance.
 ```
 
-Figure \@ref(fig:R-download-trend) shows the download trend of R on CRAN over time. It shows an upward trend over time, and the variance also increases with the download count, which indicates the volatility of the data is increasing as well. And that is resulted from the pump of R users. As for the significant spikes, it is probably quite similar to the situation of R-packages, which is due to repeated downloads, weekly calendar effect and server test.
+Figure \@ref(fig:R-download-trend) shows the download trend of R on CRAN over the period of time, from `r dd_start` to `r dd_end`. An upward trend shows, with an increasing variance in download counts, which is resulted from the growth of R users. As for significant spikes, they are probably quite similar to the situation of R-packages, which is due to repeated downloads, weekly calendar effect or server test issue.
 
-(ref:R-download-trend) The download trend of R on CRAN over time. 
+(ref:R-download-trend) The download trend of R on CRAN, from `r dd_start` to `r dd_end`. 
 
 ```{r R-download-trend, fig.cap="(ref:R-download-trend)"}
 R_downloads %>% 
@@ -26,7 +26,7 @@ R_downloads %>%
   geom_line(colour="gray")+
   labs(
     y = "Download count",
-    title = "Daily total download count of R"
+    title = "Daily total download counts of R"
   )+
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -38,12 +38,12 @@ R_downloads %>%
 
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 2**: The most used operation system for R users is Windows OS.
+**Finding 2**: The most used operation system for R users turns out to be Windows OS.
 ```
 
-Figure \@ref(fig:R-download-trend-os) shows the comparison of operation system for R users. The number of Windows users ranks first, followed by MacOS and SRC. For Microsoft has traditionally dominated the desktop and laptop market. And Microsoft officially claims there are 400 million active users of Windows 10 itself, while Apple revealed that there are now nearly 100 million active Mac users.[@warren2017]
+Figure \@ref(fig:R-download-trend-os) shows the comparison of operation systems for R users. The number of Windows-user ranks first, followed by MacOS and SRC. Microsoft has traditionally dominated the desktop and laptop market. And Microsoft officially claims there are 400 million active users of Windows 10 itself, while Apple revealed that there are only around 100 million active Mac users, up to now.[@warren2017]
 
-(ref:R-download-trend-os) The download trend of R on CRAN over time. 
+(ref:R-download-trend-os) The comparison of operation system (OS) for R users, from `r dd_start` to `r dd_end`.
 
 ```{r R-download-trend-os, fig.cap="(ref:R-download-trend-os)"}
 R_downloads %>% 
@@ -53,7 +53,7 @@ R_downloads %>%
   geom_line() +
   labs(
     y = "Download count",
-    title = "Daily total download count of R",
+    title = "Daily total download counts of R",
     subtitle = "for different OS"
   )+
   theme(panel.grid.major = element_blank()) +
@@ -65,6 +65,7 @@ R_downloads %>%
   )
 
 ```
+
 
 ```{block, type="discovery", echo = TRUE}
 **Finding 3**: The most popular version of R is 3.2.1
@@ -118,14 +119,14 @@ R_version <- R_version %>%
   rename(count = n) 
 ```
 
-And Table \@ref(tab:R-download-trend-version) shows the number of downloads of different versions of R. The most downloaded one is `r R_version$R_version[1]` with `r R_version$count[1]` times, followed by `r R_version$R_version[2]` with `r R_version$count[2]` times and `r R_version$R_version[3]` with `r R_version$count[3]` times. So, most users tend to install the latest version of R to get the newest update information.
+Table \@ref(tab:R-download-trend-version) shows the first 10 numbers of downloads for different versions of R. The most downloaded one is `r R_version$R_version[1]` with `r R_version$count[1]` times, followed by `r R_version$R_version[2]` with `r R_version$count[2]` times and `r R_version$R_version[3]` with `r R_version$count[3]` times. Most users are likely to install the latest version of R to get the newest update information.
 
 ```{r R-download-trend-version}
 R_version %>%
-  kable(caption = "The number of downloads of different versions of R") %>%
+  head(10) %>%
+  kable(caption = "The numbers of downloads for different versions of R") %>%
   kable_styling(bootstrap_options = c("hover", "striped")) %>%
   scroll_box(width = "100%", height = "400px")
-
 ```
 
-In conclusion, the daily download trend of R is quite similar to that of R-packages, and they are both significantly affected by weekly calendar issue, unusual downloads from CRAN mirrors. But in general, they both tend to increase with the growing of R users.
+In conclusion, the daily download trends of R are quite similar to those of R-packages, and they are both significantly correlated to weekly calendar as well as unusual downloads from CRAN mirrors. In general, they both tend to increase with the growing of R users.
