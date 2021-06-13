@@ -1,6 +1,6 @@
 # Data
 
-The main source of data used in this report is the download logs from the RStudio CRAN mirror site https://cran.rstudio.com/. These log files are created for every instance of download of an R-package via the RStudio CRAN mirror, then these log files are processed daily into CSV files that contain the following variables with the name of header in brackets:
+The main source of data used in this report is the download logs from the RStudio CRAN mirror site : https://cran.rstudio.com/. These log files are created for every instance of download of an R-package via the RStudio CRAN mirror, then these log files are processed, daily, into CSV files that contain the following variables with the name of header in brackets:
 
 * Date (`date`),
 * Time in UTC time zone (`time`),
@@ -16,5 +16,5 @@ A similar log file is also created for every download of R from the RStudio CRAN
 
 The log files of a particular day is processed and compressed into a single CSV file of about 40 megabytes (file sizes of earlier years are much smaller due to lower number of download logs). As there are over 700,000 CSV files, a simple estimate of the size of the data is 28 terabytes - far exceeding typical portable hard drives which are 1-4 terabytes. 
 
-The summarised version of data, where the data shows the total daily download count for each package, is accessible using the `cranlogs` R-package. The `cranlogs` package accesses this summary data through the web application programming interface (API) maintained by r-hub [@rhub].
+The summarised version of data, where the data show the total daily download counts for each package, is accessible using the `cranlogs` R-package. The `cranlogs` package accesses this summary data through the web application programming interface (API) maintained by r-hub [@rhub].
 
