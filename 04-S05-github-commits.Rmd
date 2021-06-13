@@ -164,17 +164,20 @@ pkg_commits_all %>%
 
 Another method can be conducted by taking the ultra-low-downloaded R-packages into consideration, whose download counts only rank last 1% of all. Another purpose for this way is to show our initial idea on scraping commits through Github API with R (as the sample size is less than 60 R-packages, on this condition). 
 
-From Table \@ref(tab:quantileall), it can be seen that the last 1% download count is around 401. And as the download counts of those packages are extremely low, we could assume that many factors can have little effect on their downloads, and the only two differences among them are the numbers of commits on Github master branch and the total download counts.
+```{r quantile-all}
+quantile_all <- quantile(cran_names_download$total,probs = seq(0, 1, 0.01)) %>% 
+  as.data.frame()
+
+colnames(quantile_all)[1] <- "download_count"
+```
+
+Table \@ref(tab:quantileall) shows the last 10 quantiles of download counts, it can be seen that the last 1% download count is around `r quantile_all$download_count[2]`. As the download counts of those packages are extremely low, we could assume that many factors can have little effect on their downloads, and the only two differences among them are the numbers of commits on Github master branch and the total download counts.
 
 Based above, we could select those ultra-low-downloaded R-packages and extract commit counts on their Github repositories. In Figure \@ref(fig:pkg-low), it could be observed that when the number of commits increases from 0 to 100, the download counts first increase and then decrease. After that, the download volume keeps rising, with a small jump at the end. We consider that might result from the too small-sized sample, and the observation causing the decline can be an outlier. If expanding the observation horizon, an increase in this curve can be expected. Therefore, it can be concluded that even for those last 1% downloaded R-packages, the phenomenon - "the more commits can link to  more downloads" also exists.
 
 ```{r quantileall}
-quantile_all <- quantile(cran_names_download$total,probs = seq(0, 1, 0.01)) %>% 
-  as.data.frame()
-
-colnames(quantile_all)[1] <- "download count"
-
 quantile_all %>%
+  head(10) %>%
   kable(caption = "Quantile of total download counts for all of R-packages on CRAN") %>%
   kable_styling(full_width = FALSE) %>%
   scroll_box(width = "100%", height = "400px")
@@ -185,7 +188,7 @@ quantile_all %>%
 ```{r pkg-low,fig.cap="(ref:pkg-low)"}
 pkg_low_download <- left_join(dd2_new,cran_names_download,by = "package") %>%
   arrange(desc(total)) %>%
-  filter(total < 401) 
+  filter(total < quantile_all$`download count`[2]) 
 
 github_api_low <- map(pkg_low_download$user_repo,function(user_repo) {
   
