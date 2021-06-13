@@ -1,10 +1,10 @@
 ## Daily top 15 downloaded R-packages 
 
-In this section, we studied the top 15 downloaded R-packages from 2013-04-01 to 2021-04-01 to see how user preferences has been changing. The data was obtained from CRAN website [http://cran.rstudio.com/web/packages/packages.rds].
+In this section, we studied the top 15 downloaded R-packages from `2013-04-01` to `2021-04-01`, to see how user preferences have been changing. The data were obtained from CRAN website [http://cran.rstudio.com/web/packages/packages.rds].
 
-We are supposed to know that some R-packages are hold by Rstudio, and some are developed by core personnel or personnel closely related to R, or some prolific developers. Naturally, the number of downloads of these packages will probably be higher. On the one hand, the R-packages developed by these experienced developers may be more mature and perfect, on the other hand, users are more inclined to use the packages from famous authors, which can be regarded as a kind of "good use" guarantee.
+We are supposed to know that some R-packages are hold by Rstudio, some are developed by core personnel or personnel closely related to R, and some are created by prolific developers[@revolutions]. And there are also parts of R-packages that are dependency packages of others, which means the increasing downloads of their "father" packages would also promote the downloads of them. For example, R-package `fable` is dependency package within R-package `fpp3`. When users install `fpp3`, `fable` would also be installed at the same time. Naturally, the numbers of downloads for those packages can probably be higher. On the one hand, the R-packages developed by those experienced developers may be more mature and completed. On the other hand, users are more inclined to use packages produced by famous authors, which can be regarded as a kind of "good use" guarantee.
 
-However, the existence of these packages will make the results biased. Therefore, in order to explore the R-packages constructed by non-special creators, we have screened out four types of R-packages, namely:
+However, the existence of those packages can cause the results of user preferences biased. Therefore, we decided to explore the R-packages constructed by non-special creators, and screened out four types of R-packages, namely:
 
 - R-packages maintained by R studio
 - R-packages created by authors from R core group
@@ -231,10 +231,10 @@ pkg_remain <- cbind_dif(list(package14_13 = a1$package, package15_14 = b1$packag
 pkg_remain[is.na(pkg_remain)] = "-"
 ```
 
-And after that, we generated the lorenz curve here again in Figure \@ref(fig:lorenz-filter), it can be observed that the distribution of R-packages in each download group is quite equal now and the Gini value decreases a lot as well, for the 'extreme effect' brought by highly-downloaded packages has disappeared. Thus, the user preferences could be shown more clearly. But as after filtering, the number of remaining packages is only 58, which is a too small-sized sample to construct representative conclusions, we would still focus on all the R-packages on CRAN in our later analysis.
+After that, we generated a lorenz curve here again in Figure \@ref(fig:lorenz-filter), it can be observed that the distribution of R-packages in each download group is more equal now and the Gini value decreases as well, for the 'extreme effect' brought by highly-downloaded packages has disappeared. Thus, the user preferences could be shown more clearly. However, after filtering, the number of remaining R-packages is only 58, which is a too small-sized sample to conduct representative conclusions, we would still focus on all of R-packages on CRAN in later analysis.
 
 
-(ref:lorenz-filter) Percentiles of the download count against cumulative download count of R-packages after filtering four types of popular and highly-downloaded packages.
+(ref:lorenz-filter) Percentiles of the download counts against cumulative download counts of R-packages after filtering four types of popular and highly-downloaded packages.
 
 ```{r lorenz-filter, fig.cap="(ref:lorenz-filter)"}
 cran_names_download_new <- filter_list(cran_names_download)
@@ -245,7 +245,7 @@ geom_abline(linetype = "dashed") +
 annotate_ineq(cran_names_download_new$total)+
 theme_bw()+
   labs(
-    y = "Cumulative share of download count",
+    y = "Cumulative share of download counts",
     x = "Download quantile",
     title = "The number of R-packages occupied by each group",
     subtitle = "based on download count quantile after filtering"
@@ -260,19 +260,20 @@ theme_bw()+
 ```
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 1**: The topic of newly added R-packages each year come from quite different areas. 
+**Finding 1**: The topic of newly added R-packages come from quite different application areas, each year. 
 ```
 
-Table \@ref(tab:changed-top15pkg) shows the R-packages that newly come up to the top 15 list each year, from which we can know how the user preference has changed year by year, compared with the previous year. To be more specific :
+Table \@ref(tab:changed-top15pkg) shows the R-packages that newly come up to the top 15 list each year, from which we can know how the user preferences have changed year by year, compared with the previous year. To be more specific :
 
 - For 2014, `ncdf` ranks first, which is used to provide an interface to netCDF format data. 
-- For 2015, the first downloaded is `XLConnectJars` on JAVA dependency. 
-- For 2016, the first one is `reports` for standardising the output of R. 
+- For 2015, the first downloaded R-package is `XLConnectJars`, related to JAVA dependency. 
+- For 2016, the first downloaded R-package is `reports`, for standardising the output of R. 
 - For 2017, `lava.tobit` aims to help with estimation and simulation of latent variable models.
-- For 2018, the ranking-first `ReportsRs` is for creating Microsoft Word and Powerpoint documents. 
+- For 2018, the first-ranking `ReportsRs` is for creating Microsoft Word and Powerpoint documents. 
 - For 2019, `CALIBERrfimpute` is used to impute missing values in analysis datasets using full conditional specifications. 
 - For 2020, `SparkR` is similar to `dplyr` but for large datasets. 
 - For 2021, `heatmap.plus` is an extension of `heatmap()` function.
+
 
 
 ```{r changed-top15pkg}
@@ -284,12 +285,12 @@ pkg_change %>%
 ```
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 2**: The topic of R-packages changes least between 2017 and 2019. And the most popular filed is about JAVA dependency.
+**Finding 2**: The topic of R-packages changes least during 2017 and 2019. The most popular application filed is on JAVA dependency.
 ```
 
-Table \@ref(tab:unchanged-top15pkg) shows the R-packages that remain unchanged each year compared with the previous year, from which we can know which packages are relatively stable in popularity.
+Table \@ref(tab:unchanged-top15pkg) shows the R-packages that remain unchanged each year, compared to the previous year, from which we can know which packages are relatively stable in popularity.
 
-To be more specific, packages like `XLConnectJars`, `DMwR`, `KoNLP`, and `gWidgets` are relatively popular through years from 2014 to 2021. And they are used for providing JAVA dependency, data mining, linguistic research and providing API for building toolkit-independent, interactive GUIs.
+To be more specific, packages like `XLConnectJars`, `DMwR`, `KoNLP`, and `gWidgets` are relatively popular through years from 2014 to 2021. They are used for providing JAVA dependency, data mining, linguistic research and providing API for building toolkit-independent, interactive GUIs.
 
 ```{r  unchanged-top15pkg}
 pkg_remain %>%
@@ -298,7 +299,7 @@ pkg_remain %>%
   scroll_box(width = "100%", height = "400px")
 ```
 
-Let's take a look at the trending R-packages. Trending R-packages are ones that are downloaded at least 1000 times last week, which have increased significantly compared to the average weekly downloads in the previous 24 weeks[@r-hub]. That is to say, they are packages with high download volume in a recent short time. Through their topic, we can know what areas of R-packages people are concerned about recently.
+Next, we changed the object to trending R-packages. Trending R-packages are ones downloaded at least 1000 times last week, which have increased significantly compared to the average weekly downloads in the previous 24 weeks[@r-hub]. That is to say, they are packages with significantly high download volume in a recent short time. Through their topics, we can know what application areas of R-packages people are concerned about recently.
 
 ```{block, type="discovery", echo = TRUE}
 **Finding 3**: The most popular topic of trending R-packages is for `r pkg_trendcom_count$topic[1]`.
@@ -343,7 +344,7 @@ colnames(pkg_taskview_total)[1] <- 'package'
 
 ```
 
-Table \@ref(tab:trending-topic) shows the first 15 trending R-packages along with their topics.
+Table \@ref(tab:trending-topic) shows the first 10 trending R-packages along with their topics.
 
 ```{r trending-topic}
 # read trending packages recently
@@ -356,7 +357,7 @@ pkg_trending_compare <- plyr::match_df(pkg_taskview_total,pkg_trending_new,on = 
   group_by(topic)
 
 pkg_trending_compare %>%
-  head(15) %>%
+  head(10) %>%
   kable(caption = "Trending R-packages with topics") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
@@ -364,17 +365,17 @@ pkg_trending_compare %>%
 ```{r trendingcount}
 pkg_trendcom_count <- pkg_trending_compare %>%
   dplyr::count(topic) %>%
-  rename(`download times` = n)
+  rename(`download times` = n)%>%
+  arrange(desc(`download times`))
 ```
 
-And Table \@ref(tab:trending-count) shows the first 10 topics for trending R-packages. The most popular topic is `r pkg_trendcom_count$topic[1]`, followed by `r pkg_trendcom_count$topic[2]` and `r pkg_trendcom_count$topic[3]`. This is easy to understand, because the number of users from different fields is different, so there are also differences in the number of R-packages used in different topics. And it seems that `r pkg_trendcom_count$topic[1]` is quite a hit recently.
+And Table \@ref(tab:trending-count) shows the top 10 downloaded topics for trending R-packages. The most popular topic is `r pkg_trendcom_count$topic[1]`, followed by `r pkg_trendcom_count$topic[2]` and `r pkg_trendcom_count$topic[3]`. This is easy to understand : the numbers of users from different fields are different, so the downloads of R-packages in different topics also varies. It seems that `r pkg_trendcom_count$topic[1]` is quite heated recently.
 
 ```{r trending-count}
 pkg_trendcom_count %>%
-  arrange(desc(`download times`))%>%
   head(10) %>%
-  kable(caption = "Topics of trending R-packages") %>%
+  kable(caption = "Ranking topics of trending R-packages") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
-So, apart from the topic of the R-package itself, what other factors will probably be linked to its download volume? With this question in mind, we mainly explored the relationship between the total number of download counts of R-packages in the past year and the earliest release date, the relationship between the last half a year's total download volume and the number of updates, the number of commits on GitHub repositories, the length of the name and the alphabetical order of the first letter of the name in the next following sections.
+Apart from the topics of R-packages, what other factors can probably be linked to download volumes? With this question in mind, we then explored the relationship between the total number of download counts for R-packages and the earliest release date in the past year. We also studied the relationship between the total download volume and the number of updates, the number of commits on GitHub repositories, the lengths of the names and the alphabetical order of names,over the most recent 6 month period, in the following sections.
