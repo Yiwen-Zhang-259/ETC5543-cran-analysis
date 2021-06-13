@@ -1,24 +1,24 @@
-## Compare last year's downloads with the earliest release date
+## Compare last year's downloads with the initial release date
 
 ```{block, type="discovery", echo = TRUE}
-**Finding**: R-packages that are initially released earlier on CRAN tend to have a higher download count in the past year. This perhaps is because in earlier times, there were fewer R-packages in the same category, so users had 'no choice' but to use them. Due to this, these R-packages accumulate a certain user base, which makes it more possible to attract new users.
+**Finding**: R-packages that are initially released earlier on CRAN tend to have higher download counts in the past year. That is perhaps because, in earlier times, there were fewer R-packages in the same category, then users had 'no choice' but to use them. Due to that, those R-packages would accumulate user base, which makes it more possible to attract new users.
 ```
 
-In our common cognition, we may assume that the earlier a R-package is released, the more people will know about it, and thus the more downloads it will have. However, R-packages related to different topics cannot be directly compared, because it is possible that the total download amount of R-packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, we selected three domain R-packages through CRAN task view[@crantaskviews], calculated their respective downloads in the previous half a year, and extracted their earliest release dates for comparison. Those three topics are :
+In our common cognition, it may be assumed that the earlier an R-package is released, the more people can get to know it, and thus the more downloads it can have. However, R-packages related to different topics cannot be directly compared, because download counts of R-packages in one topic can be higher than that in another. Therefore, in order to test this conjecture as clearly as possible, we selected three domain R-packages through CRAN task view[@crantaskviews], calculated their respective downloads in the previous one year, and extracted their earliest release dates for comparison. Those three topics are :
 
-- a) R-packages for Time Series Analysis
+- R-packages for Time Series Analysis
 
-The first topic is Time Series Analysis. Time Series Analysis is a statistical technique that deals with time series data, or trend analysis. Time series data means that data is in a series of  particular time periods or intervals[@timeseries].
+The first topic is Time Series Analysis. Time Series Analysis is a statistical technique that deals with time series data, or trend analysis. Time series data means that data is in a series of particular time periods or intervals[@timeseries].
 
 
-- b) Bayesian R-packages for general model fitting
+- Bayesian R-packages for general model fitting
 
 The second topic is Bayesian Inference. Bayesian statistics is a mathematical procedure that applies probabilities to statistical problems. It provides people the tools to update their beliefs in the evidence of new data[@bayesian].
 
 
-- c) Econometrics R-packages
+- Econometrics R-packages
 
-In order to test whether this is the case in other areas, the last topic is for econometrics R-packages. Econometrics is the use of statistical methods using quantitative data to develop theories or test existing hypotheses in economics or finance, which relies on techniques such as regression models and null hypothesis testing[@econometrics].
+The last topic is related to econometrics. Econometrics is the use of statistical methods using quantitative data to develop theories or test existing hypotheses in economics or finance, which relies on techniques such as regression models and null hypothesis testing[@econometrics].
 
 ```{r vars-release-date, cache = TRUE,eval=FALSE}
 # function used to get the release dates from CRAN
@@ -76,9 +76,9 @@ load("data/taskview_downloads.rda")
 load("data/pkg_releases.rda")
 ```
 
-Figure \@ref(fig:release-downloads) displays the scatterplot of the past year's download count and the earliest release date for `Time Series Analysis`, `Econometrics` and `Bayesian` R-packages. It can be seen that generally, as the earliest release date gets later and later, the number of download logs becomes lower and lower. And for `Time Series Analysis` R-packages, they are mainly released between 2012 and 2019. For `Bayesian` R-packages, most of the R-packages are from 2007 to 2012. And most `Econometrics` are centered between 2013 and 2016.  
+Figure \@ref(fig:release-downloads) displays the scatterplot of the past year's download counts and the earliest release dates, for `Time Series Analysis`, `Econometrics` and `Bayesian` R-packages. It can be seen that, generally, as the earliest release dates get later and later, the numbers of download logs become lower and lower. For `Time Series Analysis` R-packages, they are mainly released between 2012 and 2019. For `Bayesian` R-packages, most of the R-packages are born from 2007 to 2012. And most `Econometrics` are centered between 2013 and 2016.  
 
-(ref:release-downloads) The download count decrease with the initial release date.
+(ref:release-downloads) The download counts decrease with the initial release dates.
 
 ```{r release-downloads, fig.cap="(ref:release-downloads)",fig.height = 12}
 initial_release <- pkg_releases %>% 
@@ -97,9 +97,9 @@ taskview_downloads %>%
   geom_smooth() +
   facet_wrap(~taskview, ncol = 1) +
   scale_y_log10() +
-  labs(x = "Initial release date",
+  labs(x = "Initial release dates",
        y = "Download counts",
-       title = "Initial release date VS total download count",
+       title = "Initial release dates VS Total download counts",
        subtitle = "for Time Series Analysis, Bayesian and Econometrics R-packages") +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -110,6 +110,6 @@ taskview_downloads %>%
   )
 ```
 
-In conclusion, we are not surprised to find that the earlier the R-package is released, the more downloads it could has, which is reflected in all of three topics of R-packages above. That is probably because the R-packages released earlier will be better known. When they are released early, there may be a relatively small number of R-packages of the same topic, under non-serious competition. As a result, the R-packages coming later can easily be covered up, since people generally tend to use well-known, mature and habitual packages.
+In conclusion, it is not surprising to find that the earlier the R-package is released, the more downloads it could have, which is reflected in all of three topics above. That is probably because the R-packages released earlier can be better-known. When they are released early, there may be a relatively small number of R-packages in the same topic, under non-serious competition. As a result, the R-packages coming later can easily be covered up, since people may generally tend to use well-known, mature and habitual packages.
 
-That is to say, earlier R-packages are more conducive to the cultivation of user habits. After all, habits are influenced by the length of time. For example, if the teacher is an old user of some R-packages, they may recommend these R-packages to their students when they teach, or colleagues may prefer to recommend familiar R-packages to others especially when they get a satisfying user experience. 
+That is to say, earlier R-packages are more conducive to the cultivation of user habits. After all, habits are influenced by the length of time. For example, if the teacher is a senior user of an R-package, they may recommend that R-package to their students when teaching, especially when they obtain a satisfying user experience. 
