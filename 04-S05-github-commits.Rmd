@@ -1,19 +1,15 @@
 ## Compare download counts with the number of commits on master branch
 
-In this section, we compared last half a year's total downloads with the number of commits on master branch in Github repositories. And this turn, we initially planned to replace the research object with all the R-packages on CRAN, `r comma(length(pkgs$package),digits =0)` up to now. But we soon found out that there were only 6185 R-packages that have a Github repository, and after cleaning up, only 5769 remained.
+In this section, we compared total downloads over the most recent 6 month period, with the number of commits on master branch in Github repositories. We initially planned to replace the research object with all of R-packages on CRAN, `r comma(length(pkgs$package),digits =0)` up to now. But we soon found that there were only 6185 R-packages that have Github repositories, and after cleaning up, only 5769 remained.
 
 ```{block, type="discovery", echo = TRUE}
-**Finding**: In our initial assumption, more commits on master branch of Github repository tends to bring more download counts to R-packages. On the one hand, the number of commits indicates that developers are constantly supplementing and updating the R-package, which will lead to more downloads. On the other hand, the number of commits also reflects the attention developers attach to the R-package to a certain extent. So, if an R-package has more commits, then developers may invest more in advertising and other ways to promote it, so as to expand the popularity and improve the download count.
+**Finding**: In our initial assumption, more commits on master branch of Github repositories are likely to bring R-packages more download counts. On the one hand, the number of commits can indicate that developers are constantly supplementing and updating their R-packages, which may lead to more downloads. On the other hand, the number of commits also can reflect the attention developers attach to their R-packages, to some extent. Usually, for those who have more commits, their developers may advertise more or try other ways, to expand the popularity and improve the download counts.
 ```
 
-The way we initially applied was extracting the commits through accessing the Github API. To achieve this, we first scraped the Github URLs from 'description' page for all the R-packages, and cleaned up the multiple URLs or some other redundant symbols and characters. And the URL of scraping the commits through Github API is formatted as *"https://api.github.com/repos/{user_repo}/commits?per_page=1"*. For example, the URL for package `tidyverse` can be like *"https://api.github.com/repos/tidyverse/tidyverse/commits?per_page=1"*. So, practically, by replacing the `user_repo` part that consists of the name of the related repository and the name of the package holder, we could access the content of all the package URLs through Github API.
-
-Based on that, Table \@ref(tab:userrepo-tbl) shows the first 5 R-packages of the whole, their Github URLs and the `user_repo` part.
-
-However, the Github API has a rate limits allowing for up to 60 requests per hour for unauthenticated requests, and this can be extended to 5000 per hour after authentication[@githubapi]. But even after getting authentication, our rate limit didn't get promoted. So, we switched to scrape commits by python spider. And by setting random user agent, we successfully avoided the API limit. And as this method is quite time consuming (around 5 hours), we saved the output as a .txt file then load it in R studio to speed up the compiling process. 
+The way we initially planned to apply was extracting the commits through accessing the Github REST API[@githubapi]. To achieve that, we first scraped the Github URLs from 'description' pages for all of R-packages from CRAN, then cleaned up the multiple URLs and other redundant symbols or characters. The URL is formatted as : *"https://api.github.com/repos/{user_repo}/commits?per_page=1"*. For example, the URL for package `tidyverse` can be like : *"https://api.github.com/repos/tidyverse/tidyverse/commits?per_page=1"*. Practically, by replacing the `user_repo` part that consists of the name of the related repository and the name of the package holder, we could access the contents of URLs through Github API, for all of CRAN R-packages.
 
 ```{r userrepo,eval=FALSE}
-#code used to extract Github URL for CRAN packages
+#code used to extract Github URLs for CRAN R-packages
 
 #scrape the Github URLs
 getPackageRDS <- function() {
@@ -58,7 +54,7 @@ a <- dd2_new$user_repo[str_detect(dd2_new$user_repo,'/blob/')]
 b <- dd2_new$user_repo[str_detect(dd2_new$user_repo,'/master')]
 c <- dd2_new$user_repo[str_detect(dd2_new$user_repo,'/Master')]
 
-#get all the username and repo name done
+#get all the user names and repo names done
 dd2_new <- dd2_new %>%
   filter(!(user_repo%in%a))%>%
   filter(!(user_repo%in%b))%>%
@@ -94,6 +90,11 @@ pkg_url_new <- dd2_new %>%
 #save(dd2_new, file=here::here("data/dd2_new.rda")) 
 ```
 
+
+Based on that, Table \@ref(tab:userrepo-tbl) shows the first 5 R-packages, with their Github URLs and the `user_repo` parts.
+
+However, the Github API has a rate limits, allowing for up to 60 requests per hour for unauthenticated requests, which can be extended to 5000 per hour after authentication[@githubapi]. But even after getting authentication, our rate limit didn't get promoted. So, we switched to scrape commits with Python spider, by setting random user agent, to avoid the API limit. Since this method is quite time consuming (around 5 hours each time for all available R-packages), we saved the output as a local .txt file and load it later in R studio, to speed up the code execution. 
+
 ```{r userrepo-tbl}
 load("data/dd2_new.rda")
 
@@ -124,19 +125,19 @@ pkg_commits_all <- pkg_commits_all %>%
 
 ```
 
-Table \@ref(tab:commits-tbl) shows the first 5 R-packages of all, along with their last half a year's total downloads and the number of commits on Github master branch.
+Table \@ref(tab:commits-tbl) shows the first 5 R-packages of all, along with their total downloads over the most recent 6 month period, and the numbers of commits on master branch in Github repositories.
 
 ```{r commits-tbl}
 pkg_commits_all %>%
   arrange(desc(total)) %>%
   head(5) %>%
-  kable(caption = "First 5 R-packages with commits on Github and last half year's total downloads") %>%
+  kable(caption = "R-packages with commits on Github and total downloads over the most recent 6 month") %>%
   kable_styling(bootstrap_options = c("hover", "striped")) 
 ```
 
-Figure \@ref(fig:commits-pattern) shows the scatterplot along with a smoothing line. In general, more commits, more downloads. 
+Figure \@ref(fig:commits-pattern) shows the scatterplot, along with a smoothing line. In general, more commits can link to more downloads. 
 
-(ref:commits-pattern) The commits on master branch of Github repository against the last half a year's total download count.
+(ref:commits-pattern) The commits on master branch of Github repositories against the total download counts over the most recent 6 month period.
 
 ```{r commits-pattern, fig.cap="(ref:commits-pattern)"}
 pkg_commits_all %>%
@@ -149,7 +150,7 @@ pkg_commits_all %>%
   labs( y = 'Total download count',
           x = 'The number of commits',
     title = "Commits counts against download counts",
-    subtitle = "of 5769 R-packages for last half a year") +
+    subtitle = "of 5769 R-packages over the most recent 6 month") +
     #annotate("text",y= 70000,x= 500,label="In general, more commits, more downloads.",color="red") +
   #theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
@@ -161,11 +162,11 @@ pkg_commits_all %>%
 
 ```
 
-Another method to explore this question is by looking at the ultra-low-downloaded R-packages, whose download count only ranks at last 1% of all. And another purpose for this part is to show how we initially intended to scrape commits through Github API with R (as the sample size is less than 60 R-packages under this situation). 
+Another method can be conducted by taking the ultra-low-downloaded R-packages into consideration, whose download counts only rank last 1% of all. Another purpose for this way is to show our initial idea on scraping commits through Github API with R (as the sample size is less than 60 R-packages, on this condition). 
 
-From Table \@ref(tab:quantileall) we could see the last 1% downloaded count is around 401. And as these download counts are extremely low, we could assume that many factors will have little effect on their downloads. Thus, we can further assume that the only two differences between them are the number of commits on Github master branch and the total download count.
+From Table \@ref(tab:quantileall), it can be seen that the last 1% download count is around 401. And as the download counts of those packages are extremely low, we could assume that many factors can have little effect on their downloads, and the only two differences among them are the numbers of commits on Github master branch and the total download counts.
 
-So, we could filter these ultra-low-downloaded R-packages and extract the commits on Github, then explore the pattern in total download count against the number of commits in Figure \@ref(fig:pkg-low). It could be believed that when the number of commits increases from 0 to 100, the download count first increases and then decreases. After that, the download volume keeps rising and appears to have a little jump at the end, but we supposed it might be due to the the too small-sized sample, and the observation causing the decline may be an outlier. So, if expanding the observation horizon, we expected the curve might increase again. Therefore, it can be seen that even for these last 1% downloaded R-packages, there also exist the phenomenon - "the more commits, the more downloads".
+Based above, we could select those ultra-low-downloaded R-packages and extract commit counts on their Github repositories. In Figure \@ref(fig:pkg-low), it could be observed that when the number of commits increases from 0 to 100, the download counts first increase and then decrease. After that, the download volume keeps rising, with a small jump at the end. We consider that might result from the too small-sized sample, and the observation causing the decline can be an outlier. If expanding the observation horizon, an increase in this curve can be expected. Therefore, it can be concluded that even for those last 1% downloaded R-packages, the phenomenon - "the more commits can link to  more downloads" also exists.
 
 ```{r quantileall}
 quantile_all <- quantile(cran_names_download$total,probs = seq(0, 1, 0.01)) %>% 
@@ -174,12 +175,12 @@ quantile_all <- quantile(cran_names_download$total,probs = seq(0, 1, 0.01)) %>%
 colnames(quantile_all)[1] <- "download count"
 
 quantile_all %>%
-  kable(caption = "Quantile of total download count for all the R-packages on CRAN") %>%
+  kable(caption = "Quantile of total download counts for all of R-packages on CRAN") %>%
   kable_styling(full_width = FALSE) %>%
   scroll_box(width = "100%", height = "400px")
 ```
 
-(ref:pkg-low) The commits on master branch of Github repository against the last half a year's total download count for last 1% downloaded R-packages on CRAN.
+(ref:pkg-low) The commits on master branch of Github repositories, against the total download counts over the most recent 6 month period, for last 1% downloaded R-packages on CRAN.
 
 ```{r pkg-low,fig.cap="(ref:pkg-low)"}
 pkg_low_download <- left_join(dd2_new,cran_names_download,by = "package") %>%
@@ -226,8 +227,8 @@ pkg_commits_low  %>%
   geom_smooth(se = F) +
   labs( y = 'Total download count',
           x = 'The number of commits',
-    title = "Commits counts against download counts",
-    subtitle = "of last 1% downloaded R-packages for last half year") +
+    title = "Commit counts against download counts",
+    subtitle = "for last 1% downloaded CRAN R-packages over the most recent 6 month") +
     #annotate("text",y= 70000,x= 500,label="In general, more commits, more downloads.",color="red") +
   #theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
