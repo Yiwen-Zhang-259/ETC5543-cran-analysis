@@ -3,7 +3,7 @@
 ## Daily downloads of R-packages
 
 ```{r vars-pkg-downloads, cache = TRUE}
-dd_start <- "2012-10-01"
+dd_start <- Sys.Date() - 182 #most recent 6 months
 dd_end <- Sys.Date() - 2
 
 is_weekend <- function(date) {
@@ -381,7 +381,7 @@ cran_names20 <- cran_names %>%
 cran_names21 <- cran_names %>% 
   slice(17019:length(cran_names$package))
 
-td_start <- "2020-10-01"
+td_start <- Sys.Date() - 182
 td_end <- Sys.Date() - 2
 
 #get total downloads for slice1
