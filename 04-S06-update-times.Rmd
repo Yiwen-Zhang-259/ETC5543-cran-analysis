@@ -1,16 +1,15 @@
-## Compare download counts with the number of updates
+## Compare download counts with the numbers of updates
 
-Next, let's look at the relationship between the number of updates and the number of downloads.
-In this part, our analysis object is still all the packages.
+In this section, we looked into the relationship between the numbers of updates and total download counts over the most recent 6 month period, for all of CRAN R-packages.
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 1**: The download count tends to rise with the number of updates.This is because as we have known before, when a package is updated, there will be a significant increase in the number of downloads. That is to say, when a package is updated, not only old users will download the latest version, but also it is easier to attract new users at this time, for the increase of downloads in a short time may bring it into the trending list.
+**Finding 1**: The download counts tend to rise with the numbers of updates. This is probably because there will be a significant increase in downloads when packages get updated. During that time, not only old users often download the latest version, but also it is easier to attract new users, for the increase of downloads within a short period of time can bring packages up to the trending list[@r-hub].
 ```
 
 
 ```{r updates-downloads-all,eval=FALSE}
-# to get the number of updates
-#slice into smaller samples to speed up
+# to get the numbers of updates
+#slice into smaller samples to speed up the code execution
 cran_names1_release <- map_dfr(cran_names1$package, function(x) releases(x)) %>%
   group_by(package) 
 
@@ -154,9 +153,9 @@ cran_updates_download <- cran_updates %>%
   rename(updates = n)
 ```
 
-Figure \@ref(fig:all-updates) shows that the number of downloads increases with the update times. And most R-packages are updated no more than 30 times.
+Figure \@ref(fig:all-updates) shows that the numbers of downloads increase with the update times. And most R-packages are updated no more than 30 times.
 
-(ref:all-updates) The download count increase with the number of updates.
+(ref:all-updates) The download counts increase with the numbers of updates.
 
 ```{r  all-updates, fig.cap="(ref:all-updates)"}
 cran_updates_download %>%
@@ -167,7 +166,7 @@ cran_updates_download %>%
     labs( x = 'The number of updates',
           y = 'Total download count',
     title = "Update counts against download counts",
-    subtitle = "for all R-packages on CRAN") +
+    subtitle = "for all of R-packages on CRAN") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank()) +
   theme(
@@ -178,7 +177,7 @@ cran_updates_download %>%
 ```
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 2**: Over half of the R-packages don't tend to update very frequently.
+**Finding 2**: Over half of the CRAN R-packages are not likely to update very frequently.
 ```
 
 ```{r  function-lowupdates}
@@ -197,18 +196,18 @@ pct_updates <- cran_updates_download %>%
   mutate(`percentage of packages with low updates` = (`number of packages with low updates`/pkg_total)*100)
 ```
 
-Also checking Table \@ref(tab:pct-lowupdates), we can know that the percentage of R-packages whose updates are less than average is `r pct_updates[[2]]` %, which means much more than half of the R-packages do not tend to update very frequently. 
+By checking Table \@ref(tab:pct-lowupdates), we can know that the percentage of R-packages whose updates are less than average is `r pct_updates[[2]]` %, which means much more than half of the CRAN R-packages do not tend to update very frequently. 
 
 ```{r pct-lowupdates}
 pct_updates%>%
-  kable(caption = "Percentage of trending R-packages whose updates are less than average") %>%
+  kable(caption = "Percentage of CRAN R-packages whose updates are less than average") %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 
 ```
 
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 3**: Most R-packages keep updating with the time to keep its activity.
+**Finding 3**: Most CRAN R-packages keep updating with the time, probably to keep its activity.
 ```
 
 
@@ -223,19 +222,18 @@ latest_updates <- pkg_updates_all %>%
 
 ```
 
-It can be seen from Figure \@ref(fig:latestpublish) that most R-packages' latest publish date is after 2015, which indicates that many R-packages tend to update by time to keep its activity.
+It can be seen from Figure \@ref(fig:latestpublish) that most R-packages' latest publish dates are after 2015, which indicates that many R-packages are likely to update with the time, probably in order to keep their activity.
 
-(ref:latestpublish) The latest update dates of trending R-packages are almost all the recent dates.
+(ref:latestpublish) The latest update dates of CRAN R-packages are almost the recent dates.
 
 ```{r  latestpublish,fig.cap="(ref:latestpublish)"}
-
 latest_updates %>%
   ggplot(aes(release)) +
   geom_density() +
   labs( 
         x = 'Latest publish date',
-    title = "Distribution of latest publish date",
-    subtitle = "for all R-packages") +
+    title = "Distribution of latest publish dates",
+    subtitle = "for all of CRAN R-packages") +
   theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
   theme(
@@ -247,12 +245,12 @@ latest_updates %>%
 
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 4**: Most of the R-packages are likely to update at a longer time interval.
+**Finding 4**: Most of the CRAN R-packages are likely to update with a relatively long time interval.
 ```
 
-Figure \@ref(fig:updates-perday) shows that with the increase of update interval, the number of downloads first increases and then decreases slightly. And most of the time intervals are between 45 and 450 days, which shows that their update frequency is not very high.
+Figure \@ref(fig:updates-perday) shows that with the increase of update intervals, the numbers of downloads first increase and then decrease slightly. Most of the time intervals are between 45 and 450 days, which shows that their update frequency is not very high.
 
-(ref:updates-perday) Most of the time intervals of updates are between 45 and 450 days.
+(ref:updates-perday) Most of the time intervals for updates are between 45 and 450 days.
 
 ```{r updates-perday,fig.cap="(ref:updates-perday)"}
 times_updates <- pkg_updates_all %>%
@@ -276,7 +274,7 @@ times_updates %>%
   labs( y = 'Total download counts',
           x = 'Days per update',
     title = "Daily update counts against the download counts",
-    subtitle = "for trending R-packages") +
+    subtitle = "for all CRAN R-packages") +
   scale_color_continuous(trans = 'log10') +
   scale_x_log10() +
   scale_y_log10() +
@@ -290,5 +288,5 @@ times_updates %>%
 ```
 
 
-In conclusion, it's not that the more updates the R-package has, the popular it will be. In general, most of the R-packages whose updates are lower than the average occupy the majority. Therefore, we can also know that the total number of updates is not very important for the R-package. The important thing is to keep it updated with the time.
+In conclusion, it's not that the more updates R-packages have, the popular they can be. In actual, most of the CRAN R-packages whose updates are lower than average occupy the majority. Therefore, the numbers of updates are probably not that important for R-packages. The really important thing can be keeping updated along the time.
 
