@@ -104,7 +104,7 @@
 
 \title{What makes an R-package popular?}
 \author{Yiwen Zhang}
-\date{2021-06-11}
+\date{2021-06-14}
 
 \begin{document}
 \maketitle
@@ -117,56 +117,56 @@
 \chapter*{Preface}\label{preface}}
 \addcontentsline{toc}{chapter}{Preface}
 
-As an R user, have you ever thought about what kind of information is hidden behind the number of downloads for R and R-packages? Why would there an abnormal download value? When choosing which package to use, we often probably tend to use popular ones. But what kind of packages are popular? And What factors will linked to the popularity of an R-package? I suppose these are questions that most R users will be curious about. Therefore, based on the existing findings, this report answers the above questions to a certain extent by taking an exploratory data analysis.
+As an R user, have you ever thought about what kind of information is hidden behind the numbers of downloads for R and R-packages? Why would there be an abnormal download volume? When choosing which package to use, we likely often tend to use popular ones. But what kind of packages are popular? And what factors can be linked to the popularity of an R-package? I propose those are questions as those most R users will be curious about. Therefore, based on the existing findings, this report attempts to provide answers and directions of enquiry towards the above questions, by taking an exploratory data analysis approach.
 
-This is written as part of the ETC5543 research project supervised by Drs Emi Tanaka and Hien Nguyen. Due to the limitations of my programming ability, I encountered some obstacles during this research. But this is also a very precious opportunity for me to cultivate my research thinking and improve my confidence in coding.
+This report is written as part of the ETC5543 research project, supervised by Drs Emi Tanaka and Hien Nguyen. Due to the limitations of my programming ability, I encountered some obstacles during this research. But this is also a very precious opportunity for me to cultivate my research thinking and improve my confidence in coding.
 
-I would like to express my very great appreciation to Drs Emi Tanaka and Hien Nguyen for their valuable and constructive suggestions during the planning and development of this research work. As my supervisors, their patient guidance, enthusiastic encouragement and willingness to give their time so generously have been very much appreciated. And my special thanks are also extended to Dr Emi Tanaka for her generous help on writing. I would like to also thank Professor Rob J Hyndman, for holding every two weeks' meeting to give us recommendations.
+I would like to express my very great appreciation to Drs Emi Tanaka and Hien Nguyen for their valuable and constructive suggestions during the planning and development of this research work. As my supervisors, their patient guidance, enthusiastic encouragement and willingness to give their time so generously have been very much appreciated. And my special thanks are also extended to Drs Emi Tanaka and Hien Nguyen for their generous help on writing. I would like to also thank Professor Rob J Hyndman, for holding meetings every two weeks to give us recommendations.
 
 I hope you enjoy your reading.
 
 \hypertarget{abstract}{%
 \chapter{Abstract}\label{abstract}}
 
-This research seeks to analyze the popularity of R-packages and figure out the influential factors. Data are closely related to social and economic activities in our daily life, so data mining and analysis will definitely benefit us. In many statistical and data analysis tools, this research focuses on R in this project, and aim to explore the popularity of R-packages from CRAN. To achieve this, it is assumed in this research that the download volume is a relatively reliable and simple measurement for the popularity of R-packages, and two main parts of analysis has been carried out, one is to uncover the information behind the download count logs, the other is to explore the factors that will linked to the download volume. The techniques applied in this research is mainly R, together with a small part of Python on data scraping. By obtaining the daily and recent half a year's total download count of 17,699 R-packages and R itself, this research analyzes their pattern characteristics, as well as the relationship between the release date, update times, number of commits on Github, name length and alphabetic order of the name. Finally, this research also gives the changes of R-user preferences on 1st April from 2013 to 2021, to some extent.
+This research seeks to analyze the popularity of R-packages and figure out the probably influential factors that drive such popularity. Data are closely related to social and economic activities in our daily life, so data mining and analysis can often be beneficial. This research focuses on R in this project, and aims to explore the popularity of R-packages from CRAN (the Comprehensive R Archive Network). To achieve this, it is assumed in this research that the download volume is a relatively reliable and simple measurement for the popularity of an R-packages, and two main parts of analysis has been carried out : one is to uncover the information behind the download count logs, the other is to explore the factors that can be linked to the download volume. The technical aspects that are applied in this research is largely compromise of R programs and scripts, together with some Python code on data scraping. By obtaining the daily and recent half year total download counts of 17,713 R-packages and R itself, this research analyzes pattern, characteristics, as well as the relationship between the release dates, update times, numbers of commits on Github (master or main branch), name lengths and alphabetical order of the names. Finally, this research also provides some description of the changes of R-user preferences on 1st April over the period of 2013 to 2021.
 
-Moreover, results show that the daily download of R-packages has a strong weekly seasonality and unusual spikes caused by repeat download, update or server issue. The most stably popular R-packages during 2017 to 2019 is about JAVA dependency. And an earlier release date is more likely to bring a higher download volume for R-packages. That is similar to update times and commits number on Github repository. However, the alphabetical order of R-package name contributes little to the download counts. And over half of the R-packages on CRAN tend to have shorter names.
+Results show that the daily downloads of R-packages have a strong weekly seasonality and unusual spikes caused by repeat downloads, updates or server test issue. The most stably popular R-packages over the period of 2017 to 2019 is related to JAVA dependency. We also found that an earlier release date is more likely to result in a higher download volume for R-packages. Similarly, update times and commits numbers on master (main) branch in Github repositories are also positively correlated with download volumes. However, the alphabetical order of R-package names contributes little to the download counts.
 
-KEY WORDS : R-package popularity, CRAN download count, Web scraping, Github API, EDA
+KEY WORDS : R-package popularity, CRAN download volume, Web scraping, Github API, EDA
 
 \hypertarget{intro}{%
 \chapter{Introduction}\label{intro}}
 
-Data, which has penetrated into every industry and business field, has become an increasingly important production factor and consumption in our lives. However, data itself must be processed to uncover the information within it. For this reason many statistical tools were born, such as SPSS, Python, R and so on. In this project, we focus on the R language \autocite{R-base}.
+Data have penetrated into every industry and business field, has become an increasingly important factor of production and consumption in our lives. However, data must be processed to uncover the information within. For this reason many statistical tools have been produced, such as SPSS, Python, R and so on. In this project, we focus on the R language \autocite{R-base}.
 
-R is a language and environment for statistical computing and graphics which can be extended easily via packages and provide an Open Source route to participation in statistical methodology. It is available as Free Software under the term of the Free Software Foundation's GNU General Public License \autocite{gnu}. R is one of the most popular statistical languages and has been ranking competitively even among the general purpose programming languages \autocite[peaking 8th in August 2020 in][]{tiobe}. The TIOBE Programming Community index aggregates several search engines to derive a metric of the popularity of a programming language. It is important to note, however, that programming languages ranked higher than R are mostly general purpose languages and therefore naturally has a larger user base whereas R is exclusively for data analysis and statistical computation alone.
+R is a programming language and environment for statistical computing and graphics, which can be extended easily via packages and provide an Open Source route to participation in statistical methodology. It is available as Free Software under the terms of the Free Software Foundation's GNU General Public License \autocite{gnu}. R is one of the most popular statistical languages and has been ranked competitively, even among the general purpose programming languages \autocite[peaking 8th in August 2020 in][]{tiobe}. The TIOBE Programming Community index aggregates several search engines to derive a metric of the popularity of a programming language. It is important to note, however, that programming languages ranked higher than R are mostly general purpose languages and therefore naturally have a larger user base.
 
-Today, R is greatly enhanced by over 17,699 R-packages contributed by hundreds of developers all over the world. However, when R originally appeared in August of 1993 with its first official release in June of 1995 \autocite{Ikaha1998}, the contributions were managed by only a small group of core developers. In April of 1997, Comprehensive R Archive Network (CRAN) was established as the official R-packages repository with 3 mirror sites. Now the source repositories to install R-packages have expanded to Bioconductor, Gitlab, GitHub, R-Forge and \href{https://cran.r-project.org/mirmon_report.html}{106 CRAN mirrors in 49 regions}. Of all the CRAN mirrors, the daily download count for each package is only readily available from the RStudio CRAN mirror. In this report, we will be focusing only on one CRAN mirror via RStudio, albeit the most popular one, for exploratory data analysis. Henceforth, all download counts of packages refer to the download from this RStudio CRAN mirror.
+Today, R is greatly enhanced by over 17,713 R-packages contributed by hundreds of developers all over the world. However, when R originally appeared in August of 1993 with its first official release in June of 1995 \autocite{Ikaha1998}, the contributions were managed by only a small group of core developers. In April of 1997, the Comprehensive R Archive Network (CRAN) was established as the official R-packages repository, with 3 mirror sites. Now, the source repositories to install R-packages have expanded to Bioconductor, Gitlab, GitHub, R-Forge and \href{https://cran.r-project.org/mirmon_report.html}{106 CRAN mirrors in 49 regions}. Of all the CRAN mirrors, the daily download counts for each package is only readily available from the RStudio CRAN mirror. In this report, we will be focusing only on one CRAN mirror of RStudio, albeit it being the most popular one, for exploratory data analysis. Henceforth, all download counts of packages refer to the download from this RStudio CRAN mirror.
 
 CRAN is a network of ftp and web servers around the world that store identical, up-to-date, versions of code and documentation for R \autocite{CRAN}.
 
-The most intuitive embodiment of popularity is the total number of downloads, although it does not directly reflect the number of users, because it includes the repeated downloads by the same user, updates and test downloads caused by the server. Briefly, some works that use these download counts include: the R-package \texttt{adjustedcranlogs} \autocite{adjustedcranlogs} attempts to correct this download inflation using a heuristic approach; package \texttt{packageRank} \autocite{packageRank} provides a way to compute the rank percentile for packages and filter the invalid downloads including small and medium size logs. What's more, there are also some packages such as \texttt{pkgsearch}\autocite{pkgsearch} and \texttt{Visualize.CRAN.Downloads}\autocite{VisualizeCRANDownloads} providing some visualization methods to explore the package download trend or for convenient searching. More details are explained in Section 5.
+The most intuitive measurement of popularity is the total number of downloads, although it does not directly reflect the number of users, because it includes repeated downloads by the same user, updates and test downloads caused by the server. Briefly, some works concerning the reporting and interpretation of these download counts include: the R-package \texttt{adjustedcranlogs} \autocite{adjustedcranlogs}, which attempts to correct for download inflation using a heuristic approach; the package \texttt{packageRank} \autocite{packageRank}, which provides a way to compute the rank percentile for packages and filters invalid downloads, including small and medium size logs. There are also some packages such as \texttt{pkgsearch}\autocite{pkgsearch} and \texttt{Visualize.CRAN.Downloads}\autocite{VisualizeCRANDownloads} that provide some visualization methods to explore the package download trends or for convenient searching. More details are provided in Section 5.
 
-Based on that, researchers have started to study the popularity of R-packages from CRAN. And we still assume in this project that, the download amount is a relatively reliable and simple measure of packages' popularity. Back to the previous studies, the R-package \texttt{adjustedcranlogs}\autocite{adjustedcranlogs} finds that there are spikes in downloads due to automatic re-downloads and package update, and it also provides a method to remove these download logs. Some of them are function extensions based on previous packages, and some of them propose their own new functions, but generally speaking, they are inclined to be more tool like to help users explore the characteristics of package download logs from as many dimensions as possible.
+Based on those initial works, researchers have started to study the popularity of R-packages from CRAN. We still assume in this project that, the download amount is a relatively reliable and simple measure of a R-package's popularity. The previous studies, the R-package \texttt{adjustedcranlogs}\autocite{adjustedcranlogs} finds that there are spikes in downloads due to automatic re-downloads and package updates, and it also provides a method to remove these download logs. Some of the methods are function extensions based on previous packages, and some of their proposed methods are new functions, but generally speaking, they are more tool like, to help users explore the characteristics of package download logs from as many directions as possible.
 
-As for us, the purpose of this project is to explore the download logs of R-packages on CRAN and analyze the relationship between some influential factors with it to help users and developers better understand the download amount pattern, and also figure out what would determine a package's popularity to some extent.
+As for us, the purpose of this project is to explore the download logs of R-packages on CRAN and to analyze the relationships between some probably influential factors, to help users and developers better understand the download patterns, and also figure out what could determine a R-package's popularity to some extent.
 
 \begin{itemize}
 \item
-  CRAN mirror is a website containing differently located servers, which aims to facilitate people from different regions and countries to access CRAN more smoothly and quickly. And each server is called a mirror \autocite{cranmirror}.
+  A CRAN mirror is a website containing differently located servers, which aims to facilitate to quick and smooth access for people from different regions and countries. Each server is called a mirror \autocite{cranmirror}.
 \item
-  CRAN task view : It aims to provide some guidance which packages on CRAN are relevant for tasks related to a certain topic \autocite{crantaskviews}.
+  CRAN task view aims to provide some guidance regarding which packages on CRAN are relevant for tasks related to a certain topic \autocite{crantaskviews}.
 \end{itemize}
 
 \hypertarget{other-work}{%
 \section{Other work}\label{other-work}}
 
-\texttt{adjustedcranlogs}: More specifically, any unusual download spikes are smoothed over and the upward download bias is removed stochastically by subtracting the minimum download count from a random sampling of packages; if this corrected download results in a negative value then this is adjusted to be zero.
+\texttt{adjustedcranlogs}\autocite{adjustedcranlogs} : In this tool, unusual download spikes are smoothed over and the upward download bias is removed stochastically by subtracting the minimum download count from a random sampling of packages; if this corrected download results in a negative value then this is adjusted to be zero.
 
 \hypertarget{data}{%
 \chapter{Data}\label{data}}
 
-The main source of data used in this report is the download logs from the RStudio CRAN mirror site \url{https://cran.rstudio.com/}. These log files are created for every instance of download of an R-package via the RStudio CRAN mirror, then these log files are processed daily into CSV files that contain the following variables with the name of header in brackets:
+The main source of data used in this report is the download logs from the RStudio CRAN mirror site : \url{https://cran.rstudio.com/}. These log files are created for every instance of download of an R-package via the RStudio CRAN mirror, then these log files are processed, daily, into CSV files that contain the following variables with the name of header in brackets:
 
 \begin{itemize}
 \tightlist
@@ -194,46 +194,46 @@ A similar log file is also created for every download of R from the RStudio CRAN
 
 The log files of a particular day is processed and compressed into a single CSV file of about 40 megabytes (file sizes of earlier years are much smaller due to lower number of download logs). As there are over 700,000 CSV files, a simple estimate of the size of the data is 28 terabytes - far exceeding typical portable hard drives which are 1-4 terabytes.
 
-The summarised version of data, where the data shows the total daily download count for each package, is accessible using the \texttt{cranlogs} R-package. The \texttt{cranlogs} package accesses this summary data through the web application programming interface (API) maintained by r-hub \autocite{rhub}.
+The summarised version of data, where the data show the total daily download counts for each package, is accessible using the \texttt{cranlogs} R-package. The \texttt{cranlogs} package accesses this summary data through the web application programming interface (API) maintained by r-hub \autocite{rhub}.
 
 \hypertarget{methods}{%
 \chapter{Methods}\label{methods}}
 
-In this project, we extracted R-package names from CRAN and got summary daily download logs of R-packages through web Application Programming Interface (API) maintained by r-hub\autocite{rhub}. And we also collected release dates of R-packages through CRAN. In addition, we also tried to scrap the number of commits in Github repository for R-packages. Then we constructed eight exploratory data analysis sections:
+In this project, we extracted R-package names from CRAN and obtained summary daily download logs of R-packages through the web Application Programming Interface (API) maintained by r-hub\autocite{rhub}. We also collected release dates of R-packages through CRAN. In addition, we also tried to scrap the number of commits on master (main) branch in Github repositories for all of available R-packages. Then we conducted eight exploratory data analysis studies:
 
 \begin{itemize}
 \item
-  we explored the daily download of all the packages on CRAN and figured out the number of R-packages occupied by different downloaded groups;
+  we explored the daily downloads of all the packages on CRAN and figured out the number of R-packages occupied by different downloaded groups;
 \item
   we analyzed the daily download trend of R itself and the found out the most popular version of R;
 \item
-  we compared the top 15 downloaded R-packages on CRAN on 1st April. from year 2013 to 2021 to see how the user preference changes;
+  we compared the top 15 downloaded R-packages on CRAN, yearly, on 1st April. from 2013 to 2021, to see how user preference change;
 \item
-  we figured out the relationship between initial release date and the total download count for last half a year;
+  we figured out the relationship between initial release dates and the total download counts over the most recent 6 month period. The reason for choosing the period of 6 months is : different R-packages are initially released in different time. If the comparison period is too long, it will be unfair to the R-packages released later. And if the period is too short, download data will be not enough to reflect some potential patterns or relationships;
 \item
-  we compared two closely related packages \texttt{fable} and \texttt{forecast} to see the difference between their MA (moving average);
+  we compared two closely related packages : \texttt{fable} and \texttt{forecast}, to see the difference between their MA (moving average) trends;
 \item
-  we studied how the number of commits of master (main) branch on Github repository may influence the total download count for last half a year;
+  we studied how the number of commits on master (main) branches in Github repositories may influence the total download counts for the most recent 6 month period;
 \item
-  we explored the relationship between the number of updates of R-packages and its download count;
+  we explored the relationship between the number of updates for all of R-packages and their download counts;
 \item
-  we analyzed the name length pattern for both CRAN task view packages and all the R-packages on CRAN;
+  we analyzed the name length patterns for both CRAN task view packages and all of R-packages on CRAN;
 \item
-  we explored how the alphabetical order of R-packages would related to the download count and its statistic features (variance, median).
+  we explored how the alphabetical order of R-packages would related to the download counts and the statistic features (e.g.variance, median of the download counts).
 \end{itemize}
 
 \hypertarget{results}{%
 \chapter{Results}\label{results}}
 
-\hypertarget{daily-download-of-r-packages}{%
-\section{Daily download of R-packages}\label{daily-download-of-r-packages}}
+\hypertarget{daily-downloads-of-r-packages}{%
+\section{Daily downloads of R-packages}\label{daily-downloads-of-r-packages}}
 
 \begin{discovery}
-\textbf{Finding 1}: There was unusual download activity in one day of
+\textbf{Finding 1}: There was unusual download activities in one day of
 2014 and 2018.
 \end{discovery}
 
-In this first section, we studied the daily downloads of CRAN R-packages from 2012-10-01 to 2021-06-07. The data was obtained from the \texttt{cranlogs} package\autocite{cranlogs}, which includes a summary of the download logs from the RStudio CRAN mirror. The daily download data for CRAN R-packages are available from 1st October 2012. Examination of this data showed two unusual observations in 2014 and 2018 as shown in Figure \ref{fig:unusual-spikes}. The one happening in 2014 was on 2014-11-17, which was Monday, while the other one happening in 2018 was on 2018-10-21, which was on Sunday.
+In this first section, we studied the daily downloads of CRAN R-packages from 2012-10-01 to 2021-06-12. The data was obtained from the \texttt{cranlogs} package\autocite{cranlogs}, which includes a summary of the download logs via the RStudio CRAN mirror. The daily download data for CRAN R-packages are available from 1st October 2012. Examination of this data showed two unusual observations in 2014 and 2018 as shown in Figure \ref{fig:unusual-spikes}. The one happening in 2014 was on 2014-11-17, Monday, while the other one happening in 2018 was on 2018-10-21, Sunday.
 
 
 
@@ -243,10 +243,10 @@ In this first section, we studied the daily downloads of CRAN R-packages from 20
 
 }
 
-\caption{Unusual download spikes on 2014 and 2018.}\label{fig:unusual-spikes}
+\caption{Unusual download spikes in 2014 and 2018.}\label{fig:unusual-spikes}
 \end{figure}
 
-Then let's have a closer look into these two spikes. First, we focused on the spike on 2014-11-17. From Table \ref{tab:spike14count}, we could see that the downloads of top downloaded R-packages on this day differs little, so it's not due to certain package.
+When having a closer look into those two spikes, we firstly focused on the one on 2014-11-17. From Table \ref{tab:spike14count}, we could see that the downloads of top downloaded R-packages on this day differs little, indicating this spike is not due to a certain package.
 
 \begin{table}
 
@@ -279,7 +279,7 @@ plyr & 3150\\
 \end{tabular}
 \end{table}
 
-Table \ref{tab:spike14country} shows the downloads from different countries. It is obvious that downloads from Indonesia is much more than any others, which indicates the most downloads are from Indonesia.
+Table \ref{tab:spike14country} shows the downloads from different countries on 2014-11-17. It is obvious that \texttt{Indonesia} obtains much more downloads than any others.
 
 \begin{table}
 
@@ -312,11 +312,11 @@ KR & 6794\\
 \end{tabular}
 \end{table}
 
-Furthermore, we also checked the IP address in Table \ref{tab:spike14ip}, downloads from \texttt{ip3758} is much higher than others. So, it seems that most of the downloads are owing to one certain IP.
+Furthermore, we also checked IP addresses, displayed in Table \ref{tab:spike14ip}. Downloads from \texttt{ip3758} is much higher than others. So, it seems that most of the downloads are owing to one certain IP for the unusual spike in 2014.
 
 \begin{table}
 
-\caption{\label{tab:spike14ip}The IP address downloading from CRAN on 2014-11-17}
+\caption{\label{tab:spike14ip}The IP addresses downloading from CRAN on 2014-11-17}
 \centering
 \begin{tabular}[t]{r|r}
 \hline
@@ -345,11 +345,11 @@ ip\_id & n\\
 \end{tabular}
 \end{table}
 
-Next, let's turn to the one in 2018. Table \ref{tab:spike18count} shows the downloads from tidyverse is much higher than others with nearly three orders of magnitude.
+Next, we turned to the unusual spike in 2018. Table \ref{tab:spike18count} shows the downloads from \texttt{tidyverse} is much higher than others, with nearly three orders of magnitude.
 
 \begin{table}
 
-\caption{\label{tab:spike18count}The total downloads of each R-package on 2014-11-17}
+\caption{\label{tab:spike18count}The total downloads of each R-package on 2018-10-21}
 \centering
 \begin{tabular}[t]{l|r}
 \hline
@@ -378,11 +378,11 @@ fansi & 11275\\
 \end{tabular}
 \end{table}
 
-As for the country, from Table \ref{tab:spike18country} we could know that US is much higher than any other country.
+As for country, from Table \ref{tab:spike18country}, we could know that \texttt{US} occupies the most part of downloads on that day.
 
 \begin{table}
 
-\caption{\label{tab:spike18country}The countries downloading from CRAN on 2014-11-17}
+\caption{\label{tab:spike18country}The countries downloading from CRAN on 2018-10-21}
 \centering
 \begin{tabular}[t]{l|r}
 \hline
@@ -411,11 +411,11 @@ KR & 30469\\
 \end{tabular}
 \end{table}
 
-Finally, the most interesting finding is in IP address displayed in Table \ref{tab:spike18ip}. Several consecutive IPs have highly distinguished downloads. It seems that they are from same person, or it is also probably a server test issue in the same short period of time.
+Finally, the most interesting finding is on IP address, displayed in Table \ref{tab:spike18ip}. Several consecutive IPs have highly distinguished downloads. It seems that they are probably from the same individual, or caused by a server test issue, in such a short period of time.
 
 \begin{table}
 
-\caption{\label{tab:spike18ip}The IP address downloading from CRAN on 2014-11-17}
+\caption{\label{tab:spike18ip}The IP addresses downloading from CRAN on 2018-10-21}
 \centering
 \begin{tabular}[t]{r|r}
 \hline
@@ -444,14 +444,14 @@ ip\_id & n\\
 \end{tabular}
 \end{table}
 
-To sum up, we found that these two unusual spikes have one thing in common, that is, most of the downloads came from a specific country. The difference is that in 2014, a large number of downloads came from several different R-packages, while in 2018, they came from only one package \texttt{tidyverse}. In addition, in 2014, a large number of downloads came from one IP, while in 2018, they came from several consecutive IPs, At this point, we guess it should come from the same person, and it is likely to be sever test issue, for it may be not necessary or reasonable for an individual to generate such a large quantities of downloads in one day.
+To sum up, we found that these two unusual spikes have one thing in common, that is, most of the downloads came from a specific country. The difference is that in 2014, a large number of downloads came from several different R-packages, while in 2018, they came from only one package \texttt{tidyverse}. In addition, in 2014, a large quantities of downloads came from one IP, while in 2018, they came from several consecutive IPs, At this point, it is guessed that they should come from the same individual, and it is very likely due to sever test issue, for it may be not necessary or reasonable for an individual to generate such a large amount downloads in one day.
 
 \begin{discovery}
-\textbf{Finding 2}: There is an increasing number of downloads over
-time. This likely attests to the growing number of R users.
+\textbf{Finding 2}: There are increasing numbers of downloads over time,
+which can attests the growing number of R users.
 \end{discovery}
 
-Figure \ref{fig:download-over-time} shows the download trend of all R-packages on CRAN over time after fixing the unusual spikes. It shows an upward trend over time, and the variance also increases with the download count, which means the volatility of the data is increasing.
+Figure \ref{fig:download-over-time} shows the download trend of all R-packages on CRAN over a period pf time from 2012-10-01 to 2021-06-12, after fixing the unusual spikes mentioned above. There is an upward trend, with an increasing variance in download counts.
 
 
 
@@ -461,16 +461,16 @@ Figure \ref{fig:download-over-time} shows the download trend of all R-packages o
 
 }
 
-\caption{The download trend of all R-packages on CRAN over time.}\label{fig:download-over-time}
+\caption{The download trend of all R-packages on CRAN from 2012-10-01 to 2021-06-12.}\label{fig:download-over-time}
 \end{figure}
 
 \begin{discovery}
-\textbf{Finding 3}: Weekends have a lower download than weekdays.
+\textbf{Finding 3}: Weekends have a lower downloads than weekdays.
 \end{discovery}
 
-To have a closer look at the weekly pattern, figure \ref{fig:total-trend} shows the daily downloads of all CRAN R-packages from the RStudio mirror with the grey areas highlighting the weekend.
+To have a closer look at the weekly pattern, figure \ref{fig:total-trend} shows the daily downloads of all CRAN R-packages via the RStudio mirror, with the grey areas highlighting the weekend.
 
-To be more specific, we could know that except for 2012 and 2013, the patterns of other years are very similar, that is, they all show strong weekly seasonality. To be more detailed, in 2012, the download logs showed an overall upward trend, because more and more users began to download R-packages from CRAN after its open. In the following years, there is no obvious trend in download volume, but a strong seasonality, which indicates that in a week, the total downloads always increases first then decreases, and reaches the lowest at the weekend. Although the pattern of 2013 is more volatile, it still conforms to that. We think for 2013, that is because CRAN is only open for a short time at this time, and the amount of data downloaded is not adequate to show its download pattern very clearly. Considering this, we could see that after 2016, the pattern of each year is quite consistent, for the total download has been increasing year by year. Back to weekly seasonality, that is because people are more likely to download and use packages in weekdays, and rest on weekends. And that's why the trough of download curve always occurs on weekends. In addition, we could also notice that the lowest downloads across the year are always at the end of December and the beginning of January, probably due to the Christmas and New Year's holidays. What's more, the downloads is on the rise from August to October and from February to April, which covers the start of semester for most universities.
+To be more specific, except for 2012 and 2013, the patterns of other years are very similar, with a strong weekly seasonality. To be more detailed, in 2012, the download logs showed an overall upward trend, which also reflected more and more users there after release of CRAN. In the following years, there is no obvious trend in download volume, but a strong seasonality, which indicates that in a week, the total downloads always increases first then decreases, and reaches the lowest on weekends. Although the pattern of 2013 is more volatile, it still conforms to that. We suppose that is because CRAN was only open for a short period of time in 2013, so the amount of download data is not adequate to show the weekly pattern very clearly. After 2016, the pattern of each year is quite consistent, for the total downloads have been increasing year by year. Back to weekly seasonality, people are more likely to download packages during weekdays, and rest on weekends. So, the trough of download curve always occurs on weekends. In addition, the lowest downloads across the year are always happening at the end of December or the beginning of January, probably due to the Christmas and New Year's holidays. Meanwhile, the downloads are on the rise from August to October, and from February to April, which covers the beginning of semesters for many universities around the world, a time when related students tend to download CRAN R-packages very often.
 
 
 
@@ -480,10 +480,10 @@ To be more specific, we could know that except for 2012 and 2013, the patterns o
 
 }
 
-\caption{The figure shows the total downloads of all R-packages on CRAN would decrease on weekends.}\label{fig:total-trend}
+\caption{The total downloads for all of R-packages on CRAN would decrease on weekends and increase during weekdays.}\label{fig:total-trend}
 \end{figure}
 
-As there are many fluctuation in daily download pattern which is due to calendar effect and server issue of CRAN mirror, we then applied a model called STL decomposition explained in \textcite{stl}, to smooth the curve for all the R-packages.
+As there are many fluctuations in daily download pattern, which is due to calendar effect and test server issue of CRAN mirror, an STL decomposition model explained in \textcite{stl}, was applied, to smooth the curve for all of the R-packages in Figure \ref{fig:pkg-stl}.
 
 
 
@@ -493,34 +493,30 @@ As there are many fluctuation in daily download pattern which is due to calendar
 
 }
 
-\caption{The figure shows the total downloads of all R-packages on CRAN after smoothing.}\label{fig:pkg-stl}
+\caption{The total downloads of all R-packages on CRAN after smoothing.}\label{fig:pkg-stl}
 \end{figure}
 
-And this can be applied to any R-package to adjust the daily download pattern. In this case, we selected two packages \texttt{fable} and \texttt{forecast} as an example in Figure \ref{fig:example-adjust}. It can be seen that the pattern is smoother after removing the seasonality and ignorance of extremum possibly caused by repeated downloads, updates and test downloads from the server.
+Figure \ref{fig:weekend-vs-weekday} shows the distributions and the median of the downloads between weekday and weekends, which differ from each other a lot. The violin plots of weekends are wider and shorter, while those of weekdays are thinner and higher, on the contrary. That is because the total downloads on weekends are less than those in weekdays. In 2012, the median and interquartile range of download logs are not very distinguished between weekdays and weekends, for the data volume was not adequate at this time as mentioned before. But after 2013, the gap between the two has been becoming more and more obvious. The median downloads of working days are significantly higher than those of weekends, and the overall download volume is also significantly larger than that of weekends as well. Interestingly, the lower adjacent sometimes occurs on weekends, such as in year 2014, 2015, 2018, 2019 and 2021, while sometimes also in weekdays, such as in year 2012, 2013, 2016, 2017 and 2020.
 
 
 
 \begin{figure}
 
-{\centering \includegraphics{figures/example-adjust-1} 
+{\centering \includegraphics{figures/weekend-vs-weekday-1} 
 
 }
 
-\caption{The figure shows the daily downloads of \texttt{fable} and \texttt{forecast} on CRAN after smoothing.}\label{fig:example-adjust}
+\caption{The violin plot for downloads of all of R-packages on CRAN, between weekday and weekends.}\label{fig:weekend-vs-weekday}
 \end{figure}
-
-Figure \ref{fig:weekend-vs-weekday} shows the distribution and the median of the downloads between weekday and weekends. The distribution of weekdays and weekends are quite different. Weekends are wider and shorter, while weekdays are thinner and higher, because the total download of data on weekends is less than that on weekdays. And in 2012, the median and interquartile range of download logs are not very distinguished between weekdays and weekends, for the data volume was not adequate at this time as mentioned above. But after 2013, the gap between the two becomes more and more obvious, that is, the median downloads of working days is significantly higher than that of weekends, and the overall number of data is also significantly higher than that of weekends as well. But interestingly, the lower adjacent sometimes occurs on weekends, such as in year 2014, 2015, 2018, 2019 and 2021, while sometimes in weekdays, such as in year 2012, 2013, 2016, 2017 and 2020.
-
-\begin{center}\includegraphics{figures/weekend-vs-weekday-1} \end{center}
 
 \begin{discovery}
 \textbf{Finding 4}: Top 10\% downloaded R-packages share nearly 90\%
-cumulative download count of the whole.
+cumulative download counts of the whole.
 \end{discovery}
 
-From the previous analysis, we could see that the cumulative download count of R-packages shows an increasing trend. It would be perfect equality if every R-package had the same download count -- the last 20\% downloaded R-packages would gain 20\% of the total download count or the top 60\% downloaded R-packages would get 60\% of the total download count. But we know from experience that this is obviously impossible, so here we introduced Lorenz curve\autocite{lorenz} to show the respective number of R-packages of different download levels (groups defined by quantiles of download count). In this way, we could figure out how many download counts contributed by different downloaded R-packages.
+From the previous analysis, we could see that the cumulative download counts of R-packages show an increasing trend. It would be perfect equality if every R-package had the same download count : the last 20\% downloaded R-packages would gain 20\% of the total download count or the top 60\% downloaded R-packages would get 60\% of the total download count. But knowing from experience, we know that is hardly possible. So, here, we introduced Lorenz curve\autocite{lorenz} to show the respective numbers of R-packages within different download levels (groups defined by quantiles of download counts). In this way, we could figure out how many download counts contributed by different downloaded R-packages.
 
-Figure \ref{fig:download-over-time} shows cumulative download count against each downloaded group. It can be seen that most of the download counts come from the top 10\% downloaded R-packages. At the same time, we could also observe that the Gini value is close to 1, which indicates that the download volume among groups is very unbalanced. In fact, the download volume of the top 10\% group is extremely distinguished from that of the following groups. It's not hard to understand that this group should contain some R-packages with high popularity and large quantities of users. For example, if we extracted the first 10 packages of this group in Table \ref{tab:top10}, we could find that they are all quite famous and frequently-used ones.
+Figure \ref{fig:lorenz-all} shows cumulative download counts against each downloaded group. It can be seen that most of the download counts come from the top 10\% downloaded R-packages. At the same time, we could also observe that the Gini value is close to 1, which indicates that the download volumes across groups are quite unbalanced. In fact, the download volume of the top 10\% group is extremely distinguished from that of the following groups. It's not hard to understand that this group should contain some R-packages with high popularity and large quantities of users.
 
 
 
@@ -530,8 +526,10 @@ Figure \ref{fig:download-over-time} shows cumulative download count against each
 
 }
 
-\caption{Percentiles of the download count against cumulative download count of R-packages at or below that percentile.}\label{fig:lorenz-all}
+\caption{Percentiles of the download counts against cumulative download counts for R-packages at or below that percentile.}\label{fig:lorenz-all}
 \end{figure}
+
+For example, if we extracted the first 10 packages of this group in Table \ref{tab:top10}, we could find that there are many quite famous and frequently-used R-packages, such as \texttt{rlang} and \texttt{dplyr}.
 
 \textbackslash begin\{table\}
 
@@ -569,14 +567,14 @@ glue & 9534999\\
 \hypertarget{daily-downloads-of-r}{%
 \section{Daily downloads of R}\label{daily-downloads-of-r}}
 
-In this section, we studied the daily downloads of R language itself from 2012-10-01 to 2021-06-07. The data was obtained from the \texttt{cranlogs} package \autocite{cranlogs} as well.
+In this section, we studied the daily downloads of R language itself from 2012-10-01 to 2021-06-12. The data was obtained from the \texttt{cranlogs} package \autocite{cranlogs} as well.
 
 \begin{discovery}
-\textbf{Finding 1}: The number of downloads shows an upward trend over
-time, and the variance also increases with the downloads.
+\textbf{Finding 1}: There is an upward trend in the number of downloads,
+also with an increasing variance.
 \end{discovery}
 
-Figure \ref{fig:R-download-trend} shows the download trend of R on CRAN over time. It shows an upward trend over time, and the variance also increases with the download count, which indicates the volatility of the data is increasing as well. And that is resulted from the pump of R users. As for the significant spikes, it is probably quite similar to the situation of R-packages, which is due to repeated downloads, weekly calendar effect and server test.
+Figure \ref{fig:R-download-trend} shows the download trend of R on CRAN over the period of time, from 2012-10-01 to 2021-06-12. An upward trend shows, with an increasing variance in download counts, which is resulted from the growth of R users. As for significant spikes, they are probably quite similar to the situation of R-packages, which is due to repeated downloads, weekly calendar effect or server test issue.
 
 
 
@@ -586,15 +584,15 @@ Figure \ref{fig:R-download-trend} shows the download trend of R on CRAN over tim
 
 }
 
-\caption{The download trend of R on CRAN over time.}\label{fig:R-download-trend}
+\caption{The download trend of R on CRAN, from 2012-10-01 to 2021-06-12.}\label{fig:R-download-trend}
 \end{figure}
 
 \begin{discovery}
-\textbf{Finding 2}: The most used operation system for R users is
-Windows OS.
+\textbf{Finding 2}: The most used operation system for R users turns out
+to be Windows OS.
 \end{discovery}
 
-Figure \ref{fig:R-download-trend-os} shows the comparison of operation system for R users. The number of Windows users ranks first, followed by MacOS and SRC. For Microsoft has traditionally dominated the desktop and laptop market. And Microsoft officially claims there are 400 million active users of Windows 10 itself, while Apple revealed that there are now nearly 100 million active Mac users.\autocite{warren2017}
+Figure \ref{fig:R-download-trend-os} shows the comparison of operation systems for R users. The number of Windows-user ranks first, followed by MacOS and SRC. Microsoft has traditionally dominated the desktop and laptop market. And Microsoft officially claims there are 400 million active users of Windows 10 itself, while Apple revealed that there are only around 100 million active Mac users, up to now.\autocite{warren2017}
 
 
 
@@ -604,18 +602,18 @@ Figure \ref{fig:R-download-trend-os} shows the comparison of operation system fo
 
 }
 
-\caption{The download trend of R on CRAN over time.}\label{fig:R-download-trend-os}
+\caption{The comparison of operation system (OS) for R users, from 2012-10-01 to 2021-06-12.}\label{fig:R-download-trend-os}
 \end{figure}
 
 \begin{discovery}
 \textbf{Finding 3}: The most popular version of R is 3.2.1
 \end{discovery}
 
-And Table \ref{tab:R-download-trend-version} shows the number of downloads of different versions of R. The most downloaded one is 3.2.1 with 4526 times, followed by 3.3.3 with 4305 times and 3.1.2 with 3958 times. So, most users tend to install the latest version of R to get the newest update information.
+Table \ref{tab:R-download-trend-version} shows the first 10 numbers of downloads for different versions of R. The most downloaded one is 3.2.1 with 4526 times, followed by 3.3.3 with 4305 times and 3.1.2 with 3958 times. Most users are likely to install the latest version of R to get the newest update information.
 
 \begin{table}
 
-\caption{\label{tab:R-download-trend-version}The number of downloads of different versions of R}
+\caption{\label{tab:R-download-trend-version}The numbers of downloads for different versions of R}
 \centering
 \begin{tabular}[t]{l|r}
 \hline
@@ -641,365 +639,19 @@ R\_version & count\\
 \hline
 3.3.0 & 3362\\
 \hline
-3.4.4 & 3349\\
-\hline
-3.2.3 & 3308\\
-\hline
-3.0.3 & 3294\\
-\hline
-3.1.3 & 3274\\
-\hline
-3.3.2 & 3235\\
-\hline
-3.1.0 & 3216\\
-\hline
-3.5.0 & 3136\\
-\hline
-3.3.1 & 3107\\
-\hline
-2.15.3 & 2895\\
-\hline
-3.2.0 & 2873\\
-\hline
-3.4.2 & 2743\\
-\hline
-3.6.1 & 2636\\
-\hline
-3.0.1 & 2543\\
-\hline
-3.0.0 & 2537\\
-\hline
-3.0.2 & 2517\\
-\hline
-3.5.2 & 2514\\
-\hline
-3.5.3 & 2496\\
-\hline
-3.6.0 & 2374\\
-\hline
-2.15.0 & 2203\\
-\hline
-3.2.4 & 2122\\
-\hline
-2.15.1 & 2066\\
-\hline
-2.13.2 & 2011\\
-\hline
-3.2.5 & 1981\\
-\hline
-2.15.2 & 1906\\
-\hline
-devel & 1856\\
-\hline
-3.6.2 & 1807\\
-\hline
-2.14.1 & 1791\\
-\hline
-2.11.1 & 1764\\
-\hline
-2.11.0 & 1733\\
-\hline
-2.14.2 & 1700\\
-\hline
-2.14.0 & 1660\\
-\hline
-2.13.0 & 1628\\
-\hline
-2.13.1 & 1585\\
-\hline
-3.6.3 & 1560\\
-\hline
-2.10.0 & 1496\\
-\hline
-2.10.1 & 1476\\
-\hline
-2.12.0 & 1432\\
-\hline
-2.12.2 & 1387\\
-\hline
-2.12.1 & 1362\\
-\hline
-4.0.0 & 1346\\
-\hline
-4.0.1 & 1251\\
-\hline
-4.0.3 & 1092\\
-\hline
-4.0.2 & 1071\\
-\hline
-3.6.2.nn & 508\\
-\hline
-3.2.4revised & 480\\
-\hline
-3.6.3.nn & 459\\
-\hline
-4.0.4 & 443\\
-\hline
-release & 407\\
-\hline
-2.9.2 & 394\\
-\hline
-4.0.5 & 334\\
-\hline
-2.9.0 & 314\\
-\hline
-2.8.1 & 312\\
-\hline
-2.0.0 & 309\\
-\hline
-2.5.1 & 300\\
-\hline
-2.5.0 & 296\\
-\hline
-2.9.1 & 293\\
-\hline
-2.8.0 & 292\\
-\hline
-2.1.1 & 290\\
-\hline
-2.2.0 & 290\\
-\hline
-2.7.0 & 290\\
-\hline
-2.4.1 & 284\\
-\hline
-2.6.0 & 282\\
-\hline
-2.2.1 & 277\\
-\hline
-2.4.0 & 274\\
-\hline
-2.7.1 & 272\\
-\hline
-2.6.2 & 267\\
-\hline
-2.3.1 & 265\\
-\hline
-2.3.0 & 254\\
-\hline
-2.7.2 & 251\\
-\hline
-2.6.1 & 248\\
-\hline
-2.1.0 & 232\\
-\hline
-3.6.1patched & 228\\
-\hline
-2.0.1 & 208\\
-\hline
-3.5.1patched & 144\\
-\hline
-patched.exe & 141\\
-\hline
-release.exe & 138\\
-\hline
-4.0.3patched & 132\\
-\hline
-4.0.2patched & 120\\
-\hline
-3.5.2patched & 99\\
-\hline
-3.6.2patched & 96\\
-\hline
-3.6.0patched & 85\\
-\hline
-3.3.2patched & 75\\
-\hline
-3.2.2patched & 71\\
-\hline
-3.3.1patched & 70\\
-\hline
-3.2.3patched & 69\\
-\hline
-4.1.0 & 61\\
-\hline
-3.4.1patched & 58\\
-\hline
-3.4.3patched & 55\\
-\hline
-3.6.3patched & 55\\
-\hline
-3.1.2patched & 54\\
-\hline
-3.5.3patched & 53\\
-\hline
-3.2.0patched & 50\\
-\hline
-4.0.5patched & 49\\
-\hline
-4.0.0patched & 47\\
-\hline
-3.4.0patched & 46\\
-\hline
-4.0.4patched & 45\\
-\hline
-2.2.1pat & 42\\
-\hline
-3.2.1patched & 41\\
-\hline
-3.1.3patched & 37\\
-\hline
-3.4.2patched & 35\\
-\hline
-3.3.3patched & 32\\
-\hline
-3.5.0patched & 30\\
-\hline
-3.3.0patched & 29\\
-\hline
-3.2.4-revised & 22\\
-\hline
-4.0.3rc & 22\\
-\hline
-3.2.4patched & 20\\
-\hline
-4.1.0patched & 20\\
-\hline
-3.6.0alpha & 19\\
-\hline
-4.0.0alpha & 18\\
-\hline
-3.3.0beta & 17\\
-\hline
-4.0.1patched & 17\\
-\hline
-3.1.3rc & 14\\
-\hline
-3.2.1rc & 14\\
-\hline
-4.1.0alpha & 14\\
-\hline
-3.2.0alpha & 13\\
-\hline
-3.2.0rc & 12\\
-\hline
-3.2.2rc & 11\\
-\hline
-3.6.1rc & 11\\
-\hline
-4.0.1rc & 11\\
-\hline
-3.4.0alpha & 10\\
-\hline
-3.6.0rc & 10\\
-\hline
-3.6.3beta & 10\\
-\hline
-4.0.4rc & 10\\
-\hline
-3.4.4patched & 9\\
-\hline
-3.5.0alpha & 9\\
-\hline
-3.5.3rc & 9\\
-\hline
-3.6.2rc & 9\\
-\hline
-4.0.2rc & 9\\
-\hline
-4.1.0rc & 9\\
-\hline
-3.2.0beta & 8\\
-\hline
-3.2.5patched & 8\\
-\hline
-3.4.4rc & 8\\
-\hline
-3.5.0rc & 8\\
-\hline
-3.6.0beta & 8\\
-\hline
-4.0.0rc & 8\\
-\hline
-4.0.3beta & 8\\
-\hline
-3.3.3rc & 7\\
-\hline
-3.6.3rc & 7\\
-\hline
-4.1.0beta & 7\\
-\hline
-3.2.3rc & 6\\
-\hline
-3.2.4rc & 6\\
-\hline
-3.3.1rc & 6\\
-\hline
-3.5.2rc & 6\\
-\hline
-3.6.1beta & 6\\
-\hline
-4.0.0beta & 6\\
-\hline
-4.0.1beta & 6\\
-\hline
-3.2.2beta & 5\\
-\hline
-3.4.0beta & 5\\
-\hline
-3.3.0alpha & 4\\
-\hline
-3.3.0rc & 4\\
-\hline
-3.3.2rc & 4\\
-\hline
-3.4.0rc & 4\\
-\hline
-3.4.1rc & 4\\
-\hline
-3.4.2rc & 4\\
-\hline
-3.4.3rc & 4\\
-\hline
-4.0.5beta & 4\\
-\hline
-4.0.5rc & 4\\
-\hline
-3.1.3beta & 3\\
-\hline
-3.2.1beta & 3\\
-\hline
-3.4.3beta & 3\\
-\hline
-3.5.0beta & 3\\
-\hline
-3.6.2beta & 3\\
-\hline
-4.0.2beta & 3\\
-\hline
-4.0.4beta & 3\\
-\hline
-3.2.3beta & 2\\
-\hline
-3.2.4beta & 2\\
-\hline
-3.3.1beta & 2\\
-\hline
-3.4.1beta & 2\\
-\hline
-3.5.1rc & 2\\
-\hline
-3.5.2beta & 2\\
-\hline
-3.4.2beta & 1\\
-\hline
-3.5.3beta & 1\\
-\hline
-devel.exe & 1\\
-\hline
 \end{tabular}
 \end{table}
 
-In conclusion, the daily download trend of R is quite similar to that of R-packages, and they are both significantly affected by weekly calendar issue, unusual downloads from CRAN mirrors. But in general, they both tend to increase with the growing of R users.
+In conclusion, the daily download trends of R are quite similar to those of R-packages, and they are both significantly correlated to weekly calendar as well as unusual downloads from CRAN mirrors. In general, they both tend to increase with the growing of R users.
 
 \hypertarget{daily-top-15-downloaded-r-packages}{%
 \section{Daily top 15 downloaded R-packages}\label{daily-top-15-downloaded-r-packages}}
 
-In this section, we studied the top 15 downloaded R-packages from 2013-04-01 to 2021-04-01 to see how user preferences has been changing. The data was obtained from CRAN website {[}\url{http://cran.rstudio.com/web/packages/packages.rds}{]}.
+In this section, we studied the top 15 downloaded R-packages from \texttt{2013-04-01} to \texttt{2021-04-01}, to see how user preferences have been changing. The data were obtained from CRAN website {[}\url{http://cran.rstudio.com/web/packages/packages.rds}{]}.
 
-We are supposed to know that some R-packages are hold by Rstudio, and some are developed by core personnel or personnel closely related to R, or some prolific developers. Naturally, the number of downloads of these packages will probably be higher. On the one hand, the R-packages developed by these experienced developers may be more mature and perfect, on the other hand, users are more inclined to use the packages from famous authors, which can be regarded as a kind of ``good use'' guarantee.
+We are supposed to know that some R-packages are hold by Rstudio, some are developed by core personnel or personnel closely related to R, and some are created by prolific developers\autocite{revolutions}. And there are also parts of R-packages that are dependency packages of others, which means the increasing downloads of their ``father'' packages would also promote the downloads of them. For example, R-package \texttt{fable} is dependency package within R-package \texttt{fpp3}. When users install \texttt{fpp3}, \texttt{fable} would also be installed at the same time. Naturally, the numbers of downloads for those packages can probably be higher. On the one hand, the R-packages developed by those experienced developers may be more mature and completed. On the other hand, users are more inclined to use packages produced by famous authors, which can be regarded as a kind of ``good use'' guarantee.
 
-However, the existence of these packages will make the results biased. Therefore, in order to explore the R-packages constructed by non-special creators, we have screened out four types of R-packages, namely:
+However, the existence of those packages can cause the results of user preferences biased. Therefore, we decided to explore the R-packages constructed by non-special creators, and screened out four types of R-packages, namely:
 
 \begin{itemize}
 \tightlist
@@ -1015,7 +667,7 @@ However, the existence of these packages will make the results biased. Therefore
   R-packages created by top 20 prolific maintainers (This is resourced at \textcite{revolutions})
 \end{itemize}
 
-And after that, we generated the lorenz curve here again in Figure \ref{fig:lorenz-filter}, it can be observed that the distribution of R-packages in each download group is quite equal now and the Gini value decreases a lot as well, for the `extreme effect' brought by highly-downloaded packages has disappeared. Thus, the user preferences could be shown more clearly. But as after filtering, the number of remaining packages is only 58, which is a too small-sized sample to construct representative conclusions, we would still focus on all the R-packages on CRAN in our later analysis.
+After that, we generated a lorenz curve here again in Figure \ref{fig:lorenz-filter}, it can be observed that the distribution of R-packages in each download group is more equal now and the Gini value decreases as well, for the `extreme effect' brought by highly-downloaded packages has disappeared. Thus, the user preferences could be shown more clearly. However, after filtering, the number of remaining R-packages is only 58, which is a too small-sized sample to conduct representative conclusions, we would still focus on all of R-packages on CRAN in later analysis.
 
 
 
@@ -1025,28 +677,28 @@ And after that, we generated the lorenz curve here again in Figure \ref{fig:lore
 
 }
 
-\caption{Percentiles of the download count against cumulative download count of R-packages after filtering four types of popular and highly-downloaded packages.}\label{fig:lorenz-filter}
+\caption{Percentiles of the download counts against cumulative download counts of R-packages after filtering four types of popular and highly-downloaded packages.}\label{fig:lorenz-filter}
 \end{figure}
 
 \begin{discovery}
-\textbf{Finding 1}: The topic of newly added R-packages each year come
-from quite different areas.
+\textbf{Finding 1}: The topic of newly added R-packages come from quite
+different application areas, each year.
 \end{discovery}
 
-Table \ref{tab:changed-top15pkg} shows the R-packages that newly come up to the top 15 list each year, from which we can know how the user preference has changed year by year, compared with the previous year. To be more specific :
+Table \ref{tab:changed-top15pkg} shows the R-packages that newly come up to the top 15 list each year, from which we can know how the user preferences have changed year by year, compared with the previous year. To be more specific :
 
 \begin{itemize}
 \tightlist
 \item
   For 2014, \texttt{ncdf} ranks first, which is used to provide an interface to netCDF format data.
 \item
-  For 2015, the first downloaded is \texttt{XLConnectJars} on JAVA dependency.
+  For 2015, the first downloaded R-package is \texttt{XLConnectJars}, related to JAVA dependency.
 \item
-  For 2016, the first one is \texttt{reports} for standardising the output of R.
+  For 2016, the first downloaded R-package is \texttt{reports}, for standardising the output of R.
 \item
   For 2017, \texttt{lava.tobit} aims to help with estimation and simulation of latent variable models.
 \item
-  For 2018, the ranking-first \texttt{ReportsRs} is for creating Microsoft Word and Powerpoint documents.
+  For 2018, the first-ranking \texttt{ReportsRs} is for creating Microsoft Word and Powerpoint documents.
 \item
   For 2019, \texttt{CALIBERrfimpute} is used to impute missing values in analysis datasets using full conditional specifications.
 \item
@@ -1093,13 +745,13 @@ reports & wmtsa & MSBVAR & zipcode & - & - & RcmdrPlugin.qual & optimbase\\
 \end{table}
 
 \begin{discovery}
-\textbf{Finding 2}: The topic of R-packages changes least between 2017
-and 2019. And the most popular filed is about JAVA dependency.
+\textbf{Finding 2}: The topic of R-packages changes least during 2017
+and 2019. The most popular application filed is on JAVA dependency.
 \end{discovery}
 
-Table \ref{tab:unchanged-top15pkg} shows the R-packages that remain unchanged each year compared with the previous year, from which we can know which packages are relatively stable in popularity.
+Table \ref{tab:unchanged-top15pkg} shows the R-packages that remain unchanged each year, compared to the previous year, from which we can know which packages are relatively stable in popularity.
 
-To be more specific, packages like \texttt{XLConnectJars}, \texttt{DMwR}, \texttt{KoNLP}, and \texttt{gWidgets} are relatively popular through years from 2014 to 2021. And they are used for providing JAVA dependency, data mining, linguistic research and providing API for building toolkit-independent, interactive GUIs.
+To be more specific, packages like \texttt{XLConnectJars}, \texttt{DMwR}, \texttt{KoNLP}, and \texttt{gWidgets} are relatively popular through years from 2014 to 2021. They are used for providing JAVA dependency, data mining, linguistic research and providing API for building toolkit-independent, interactive GUIs.
 
 \begin{table}
 
@@ -1132,144 +784,86 @@ its & - & - & gWidgets & alr3 & gWidgetsRGtk2 & - & -\\
 \end{tabular}
 \end{table}
 
-Let's take a look at the trending R-packages. Trending R-packages are ones that are downloaded at least 1000 times last week, which have increased significantly compared to the average weekly downloads in the previous 24 weeks\autocite{r-hub}. That is to say, they are packages with high download volume in a recent short time. Through their topic, we can know what areas of R-packages people are concerned about recently.
+Next, we changed the object to trending R-packages. Trending R-packages are ones downloaded at least 1000 times last week, which have increased significantly compared to the average weekly downloads in the previous 24 weeks\autocite{r-hub}. That is to say, they are packages with significantly high download volume in a recent short time. Through their topics, we can know what application areas of R-packages that people are concerned about recently.
 
 \begin{discovery}
-\textbf{Finding 3}: The most popular topic of trending R-packages is for
-\texttt{r\ pkg\_trendcom\_count\$topic{[}1{]}}.
+\textbf{Finding 3}: The most popular topic of trending R-packages.
 \end{discovery}
 
-Table \ref{tab:trending-topic} shows the first 15 trending R-packages along with their topics.
+Table \ref{tab:trending-count} shows the top 10 downloaded topics for trending R-packages. The most popular topic is Multivariate, followed by Cluster and Phylogenetics. This is easy to understand : the numbers of users from different fields are different, so the downloads of R-packages in different topics also varies. It seems that Multivariate is quite heated recently.
 
 \begin{table}
 
-\caption{\label{tab:trending-topic}Trending R-packages with topics}
-\centering
-\begin{tabular}[t]{l|l}
-\hline
-package & topic\\
-\hline
-mgcv & Bayesian\\
-\hline
-units & ChemPhys\\
-\hline
-metafor & ClinicalTrials\\
-\hline
-clusterSim & Cluster\\
-\hline
-fastcluster & Cluster\\
-\hline
-lhs & Distributions\\
-\hline
-mgcv & Econometrics\\
-\hline
-mgcv & Environmetrics\\
-\hline
-DiceDesign & ExperimentalDesign\\
-\hline
-lhs & ExperimentalDesign\\
-\hline
-Cubist & MachineLearning\\
-\hline
-metafor & MetaAnalysis\\
-\hline
-norm & MissingData\\
-\hline
-arulesSequences & ModelDeployment\\
-\hline
-clusterSim & Multivariate\\
-\hline
-\end{tabular}
-\end{table}
-
-And Table \ref{tab:trending-count} shows the first 10 topics for trending R-packages. The most popular topic is Bayesian, followed by Cluster and Econometrics. This is easy to understand, because the number of users from different fields is different, so there are also differences in the number of R-packages used in different topics. And it seems that Bayesian is quite a hit recently.
-
-\begin{table}
-
-\caption{\label{tab:trending-count}Topics of trending R-packages}
+\caption{\label{tab:trending-count}Ranking topics of trending R-packages}
 \centering
 \begin{tabular}[t]{l|r}
 \hline
 topic & download times\\
 \hline
-WebTechnologies & 5\\
-\hline
 Multivariate & 4\\
 \hline
-MachineLearning & 3\\
+Cluster & 3\\
 \hline
-SocialSciences & 3\\
+Phylogenetics & 3\\
 \hline
 TimeSeries & 3\\
 \hline
-Cluster & 2\\
+WebTechnologies & 3\\
 \hline
-Econometrics & 2\\
+Distributions & 2\\
 \hline
-MissingData & 2\\
+ExperimentalDesign & 2\\
 \hline
-OfficialStatistics & 2\\
+SocialSciences & 2\\
 \hline
-Optimization & 2\\
+ClinicalTrials & 1\\
+\hline
+Finance & 1\\
 \hline
 \end{tabular}
 \end{table}
 
-So, apart from the topic of the R-package itself, what other factors will probably be linked to its download volume? With this question in mind, we mainly explored the relationship between the total number of download counts of R-packages in the past year and the earliest release date, the relationship between the last half a year's total download volume and the number of updates, the number of commits on GitHub repositories, the length of the name and the alphabetical order of the first letter of the name in the next following sections.
+Apart from the topics of R-packages, what other factors can probably be linked to download volumes? With this question in mind, we then explored the relationship between the total number of download counts for all of CRAN R-packages and the earliest release date in the past year. We also studied the relationship between the total download volume and the number of updates, the number of commits on master (main) branch in GitHub repositories, the lengths and the alphabetical order of names, over the most recent 6 month period, in the following sections.
 
-\hypertarget{compare-last-years-downloads-with-the-earliest-release-date}{%
-\section{Compare last year's downloads with the earliest release date}\label{compare-last-years-downloads-with-the-earliest-release-date}}
+\hypertarget{compare-last-years-downloads-with-the-initial-release-date}{%
+\section{Compare last year's downloads with the initial release date}\label{compare-last-years-downloads-with-the-initial-release-date}}
 
 \begin{discovery}
 \textbf{Finding}: R-packages that are initially released earlier on CRAN
-tend to have a higher download count in the past year. This perhaps is
-because in earlier times, there were fewer R-packages in the same
-category, so users had `no choice' but to use them. Due to this, these
-R-packages accumulate a certain user base, which makes it more possible
-to attract new users.
+tend to have higher download counts in the past year. That is perhaps
+because, in earlier times, there were fewer R-packages in the same
+category, then users had `no choice' but to use them. Due to that, those
+R-packages would accumulate user base, which makes it more possible to
+attract new users.
 \end{discovery}
 
-In our common cognition, we may assume that the earlier a R-package is released, the more people will know about it, and thus the more downloads it will have. However, R-packages related to different topics cannot be directly compared, because it is possible that the total download amount of R-packages in a certain topic is higher than that in another topic. Therefore, in order to test this conjecture as clearly as possible, we selected three domain R-packages through CRAN task view\autocite{crantaskviews}, calculated their respective downloads in the previous half a year, and extracted their earliest release dates for comparison. Those three topics are :
+In our common cognition, it may be assumed that the earlier an R-package is released, the more people can get to know it, and thus the more downloads it can have. However, R-packages related to different topics cannot be directly compared, because download counts of R-packages in one topic can be higher than that in another. Therefore, in order to test this conjecture as clearly as possible, we selected three domain R-packages through CRAN task view\autocite{crantaskviews}, calculated their respective downloads in the previous one year, and extracted their earliest release dates for comparison. Those three topics are :
 
 \begin{itemize}
+\tightlist
 \item
-  \begin{enumerate}
-  \def\labelenumi{\alph{enumi})}
-  \tightlist
-  \item
-    R-packages for Time Series Analysis
-  \end{enumerate}
+  R-packages for Time Series Analysis
 \end{itemize}
 
 The first topic is Time Series Analysis. Time Series Analysis is a statistical technique that deals with time series data, or trend analysis. Time series data means that data is in a series of particular time periods or intervals\autocite{timeseries}.
 
 \begin{itemize}
+\tightlist
 \item
-  \begin{enumerate}
-  \def\labelenumi{\alph{enumi})}
-  \setcounter{enumi}{1}
-  \tightlist
-  \item
-    Bayesian R-packages for general model fitting
-  \end{enumerate}
+  Bayesian R-packages for general model fitting
 \end{itemize}
 
 The second topic is Bayesian Inference. Bayesian statistics is a mathematical procedure that applies probabilities to statistical problems. It provides people the tools to update their beliefs in the evidence of new data\autocite{bayesian}.
 
 \begin{itemize}
+\tightlist
 \item
-  \begin{enumerate}
-  \def\labelenumi{\alph{enumi})}
-  \setcounter{enumi}{2}
-  \tightlist
-  \item
-    Econometrics R-packages
-  \end{enumerate}
+  Econometrics R-packages
 \end{itemize}
 
-In order to test whether this is the case in other areas, the last topic is for econometrics R-packages. Econometrics is the use of statistical methods using quantitative data to develop theories or test existing hypotheses in economics or finance, which relies on techniques such as regression models and null hypothesis testing\autocite{econometrics}.
+The last topic is related to econometrics. Econometrics is the use of statistical methods using quantitative data to develop theories or test existing hypotheses in economics or finance, which relies on techniques such as regression models and null hypothesis testing\autocite{econometrics}.
 
-Figure \ref{fig:release-downloads} displays the scatterplot of the past year's download count and the earliest release date for \texttt{Time\ Series\ Analysis}, \texttt{Econometrics} and \texttt{Bayesian} R-packages. It can be seen that generally, as the earliest release date gets later and later, the number of download logs becomes lower and lower. And for \texttt{Time\ Series\ Analysis} R-packages, they are mainly released between 2012 and 2019. For \texttt{Bayesian} R-packages, most of the R-packages are from 2007 to 2012. And most \texttt{Econometrics} are centered between 2013 and 2016.
+Figure \ref{fig:release-downloads} displays the scatterplot of the past year's download counts and the earliest release dates, for \texttt{Time\ Series\ Analysis}, \texttt{Econometrics} and \texttt{Bayesian} R-packages. It can be seen that, generally, as the earliest release dates get later and later, the numbers of download logs become lower and lower. For \texttt{Time\ Series\ Analysis} R-packages, they are mainly released between 2012 and 2019. For \texttt{Bayesian} R-packages, most of the R-packages are born from 2007 to 2012. And most \texttt{Econometrics} are centered between 2013 and 2016.
 
 
 
@@ -1279,25 +873,25 @@ Figure \ref{fig:release-downloads} displays the scatterplot of the past year's d
 
 }
 
-\caption{The download count decrease with the initial release date.}\label{fig:release-downloads}
+\caption{The download counts decrease with the initial release dates.}\label{fig:release-downloads}
 \end{figure}
 
-In conclusion, we are not surprised to find that the earlier the R-package is released, the more downloads it could has, which is reflected in all of three topics of R-packages above. That is probably because the R-packages released earlier will be better known. When they are released early, there may be a relatively small number of R-packages of the same topic, under non-serious competition. As a result, the R-packages coming later can easily be covered up, since people generally tend to use well-known, mature and habitual packages.
+In conclusion, it is not surprising to find that the earlier the R-package is released, the more downloads it could have, which is reflected in all of three topics above. That is probably because the R-packages released earlier can be better-known. When they are released early, there may be a relatively small number of R-packages in the same topic, under non-serious competition. As a result, the R-packages coming later can easily be covered up, since people may generally tend to use well-known, mature and habitual packages.
 
-That is to say, earlier R-packages are more conducive to the cultivation of user habits. After all, habits are influenced by the length of time. For example, if the teacher is an old user of some R-packages, they may recommend these R-packages to their students when they teach, or colleagues may prefer to recommend familiar R-packages to others especially when they get a satisfying user experience.
+That is to say, earlier R-packages are more conducive to the cultivation of user habits. After all, habits are influenced by the length of time. For example, if the teacher is a senior user of an R-package, they may recommend that R-package to their students when teaching, especially when they obtain a satisfying user experience.
 
-\hypertarget{compare-moving-average-of-fable-and-forecast}{%
-\section{Compare moving average of fable and forecast}\label{compare-moving-average-of-fable-and-forecast}}
+\hypertarget{compare-moving-average-trends-for-fable-and-forecast}{%
+\section{Compare moving average trends for fable and forecast}\label{compare-moving-average-trends-for-fable-and-forecast}}
 
 \begin{discovery}
 \textbf{Finding}: R-package `forecast' has a more stable download trend
-comparing to `fable'. And when `fable' gets updated, its downloads
-peaked, while `forecast' suffers a dropping on the contrast.
+comparing to `fable'. When `fable' gets updated, its downloads peaked,
+while `forecast' suffers a dropping, on the contrast.
 \end{discovery}
 
-As we stated in the previous section, the earlier the R-package is released, the easier it is to get a relatively higher total download. But that doesn't mean a better growth will exist. Due to that, in this section, we compared package \texttt{fable} and \texttt{forecast}. They are two closely related R-packages, for \texttt{fable} is the later released tidy version of \texttt{forecast}. And in this way, we can approximately fix all the factors except the initial release date, so that we can compare the growth and changes of these two more clearly.
+As stated in the previous section, the earlier an R-package is released, the easier it can be to get a relatively higher total downloads. But that doesn't mean a better growth will exist. Due to that, in this section, we compared package \texttt{fable} and \texttt{forecast}. They are two closely related R-packages, for \texttt{fable} is the later released tidy version of \texttt{forecast}. And in this way, we can approximately fix all of factors, except the initial release date, so that we can compare the growth and changes of those two more clearly.
 
-Figure \ref{fig:daily-fbl} and Figure \ref{fig:daily-fcst} show the daily download count changing during last half a year, which indicates strong weekly seasonality. And that means the downloads tend to be higher in week days and thus lower on weekends, which is consistent with total R-package trend analyzed before.
+Figure \ref{fig:daily-fbl} and Figure \ref{fig:daily-fcst} show the daily download counts changing over the most recent 6 month period, with strong weekly seasonality. That means the downloads tend to be higher within week days and thus lower on weekends, which is consistent with trend for all of R-packages that was analyzed before.
 
 
 
@@ -1307,7 +901,7 @@ Figure \ref{fig:daily-fbl} and Figure \ref{fig:daily-fcst} show the daily downlo
 
 }
 
-\caption{The daily download of R-package ``fable''}\label{fig:daily-fbl}
+\caption{The daily downloads of R-package ``fable''}\label{fig:daily-fbl}
 \end{figure}
 
 
@@ -1318,10 +912,10 @@ Figure \ref{fig:daily-fbl} and Figure \ref{fig:daily-fcst} show the daily downlo
 
 }
 
-\caption{The daily download of R-package ``forecast''.}\label{fig:daily-fcst}
+\caption{The daily downloads of R-package ``forecast''.}\label{fig:daily-fcst}
 \end{figure}
 
-Therefore, in order to estimate the trend-cycle and reduce the weekly seasonality to see the changes more clearly, we introduced the Moving Average (MA).
+Therefore, in order to estimate the trend-cycle and reduce the weekly seasonality, to see the changes more clearly, the Moving Average (MA) was introduced\autocite{movingaverage}.
 
 A moving average of order \textbf{m} can be written as :
 
@@ -1329,9 +923,9 @@ A moving average of order \textbf{m} can be written as :
 
 where \textbf{m=2k+1}. That is, the estimate of the trend-cycle at time \textbf{t} is obtained by averaging values of the time series within \textbf{k} periods of \textbf{t}.
 
-And here, we considered the equal weighed 7 moving average. That is, it calculates the weighted average for every seven consecutive time series with the following weights : \emph{{[}1/7,1/7,1/7,1/7,1/7,1/7,1/7{]}}.
+And here, we considered an equal weighed 7 moving average. It calculates the weighted average for every seven consecutive time series with the following weights : \emph{{[}1/7,1/7,1/7,1/7,1/7,1/7,1/7{]}}.
 
-Figure \ref{fig:ff-ma} shows the moving average (MA) of \texttt{fable} and \texttt{forecast} respectively. They have quite different moving average patterns with \texttt{forecast}'s download volume much higher than \texttt{fable}'s. That is, the MA of \texttt{forecast} is relatively stable than that of \texttt{fable} except for the time around New Year's Eve when \texttt{forecast} has a significant drop. But during that time, a drop also appears in \texttt{fable}, which was probably due to the big New Year holiday. In addition, the purple vertical dashed line in plot of \texttt{fable} marks the update day of it which is on 2021-1-29. And soon after that day, its downloads peaked, which was because the number of download counts will increase on the update day. At the same time, \texttt{forecast} drops and then only gets a gentle increase.
+Figure \ref{fig:ff-ma} shows the moving average (MA) of \texttt{fable} and \texttt{forecast} respectively. They have quite different moving average patterns, when \texttt{forecast}'s download volume is much higher than that of \texttt{fable}, except for the time around New Year's Eve, with a significant drop in \texttt{forecast}. But during that time, a drop also appears in \texttt{fable}, which was probably due to the big New Year holiday. In addition, the purple vertical dashed line in plot of \texttt{fable} marks the update day of it, on 2021-1-29. Soon after that day, \texttt{fable}'s downloads peaked, which was due to the increase brought by update day. At the same time, \texttt{forecast} drops, then only gets a gentle increase.
 
 
 
@@ -1341,33 +935,33 @@ Figure \ref{fig:ff-ma} shows the moving average (MA) of \texttt{fable} and \text
 
 }
 
-\caption{The moving average of R-package ``forecast'' and ``fable''.}\label{fig:ff-ma}
+\caption{The moving averages of R-package ``forecast'' and ``fable''.}\label{fig:ff-ma}
 \end{figure}
 
-In conclusion, the download variance of \texttt{forecast} is larger than that of \texttt{fable} while the former looks relatively more stable than the latter after applying the moving average. And once again, it coincides with the conclusion of the previous section, that is, the earlier released R-package tends to gain more cumulative downloads. In addition, we can also see that the growth of both of them sometimes increases at the same time, while sometimes the growth of one corresponds to the decline of the other. As for as we concerned, the shared growth may be due to their similarity. Users may download both at the same time or compare them like us. And the trade-off may also be due to the similarity of their functions, one can be replaced by the other in the process of using. Finally, we can also know that earlier release does not guarantee a faster growth. For example, \texttt{fable} has a more dramatic growth than \texttt{forecast} from 2021-01-21 to 2021-02-06.
+In conclusion, the download variance of \texttt{forecast} is larger than that of \texttt{fable} while the former looks relatively more stable than the latter, after applying the moving average. It coincides with the conclusion of the previous section : the earlier released R-package tends to obtain more cumulative downloads. In addition, we can also see that the growths of both of two sometimes increase at the same time, while the growth of one can correspond to the decline of the other, sometimes. As for as we concerned, the shared growth may be due to their similarity. Users may download both at the same to compare, like us. And the trade-off may also be due to their similar functions, one can be replaced by the other. Finally, earlier release does not guarantee a faster growth. For example, \texttt{fable} has a more dramatic growth than \texttt{forecast} from 2021-01-21 to 2021-02-06.
 
 \hypertarget{compare-download-counts-with-the-number-of-commits-on-master-branch}{%
 \section{Compare download counts with the number of commits on master branch}\label{compare-download-counts-with-the-number-of-commits-on-master-branch}}
 
-In this section, we compared last half a year's total downloads with the number of commits on master branch in Github repositories. And this turn, we initially planned to replace the research object with all the R-packages on CRAN, 17,699 up to now. But we soon found out that there were only 6185 R-packages that have a Github repository, and after cleaning up, only 5769 remained.
+In this section, we compared total downloads over the most recent 6 month period, with the number of commits on master branch in Github repositories. For all of CRAN R-packages, there were only 6185 R-packages that have Github repositories, and after cleaning up, only 5769 remained.
 
 \begin{discovery}
 \textbf{Finding}: In our initial assumption, more commits on master
-branch of Github repository tends to bring more download counts to
-R-packages. On the one hand, the number of commits indicates that
-developers are constantly supplementing and updating the R-package,
-which will lead to more downloads. On the other hand, the number of
-commits also reflects the attention developers attach to the R-package
-to a certain extent. So, if an R-package has more commits, then
-developers may invest more in advertising and other ways to promote it,
-so as to expand the popularity and improve the download count.
+branch of Github repositories are likely to bring R-packages more
+download counts. On the one hand, the number of commits can indicate
+that developers are constantly supplementing and updating their
+R-packages, which may lead to more downloads. On the other hand, the
+number of commits also can reflect the attention developers attach to
+their R-packages, to some extent. Usually, for those who have more
+commits, their developers may advertise more or try other ways, to
+expand the popularity and improve the download counts.
 \end{discovery}
 
-The way we initially applied was extracting the commits through accessing the Github API. To achieve this, we first scraped the Github URLs from `description' page for all the R-packages, and cleaned up the multiple URLs or some other redundant symbols and characters. And the URL of scraping the commits through Github API is formatted as \emph{``\url{https://api.github.com/repos/\%7Buser_repo\%7D/commits?per_page=1}''}. For example, the URL for package \texttt{tidyverse} can be like \emph{``\url{https://api.github.com/repos/tidyverse/tidyverse/commits?per_page=1}''}. So, practically, by replacing the \texttt{user\_repo} part that consists of the name of the related repository and the name of the package holder, we could access the content of all the package URLs through Github API.
+The way we initially planned to apply was extracting the commits through accessing the Github REST API\autocite{githubapi}. To achieve that, we first scraped the Github URLs from `description' pages for all of R-packages from CRAN, then cleaned up the multiple URLs and other redundant symbols or characters. The URL is formatted as : \emph{``\url{https://api.github.com/repos/\%7Buser_repo\%7D/commits?per_page=1}''}. For example, the URL for package \texttt{tidyverse} can be like : \emph{``\url{https://api.github.com/repos/tidyverse/tidyverse/commits?per_page=1}''}. Practically, by replacing the \texttt{user\_repo} part that consists of the name of the related repository and the name of the package holder, we could access the contents of URLs through Github API, for all of CRAN R-packages.
 
-Based on that, Table \ref{tab:userrepo-tbl} shows the first 5 R-packages of the whole, their Github URLs and the \texttt{user\_repo} part.
+Based on that, Table \ref{tab:userrepo-tbl} shows the first 5 R-packages, with their Github URLs and the \texttt{user\_repo} parts.
 
-However, the Github API has a rate limits allowing for up to 60 requests per hour for unauthenticated requests, and this can be extended to 5000 per hour after authentication\autocite{githubapi}. But even after getting authentication, our rate limit didn't get promoted. So, we switched to scrape commits by python spider. And by setting random user agent, we successfully avoided the API limit. And as this method is quite time consuming (around 5 hours), we saved the output as a .txt file then load it in R studio to speed up the compiling process.
+However, the Github API has a rate limits, allowing for up to 60 requests per hour for unauthenticated requests, which can be extended to 5000 per hour after authentication\autocite{githubapi}. But even after getting authentication, our rate limit didn't get promoted. So, we switched to scrape commits with Python spider, by setting random user agent, to avoid the API limit. Since this method is quite time consuming (around 5 hours each time for all available R-packages), we saved the output as a local .txt file and load it later in R studio, to speed up the code execution.
 
 \textbackslash begin\{table\}
 
@@ -1392,11 +986,11 @@ abess & http://github.com/abess-team/abess & abess-team/abess\\
 
 \textbackslash end\{table\}
 
-Table \ref{tab:commits-tbl} shows the first 5 R-packages of all, along with their last half a year's total downloads and the number of commits on Github master branch.
+Table \ref{tab:commits-tbl} shows the first 5 R-packages of all, along with their total downloads over the most recent 6 month period, and the numbers of commits on master branch in Github repositories.
 
 \begin{table}
 
-\caption{\label{tab:commits-tbl}First 5 R-packages with commits on Github and last half year's total downloads}
+\caption{\label{tab:commits-tbl}R-packages with commits on Github and total downloads over the most recent 6 months}
 \centering
 \begin{tabular}[t]{l|l|r}
 \hline
@@ -1415,7 +1009,7 @@ tibble & 4,286 & 10340887\\
 \end{tabular}
 \end{table}
 
-Figure \ref{fig:commits-pattern} shows the scatterplot along with a smoothing line. In general, more commits, more downloads.
+Figure \ref{fig:commits-pattern} shows the scatterplot, along with a smoothing line. In general, more commits can link to more downloads.
 
 
 
@@ -1425,224 +1019,42 @@ Figure \ref{fig:commits-pattern} shows the scatterplot along with a smoothing li
 
 }
 
-\caption{The commits on master branch of Github repository against the last half a year's total download count.}\label{fig:commits-pattern}
+\caption{The commits on master branch in Github repositories against the total download counts over the most recent 6 month period.}\label{fig:commits-pattern}
 \end{figure}
 
-Another method to explore this question is by looking at the ultra-low-downloaded R-packages, whose download count only ranks at last 1\% of all. And another purpose for this part is to show how we initially intended to scrape commits through Github API with R (as the sample size is less than 60 R-packages under this situation).
+Another method can be conducted by taking the ultra-low-downloaded R-packages into consideration, whose download counts only rank last 1\% of all. Another purpose for this way is to show our initial idea on scraping commits through Github API with R (as the sample size is less than 60 R-packages, on this condition).
 
-From Table \ref{tab:quantileall} we could see the last 1\% downloaded count is around 401. And as these download counts are extremely low, we could assume that many factors will have little effect on their downloads. Thus, we can further assume that the only two differences between them are the number of commits on Github master branch and the total download count.
+Table \ref{tab:quantileall} shows the last 10 quantiles of download counts, it can be seen that the last 1\% download count is around 375.12. As the download counts of those packages are extremely low, we could assume that many factors can have little effect on their downloads, and the only two differences among them are the numbers of commits on Github master branch and the total download counts.
 
-So, we could filter these ultra-low-downloaded R-packages and extract the commits on Github, then explore the pattern in total download count against the number of commits in Figure \ref{fig:pkg-low}. It could be believed that when the number of commits increases from 0 to 100, the download count first increases and then decreases. After that, the download volume keeps rising and appears to have a little jump at the end, but we supposed it might be due to the the too small-sized sample, and the observation causing the decline may be an outlier. So, if expanding the observation horizon, we expected the curve might increase again. Therefore, it can be seen that even for these last 1\% downloaded R-packages, there also exist the phenomenon - ``the more commits, the more downloads''.
+Based above, we could select those ultra-low-downloaded R-packages and extract commit counts from their Github repositories. In Figure \ref{fig:pkg-low}, it could be observed that when the number of commits increases from 0 to 100, the download counts first increase and then decrease. After that, the download volume keeps rising, with a small jump at the end. We consider that might result from the too small-sized sample, and the observation causing the decline can be an outlier. If expanding the observation horizon, an increase in this curve can be expected. Therefore, it can be concluded that even for those last 1\% downloaded R-packages, the phenomenon - ``the more commits can link to more downloads'' also exists.
 
 \begin{table}
 
-\caption{\label{tab:quantileall}Quantile of total download count for all the R-packages on CRAN}
+\caption{\label{tab:quantileall}Quantile of total download counts for all of R-packages on CRAN}
 \centering
 \begin{tabular}[t]{l|r}
 \hline
-  & download count\\
+  & download\_count\\
 \hline
 0\% & 0.00\\
 \hline
-1\% & 373.00\\
+1\% & 375.12\\
 \hline
-2\% & 716.00\\
+2\% & 721.56\\
 \hline
-3\% & 1087.65\\
+3\% & 1075.34\\
 \hline
-4\% & 1365.20\\
+4\% & 1340.24\\
 \hline
-5\% & 1667.50\\
+5\% & 1562.70\\
 \hline
-6\% & 1915.30\\
+6\% & 1674.00\\
 \hline
-7\% & 2185.85\\
+7\% & 1804.46\\
 \hline
-8\% & 2334.00\\
+8\% & 1903.24\\
 \hline
-9\% & 2512.00\\
-\hline
-10\% & 2686.50\\
-\hline
-11\% & 2796.00\\
-\hline
-12\% & 2862.60\\
-\hline
-13\% & 2913.00\\
-\hline
-14\% & 2967.00\\
-\hline
-15\% & 3027.00\\
-\hline
-16\% & 3087.00\\
-\hline
-17\% & 3156.00\\
-\hline
-18\% & 3245.00\\
-\hline
-19\% & 3333.00\\
-\hline
-20\% & 3406.00\\
-\hline
-21\% & 3466.00\\
-\hline
-22\% & 3532.00\\
-\hline
-23\% & 3581.00\\
-\hline
-24\% & 3627.00\\
-\hline
-25\% & 3664.00\\
-\hline
-26\% & 3700.00\\
-\hline
-27\% & 3731.85\\
-\hline
-28\% & 3766.00\\
-\hline
-29\% & 3808.00\\
-\hline
-30\% & 3846.00\\
-\hline
-31\% & 3884.00\\
-\hline
-32\% & 3929.00\\
-\hline
-33\% & 3973.15\\
-\hline
-34\% & 4016.00\\
-\hline
-35\% & 4062.00\\
-\hline
-36\% & 4101.00\\
-\hline
-37\% & 4141.00\\
-\hline
-38\% & 4187.00\\
-\hline
-39\% & 4227.00\\
-\hline
-40\% & 4269.00\\
-\hline
-41\% & 4310.00\\
-\hline
-42\% & 4352.00\\
-\hline
-43\% & 4391.00\\
-\hline
-44\% & 4434.20\\
-\hline
-45\% & 4477.75\\
-\hline
-46\% & 4527.00\\
-\hline
-47\% & 4568.00\\
-\hline
-48\% & 4617.00\\
-\hline
-49\% & 4659.00\\
-\hline
-50\% & 4703.00\\
-\hline
-51\% & 4745.00\\
-\hline
-52\% & 4785.00\\
-\hline
-53\% & 4829.00\\
-\hline
-54\% & 4880.00\\
-\hline
-55\% & 4931.00\\
-\hline
-56\% & 4983.80\\
-\hline
-57\% & 5048.00\\
-\hline
-58\% & 5103.00\\
-\hline
-59\% & 5167.00\\
-\hline
-60\% & 5233.00\\
-\hline
-61\% & 5293.00\\
-\hline
-62\% & 5356.00\\
-\hline
-63\% & 5410.65\\
-\hline
-64\% & 5470.00\\
-\hline
-65\% & 5543.00\\
-\hline
-66\% & 5610.30\\
-\hline
-67\% & 5693.00\\
-\hline
-68\% & 5774.00\\
-\hline
-69\% & 5863.00\\
-\hline
-70\% & 5965.00\\
-\hline
-71\% & 6085.05\\
-\hline
-72\% & 6232.00\\
-\hline
-73\% & 6395.00\\
-\hline
-74\% & 6581.00\\
-\hline
-75\% & 6772.00\\
-\hline
-76\% & 6987.00\\
-\hline
-77\% & 7229.75\\
-\hline
-78\% & 7530.80\\
-\hline
-79\% & 7889.15\\
-\hline
-80\% & 8313.00\\
-\hline
-81\% & 8757.65\\
-\hline
-82\% & 9438.10\\
-\hline
-83\% & 10246.60\\
-\hline
-84\% & 11414.00\\
-\hline
-85\% & 12868.75\\
-\hline
-86\% & 14534.30\\
-\hline
-87\% & 16524.85\\
-\hline
-88\% & 18997.40\\
-\hline
-89\% & 21799.10\\
-\hline
-90\% & 25522.50\\
-\hline
-91\% & 30952.45\\
-\hline
-92\% & 39941.00\\
-\hline
-93\% & 52296.65\\
-\hline
-94\% & 69259.80\\
-\hline
-95\% & 100932.00\\
-\hline
-96\% & 150491.20\\
-\hline
-97\% & 255838.40\\
-\hline
-98\% & 477013.80\\
-\hline
-99\% & 1909210.00\\
-\hline
-100\% & 15572507.00\\
+9\% & 1968.02\\
 \hline
 \end{tabular}
 \end{table}
@@ -1655,26 +1067,24 @@ So, we could filter these ultra-low-downloaded R-packages and extract the commit
 
 }
 
-\caption{The commits on master branch of Github repository against the last half a year's total download count for last 1\% downloaded R-packages on CRAN.}\label{fig:pkg-low}
+\caption{The commits on master branch of Github repositories, against the total download counts over the most recent 6 month period, for last 1\% downloaded R-packages on CRAN.}\label{fig:pkg-low}
 \end{figure}
 
-\hypertarget{compare-download-counts-with-the-number-of-updates}{%
-\section{Compare download counts with the number of updates}\label{compare-download-counts-with-the-number-of-updates}}
+\hypertarget{compare-download-counts-with-the-numbers-of-updates}{%
+\section{Compare download counts with the numbers of updates}\label{compare-download-counts-with-the-numbers-of-updates}}
 
-Next, let's look at the relationship between the number of updates and the number of downloads.
-In this part, our analysis object is still all the packages.
+In this section, we looked into the relationship between the numbers of updates and total download counts over the most recent 6 month period, for all of CRAN R-packages.
 
 \begin{discovery}
-\textbf{Finding 1}: The download count tends to rise with the number of
-updates.This is because as we have known before, when a package is
-updated, there will be a significant increase in the number of
-downloads. That is to say, when a package is updated, not only old users
-will download the latest version, but also it is easier to attract new
-users at this time, for the increase of downloads in a short time may
-bring it into the trending list.
+\textbf{Finding 1}: The download counts tend to rise with the numbers of
+updates. This is probably because there will be a significant increase
+in downloads when packages get updated. During that time, not only old
+users often download the latest version, but also it is easier to
+attract new users, for the increase of downloads within a short period
+of time can bring packages up to the trending list{[}@r-hub{]}.
 \end{discovery}
 
-Figure \ref{fig:all-updates} shows that the number of downloads increases with the update times. And most R-packages are updated no more than 30 times.
+Figure \ref{fig:all-updates} shows that the numbers of downloads increase with the update times. And most R-packages are updated no more than 30 times.
 
 
 
@@ -1684,19 +1094,19 @@ Figure \ref{fig:all-updates} shows that the number of downloads increases with t
 
 }
 
-\caption{The download count increase with the number of updates.}\label{fig:all-updates}
+\caption{The download counts increase with the numbers of updates.}\label{fig:all-updates}
 \end{figure}
 
 \begin{discovery}
-\textbf{Finding 2}: Over half of the R-packages don't tend to update
-very frequently.
+\textbf{Finding 2}: Over half of the CRAN R-packages are not likely to
+update very frequently.
 \end{discovery}
 
-Also checking Table \ref{tab:pct-lowupdates}, we can know that the percentage of R-packages whose updates are less than average is 70.2920266 \%, which means much more than half of the R-packages do not tend to update very frequently.
+By checking Table \ref{tab:pct-lowupdates}, we can know that the percentage of R-packages whose updates are less than average is 70.2920266 \%, which means much more than half of the CRAN R-packages do not tend to update very frequently.
 
 \begin{table}
 
-\caption{\label{tab:pct-lowupdates}Percentage of trending R-packages whose updates are less than average}
+\caption{\label{tab:pct-lowupdates}Percentage of CRAN R-packages whose updates are less than average}
 \centering
 \begin{tabular}[t]{r|r}
 \hline
@@ -1708,11 +1118,11 @@ number of packages with low updates & percentage of packages with low updates\\
 \end{table}
 
 \begin{discovery}
-\textbf{Finding 3}: Most R-packages keep updating with the time to keep
-its activity.
+\textbf{Finding 3}: Most CRAN R-packages keep updating with the time,
+probably to keep its activity.
 \end{discovery}
 
-It can be seen from Figure \ref{fig:latestpublish} that most R-packages' latest publish date is after 2015, which indicates that many R-packages tend to update by time to keep its activity.
+It can be seen from Figure \ref{fig:latestpublish} that most R-packages' latest publish dates are after 2015, which indicates that many R-packages are likely to update with the time, probably in order to keep their activity.
 
 
 
@@ -1722,15 +1132,15 @@ It can be seen from Figure \ref{fig:latestpublish} that most R-packages' latest 
 
 }
 
-\caption{The latest update dates of trending R-packages are almost all the recent dates.}\label{fig:latestpublish}
+\caption{The latest update dates of CRAN R-packages are almost the recent dates.}\label{fig:latestpublish}
 \end{figure}
 
 \begin{discovery}
-\textbf{Finding 4}: Most of the R-packages are likely to update at a
-longer time interval.
+\textbf{Finding 4}: Most of the CRAN R-packages are likely to update
+with a relatively long time interval.
 \end{discovery}
 
-Figure \ref{fig:updates-perday} shows that with the increase of update interval, the number of downloads first increases and then decreases slightly. And most of the time intervals are between 45 and 450 days, which shows that their update frequency is not very high.
+Figure \ref{fig:updates-perday} shows that with the increase of update intervals, the numbers of downloads first increase and then decrease slightly. Most of the time intervals are between 45 and 450 days, which shows that their update frequency is not very high.
 
 
 
@@ -1740,22 +1150,22 @@ Figure \ref{fig:updates-perday} shows that with the increase of update interval,
 
 }
 
-\caption{Most of the time intervals of updates are between 45 and 450 days.}\label{fig:updates-perday}
+\caption{Most of the time intervals for updates are between 45 and 450 days.}\label{fig:updates-perday}
 \end{figure}
 
-In conclusion, it's not that the more updates the R-package has, the popular it will be. In general, most of the R-packages whose updates are lower than the average occupy the majority. Therefore, we can also know that the total number of updates is not very important for the R-package. The important thing is to keep it updated with the time.
+In conclusion, it's not that the more updates R-packages have, the popular they can be. In actual, most of the CRAN R-packages whose updates are lower than average occupy the majority. Therefore, the numbers of updates are probably not that important for R-packages. The really important thing can be keeping updated along the time.
 
-\hypertarget{compare-the-package-name-length-with-download-counts}{%
-\section{Compare the package name length with download counts}\label{compare-the-package-name-length-with-download-counts}}
+\hypertarget{compare-the-package-name-lengths-with-download-counts}{%
+\section{Compare the package name lengths with download counts}\label{compare-the-package-name-lengths-with-download-counts}}
 
-Here, we still focused on all R-packages on CRAN and made comparison between the name length with the last half a year's total downloads.
+Here, we still focused on all of R-packages on CRAN, and made comparison between their name lengths and total downloads over the most recent 6 month period.
 
 \begin{discovery}
-\textbf{Finding 1}: The name length of R-packages has no significant
-effect on the number of total downloads for last half a year.
+\textbf{Finding 1}: The name lengths of R-packages have no significant
+correlation with total downloads, over the most recent 6 month period.
 \end{discovery}
 
-We could see from Figure \ref{fig:namelength-plot} that, in general, the influence of name length on download volume is not very obvious. But we could still observe that the number of downloads decreases slightly with the length of the name. And the names with more than 6,000,000 downloads are between 5 and 9 characters long. Also, the most downloaded is R-package rlang whose name length is 5, with \ensuremath{1.5572507\times 10^{7}} download counts.
+We could see from Figure \ref{fig:namelength-plot} that, the influence on download volume resulted from name length is not obvious. But we could still observe that the name lengths of most of R-packages are centered before 10 characters long. The names , with more than 6,000,000 downloads, are between 5 and 9 characters long. The most downloaded one is R-package rlang whose name length is 5.
 
 
 
@@ -1770,15 +1180,15 @@ We could see from Figure \ref{fig:namelength-plot} that, in general, the influen
 
 \begin{discovery}
 \textbf{Finding 2}: The average name length of R-packages is about 7.8
-characters, and over half of the R-packages tend to have shorter names,
-which may make it more easier to be remembered by users.
+characters long, and over half of the R-packages tend to have shorter
+names, which may make it more easier to be remembered by users.
 \end{discovery}
 
-Table \ref{tab:pct-lngname} shows that the average name length all R-packages is 7.8461146. And over half of the R-packages are more likely to have names shorter than average. That means, to a certain extent, R-packages with shorter names are easier to get relatively higher downloads. And that may because shorter named packages are easier for users to remember.
+Table \ref{tab:pct-lngname} shows that the average name length of all the R-packages is 7.8461146. And over half of the CRAN R-packages are more likely with name lengths below average. And R-packages with shorter names can be easier to get relatively higher downloads. That may because shorter named packages are easier for users to remember.
 
 \begin{table}
 
-\caption{\label{tab:pct-lngname}Percentage of packages whose name length are less than average}
+\caption{\label{tab:pct-lngname}Percentage of packages whose name lengths are below average}
 \centering
 \begin{tabular}[t]{r|r|r}
 \hline
@@ -1789,38 +1199,14 @@ number of short names & percentage of short names & total average name length\\
 \end{tabular}
 \end{table}
 
-\begin{discovery}
-\textbf{Finding 3}: The 95\% confidence interval of the name length is
-between 7.80 and 7.90 characters.
-\end{discovery}
-
-Table \ref{tab:pct-lngname} shows the 95\% confidence interval of name length for all packages. We could know that the 95\% suitable name length is between 7.7936087 and 7.8986206 characters.
-
-\textbackslash begin\{table\}
-
-\textbackslash caption\{\label{tab:namelth-ci}95\% Confidence Interval of name length for random packages\}
-\centering
-
-\begin{tabular}[t]{r|r}
-\hline
-lower.bound & upper.bound\\
-\hline
-7.793609 & 7.898621\\
-\hline
-\end{tabular}
-
-\textbackslash end\{table\}
-
-After we found that there is no obvious relationship between the name length of the package and the download volume, a new question came up : Is the name length of the package affected by the time of initial release date?
+After finding that there is no obvious relationship between the name lengths and the download volume, a new question came up : Can the name lengths of the R-packages be linked to the time of initial release date?
 
 \begin{discovery}
-\textbf{Finding 4}: For taskview R-packages, the length of the package
-name increases with the initial release date, especially for Bayesian
-packages.
+\textbf{Finding 4}: For task view R-packages, the name lengths increase
+with the initial release dates, especially for Bayesian packages.
 \end{discovery}
 
-We have such an experience in life, that is, for the same type of goods, such as detective novels, the later they are released, the narrower the choice of naming is, because there are certain restrictions on the name of a particular type, but many names have been occupied by the books published earlier. Therefore, these later published books often have to lengthen their names to distinguish themselves from the existing books in the same type or even the same name.
-Coincidentally, we assumed the naming of R-packages from the same topic would also be affected by the initial release time, to a certain extent. So, here, we looked back to the CRAN task view R-packages for constructing comparison among R-packages from the same topic. Figure \ref{fig:namelth-taskview} shows the name length of CRAN task view R-packages against the initial release date. It is obvious that the length of the R-package name increases with the initial release date, especially for Bayesian R-packages.
+We may have this kind of experience in life : for example, detective novels, the later they are released, the less names can be chosen, because many names have been occupied by the books published earlier, with the same theme. Therefore, those later published books often have to lengthen their names to distinguish themselves from the existing books. Coincidentally, we guessed the naming of R-packages from the same topic would also be correlated to the initial release time. So, we looked back to the CRAN task view R-packages\autocite{crantaskviews}, for conducting comparison among R-packages from the same topic. Figure \ref{fig:namelth-taskview} shows the name lengths of CRAN task view R-packages against the initial release dates. It is obvious that the name lengths of task view R-package tend to increase with the initial release dates, especially for \texttt{Bayesian} R-packages.
 
 
 
@@ -1830,17 +1216,17 @@ Coincidentally, we assumed the naming of R-packages from the same topic would al
 
 }
 
-\caption{The name length of taskview R-packages slightly increase with the initial release date.}\label{fig:namelth-taskview}
+\caption{The name lengths of task view R-packages slightly increase with the initial release dates.}\label{fig:namelth-taskview}
 \end{figure}
 
 \begin{discovery}
-\textbf{Finding 5}: For all R-packages on CRAN, the average name length
-tends to generally increase with the initial release date.
+\textbf{Finding 5}: For all of R-packages on CRAN, the average name
+length tends to generally increase with the initial release date.
 \end{discovery}
 
-Although we'd better explore this question among the same topic of R-packages, we could also have a view on the annual change in the average name length of all R-packages on CRAN.
+Although we'd better explore this question among R-packages within the same topic, we also had a view on the annual change in the average name length, for all of R-packages on CRAN.
 
-Figure \ref{fig:avgnamelth-year} shows the average name length of all R-packages on CRAN released in each year. It is obvious that the name length of these R-package generally increases year by year.
+Figure \ref{fig:avgnamelth-year} shows the average name length for all of R-packages on CRAN, released in each year. It is obvious that the name lengths of those R-packages generally increase year by year.
 
 
 
@@ -1850,23 +1236,22 @@ Figure \ref{fig:avgnamelth-year} shows the average name length of all R-packages
 
 }
 
-\caption{(ref:avgnamelth-year)}\label{fig:avgnamelth-year}
+\caption{The average name length for all of R-packages on CRAN released in each year, tends to rise along the time.}\label{fig:avgnamelth-year}
 \end{figure}
 
-\hypertarget{compare-download-counts-with-alphabetical-order-of-name}{%
-\section{Compare download counts with alphabetical order of name}\label{compare-download-counts-with-alphabetical-order-of-name}}
+\hypertarget{compare-download-counts-with-alphabetical-order-of-names}{%
+\section{Compare download counts with alphabetical order of names}\label{compare-download-counts-with-alphabetical-order-of-names}}
 
-We might also have such experiences in our life. For example, when we go shopping in the supermarket, the goods placed in front of the shelves will be easier to attract our attention and be selected by us, because we may no longer want to seek products with similar functions for a long time.
-
-From the perspective of R-package name, in addition to the length, is the alphabetical order of the first letter also linked the download volume? For R-packages with earlier alphabetical order will be placed at the first part of the R-package list on CRAN\autocite{cranpkgsname}. To answer this question, we grouped the R-packages by 26-letter order, calculated the average downloads of each group, and then made comparison.
+We might also have such experiences in our life : when we go shopping in the supermarket, the products placed in front of the shelves can be noticed by us easier. From the perspective of R-packages, in addition to the lengths of names, we also wondered whether alphabetical order can link to the download volume. R-packages with earlier alphabetical order will be placed at the first part of package list on CRAN\autocite{cranpkgsname}. To answer this question, we grouped the R-packages by 26-letter order, calculated the average downloads for each group, and made comparisons.
 
 \begin{discovery}
-\textbf{Finding 1}: For all R-packages, the average downloads of
-different alphabetical group are slightly increasing by its order, while
-the total download tends to decrease a little, instead.
+\textbf{Finding 1}: For all of CRAN R-packages, the average downloads of
+different alphabetical groups are slightly increasing with alphabetical
+order, while the total downloads tend to decrease a little, on the
+contrary.
 \end{discovery}
 
-From Figure \ref{fig:ahlpha-downloads} we could see that the average downloads of different alphabetical group are slightly increasing by alphabetical order, while the total downloads tends to decrease a little, instead. This is because the later-ordered group contains fewer R-packages. It can be seen that developers may prefer to name their packages with a top alphabetical order, which might be easier for users to notice.
+From Figure \ref{fig:ahlpha-downloads}, we could see that the average downloads of different alphabetical groups are slightly increasing with alphabetical order, while the total downloads tend to decrease, instead. That is because the later-ordered groups contain fewer R-packages. Developers may prefer to name their packages with top alphabetical order, which might be easier for users to notice.
 
 
 
@@ -1876,15 +1261,16 @@ From Figure \ref{fig:ahlpha-downloads} we could see that the average downloads o
 
 }
 
-\caption{The average total download count of each group is little linked to the alphabetical order of R-package name.}\label{fig:ahlpha-downloads}
+\caption{The average total download counts of each group is little linked to the alphabetical order of name, for all of R-packages.}\label{fig:ahlpha-downloads}
 \end{figure}
 
 \begin{discovery}
-\textbf{Finding 2}: For all R-packages on CRAN, the group with higher
-total download tends to have greater variance, owing to more outliers.
+\textbf{Finding 2}: For all of R-packages on CRAN, alphabetical groups
+with higher total downloads tend to have greater variance, owing to more
+outliers.
 \end{discovery}
 
-Then, let's take a look for how the variance varies across groups. Figure \ref{fig:all-boxplot} shows the data range and the median value for each alphabetical group. It can be seen that the group ``R/r'' has the highest outlier and the group ``X/x'' has the largest variation. At the same time, we could also see that the variance between different groups is not very obvious, which means that for each group, 50\% of the R-package download count is relatively concentrated. The real difference is the highest and lowest downloads per group. In general, the larger the total number of downloads (which also means the more packages in the group), the more outliers will be included, such as group ``F/f'', ``L/l'' and ``R/r''.
+Then, we took a look at how the variance varies across groups. Figure \ref{fig:all-boxplot} shows the data range and the median value for each alphabetical group. It can be seen that the group ``R/r'' has the highest outlier and the group ``X/x'' has the largest variation. The variances across groups difference little, which means that for each group, 50\% of the download counts are relatively concentrated. The real difference is the highest and lowest downloads per group. In general, the larger the total numbers of downloads (which also means more packages in this group), the more outliers can be included, such as group ``F/f'', ``L/l'' and ``R/r''.
 
 
 
@@ -1897,8 +1283,10 @@ Then, let's take a look for how the variance varies across groups. Figure \ref{f
 \caption{The R-packages with name starting with ``j'' has the largest variation.}\label{fig:all-boxplot}
 \end{figure}
 
-In order to further verify our conclusion, we turned to the ultra-low-downloaded R-packages. As we have mentioned previously, when it comes to the ultra-low-downloaded R-packages, we could approximately assume the only variable that may affect the amount of downloads is name order here.
-From Figure \ref{fig:lowdownload-boxplot}, we could see that the difference in median download count of each alphabetical group is not significant as we expected.
+In order to further verify our conclusion, we turned to the ultra-low-downloaded R-packages. As mentioned previously, when it comes to the ultra-low-downloaded R-packages, we could approximately assume the only factor that may affect the downloads is name order here.
+From Figure \ref{fig:lowdownload-boxplot}, we could see that the difference in median download counts of each alphabetical group is not significant as we expected.
+
+
 
 \begin{figure}
 
@@ -1906,15 +1294,15 @@ From Figure \ref{fig:lowdownload-boxplot}, we could see that the difference in m
 
 }
 
-\caption{(ref:random-boxplot)}\label{fig:lowdownload-boxplot}
+\caption{The last 1\% downloaded R-packages with name starting with ``U/u'' has only one observation.}\label{fig:lowdownload-boxplot}
 \end{figure}
 
-Therefore, we could approximately draw a conclusion : In general, the R-packages with the top alphabetical order are easier to get relatively high download volume, but the gap is not significant. At the same time, the higher the number of downloads, the greater the variance will appears in this group.
+Therefore, we could approximately draw a conclusion : In general, the R-packages with top alphabetical order can be easier to get relatively higher download volume, with non-significant gaps. At the same time, the higher the numbers of downloads, the greater the variance can appear in this group.
 
 \hypertarget{summary}{%
 \chapter{Summary}\label{summary}}
 
-In this project, we collected summary daily download logs of R-packages through web Application Programming Interface (API) maintained by r-hub\autocite{rhub} and also used daily download data in CRAN for a time period from 2013-04-01 to 2021-04-01 to explore the daily download pattern of all R-packages both in general and of each year. In that case, we found that it is true that the cumulative number of downloads increases with time, and the variance also increases, which indicates that some R-packages with larger downloads grow rapidly. In addition, there is also strong weekly seasonality in the daily download plot. The download count will peak through weekdays and drop on weekend, for users may tend to work and study during weekdays while rest on weekends. What's more, through Lorenz curve, we also found that most of the cumulative downloads came from the top 10\% downloaded R-packages, so we could also see that the distribution of downloads is quite unequal. Part of the reason is that these top 10\% downloaded R-packages contain quite a lot popular and frequently used R-packages, such as \texttt{tidyverse} and \texttt{rlang}, which would be more probably to gain high downloads. In addition, there are other R-packages that often get high download volume, which can be divided into the following four categories:
+In this project, we collected summary daily download logs of R-packages through web Application Programming Interface (API) maintained by r-hub\autocite{rhub} and also used daily download data in CRAN for a time period from 2012-10-01 to 2021-06-12, to explore the daily download pattern for all of R-packages each year. In that case, we found that the cumulative numbers of downloads increase over time, with an also increasing variance, which indicates that some R-packages with larger downloads grow rapidly. In addition, there is also a strong weekly seasonality in the daily download pattern. The download counts tend to peak through weekdays and drop on weekend. What's more, through Lorenz curve, we also found that most of the cumulative downloads came from the top 10\% downloaded R-packages, which means the distribution of downloads is quite unequal. Part of the reason is that those top 10\% downloaded R-packages contain quite a lot popular and frequently used R-packages, such as \texttt{tidyverse} and \texttt{rlang} that would probably obtain high downloads. In addition, there are other R-packages that often get high download volume, which can be divided into the following four categories:
 
 \begin{itemize}
 \tightlist
@@ -1930,22 +1318,20 @@ In this project, we collected summary daily download logs of R-packages through 
   R-packages created by top 20 prolific maintainers (This is resourced at \textcite{revolutions})
 \end{itemize}
 
-However, the existence of these R-packages may make it difficult to reflect the popularity of other R-packages, so we excluded these R-packages for the analysis of user preferences. And we found that the topic of newly added R-packages on 1st Oct of each year are from quite different areas, while the R-packages remaining most stably popular during 2017 to 2019 is about JAVA dependency. Definitely, JAVA always ranked the top three among programming languages according to TIOBE Index\autocite{tiobe}, which shows that the number of users under JAVA related R-packages would be probably larger.
+However, the existence of those R-packages may make it difficult to reflect the popularity of other R-packages, so we excluded them, for the analysis of user preferences. And we found that the topics of newly added R-packages on 1st Oct of each year are from quite different application areas, while the R-packages remaining most stably popular during 2017 and 2019 is related to JAVA dependency. Definitely, JAVA always rank top three among programming languages according to TIOBE Index\autocite{tiobe}.
 
-As for R itself, its download pattern is quite similar to that of total R-packages on CRAN. And the most used OS for R users is windows OS. Also, the most popular version of R is 3.2.1.
+As for R itself, its download pattern is quite similar to that of total R-packages on CRAN. The most used OS for R users is windows OS. Also, the most popular version of R is 3.2.1.
 
-After exploration of the characteristics of download pattern for R-package and R itself, we then extracted the release dates of all R-packages and task view R-packages from CRAN to compare the total download count (past year for task view R-packages and last half a year for all CRAN R-packages) among R-packages with different release date or with different numbers of updates. And we found that for R-packages from the same topic, earlier release date usually would bring more download count, while R-packages with more times of updates would not always have higher downloads. So to sum up, R-packages released earlier and kept being updated are more likely to have higher downloads.
+After exploration of the characteristics of download pattern for R-package and R, we extracted the release dates for all of CRAN R-packages and task view R-packages, to compare the total download counts (past year for task view R-packages and the most recent 6 month for all) among R-packages with different release dates or with different numbers of updates. And we found that for R-packages from the same topic, earlier release date can usually related to more download counts, while R-packages with more update times would not always have higher downloads. R-packages released earlier and kept being updated are more likely to have higher downloads.
 
-In the next section, we initially tried to scrape the number of commits in Github repository of all available R-packages on CRAN through Github API by R, to check whether more commits would result in more downloads or not. But there came a tricky problem on the rate limit of Github API. As documented in \textcite{githubapi}, unauthenticated users could only be permitted to send 60 requests per hour. And only after get authentication, could the rate limit be expanded up to 5000 per hour. However, after trying several methods to get authentication, the rate limit was failed to be increased. So, we switched to make this done with python by setting random user agent to avoid the API limit. Meanwhile, in order to display our initial research idea, we still had a look at the last 1\% downloaded R-packages on this question with the original method, and that is also adapted as well. Therefore, we would expect that generally, if an R-package has more commits on Github repository, it would probably gain more download count.
+In the next section, we initially tried to scrape the numbers of commits in Github repositories, for all of available CRAN R-packages, through Github API by R, to check whether more commits can result in more downloads. But there came a tricky problem on the rate limit of Github API. As documented in \textcite{githubapi}, unauthenticated users could only be permitted to send 60 requests per hour. And only after get authentication, could the rate limit be expanded up to 5000 per hour. However, after trying several methods to get authentication, the rate limit was failed to be promoted. In that case, we switched to make this done with Python by setting random user agent. Meanwhile, in order to display our initial research idea, we still had a look at the last 1\% downloaded R-packages on this question with the original R method. Therefore, we could expect that, generally, if an R-package has more commits on master (main) branch in Github repository, it can probably obtain more download counts.
 
-The last two parts are about analysis for R-package name. We compared the average downloads among R-packages with different name length and different alphabetical orders. It is believed that over half of the R-packages tend to have shorter names probably for the sake of being easily remembered by users. And alphabetical order played little roles in promoting the download volume.
-
-\pagebreak
+The last two parts are about analysis for R-package names. We compared the average downloads among R-packages with different name lengths and different alphabetical orders. It is believed that over half of the R-packages tend to have shorter names , probably for the sake of being easily remembered by users. Alphabetical order played little roles in promoting the download volume.
 
 \hypertarget{conclusion}{%
 \chapter{Conclusion}\label{conclusion}}
 
-In conclusion, we hold the belief that there are many factors that could be linked to the download amount and popularity of the R-packages on CRAN, such as the popularity of the creator, the application field of the R-package, the release date, whether to keep updated, and the length of the name. In addition, we also assume that the number of commits on Github repository may also probably have some correlations with the download amount of R-packages. Anyway, we could generally believed that a relatively popular R-package should have earlier release date, shorter name and maybe more commits on Github repository if they have. There is also another point that could not be ignored is that it is better to keep updated.
+In conclusion, we hold the belief that the download counts can be a relatively simple and reliable measurement for popularity of CRAN R-packages, and there are many factors that could be linked to it, such as the popularity of the creator, the application fields, the release dates, whether to keep updated, and the lengths of their names. Anyway, we could generally believed that a relatively popular R-package should have earlier release date, shorter name and maybe more commits in Github repository if they have. There is also another point that could not be ignored : it is better to keep updated.
 
 \printbibliography
 
