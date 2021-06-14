@@ -1,6 +1,11 @@
 # Summary
 
-In this project, we collected summary daily download logs of R-packages through web Application Programming Interface (API) maintained by r-hub[@rhub] and also used daily download data in CRAN for a time period from 2013-04-01 to 2021-04-01, to explore the daily download pattern for all of R-packages each year. In that case, we found that the cumulative numbers of downloads increase over time, with an also increasing variance, which indicates that some R-packages with larger downloads grow rapidly. In addition, there is also a strong weekly seasonality in the daily download pattern. The download counts tend to peak through weekdays and drop on weekend. What's more, through Lorenz curve, we also found that most of the cumulative downloads came from the top 10% downloaded R-packages, which means the distribution of downloads is quite unequal. Part of the reason is that those top 10% downloaded R-packages contain quite a lot popular and frequently used R-packages, such as `tidyverse` and `rlang` that would probably obtain high downloads. In addition, there are other R-packages that often get high download volume, which can be divided into the following four categories:
+```{r date-summary,include=FALSE}
+dd_start <- "2012-10-01" #from the openning of cran
+dd_end <- Sys.Date() - 2
+```
+
+In this project, we collected summary daily download logs of R-packages through web Application Programming Interface (API) maintained by r-hub[@rhub] and also used daily download data in CRAN for a time period from `r dd_start` to `r dd_end`, to explore the daily download pattern for all of R-packages each year. In that case, we found that the cumulative numbers of downloads increase over time, with an also increasing variance, which indicates that some R-packages with larger downloads grow rapidly. In addition, there is also a strong weekly seasonality in the daily download pattern. The download counts tend to peak through weekdays and drop on weekend. What's more, through Lorenz curve, we also found that most of the cumulative downloads came from the top 10% downloaded R-packages, which means the distribution of downloads is quite unequal. Part of the reason is that those top 10% downloaded R-packages contain quite a lot popular and frequently used R-packages, such as `tidyverse` and `rlang` that would probably obtain high downloads. In addition, there are other R-packages that often get high download volume, which can be divided into the following four categories:
 
 - R-packages maintained by R studio
 - R-packages created by authors from R core group
@@ -19,7 +24,6 @@ In the next section, we initially tried to scrape the numbers of commits in Gith
 The last two parts are about analysis for R-package names. We compared the average downloads among R-packages with different name lengths and different alphabetical orders. It is believed that over half of the R-packages tend to have shorter names , probably for the sake of being easily remembered by users. Alphabetical order played little roles in promoting the download volume.
 
 
-\pagebreak
 
 # Conclusion
 

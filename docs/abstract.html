@@ -24,7 +24,7 @@
 <meta name="author" content="Yiwen Zhang" />
 
 
-<meta name="date" content="2021-06-11" />
+<meta name="date" content="2021-06-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,8 +53,6 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 
@@ -105,20 +103,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> Data</a></li>
 <li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>5.1</b> Daily download of R-packages</a></li>
-<li class="chapter" data-level="5.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>5.2</b> Daily downloads of R</a></li>
-<li class="chapter" data-level="5.3" data-path="daily-top-15-downloaded-r-packages.html"><a href="daily-top-15-downloaded-r-packages.html"><i class="fa fa-check"></i><b>5.3</b> Daily top 15 downloaded R-packages</a></li>
-<li class="chapter" data-level="5.4" data-path="compare-last-years-downloads-with-the-earliest-release-date.html"><a href="compare-last-years-downloads-with-the-earliest-release-date.html"><i class="fa fa-check"></i><b>5.4</b> Compare last year’s downloads with the earliest release date</a></li>
-<li class="chapter" data-level="5.5" data-path="compare-moving-average-of-fable-and-forecast.html"><a href="compare-moving-average-of-fable-and-forecast.html"><i class="fa fa-check"></i><b>5.5</b> Compare moving average of fable and forecast</a></li>
-<li class="chapter" data-level="5.6" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>5.6</b> Compare download counts with the number of commits on master branch</a></li>
-<li class="chapter" data-level="5.7" data-path="compare-download-counts-with-the-number-of-updates.html"><a href="compare-download-counts-with-the-number-of-updates.html"><i class="fa fa-check"></i><b>5.7</b> Compare download counts with the number of updates</a></li>
-<li class="chapter" data-level="5.8" data-path="compare-the-package-name-length-with-download-counts.html"><a href="compare-the-package-name-length-with-download-counts.html"><i class="fa fa-check"></i><b>5.8</b> Compare the package name length with download counts</a></li>
-<li class="chapter" data-level="5.9" data-path="compare-download-counts-with-alphabetical-order-of-name.html"><a href="compare-download-counts-with-alphabetical-order-of-name.html"><i class="fa fa-check"></i><b>5.9</b> Compare download counts with alphabetical order of name</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>6</b> Summary</a></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>5</b> Summary</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -142,9 +127,9 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="abstract" class="section level1" number="1">
 <h1><span class="header-section-number">Section 1</span> Abstract</h1>
-<p>This research seeks to analyze the popularity of R-packages and figure out the influential factors. Data are closely related to social and economic activities in our daily life, so data mining and analysis will definitely benefit us. In many statistical and data analysis tools, this research focuses on R in this project, and aim to explore the popularity of R-packages from CRAN. To achieve this, it is assumed in this research that the download volume is a relatively reliable and simple measurement for the popularity of R-packages, and two main parts of analysis has been carried out, one is to uncover the information behind the download count logs, the other is to explore the factors that will linked to the download volume. The techniques applied in this research is mainly R, together with a small part of Python on data scraping. By obtaining the daily and recent half a year’s total download count of 17,699 R-packages and R itself, this research analyzes their pattern characteristics, as well as the relationship between the release date, update times, number of commits on Github, name length and alphabetic order of the name. Finally, this research also gives the changes of R-user preferences on 1st April from 2013 to 2021, to some extent.</p>
-<p>Moreover, results show that the daily download of R-packages has a strong weekly seasonality and unusual spikes caused by repeat download, update or server issue. The most stably popular R-packages during 2017 to 2019 is about JAVA dependency. And an earlier release date is more likely to bring a higher download volume for R-packages. That is similar to update times and commits number on Github repository. However, the alphabetical order of R-package name contributes little to the download counts. And over half of the R-packages on CRAN tend to have shorter names.</p>
-<p>KEY WORDS : R-package popularity, CRAN download count, Web scraping, Github API, EDA</p>
+<p>This research seeks to analyze the popularity of R-packages and figure out the probably influential factors that drive such popularity. Data are closely related to social and economic activities in our daily life, so data mining and analysis can often be beneficial. This research focuses on R in this project, and aims to explore the popularity of R-packages from CRAN (the Comprehensive R Archive Network). To achieve this, it is assumed in this research that the download volume is a relatively reliable and simple measurement for the popularity of an R-packages, and two main parts of analysis has been carried out : one is to uncover the information behind the download count logs, the other is to explore the factors that can be linked to the download volume. The technical aspects that are applied in this research is largely compromise of R programs and scripts, together with some Python code on data scraping. By obtaining the daily and recent half year total download counts of 17,713 R-packages and R itself, this research analyzes pattern, characteristics, as well as the relationship between the release dates, update times, numbers of commits on Github (master or main branch), name lengths and alphabetical order of the names. Finally, this research also provides some description of the changes of R-user preferences on 1st April over the period of 2013 to 2021.</p>
+<p>Results show that the daily downloads of R-packages have a strong weekly seasonality and unusual spikes caused by repeat downloads, updates or server test issue. The most stably popular R-packages over the period of 2017 to 2019 is related to JAVA dependency. We also found that an earlier release date is more likely to result in a higher download volume for R-packages. Similarly, update times and commits numbers on master (main) branch in Github repositories are also positively correlated with download volumes. However, the alphabetical order of R-package names contributes little to the download counts.</p>
+<p>KEY WORDS : R-package popularity, CRAN download volume, Web scraping, Github API, EDA</p>
 
 </div>
             </section>
@@ -209,20 +194,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

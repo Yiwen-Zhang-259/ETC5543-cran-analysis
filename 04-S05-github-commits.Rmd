@@ -1,6 +1,6 @@
 ## Compare download counts with the number of commits on master branch
 
-In this section, we compared total downloads over the most recent 6 month period, with the number of commits on master branch in Github repositories. We initially planned to replace the research object with all of R-packages on CRAN, `r comma(length(pkgs$package),digits =0)` up to now. But we soon found that there were only 6185 R-packages that have Github repositories, and after cleaning up, only 5769 remained.
+In this section, we compared total downloads over the most recent 6 month period, with the number of commits on master branch in Github repositories. For all of CRAN R-packages, there were only 6185 R-packages that have Github repositories, and after cleaning up, only 5769 remained.
 
 ```{block, type="discovery", echo = TRUE}
 **Finding**: In our initial assumption, more commits on master branch of Github repositories are likely to bring R-packages more download counts. On the one hand, the number of commits can indicate that developers are constantly supplementing and updating their R-packages, which may lead to more downloads. On the other hand, the number of commits also can reflect the attention developers attach to their R-packages, to some extent. Usually, for those who have more commits, their developers may advertise more or try other ways, to expand the popularity and improve the download counts.
@@ -107,7 +107,7 @@ dd2_new %>%
 ```
 
 
-```{r combine-commits}
+```{r combine-commits,eval=FALSE}
 #read data of commits
 ##the code used to scrape the commits is in python script 'spider.py'
 commits_all <- read.table("data/commits.txt", comment="", header=TRUE)
@@ -123,21 +123,24 @@ pkg_commits_all <- pkg_commits_all %>%
 pkg_commits_all <- pkg_commits_all %>%
   left_join(cran_names_download, by = "package")
 
+#save(pkg_commits_all, file=here::here("data/pkg_commits_all.rda"))
 ```
 
 Table \@ref(tab:commits-tbl) shows the first 5 R-packages of all, along with their total downloads over the most recent 6 month period, and the numbers of commits on master branch in Github repositories.
 
 ```{r commits-tbl}
+load("data/pkg_commits_all.rda")
+
 pkg_commits_all %>%
   arrange(desc(total)) %>%
   head(5) %>%
-  kable(caption = "R-packages with commits on Github and total downloads over the most recent 6 month") %>%
+  kable(caption = "R-packages with commits on Github and total downloads over the most recent 6 months") %>%
   kable_styling(bootstrap_options = c("hover", "striped")) 
 ```
 
 Figure \@ref(fig:commits-pattern) shows the scatterplot, along with a smoothing line. In general, more commits can link to more downloads. 
 
-(ref:commits-pattern) The commits on master branch of Github repositories against the total download counts over the most recent 6 month period.
+(ref:commits-pattern) The commits on master branch in Github repositories against the total download counts over the most recent 6 month period.
 
 ```{r commits-pattern, fig.cap="(ref:commits-pattern)"}
 pkg_commits_all %>%
@@ -150,7 +153,7 @@ pkg_commits_all %>%
   labs( y = 'Total download count',
           x = 'The number of commits',
     title = "Commits counts against download counts",
-    subtitle = "of 5769 R-packages over the most recent 6 month") +
+    subtitle = "of 5769 R-packages over the most recent 6 months") +
     #annotate("text",y= 70000,x= 500,label="In general, more commits, more downloads.",color="red") +
   #theme_minimal()  +
   theme(panel.grid.major = element_blank()) +
@@ -173,14 +176,13 @@ colnames(quantile_all)[1] <- "download_count"
 
 Table \@ref(tab:quantileall) shows the last 10 quantiles of download counts, it can be seen that the last 1% download count is around `r quantile_all$download_count[2]`. As the download counts of those packages are extremely low, we could assume that many factors can have little effect on their downloads, and the only two differences among them are the numbers of commits on Github master branch and the total download counts.
 
-Based above, we could select those ultra-low-downloaded R-packages and extract commit counts on their Github repositories. In Figure \@ref(fig:pkg-low), it could be observed that when the number of commits increases from 0 to 100, the download counts first increase and then decrease. After that, the download volume keeps rising, with a small jump at the end. We consider that might result from the too small-sized sample, and the observation causing the decline can be an outlier. If expanding the observation horizon, an increase in this curve can be expected. Therefore, it can be concluded that even for those last 1% downloaded R-packages, the phenomenon - "the more commits can link to  more downloads" also exists.
+Based above, we could select those ultra-low-downloaded R-packages and extract commit counts from their Github repositories. In Figure \@ref(fig:pkg-low), it could be observed that when the number of commits increases from 0 to 100, the download counts first increase and then decrease. After that, the download volume keeps rising, with a small jump at the end. We consider that might result from the too small-sized sample, and the observation causing the decline can be an outlier. If expanding the observation horizon, an increase in this curve can be expected. Therefore, it can be concluded that even for those last 1% downloaded R-packages, the phenomenon - "the more commits can link to  more downloads" also exists.
 
 ```{r quantileall}
 quantile_all %>%
   head(10) %>%
   kable(caption = "Quantile of total download counts for all of R-packages on CRAN") %>%
-  kable_styling(full_width = FALSE) %>%
-  scroll_box(width = "100%", height = "400px")
+  kable_styling(full_width = FALSE) 
 ```
 
 (ref:pkg-low) The commits on master branch of Github repositories, against the total download counts over the most recent 6 month period, for last 1% downloaded R-packages on CRAN.
@@ -188,7 +190,7 @@ quantile_all %>%
 ```{r pkg-low,fig.cap="(ref:pkg-low)"}
 pkg_low_download <- left_join(dd2_new,cran_names_download,by = "package") %>%
   arrange(desc(total)) %>%
-  filter(total < quantile_all$`download count`[2]) 
+  filter(total < quantile_all$download_count[2]) 
 
 github_api_low <- map(pkg_low_download$user_repo,function(user_repo) {
   

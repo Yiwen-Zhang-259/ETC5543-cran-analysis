@@ -3,7 +3,7 @@
 We might also have such experiences in our life : when we go shopping in the supermarket, the products placed in front of the shelves can be noticed by us easier. From the perspective of R-packages, in addition to the lengths of names, we also wondered whether alphabetical order can link to the download volume. R-packages with earlier alphabetical order will be placed at the first part of package list on CRAN[@cranpkgsname]. To answer this question, we grouped the R-packages by 26-letter order, calculated the average downloads for each group, and made comparisons.
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 1**: For all of R-packages, the average downloads of different alphabetical groups are slightly increasing with alphabetical order, while the total downloads tend to decrease a little, on the contrary.
+**Finding 1**: For all of CRAN R-packages, the average downloads of different alphabetical groups are slightly increasing with alphabetical order, while the total downloads tend to decrease a little, on the contrary.
 ```
 
 ```{r alphabetic-group}
@@ -73,7 +73,7 @@ From Figure \@ref(fig:ahlpha-downloads), we could see that the average downloads
 
 (ref:ahlpha-downloads) The average total download counts of each group is little linked to the alphabetical order of name, for all of R-packages.
 
-```{r ahlpha-downloads,fig.cap="(ref:ahlpha-downloads)"}
+```{r ahlpha-downloads,fig.cap="(ref:ahlpha-downloads)",fig.width = 9}
 
 alphabetic_downloads %>%
   ggplot() +
@@ -123,16 +123,18 @@ ggplot(pkg_alpha_download,aes(x = group, y = total)) +
 In order to further verify our conclusion, we turned to the ultra-low-downloaded R-packages. As mentioned previously, when it comes to the ultra-low-downloaded R-packages, we could approximately assume the only factor that may affect the downloads is name order here.
 From Figure \@ref(fig:lowdownload-boxplot), we could see that the difference in median download counts of each alphabetical group is not significant as we expected.
 
-```{r lowdownload-boxplot,fig.cap="(ref:random-boxplot)"}
+(ref:lowdownload-boxplot) The last 1% downloaded R-packages with name starting with "U/u" has only one observation.
+
+```{r lowdownload-boxplot,fig.cap="(ref:lowdownload-boxplot)"}
 pkg_alpha_low <- pkg_alpha_download %>%
-   filter(total < quantile_all$`download count`[2])
+   filter(total < quantile_all$download_count[2])
 
 ggplot(pkg_alpha_low,aes(x = group, y = total)) +
   geom_violin() +
   geom_boxplot(width = 0.1)+
   labs( y = 'Total download counts',
-    title = "Total download counts against different alphabetic group",
-    subtitle = "for last 1% downloaded R-packages of each group") +
+    title = "Total download counts against different alphabetic groups",
+    subtitle = "for last 1% downloaded R-packages") +
   scale_y_log10() +
   #ylim(0, 10000) +
   theme_minimal()  +
@@ -146,4 +148,4 @@ ggplot(pkg_alpha_low,aes(x = group, y = total)) +
   
 ```
 
-Therefore, we could approximately draw a conclusion : In general, the R-packages with top alphabetical order can be easier to get relatively high download volume, with non-significant gaps. At the same time, the higher the numbers of downloads, the greater the variance can appear in this group.
+Therefore, we could approximately draw a conclusion : In general, the R-packages with top alphabetical order can be easier to get relatively higher download volume, with non-significant gaps. At the same time, the higher the numbers of downloads, the greater the variance can appear in this group.

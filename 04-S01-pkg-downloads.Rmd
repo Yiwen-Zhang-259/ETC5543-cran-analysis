@@ -3,7 +3,7 @@
 ## Daily downloads of R-packages
 
 ```{r vars-pkg-downloads, cache = TRUE}
-dd_start <- Sys.Date() - 182 #most recent 6 months
+dd_start <- "2012-10-01" #from the openning of cran
 dd_end <- Sys.Date() - 2
 
 is_weekend <- function(date) {
@@ -24,7 +24,7 @@ total_downloads <- cran_downloads(from = dd_start, to = dd_end) %>%
 In this first section, we studied the daily downloads of CRAN R-packages from `r dd_start` to `r dd_end`. The data was obtained from the `cranlogs` package[@cranlogs], which includes a summary of the download logs via the RStudio CRAN mirror. The daily download data for CRAN R-packages are available from 1st October 2012. Examination of this data showed two unusual observations in 2014 and 2018 as shown in Figure \@ref(fig:unusual-spikes). The one happening in 2014 was on 2014-11-17, Monday, while the other one happening in 2018 was on 2018-10-21, Sunday.
 
 
-(ref:unusual-spikes) Unusual download spikes on 2014 and 2018. 
+(ref:unusual-spikes) Unusual download spikes in 2014 and 2018. 
 
 ```{r unusual-spikes, fig.cap="(ref:unusual-spikes)",cache = TRUE}
 plot_daily <- total_downloads %>% 
@@ -107,7 +107,7 @@ daily_download_20181021 %>%
   count() %>%
   arrange(desc(n))%>% 
   head(10) %>%
-  kable(caption = "The total downloads of each R-package on 2014-11-17") %>%
+  kable(caption = "The total downloads of each R-package on 2018-10-21") %>%
   kable_styling(full_width = FALSE) 
 
 ```
@@ -120,7 +120,7 @@ daily_download_20181021 %>%
   count() %>%
   arrange(desc(n))%>% 
   head(10) %>%
-  kable(caption = "The countries downloading from CRAN on 2014-11-17") %>%
+  kable(caption = "The countries downloading from CRAN on 2018-10-21") %>%
   kable_styling(full_width = FALSE) 
 
 ```
@@ -133,12 +133,12 @@ daily_download_20181021 %>%
   count() %>%
   arrange(desc(n))%>% 
   head(10) %>%
-  kable(caption = "The IP addresses downloading from CRAN on 2014-11-17") %>%
+  kable(caption = "The IP addresses downloading from CRAN on 2018-10-21") %>%
   kable_styling(full_width = FALSE) #several ip has highly distiguished downloads and they are contiguous. It seems that they are from same person, and it is also probably that it's a server issue.
 
 ```
 
-To sum up, we found that these two unusual spikes have one thing in common, that is, most of the downloads came from a specific country. The difference is that in 2014, a large number of downloads came from several different R-packages, while in 2018, they came from only one package `tidyverse`. In addition, in 2014, a large quatities of downloads came from one IP, while in 2018, they came from several consecutive IPs, At this point, it is guessed that they should come from the same individual, or it is likely due to sever test issue, for it may be not necessary or reasonable for an individual to generate such a large amount downloads in one day.
+To sum up, we found that these two unusual spikes have one thing in common, that is, most of the downloads came from a specific country. The difference is that in 2014, a large number of downloads came from several different R-packages, while in 2018, they came from only one package `tidyverse`. In addition, in 2014, a large quantities of downloads came from one IP, while in 2018, they came from several consecutive IPs, At this point, it is guessed that they should come from the same individual, and it is very likely due to sever test issue, for it may be not necessary or reasonable for an individual to generate such a large amount downloads in one day.
 
 
 ```{block, type="discovery", echo = TRUE}
@@ -169,25 +169,26 @@ total_downloads_fix %>%
 
 To have a closer look at the weekly pattern, figure \@ref(fig:total-trend) shows the daily downloads of all CRAN R-packages via the RStudio mirror, with the grey areas highlighting the weekend. 
 
-To be more specific, except for 2012 and 2013, the patterns of other years are very similar, with a strong weekly seasonality. To be more detailed, in 2012, the download logs showed an overall upward trend, which also reflected more and more users there after release of CRAN. In the following years, there is no obvious trend in download volume, but a strong seasonality, which indicates that in a week, the total downloads always increases first then decreases, and reaches the lowest on weekends. Although the pattern of 2013 is more volatile, it still conforms to that. We suppose that is because CRAN is only open for a short period of time in 2013, so the amount of download data is not adequate to show the weekly pattern very clearly. After 2016, the pattern of each year is quite consistent, for the total downloads have been increasing year by year. Back to weekly seasonality, people are more likely to download packages during weekdays, and rest on weekends. So, the trough of download curve always occurs on weekends. In addition, the lowest downloads across the year are always happening at the end of December or the beginning of January, probably due to the Christmas and New Year's holidays. Meanwhile, the downloads are on the rise from August to October, and from February to April, which covers the beginning of semester for many universities around the world, a time when related students tend to download CRAN R-packages very often. 
+To be more specific, except for 2012 and 2013, the patterns of other years are very similar, with a strong weekly seasonality. To be more detailed, in 2012, the download logs showed an overall upward trend, which also reflected more and more users there after release of CRAN. In the following years, there is no obvious trend in download volume, but a strong seasonality, which indicates that in a week, the total downloads always increases first then decreases, and reaches the lowest on weekends. Although the pattern of 2013 is more volatile, it still conforms to that. We suppose that is because CRAN was only open for a short period of time in 2013, so the amount of download data is not adequate to show the weekly pattern very clearly. After 2016, the pattern of each year is quite consistent, for the total downloads have been increasing year by year. Back to weekly seasonality, people are more likely to download packages during weekdays, and rest on weekends. So, the trough of download curve always occurs on weekends. In addition, the lowest downloads across the year are always happening at the end of December or the beginning of January, probably due to the Christmas and New Year's holidays. Meanwhile, the downloads are on the rise from August to October, and from February to April, which covers the beginning of semesters for many universities around the world, a time when related students tend to download CRAN R-packages very often. 
 
-(ref:total-trend) The total downloads of all R-packages on CRAN would decrease on weekends and increase during weekdays.
+(ref:total-trend) The total downloads for all of R-packages on CRAN would decrease on weekends and increase during weekdays.
 
 ```{r total-trend, fig.cap="(ref:total-trend)", fig.height = 12,cache = TRUE}
 
 plot_daily_fix <- plot_daily +
   labs(title = "Total number of downloads for R-package on CRAN",
        subtitle = glue("from {dd_start} to {dd_end}")) 
+  
 
 plot_daily_fix %+%
    total_downloads_fix
 ```
 
-As there are many fluctuations in daily download pattern, which is due to calendar effect and test server issue of CRAN mirror, an STL decomposition model explained in @stl, was applied, to smooth the curve for all of the R-packages. 
+As there are many fluctuations in daily download pattern, which is due to calendar effect and test server issue of CRAN mirror, an STL decomposition model explained in @stl, was applied, to smooth the curve for all of the R-packages in Figure \@ref(fig:pkg-stl). 
 
-(ref:daily-smoothing) The total downloads of all R-packages on CRAN after smoothing.
+(ref:pkg-stl) The total downloads of all R-packages on CRAN after smoothing.
 
-```{r pkg-stl, fig.cap="(ref:daily-smoothing)"}
+```{r pkg-stl, fig.cap="(ref:pkg-stl)"}
 # try to use stl model to smooth the curve
 total_download_tsble <- total_downloads_fix %>%
   as_tsibble(index = date)
@@ -214,83 +215,11 @@ components(pkg_stl) %>%
 
 ```
 
-And that can be applied to any R-package, to adjust the daily download pattern. In this case, two packages `fable` and `forecast` were selected as an example, in Figure \@ref(fig:example-adjust). It can be seen that the pattern is smoother after removing the seasonality and ignorance of extremum that was possibly caused by repeated downloads, updates or test from the server.
-
-
-(ref:example-adjust) The daily downloads of `fable` and `forecast` after smoothing.
-
-```{r example-adjust, fig.cap="(ref:example-adjust)", fig.height = 12}
-fable_downloads <- cran_downloads(package = "fable", from = dd_start, to = dd_end) %>% 
-  mutate(year = year(date),
-         day = yday(date),
-         weekend = is_weekend(date)) 
-
-fable_downloads_tsble <- fable_downloads %>%
-  as_tsibble(index = date)
-
-fable_downloads_tsble[is.na(fable_downloads_tsble)] <- 0
-
-fable_stl <- fable_downloads_tsble %>%
-  model(stl = STL(count))
-
-pa <- components(fable_stl) %>%
-  as_tsibble() %>%
-  autoplot(count, colour="gray") +
-  geom_line(aes(y=trend), colour = "#D55E00") +
-  labs(
-    y = "Download count",
-    title = "Daily download count of 'fable'"
-  )+
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  plot.title = element_text(h = 0.5)
-  )
-
-forecast_downloads <- cran_downloads(package = "forecast", from = dd_start, to = dd_end) %>% 
-  mutate(year = year(date),
-         day = yday(date),
-         weekend = is_weekend(date)) 
-
-forecast_downloads_tsble <- forecast_downloads %>%
-  as_tsibble(index = date)
-
-forecast_downloads_tsble[is.na(forecast_downloads_tsble)] <- 0
-
-forecast_stl <- forecast_downloads_tsble %>%
-  model(stl = STL(count))
-
-po <- components(forecast_stl) %>%
-  as_tsibble() %>%
-  autoplot(count, colour="gray") +
-  geom_line(aes(y=trend), colour = "#D55E00") +
-  labs(
-    y = "Download count",
-    title = "Daily download count of 'forecast'"
-  )+
-  theme(panel.grid.major = element_blank()) +
-  theme(
-  axis.text=element_text(size=10),
-  axis.title=element_text(size=12,face="bold"),
-  plot.title = element_text(h = 0.5)
-  )
-
-ga <- ggplotGrob(pa)
-go <- ggplotGrob(po)
-gao <- rbind(ga, go, size = "first")
-gao$widths <- unit.pmax(ga$widths, go$widths)
-grid.newpage()
-grid.draw(gao)
- 
-```
-
-
 Figure \@ref(fig:weekend-vs-weekday) shows the distributions and the median of the downloads between weekday and weekends, which differ from each other a lot. The violin plots of weekends are wider and shorter, while those of weekdays are thinner and higher, on the contrary. That is because the total downloads on weekends are less than those in weekdays. In 2012, the median and interquartile range of download logs are not very distinguished between weekdays and weekends, for the data volume was not adequate at this time as mentioned before. But after 2013, the gap between the two has been becoming more and more obvious. The median downloads of working days are significantly higher than those of weekends, and the overall download volume is also significantly larger than that of weekends as well. Interestingly, the lower adjacent sometimes occurs on weekends, such as in year 2014, 2015, 2018, 2019 and 2021, while sometimes also in weekdays, such as in year 2012, 2013, 2016, 2017 and 2020.
 
 (ref:weekend-vs-weekday) The violin plot for downloads of all of R-packages on CRAN, between weekday and weekends.
 
-```{r weekend-vs-weekday, fig.height = 7}
+```{r weekend-vs-weekday,fig.cap="(ref:weekend-vs-weekday)", fig.height = 7}
 total_downloads_fix %>% 
   ggplot(aes(weekend, count/1e6)) +
   geom_violin() +

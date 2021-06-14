@@ -24,7 +24,7 @@
 <meta name="author" content="Yiwen Zhang" />
 
 
-<meta name="date" content="2021-06-11" />
+<meta name="date" content="2021-06-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -53,8 +53,6 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 
@@ -105,20 +103,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> Data</a></li>
 <li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="daily-download-of-r-packages.html"><a href="daily-download-of-r-packages.html"><i class="fa fa-check"></i><b>5.1</b> Daily download of R-packages</a></li>
-<li class="chapter" data-level="5.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>5.2</b> Daily downloads of R</a></li>
-<li class="chapter" data-level="5.3" data-path="daily-top-15-downloaded-r-packages.html"><a href="daily-top-15-downloaded-r-packages.html"><i class="fa fa-check"></i><b>5.3</b> Daily top 15 downloaded R-packages</a></li>
-<li class="chapter" data-level="5.4" data-path="compare-last-years-downloads-with-the-earliest-release-date.html"><a href="compare-last-years-downloads-with-the-earliest-release-date.html"><i class="fa fa-check"></i><b>5.4</b> Compare last year’s downloads with the earliest release date</a></li>
-<li class="chapter" data-level="5.5" data-path="compare-moving-average-of-fable-and-forecast.html"><a href="compare-moving-average-of-fable-and-forecast.html"><i class="fa fa-check"></i><b>5.5</b> Compare moving average of fable and forecast</a></li>
-<li class="chapter" data-level="5.6" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>5.6</b> Compare download counts with the number of commits on master branch</a></li>
-<li class="chapter" data-level="5.7" data-path="compare-download-counts-with-the-number-of-updates.html"><a href="compare-download-counts-with-the-number-of-updates.html"><i class="fa fa-check"></i><b>5.7</b> Compare download counts with the number of updates</a></li>
-<li class="chapter" data-level="5.8" data-path="compare-the-package-name-length-with-download-counts.html"><a href="compare-the-package-name-length-with-download-counts.html"><i class="fa fa-check"></i><b>5.8</b> Compare the package name length with download counts</a></li>
-<li class="chapter" data-level="5.9" data-path="compare-download-counts-with-alphabetical-order-of-name.html"><a href="compare-download-counts-with-alphabetical-order-of-name.html"><i class="fa fa-check"></i><b>5.9</b> Compare download counts with alphabetical order of name</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>6</b> Summary</a></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="chapter" data-level="5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>5</b> Summary</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -142,7 +127,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="data" class="section level1" number="3">
 <h1><span class="header-section-number">Section 3</span> Data</h1>
-<p>The main source of data used in this report is the download logs from the RStudio CRAN mirror site <a href="https://cran.rstudio.com/" class="uri">https://cran.rstudio.com/</a>. These log files are created for every instance of download of an R-package via the RStudio CRAN mirror, then these log files are processed daily into CSV files that contain the following variables with the name of header in brackets:</p>
+<p>The main source of data used in this report is the download logs from the RStudio CRAN mirror site : <a href="https://cran.rstudio.com/" class="uri">https://cran.rstudio.com/</a>. These log files are created for every instance of download of an R-package via the RStudio CRAN mirror, then these log files are processed, daily, into CSV files that contain the following variables with the name of header in brackets:</p>
 <ul>
 <li>Date (<code>date</code>),</li>
 <li>Time in UTC time zone (<code>time</code>),</li>
@@ -156,13 +141,13 @@ div.csl-indent {
 </ul>
 <p>A similar log file is also created for every download of R from the RStudio CRAN mirror with the processed log file generating a CSV file that contains the same variables except <code>r_arch</code> and <code>package</code>, and <code>r_version</code> and <code>r_os</code> are named as <code>version</code> and <code>os</code>. These CSV files are hosted at <a href="http://cran-logs.rstudio.com/" class="uri">http://cran-logs.rstudio.com/</a> and updated daily with data available from 1st October 2012.</p>
 <p>The log files of a particular day is processed and compressed into a single CSV file of about 40 megabytes (file sizes of earlier years are much smaller due to lower number of download logs). As there are over 700,000 CSV files, a simple estimate of the size of the data is 28 terabytes - far exceeding typical portable hard drives which are 1-4 terabytes.</p>
-<p>The summarised version of data, where the data shows the total daily download count for each package, is accessible using the <code>cranlogs</code> R-package. The <code>cranlogs</code> package accesses this summary data through the web application programming interface (API) maintained by r-hub <span class="citation">(<a href="#ref-rhub" role="doc-biblioref">R-Hub, n.d.a</a>)</span>.</p>
+<p>The summarised version of data, where the data show the total daily download counts for each package, is accessible using the <code>cranlogs</code> R-package. The <code>cranlogs</code> package accesses this summary data through the web application programming interface (API) maintained by r-hub <span class="citation">(<a href="#ref-rhub" role="doc-biblioref">R-Hub 2020</a>)</span>.</p>
 
 </div>
 <h3>References</h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-rhub" class="csl-entry">
-———. n.d.a. <span>“R-Hub/Cranlogs.app.”</span> <em>GitHub</em>. <a href="https://github.com/r-hub/cranlogs.app#the-api-of-the-cran-downloads-database">https://github.com/r-hub/cranlogs.app#the-api-of-the-cran-downloads-database</a>.
+R-Hub. 2020. <span>“R-Hub/Cranlogs.app.”</span> <em>GitHub</em>. <a href="https://github.com/r-hub/cranlogs.app#the-api-of-the-cran-downloads-database">https://github.com/r-hub/cranlogs.app#the-api-of-the-cran-downloads-database</a>.
 </div>
 </div>
             </section>
@@ -227,20 +212,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5.8 Compare the package name lengths with download counts | What makes an R-package popular?</title>
+  <meta name="description" content="5.8 Compare the package name lengths with download counts | What makes an R-package popular?" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5.8 Compare the package name lengths with download counts | What makes an R-package popular?" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="Yiwen-Zhang-259/ETC5543-cran-analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5.8 Compare the package name lengths with download counts | What makes an R-package popular?" />
+  
+  
+  
+
+<meta name="author" content="Yiwen Zhang" />
+
+
+<meta name="date" content="2021-06-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="compare-download-counts-with-the-numbers-of-updates.html"/>
+<link rel="next" href="compare-download-counts-with-alphabetical-order-of-names.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ETC5543 Yiwen Zhang</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>1</b> Abstract</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="other-work.html"><a href="other-work.html"><i class="fa fa-check"></i><b>2.1</b> Other work</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> Data</a></li>
+<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="daily-downloads-of-r-packages.html"><a href="daily-downloads-of-r-packages.html"><i class="fa fa-check"></i><b>5.1</b> Daily downloads of R-packages</a></li>
+<li class="chapter" data-level="5.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>5.2</b> Daily downloads of R</a></li>
+<li class="chapter" data-level="5.3" data-path="daily-top-15-downloaded-r-packages.html"><a href="daily-top-15-downloaded-r-packages.html"><i class="fa fa-check"></i><b>5.3</b> Daily top 15 downloaded R-packages</a></li>
+<li class="chapter" data-level="5.4" data-path="compare-last-years-downloads-with-the-initial-release-date.html"><a href="compare-last-years-downloads-with-the-initial-release-date.html"><i class="fa fa-check"></i><b>5.4</b> Compare last year’s downloads with the initial release date</a></li>
+<li class="chapter" data-level="5.5" data-path="compare-moving-average-trends-for-fable-and-forecast.html"><a href="compare-moving-average-trends-for-fable-and-forecast.html"><i class="fa fa-check"></i><b>5.5</b> Compare moving average trends for fable and forecast</a></li>
+<li class="chapter" data-level="5.6" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>5.6</b> Compare download counts with the number of commits on master branch</a></li>
+<li class="chapter" data-level="5.7" data-path="compare-download-counts-with-the-numbers-of-updates.html"><a href="compare-download-counts-with-the-numbers-of-updates.html"><i class="fa fa-check"></i><b>5.7</b> Compare download counts with the numbers of updates</a></li>
+<li class="chapter" data-level="5.8" data-path="compare-the-package-name-lengths-with-download-counts.html"><a href="compare-the-package-name-lengths-with-download-counts.html"><i class="fa fa-check"></i><b>5.8</b> Compare the package name lengths with download counts</a></li>
+<li class="chapter" data-level="5.9" data-path="compare-download-counts-with-alphabetical-order-of-names.html"><a href="compare-download-counts-with-alphabetical-order-of-names.html"><i class="fa fa-check"></i><b>5.9</b> Compare download counts with alphabetical order of names</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>6</b> Summary</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">What makes an R-package popular?</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="compare-the-package-name-lengths-with-download-counts" class="section level2" number="5.8">
+<h2><span class="header-section-number">5.8</span> Compare the package name lengths with download counts</h2>
+<p>Here, we still focused on all of R-packages on CRAN, and made comparison between their name lengths and total downloads over the most recent 6 month period.</p>
+<div class="discovery">
+<p>
+<strong>Finding 1</strong>: The name lengths of R-packages have no significant correlation with total downloads, over the most recent 6 month period.
+</p>
+</div>
+<p>We could see from Figure <a href="compare-the-package-name-lengths-with-download-counts.html#fig:namelength-plot">5.19</a> that, the influence on download volume resulted from name length is not obvious. But we could still observe that the name lengths of most of R-packages are centered before 10 characters long. The names , with more than 6,000,000 downloads, are between 5 and 9 characters long. The most downloaded one is R-package rlang whose name length is 5.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:namelength-plot"></span>
+<img src="figures/namelength-plot-1.png" alt="The names of R-packages with more than 6,000,000 downloads are between 5 and 9 characters long." width="672" />
+<p class="caption">
+Figure 5.19: The names of R-packages with more than 6,000,000 downloads are between 5 and 9 characters long.
+</p>
+</div>
+<div class="discovery">
+<p>
+<strong>Finding 2</strong>: The average name length of R-packages is about 7.8 characters long, and over half of the R-packages tend to have shorter names, which may make it more easier to be remembered by users.
+</p>
+</div>
+<p>Table <a href="compare-the-package-name-lengths-with-download-counts.html#tab:pct-lngname">5.16</a> shows that the average name length of all the R-packages is 7.8472034. And over half of the CRAN R-packages are more likely with name lengths below average. And R-packages with shorter names can be easier to get relatively higher downloads. That may because shorter named packages are easier for users to remember.</p>
+<table class="table table-hover table-striped" style="margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:pct-lngname">Table 5.16: </span>Percentage of packages whose name lengths are below average
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+number of short names
+</th>
+<th style="text-align:right;">
+percentage of short names
+</th>
+<th style="text-align:right;">
+total average name length
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+9289
+</td>
+<td style="text-align:right;">
+52.58718
+</td>
+<td style="text-align:right;">
+7.847203
+</td>
+</tr>
+</tbody>
+</table>
+<p>After finding that there is no obvious relationship between the name lengths and the download volume, a new question came up : Can the name lengths of the R-packages be linked to the time of initial release date?</p>
+<div class="discovery">
+<p>
+<strong>Finding 4</strong>: For task view R-packages, the name lengths increase with the initial release dates, especially for Bayesian packages.
+</p>
+</div>
+<p>We may have this kind of experience in life : for example, detective novels, the later they are released, the less names can be chosen, because many names have been occupied by the books published earlier, with the same theme. Therefore, those later published books often have to lengthen their names to distinguish themselves from the existing books. Coincidentally, we guessed the naming of R-packages from the same topic would also be correlated to the initial release time. So, we looked back to the CRAN task view R-packages<span class="citation">(<a href="#ref-crantaskviews" role="doc-biblioref"><span>“CRAN Task Views,”</span> n.d.</a>)</span>, for conducting comparison among R-packages from the same topic. Figure <a href="compare-the-package-name-lengths-with-download-counts.html#fig:namelth-taskview">5.20</a> shows the name lengths of CRAN task view R-packages against the initial release dates. It is obvious that the name lengths of task view R-package tend to increase with the initial release dates, especially for <code>Bayesian</code> R-packages.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:namelth-taskview"></span>
+<img src="figures/namelth-taskview-1.png" alt="The name lengths of task view R-packages slightly increase with the initial release dates." width="672" />
+<p class="caption">
+Figure 5.20: The name lengths of task view R-packages slightly increase with the initial release dates.
+</p>
+</div>
+<div class="discovery">
+<p>
+<strong>Finding 5</strong>: For all of R-packages on CRAN, the average name length tends to generally increase with the initial release date.
+</p>
+</div>
+<p>Although we’d better explore this question among R-packages within the same topic, we also had a view on the annual change in the average name length, for all of R-packages on CRAN.</p>
+<p>Figure <a href="compare-the-package-name-lengths-with-download-counts.html#fig:avgnamelth-year">5.21</a> shows the average name length for all of R-packages on CRAN, released in each year. It is obvious that the name lengths of those R-packages generally increase year by year.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:avgnamelth-year"></span>
+<img src="figures/avgnamelth-year-1.png" alt="The average name length for all of R-packages on CRAN released in each year, tends to rise along the time." width="672" />
+<p class="caption">
+Figure 5.21: The average name length for all of R-packages on CRAN released in each year, tends to rise along the time.
+</p>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-crantaskviews" class="csl-entry">
+<span>“CRAN Task Views.”</span> n.d. <em>CRAN Task Views</em>. <a href="https://cran.r-project.org/web/views/">https://cran.r-project.org/web/views/</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="compare-download-counts-with-the-numbers-of-updates.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="compare-download-counts-with-alphabetical-order-of-names.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Yiwen-Zhang-259/ETC5543-cran-analysis/edit/master/04-results.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ETC5543-Yiwen-Zhang.pdf", "ETC5543-Yiwen-Zhang.epub"],
+"toc": {
+"collapse": "subsection"
+},
+"collapse": "subsection",
+"scroll_highlight": true,
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

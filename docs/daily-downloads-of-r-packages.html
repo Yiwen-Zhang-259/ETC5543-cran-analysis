@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5.1 Daily downloads of R-packages | What makes an R-package popular?</title>
+  <meta name="description" content="5.1 Daily downloads of R-packages | What makes an R-package popular?" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5.1 Daily downloads of R-packages | What makes an R-package popular?" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="Yiwen-Zhang-259/ETC5543-cran-analysis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5.1 Daily downloads of R-packages | What makes an R-package popular?" />
+  
+  
+  
+
+<meta name="author" content="Yiwen Zhang" />
+
+
+<meta name="date" content="2021-06-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="results.html"/>
+<link rel="next" href="daily-downloads-of-r.html"/>
+<script src="libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">ETC5543 Yiwen Zhang</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>1</b> Abstract</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="other-work.html"><a href="other-work.html"><i class="fa fa-check"></i><b>2.1</b> Other work</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> Data</a></li>
+<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="daily-downloads-of-r-packages.html"><a href="daily-downloads-of-r-packages.html"><i class="fa fa-check"></i><b>5.1</b> Daily downloads of R-packages</a></li>
+<li class="chapter" data-level="5.2" data-path="daily-downloads-of-r.html"><a href="daily-downloads-of-r.html"><i class="fa fa-check"></i><b>5.2</b> Daily downloads of R</a></li>
+<li class="chapter" data-level="5.3" data-path="daily-top-15-downloaded-r-packages.html"><a href="daily-top-15-downloaded-r-packages.html"><i class="fa fa-check"></i><b>5.3</b> Daily top 15 downloaded R-packages</a></li>
+<li class="chapter" data-level="5.4" data-path="compare-last-years-downloads-with-the-initial-release-date.html"><a href="compare-last-years-downloads-with-the-initial-release-date.html"><i class="fa fa-check"></i><b>5.4</b> Compare last year’s downloads with the initial release date</a></li>
+<li class="chapter" data-level="5.5" data-path="compare-moving-average-trends-for-fable-and-forecast.html"><a href="compare-moving-average-trends-for-fable-and-forecast.html"><i class="fa fa-check"></i><b>5.5</b> Compare moving average trends for fable and forecast</a></li>
+<li class="chapter" data-level="5.6" data-path="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html"><i class="fa fa-check"></i><b>5.6</b> Compare download counts with the number of commits on master branch</a></li>
+<li class="chapter" data-level="5.7" data-path="compare-download-counts-with-the-numbers-of-updates.html"><a href="compare-download-counts-with-the-numbers-of-updates.html"><i class="fa fa-check"></i><b>5.7</b> Compare download counts with the numbers of updates</a></li>
+<li class="chapter" data-level="5.8" data-path="compare-the-package-name-lengths-with-download-counts.html"><a href="compare-the-package-name-lengths-with-download-counts.html"><i class="fa fa-check"></i><b>5.8</b> Compare the package name lengths with download counts</a></li>
+<li class="chapter" data-level="5.9" data-path="compare-download-counts-with-alphabetical-order-of-names.html"><a href="compare-download-counts-with-alphabetical-order-of-names.html"><i class="fa fa-check"></i><b>5.9</b> Compare download counts with alphabetical order of names</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>6</b> Summary</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">What makes an R-package popular?</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="daily-downloads-of-r-packages" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Daily downloads of R-packages</h2>
+<div class="discovery">
+<p>
+<strong>Finding 1</strong>: There was unusual download activities in one day of 2014 and 2018.
+</p>
+</div>
+<p>In this first section, we studied the daily downloads of CRAN R-packages from 2012-10-01 to 2021-06-12. The data was obtained from the <code>cranlogs</code> package<span class="citation">(<a href="#ref-cranlogs" role="doc-biblioref">Csárdi 2019</a>)</span>, which includes a summary of the download logs via the RStudio CRAN mirror. The daily download data for CRAN R-packages are available from 1st October 2012. Examination of this data showed two unusual observations in 2014 and 2018 as shown in Figure <a href="daily-downloads-of-r-packages.html#fig:unusual-spikes">5.1</a>. The one happening in 2014 was on 2014-11-17, Monday, while the other one happening in 2018 was on 2018-10-21, Sunday.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:unusual-spikes"></span>
+<img src="figures/unusual-spikes-1.png" alt="Unusual download spikes in 2014 and 2018." width="672" />
+<p class="caption">
+Figure 5.1: Unusual download spikes in 2014 and 2018.
+</p>
+</div>
+<p>When having a closer look into those two spikes, we firstly focused on the one on 2014-11-17. From Table <a href="daily-downloads-of-r-packages.html#tab:spike14count">5.1</a>, we could see that the downloads of top downloaded R-packages on this day differs little, indicating this spike is not due to a certain package.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:spike14count">Table 5.1: </span>The total downloads of each R-package on 2014-11-17
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+package
+</th>
+<th style="text-align:right;">
+n
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+BayHaz
+</td>
+<td style="text-align:right;">
+767035
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+clhs
+</td>
+<td style="text-align:right;">
+660298
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GPseq
+</td>
+<td style="text-align:right;">
+394840
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OPI
+</td>
+<td style="text-align:right;">
+382518
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+YaleToolkit
+</td>
+<td style="text-align:right;">
+370513
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+survsim
+</td>
+<td style="text-align:right;">
+224994
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BAT
+</td>
+<td style="text-align:right;">
+40592
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rcpp
+</td>
+<td style="text-align:right;">
+3509
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ggplot2
+</td>
+<td style="text-align:right;">
+3167
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+plyr
+</td>
+<td style="text-align:right;">
+3150
+</td>
+</tr>
+</tbody>
+</table>
+<p>Table <a href="daily-downloads-of-r-packages.html#tab:spike14country">5.2</a> shows the downloads from different countries on 2014-11-17. It is obvious that <code>Indonesia</code> obtains much more downloads than any others.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:spike14country">Table 5.2: </span>The countries downloading from CRAN on 2014-11-17
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:right;">
+n
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+ID
+</td>
+<td style="text-align:right;">
+2863576
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+US
+</td>
+<td style="text-align:right;">
+96336
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CN
+</td>
+<td style="text-align:right;">
+32729
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DE
+</td>
+<td style="text-align:right;">
+14548
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FR
+</td>
+<td style="text-align:right;">
+11860
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GB
+</td>
+<td style="text-align:right;">
+10491
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IN
+</td>
+<td style="text-align:right;">
+8635
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HK
+</td>
+<td style="text-align:right;">
+8090
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BE
+</td>
+<td style="text-align:right;">
+7720
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+KR
+</td>
+<td style="text-align:right;">
+6794
+</td>
+</tr>
+</tbody>
+</table>
+<p>Furthermore, we also checked IP addresses, displayed in Table <a href="daily-downloads-of-r-packages.html#tab:spike14ip">5.3</a>. Downloads from <code>ip3758</code> is much higher than others. So, it seems that most of the downloads are owing to one certain IP for the unusual spike in 2014.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:spike14ip">Table 5.3: </span>The IP addresses downloading from CRAN on 2014-11-17
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+ip_id
+</th>
+<th style="text-align:right;">
+n
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+3758
+</td>
+<td style="text-align:right;">
+2863432
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+11536
+</td>
+<td style="text-align:right;">
+6244
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+11725
+</td>
+<td style="text-align:right;">
+5992
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+16385
+</td>
+<td style="text-align:right;">
+5991
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+534
+</td>
+<td style="text-align:right;">
+5986
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3784
+</td>
+<td style="text-align:right;">
+5983
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+18519
+</td>
+<td style="text-align:right;">
+4511
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+2124
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+1892
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+464
+</td>
+<td style="text-align:right;">
+1375
+</td>
+</tr>
+</tbody>
+</table>
+<p>Next, we turned to the unusual spike in 2018. Table <a href="daily-downloads-of-r-packages.html#tab:spike18count">5.4</a> shows the downloads from <code>tidyverse</code> is much higher than others, with nearly three orders of magnitude.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:spike18count">Table 5.4: </span>The total downloads of each R-package on 2018-10-21
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+package
+</th>
+<th style="text-align:right;">
+n
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+tidyverse
+</td>
+<td style="text-align:right;">
+11692582
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rcpp
+</td>
+<td style="text-align:right;">
+16263
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+stringi
+</td>
+<td style="text-align:right;">
+13981
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rlang
+</td>
+<td style="text-align:right;">
+13796
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ggplot2
+</td>
+<td style="text-align:right;">
+13306
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dplyr
+</td>
+<td style="text-align:right;">
+13081
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+glue
+</td>
+<td style="text-align:right;">
+12593
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+digest
+</td>
+<td style="text-align:right;">
+12302
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+stringr
+</td>
+<td style="text-align:right;">
+11505
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fansi
+</td>
+<td style="text-align:right;">
+11275
+</td>
+</tr>
+</tbody>
+</table>
+<p>As for country, from Table <a href="daily-downloads-of-r-packages.html#tab:spike18country">5.5</a>, we could know that <code>US</code> occupies the most part of downloads on that day.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:spike18country">Table 5.5: </span>The countries downloading from CRAN on 2018-10-21
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:right;">
+n
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+US
+</td>
+<td style="text-align:right;">
+12140853
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+179847
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GB
+</td>
+<td style="text-align:right;">
+76624
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IN
+</td>
+<td style="text-align:right;">
+51502
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CN
+</td>
+<td style="text-align:right;">
+46095
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TR
+</td>
+<td style="text-align:right;">
+36590
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AU
+</td>
+<td style="text-align:right;">
+35078
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DE
+</td>
+<td style="text-align:right;">
+32837
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CA
+</td>
+<td style="text-align:right;">
+31125
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+KR
+</td>
+<td style="text-align:right;">
+30469
+</td>
+</tr>
+</tbody>
+</table>
+<p>Finally, the most interesting finding is on IP address, displayed in Table <a href="daily-downloads-of-r-packages.html#tab:spike18ip">5.6</a>. Several consecutive IPs have highly distinguished downloads. It seems that they are probably from the same individual, or caused by a server test issue, in such a short period of time.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:spike18ip">Table 5.6: </span>The IP addresses downloading from CRAN on 2018-10-21
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+ip_id
+</th>
+<th style="text-align:right;">
+n
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+266
+</td>
+<td style="text-align:right;">
+3034720
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+263
+</td>
+<td style="text-align:right;">
+2457383
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+655
+</td>
+<td style="text-align:right;">
+2099321
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+264
+</td>
+<td style="text-align:right;">
+1557640
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+267
+</td>
+<td style="text-align:right;">
+1406876
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+265
+</td>
+<td style="text-align:right;">
+1032535
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+179711
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+268
+</td>
+<td style="text-align:right;">
+99932
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+112
+</td>
+<td style="text-align:right;">
+34397
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3296
+</td>
+<td style="text-align:right;">
+17223
+</td>
+</tr>
+</tbody>
+</table>
+<p>To sum up, we found that these two unusual spikes have one thing in common, that is, most of the downloads came from a specific country. The difference is that in 2014, a large number of downloads came from several different R-packages, while in 2018, they came from only one package <code>tidyverse</code>. In addition, in 2014, a large quantities of downloads came from one IP, while in 2018, they came from several consecutive IPs, At this point, it is guessed that they should come from the same individual, and it is very likely due to sever test issue, for it may be not necessary or reasonable for an individual to generate such a large amount downloads in one day.</p>
+<div class="discovery">
+<p>
+<strong>Finding 2</strong>: There are increasing numbers of downloads over time, which can attests the growing number of R users.
+</p>
+</div>
+<p>Figure <a href="daily-downloads-of-r-packages.html#fig:download-over-time">5.2</a> shows the download trend of all R-packages on CRAN over a period pf time from 2012-10-01 to 2021-06-12, after fixing the unusual spikes mentioned above. There is an upward trend, with an increasing variance in download counts.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:download-over-time"></span>
+<img src="figures/download-over-time-1.png" alt="The download trend of all R-packages on CRAN from 2012-10-01 to 2021-06-12." width="672" />
+<p class="caption">
+Figure 5.2: The download trend of all R-packages on CRAN from 2012-10-01 to 2021-06-12.
+</p>
+</div>
+<div class="discovery">
+<p>
+<strong>Finding 3</strong>: Weekends have a lower downloads than weekdays.
+</p>
+</div>
+<p>To have a closer look at the weekly pattern, figure <a href="daily-downloads-of-r-packages.html#fig:total-trend">5.3</a> shows the daily downloads of all CRAN R-packages via the RStudio mirror, with the grey areas highlighting the weekend.</p>
+<p>To be more specific, except for 2012 and 2013, the patterns of other years are very similar, with a strong weekly seasonality. To be more detailed, in 2012, the download logs showed an overall upward trend, which also reflected more and more users there after release of CRAN. In the following years, there is no obvious trend in download volume, but a strong seasonality, which indicates that in a week, the total downloads always increases first then decreases, and reaches the lowest on weekends. Although the pattern of 2013 is more volatile, it still conforms to that. We suppose that is because CRAN was only open for a short period of time in 2013, so the amount of download data is not adequate to show the weekly pattern very clearly. After 2016, the pattern of each year is quite consistent, for the total downloads have been increasing year by year. Back to weekly seasonality, people are more likely to download packages during weekdays, and rest on weekends. So, the trough of download curve always occurs on weekends. In addition, the lowest downloads across the year are always happening at the end of December or the beginning of January, probably due to the Christmas and New Year’s holidays. Meanwhile, the downloads are on the rise from August to October, and from February to April, which covers the beginning of semesters for many universities around the world, a time when related students tend to download CRAN R-packages very often.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:total-trend"></span>
+<img src="figures/total-trend-1.png" alt="The total downloads for all of R-packages on CRAN would decrease on weekends and increase during weekdays." width="672" />
+<p class="caption">
+Figure 5.3: The total downloads for all of R-packages on CRAN would decrease on weekends and increase during weekdays.
+</p>
+</div>
+<p>As there are many fluctuations in daily download pattern, which is due to calendar effect and test server issue of CRAN mirror, an STL decomposition model explained in <span class="citation"><a href="#ref-stl" role="doc-biblioref">Hyndman and Athanasopoulos</a> (<a href="#ref-stl" role="doc-biblioref">2021a</a>)</span>, was applied, to smooth the curve for all of the R-packages in Figure <a href="daily-downloads-of-r-packages.html#fig:pkg-stl">5.4</a>.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:pkg-stl"></span>
+<img src="figures/pkg-stl-1.png" alt="The total downloads of all R-packages on CRAN after smoothing." width="672" />
+<p class="caption">
+Figure 5.4: The total downloads of all R-packages on CRAN after smoothing.
+</p>
+</div>
+<p>Figure <a href="daily-downloads-of-r-packages.html#fig:weekend-vs-weekday">5.5</a> shows the distributions and the median of the downloads between weekday and weekends, which differ from each other a lot. The violin plots of weekends are wider and shorter, while those of weekdays are thinner and higher, on the contrary. That is because the total downloads on weekends are less than those in weekdays. In 2012, the median and interquartile range of download logs are not very distinguished between weekdays and weekends, for the data volume was not adequate at this time as mentioned before. But after 2013, the gap between the two has been becoming more and more obvious. The median downloads of working days are significantly higher than those of weekends, and the overall download volume is also significantly larger than that of weekends as well. Interestingly, the lower adjacent sometimes occurs on weekends, such as in year 2014, 2015, 2018, 2019 and 2021, while sometimes also in weekdays, such as in year 2012, 2013, 2016, 2017 and 2020.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:weekend-vs-weekday"></span>
+<img src="figures/weekend-vs-weekday-1.png" alt="The violin plot for downloads of all of R-packages on CRAN, between weekday and weekends." width="672" />
+<p class="caption">
+Figure 5.5: The violin plot for downloads of all of R-packages on CRAN, between weekday and weekends.
+</p>
+</div>
+<div class="discovery">
+<p>
+<strong>Finding 4</strong>: Top 10% downloaded R-packages share nearly 90% cumulative download counts of the whole.
+</p>
+</div>
+<p>From the previous analysis, we could see that the cumulative download counts of R-packages show an increasing trend. It would be perfect equality if every R-package had the same download count : the last 20% downloaded R-packages would gain 20% of the total download count or the top 60% downloaded R-packages would get 60% of the total download count. But knowing from experience, we know that is hardly possible. So, here, we introduced Lorenz curve<span class="citation">(<a href="#ref-lorenz" role="doc-biblioref">Pettinger 2021</a>)</span> to show the respective numbers of R-packages within different download levels (groups defined by quantiles of download counts). In this way, we could figure out how many download counts contributed by different downloaded R-packages.</p>
+<p>Figure <a href="daily-downloads-of-r-packages.html#fig:lorenz-all">5.6</a> shows cumulative download counts against each downloaded group. It can be seen that most of the download counts come from the top 10% downloaded R-packages. At the same time, we could also observe that the Gini value is close to 1, which indicates that the download volumes across groups are quite unbalanced. In fact, the download volume of the top 10% group is extremely distinguished from that of the following groups. It’s not hard to understand that this group should contain some R-packages with high popularity and large quantities of users.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:lorenz-all"></span>
+<img src="figures/lorenz-all-1.png" alt="Percentiles of the download counts against cumulative download counts for R-packages at or below that percentile." width="672" />
+<p class="caption">
+Figure 5.6: Percentiles of the download counts against cumulative download counts for R-packages at or below that percentile.
+</p>
+</div>
+<p>For example, if we extracted the first 10 packages of this group in Table <a href="daily-downloads-of-r-packages.html#tab:top10">5.7</a>, we could find that there are many quite famous and frequently-used R-packages, such as <code>rlang</code> and <code>dplyr</code>.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:top10">Table 5.7: </span>First 10 R-packages of top 10% downloaded group
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+package
+</th>
+<th style="text-align:right;">
+total
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+rlang
+</td>
+<td style="text-align:right;">
+15572507
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+vctrs
+</td>
+<td style="text-align:right;">
+13544857
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dplyr
+</td>
+<td style="text-align:right;">
+12739206
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ggplot2
+</td>
+<td style="text-align:right;">
+12670952
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+jsonlite
+</td>
+<td style="text-align:right;">
+12627542
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+lifecycle
+</td>
+<td style="text-align:right;">
+11124212
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tibble
+</td>
+<td style="text-align:right;">
+10935860
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+magrittr
+</td>
+<td style="text-align:right;">
+10312021
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pillar
+</td>
+<td style="text-align:right;">
+9566463
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+glue
+</td>
+<td style="text-align:right;">
+9534999
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-cranlogs" class="csl-entry">
+Csárdi, Gábor. 2019. <em>Cranlogs: Download Logs from the ’RStudio’ ’CRAN’ Mirror</em>. <a href="https://CRAN.R-project.org/package=cranlogs">https://CRAN.R-project.org/package=cranlogs</a>.
+</div>
+<div id="ref-stl" class="csl-entry">
+Hyndman, Rob J, and George Athanasopoulos. 2021a. <span>“Forecasting: Principles and Practice (3rd Ed).”</span> <em>3.6 STL Decomposition</em>. <a href="https://otexts.com/fpp3/stl.html">https://otexts.com/fpp3/stl.html</a>.
+</div>
+<div id="ref-lorenz" class="csl-entry">
+Pettinger, Tejvan. 2021. <span>“Lorenz Curve.”</span> <em>Economics Help</em>. <a href="https://www.economicshelp.org/blog/glossary/lorenz-curve/">https://www.economicshelp.org/blog/glossary/lorenz-curve/</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="results.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="daily-downloads-of-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/Yiwen-Zhang-259/ETC5543-cran-analysis/edit/master/04-results.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["ETC5543-Yiwen-Zhang.pdf", "ETC5543-Yiwen-Zhang.epub"],
+"toc": {
+"collapse": "subsection"
+},
+"collapse": "subsection",
+"scroll_highlight": true,
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

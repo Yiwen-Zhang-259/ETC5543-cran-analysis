@@ -129,4 +129,5 @@ R_version %>%
   scroll_box(width = "100%", height = "400px")
 ```
 
+
 In conclusion, the daily download trends of R are quite similar to those of R-packages, and they are both significantly correlated to weekly calendar as well as unusual downloads from CRAN mirrors. In general, they both tend to increase with the growing of R users.

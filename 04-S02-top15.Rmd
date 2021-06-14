@@ -299,10 +299,10 @@ pkg_remain %>%
   scroll_box(width = "100%", height = "400px")
 ```
 
-Next, we changed the object to trending R-packages. Trending R-packages are ones downloaded at least 1000 times last week, which have increased significantly compared to the average weekly downloads in the previous 24 weeks[@r-hub]. That is to say, they are packages with significantly high download volume in a recent short time. Through their topics, we can know what application areas of R-packages people are concerned about recently.
+Next, we changed the object to trending R-packages. Trending R-packages are ones downloaded at least 1000 times last week, which have increased significantly compared to the average weekly downloads in the previous 24 weeks[@r-hub]. That is to say, they are packages with significantly high download volume in a recent short time. Through their topics, we can know what application areas of R-packages that people are concerned about recently.
 
 ```{block, type="discovery", echo = TRUE}
-**Finding 3**: The most popular topic of trending R-packages is for `r pkg_trendcom_count$topic[1]`.
+**Finding 3**: The most popular topic of trending R-packages.
 ```
 
 ```{r taskview-function}
@@ -344,8 +344,6 @@ colnames(pkg_taskview_total)[1] <- 'package'
 
 ```
 
-Table \@ref(tab:trending-topic) shows the first 10 trending R-packages along with their topics.
-
 ```{r trending-topic}
 # read trending packages recently
 pkg_trending <- cran_trending()
@@ -355,11 +353,6 @@ pkg_trending_new <- pkg_trending %>%
 
 pkg_trending_compare <- plyr::match_df(pkg_taskview_total,pkg_trending_new,on = "package") %>%
   group_by(topic)
-
-pkg_trending_compare %>%
-  head(10) %>%
-  kable(caption = "Trending R-packages with topics") %>%
-  kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
 ```{r trendingcount}
@@ -369,7 +362,7 @@ pkg_trendcom_count <- pkg_trending_compare %>%
   arrange(desc(`download times`))
 ```
 
-And Table \@ref(tab:trending-count) shows the top 10 downloaded topics for trending R-packages. The most popular topic is `r pkg_trendcom_count$topic[1]`, followed by `r pkg_trendcom_count$topic[2]` and `r pkg_trendcom_count$topic[3]`. This is easy to understand : the numbers of users from different fields are different, so the downloads of R-packages in different topics also varies. It seems that `r pkg_trendcom_count$topic[1]` is quite heated recently.
+Table \@ref(tab:trending-count) shows the top 10 downloaded topics for trending R-packages. The most popular topic is `r pkg_trendcom_count$topic[1]`, followed by `r pkg_trendcom_count$topic[2]` and `r pkg_trendcom_count$topic[3]`. This is easy to understand : the numbers of users from different fields are different, so the downloads of R-packages in different topics also varies. It seems that `r pkg_trendcom_count$topic[1]` is quite heated recently.
 
 ```{r trending-count}
 pkg_trendcom_count %>%
@@ -378,4 +371,4 @@ pkg_trendcom_count %>%
   kable_styling(bootstrap_options = c("hover", "striped"))
 ```
 
-Apart from the topics of R-packages, what other factors can probably be linked to download volumes? With this question in mind, we then explored the relationship between the total number of download counts for R-packages and the earliest release date in the past year. We also studied the relationship between the total download volume and the number of updates, the number of commits on GitHub repositories, the lengths of the names and the alphabetical order of names,over the most recent 6 month period, in the following sections.
+Apart from the topics of R-packages, what other factors can probably be linked to download volumes? With this question in mind, we then explored the relationship between the total number of download counts for all of CRAN R-packages and the earliest release date in the past year. We also studied the relationship between the total download volume and the number of updates, the number of commits on master (main) branch in GitHub repositories, the lengths and the alphabetical order of names, over the most recent 6 month period, in the following sections.

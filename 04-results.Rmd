@@ -37,7 +37,8 @@ theme_set(theme_bw(base_size = 14) +
             theme(plot.title.position = "plot",
                   axis.text=element_text(size=10),
                   axis.title=element_text(size=12,face="bold"),
-                  plot.title = element_text(h = 0.5))
+                  plot.title = element_text(h = 0.5),
+                  plot.subtitle = element_text(h = 0.5))
           )
 
 # comment out below to include/exclude analysis
