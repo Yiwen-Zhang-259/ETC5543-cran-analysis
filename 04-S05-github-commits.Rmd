@@ -244,3 +244,30 @@ pkg_commits_low  %>%
   plot.subtitle = element_text(h = 0.5))
 ```
 
+*correlation test*
+
+```{r corr}
+pkg_commits_all1 <- pkg_commits_all %>%
+  mutate(commits = as.numeric(commits)) %>%
+  head(5000)
+
+#test the correlation assumption
+##both the number of commits and download count are not from a normal distribution, which violates the assumption of Pearson correlation test. Hence, we should apply the Kendall or Spearman correlation test.
+shapiro.test(pkg_commits_all1$commits)
+ggqqplot(pkg_commits_all$commits, ylab = "The number of commits")
+shapiro.test(pkg_commits_all1$total)
+ggqqplot(pkg_commits_all$total, ylab = "The number of downloads")
+
+cor.test(as.numeric(pkg_commits_all$commits),pkg_commits_all$total, method = "kendall")
+cor.test(as.numeric(pkg_commits_all$commits),pkg_commits_all$total, method = "spearman")
+
+##visualize
+ggscatter(pkg_commits_all,x = "commits", y = "total", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "kendall")
+
+ggscatter(pkg_commits_all,x = "commits", y = "total", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "spearman")
+```
+
