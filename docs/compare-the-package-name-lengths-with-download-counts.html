@@ -24,7 +24,7 @@
 <meta name="author" content="Yiwen Zhang" />
 
 
-<meta name="date" content="2021-06-14" />
+<meta name="date" content="2022-01-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -118,7 +118,6 @@ div.csl-indent {
 <li class="chapter" data-level="5.9" data-path="compare-download-counts-with-alphabetical-order-of-names.html"><a href="compare-download-counts-with-alphabetical-order-of-names.html"><i class="fa fa-check"></i><b>5.9</b> Compare download counts with alphabetical order of names</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>6</b> Summary</a></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -148,12 +147,12 @@ div.csl-indent {
 <strong>Finding 1</strong>: The name lengths of R-packages have no significant correlation with total downloads, over the most recent 6 month period.
 </p>
 </div>
-<p>We could see from Figure <a href="compare-the-package-name-lengths-with-download-counts.html#fig:namelength-plot">5.19</a> that, the influence on download volume resulted from name length is not obvious. But we could still observe that the name lengths of most of R-packages are centered before 10 characters long. The names , with more than 6,000,000 downloads, are between 5 and 9 characters long. The most downloaded one is R-package rlang whose name length is 5.</p>
+<p>We could see from Figure <a href="compare-the-package-name-lengths-with-download-counts.html#fig:namelength-plot">5.22</a> that, the influence on download volume resulted from name length is not obvious. But we could still observe that the name lengths of most of R-packages are centered before 10 characters long. The names , with more than 6,000,000 downloads, are between 5 and 9 characters long. The most downloaded one is R-package rlang whose name length is 5.</p>
 
 <div class="figure" style="text-align: center"><span id="fig:namelength-plot"></span>
 <img src="figures/namelength-plot-1.png" alt="The names of R-packages with more than 6,000,000 downloads are between 5 and 9 characters long." width="672" />
 <p class="caption">
-Figure 5.19: The names of R-packages with more than 6,000,000 downloads are between 5 and 9 characters long.
+Figure 5.22: The names of R-packages with more than 6,000,000 downloads are between 5 and 9 characters long.
 </p>
 </div>
 <div class="discovery">
@@ -161,10 +160,10 @@ Figure 5.19: The names of R-packages with more than 6,000,000 downloads are betw
 <strong>Finding 2</strong>: The average name length of R-packages is about 7.8 characters long, and over half of the R-packages tend to have shorter names, which may make it more easier to be remembered by users.
 </p>
 </div>
-<p>Table <a href="compare-the-package-name-lengths-with-download-counts.html#tab:pct-lngname">5.16</a> shows that the average name length of all the R-packages is 7.8472034. And over half of the CRAN R-packages are more likely with name lengths below average. And R-packages with shorter names can be easier to get relatively higher downloads. That may because shorter named packages are easier for users to remember.</p>
+<p>Table <a href="compare-the-package-name-lengths-with-download-counts.html#tab:pct-lngname">5.19</a> shows that the average name length of all the R-packages is 7.8472034. And over half of the CRAN R-packages are more likely with name lengths below average. And R-packages with shorter names can be easier to get relatively higher downloads. That may because shorter named packages are easier for users to remember.</p>
 <table class="table table-hover table-striped" style="margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:pct-lngname">Table 5.16: </span>Percentage of packages whose name lengths are below average
+<span id="tab:pct-lngname">Table 5.19: </span>Percentage of packages whose name lengths are below average
 </caption>
 <thead>
 <tr>
@@ -199,12 +198,12 @@ total average name length
 <strong>Finding 4</strong>: For task view R-packages, the name lengths increase with the initial release dates, especially for Bayesian packages.
 </p>
 </div>
-<p>We may have this kind of experience in life : for example, detective novels, the later they are released, the less names can be chosen, because many names have been occupied by the books published earlier, with the same theme. Therefore, those later published books often have to lengthen their names to distinguish themselves from the existing books. Coincidentally, we guessed the naming of R-packages from the same topic would also be correlated to the initial release time. So, we looked back to the CRAN task view R-packages<span class="citation">(<a href="#ref-crantaskviews" role="doc-biblioref"><span>“CRAN Task Views,”</span> n.d.</a>)</span>, for conducting comparison among R-packages from the same topic. Figure <a href="compare-the-package-name-lengths-with-download-counts.html#fig:namelth-taskview">5.20</a> shows the name lengths of CRAN task view R-packages against the initial release dates. It is obvious that the name lengths of task view R-package tend to increase with the initial release dates, especially for <code>Bayesian</code> R-packages.</p>
+<p>We may have this kind of experience in life : for example, detective novels, the later they are released, the less names can be chosen, because many names have been occupied by the books published earlier, with the same theme. Therefore, those later published books often have to lengthen their names to distinguish themselves from the existing books. Coincidentally, we guessed the naming of R-packages from the same topic would also be correlated to the initial release time. So, we looked back to the CRAN task view R-packages<span class="citation">(<a href="#ref-crantaskviews" role="doc-biblioref"><span>“CRAN Task Views,”</span> n.d.</a>)</span>, for conducting comparison among R-packages from the same topic. Figure <a href="compare-the-package-name-lengths-with-download-counts.html#fig:namelth-taskview">5.23</a> shows the name lengths of CRAN task view R-packages against the initial release dates. It is obvious that the name lengths of task view R-package tend to increase with the initial release dates, especially for <code>Bayesian</code> R-packages.</p>
 
 <div class="figure" style="text-align: center"><span id="fig:namelth-taskview"></span>
 <img src="figures/namelth-taskview-1.png" alt="The name lengths of task view R-packages slightly increase with the initial release dates." width="672" />
 <p class="caption">
-Figure 5.20: The name lengths of task view R-packages slightly increase with the initial release dates.
+Figure 5.23: The name lengths of task view R-packages slightly increase with the initial release dates.
 </p>
 </div>
 <div class="discovery">
@@ -213,12 +212,12 @@ Figure 5.20: The name lengths of task view R-packages slightly increase with the
 </p>
 </div>
 <p>Although we’d better explore this question among R-packages within the same topic, we also had a view on the annual change in the average name length, for all of R-packages on CRAN.</p>
-<p>Figure <a href="compare-the-package-name-lengths-with-download-counts.html#fig:avgnamelth-year">5.21</a> shows the average name length for all of R-packages on CRAN, released in each year. It is obvious that the name lengths of those R-packages generally increase year by year.</p>
+<p>Figure <a href="compare-the-package-name-lengths-with-download-counts.html#fig:avgnamelth-year">5.24</a> shows the average name length for all of R-packages on CRAN, released in each year. It is obvious that the name lengths of those R-packages generally increase year by year.</p>
 
 <div class="figure" style="text-align: center"><span id="fig:avgnamelth-year"></span>
 <img src="figures/avgnamelth-year-1.png" alt="The average name length for all of R-packages on CRAN released in each year, tends to rise along the time." width="672" />
 <p class="caption">
-Figure 5.21: The average name length for all of R-packages on CRAN released in each year, tends to rise along the time.
+Figure 5.24: The average name length for all of R-packages on CRAN released in each year, tends to rise along the time.
 </p>
 </div>
 </div>

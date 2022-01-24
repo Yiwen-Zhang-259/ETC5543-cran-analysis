@@ -1,0 +1,2126 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.11)  14 JUN 2021 12:18
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**ETC5543-Yiwen-Zhang.tex
+(./ETC5543-Yiwen-Zhang.tex
+LaTeX2e <2020-02-02> patch level 5
+L3 programming layer <2020-03-06>
+(/usr/local/texlive/2020/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2019/12/20 v1.4l Standard LaTeX document class
+(/usr/local/texlive/2020/texmf-dist/tex/latex/base/bk10.clo
+File: bk10.clo 2019/12/20 v1.4l Standard LaTeX file (size option)
+)
+\c@part=\count167
+\c@chapter=\count168
+\c@section=\count169
+\c@subsection=\count170
+\c@subsubsection=\count171
+\c@paragraph=\count172
+\c@subparagraph=\count173
+\c@figure=\count174
+\c@table=\count175
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen134
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2020/01/20 v2.17e AMS math features
+\@mathmargin=\skip49
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks15
+\ex@=\dimen135
+))
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen136
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count176
+LaTeX Info: Redefining \frac on input line 227.
+\uproot@=\count177
+\leftroot@=\count178
+LaTeX Info: Redefining \overline on input line 389.
+\classnum@=\count179
+\DOTSCASE@=\count180
+LaTeX Info: Redefining \ldots on input line 486.
+LaTeX Info: Redefining \dots on input line 489.
+LaTeX Info: Redefining \cdots on input line 610.
+\Mathstrutbox@=\box45
+\strutbox@=\box46
+\big@size=\dimen137
+LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
+\macc@depth=\count181
+\c@MaxMatrixCols=\count182
+\dotsspace@=\muskip16
+\c@parentequation=\count183
+\dspbrk@lvl=\count184
+\tag@help=\toks16
+\row@=\count185
+\column@=\count186
+\maxfields@=\count187
+\andhelp@=\toks17
+\eqnshift@=\dimen138
+\alignsep@=\dimen139
+\tagshift@=\dimen140
+\tagwidth@=\dimen141
+\totwidth@=\dimen142
+\lineht@=\dimen143
+\@envbody=\toks18
+\multlinegap=\skip50
+\multlinetaggap=\skip51
+\mathdisplay@stack=\toks19
+LaTeX Info: Redefining \[ on input line 2859.
+LaTeX Info: Redefining \] on input line 2860.
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/lmodern.sty
+Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/lmm/m/it on input line 23.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/lmsy/m/n on input line 24.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 25.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 26.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/lmm/b/it on input line 27.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/lmsy/b/n on input line 28.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/lmex/m/n on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 31.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 32.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/lmr/m/it on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 34.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/lmr/bx/n on input line 35.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/lmss/bx/n on input line 36.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/iftex/ifxetex.sty
+Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+(/usr/local/texlive/2020/texmf-dist/tex/generic/iftex/ifluatex.sty
+Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 11
+2.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/t1lmr.fd
+File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+))
+(/usr/local/texlive/2020/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2018/08/11 v1.3c Input encoding file
+\inpenc@prehook=\toks20
+\inpenc@posthook=\toks21
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/base/textcomp.sty
+Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/upquote/upquote.sty
+Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
+tim
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/microtype.sty
+Package: microtype 2019/11/18 v2.7d Micro-typographical refinements (RS)
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks22
+)
+\MT@toks=\toks23
+\MT@count=\count188
+LaTeX Info: Redefining \textls on input line 790.
+\MT@outer@kern=\dimen144
+LaTeX Info: Redefining \textmicrotypecontext on input line 1354.
+\MT@listname@count=\count189
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/microtype-pdftex.def
+File: microtype-pdftex.def 2019/11/18 v2.7d Definitions specific to pdftex (RS)
+
+LaTeX Info: Redefining \lsstyle on input line 914.
+LaTeX Info: Redefining \lslig on input line 914.
+\MT@outer@space=\skip52
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/microtype.cfg
+File: microtype.cfg 2019/11/18 v2.7d microtype main configuration file (RS)
+))
+(/usr/local/texlive/2020/texmf-dist/tex/latex/parskip/parskip.sty
+Package: parskip 2020-01-22 v2.0d non-zero parskip adjustments
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+Package: kvoptions 2019/11/29 v3.13 Key value format for package options (HO)
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+Package: ltxcmds 2019/12/15 v1.24 LaTeX kernel commands for general use (HO)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
+Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
+))
+(/usr/local/texlive/2020/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2019/09/21 v2.5h e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count190
+))
+(/usr/local/texlive/2020/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1348.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1352.
+Package xcolor Info: Model `RGB' extended on input line 1364.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1366.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1367.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1368.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/xurl/xurl.sty
+Package: xurl 2020/01/24 v 0.09 modify URL breaks
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip17
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+))
+(/usr/local/texlive/2020/texmf-dist/tex/latex/bookmark/bookmark.sty
+Package: bookmark 2019/12/03 v1.28 PDF bookmarks (HO)
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2020/01/14 v7.00d Hypertext links for LaTeX
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/pdftexcmds/pdftexcmds.sty
+Package: pdftexcmds 2019/11/24 v0.31 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/hycolor/hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/auxhook/auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+\@linkdim=\dimen145
+\Hy@linkcounter=\count191
+\Hy@pagecounter=\count192
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2020/01/14 v7.00d Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/intcalc/intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count193
+Package hyperref Info: Option `unicode' set `true' on input line 4421.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/puenc.def
+File: puenc.def 2020/01/14 v7.00d Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Hyper figures OFF on input line 4547.
+Package hyperref Info: Link nesting OFF on input line 4552.
+Package hyperref Info: Hyper index ON on input line 4555.
+Package hyperref Info: Plain pages OFF on input line 4562.
+Package hyperref Info: Backreferencing OFF on input line 4567.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4800.
+\c@Hy@tempcnt=\count194
+LaTeX Info: Redefining \url on input line 5159.
+\XeTeXLinkMargin=\dimen146
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/bitset/bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count195
+\Field@Width=\dimen147
+\Fld@charsize=\dimen148
+Package hyperref Info: Hyper figures OFF on input line 6430.
+Package hyperref Info: Link nesting OFF on input line 6435.
+Package hyperref Info: Hyper index ON on input line 6438.
+Package hyperref Info: backreferencing OFF on input line 6445.
+Package hyperref Info: Link coloring OFF on input line 6450.
+Package hyperref Info: Link coloring with OCG OFF on input line 6455.
+Package hyperref Info: PDF/A mode OFF on input line 6460.
+LaTeX Info: Redefining \ref on input line 6500.
+LaTeX Info: Redefining \pageref on input line 6504.
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/atbegshi/atbegshi.sty
+Package: atbegshi 2019/12/05 v1.19 At begin shipout hook (HO)
+)
+\Hy@abspage=\count196
+\c@Item=\count197
+\c@Hfootnote=\count198
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2020/01/14 v7.00d Hyperref driver for pdfTeX
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/atveryend/atveryend.sty
+Package: atveryend 2019-12-11 v1.11 Hooks at the very end of document (HO)
+)
+\Fld@listcount=\count199
+\c@bookmark@seq@number=\count266
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+86.
+)
+\Hy@SectionHShift=\skip53
+) (/usr/local/texlive/2020/texmf-dist/tex/latex/bookmark/bkm-pdftex.def
+File: bkm-pdftex.def 2019/12/03 v1.28 bookmark driver for pdfTeX (HO)
+\BKM@id=\count267
+))
+(/usr/local/texlive/2020/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2020/01/07 v4.13 Multi-page Table package (DPC)
+\LTleft=\skip54
+\LTright=\skip55
+\LTpre=\skip56
+\LTpost=\skip57
+\LTchunksize=\count268
+\LTcapwidth=\dimen149
+\LT@head=\box47
+\LT@firsthead=\box48
+\LT@foot=\box49
+\LT@lastfoot=\box50
+\LT@cols=\count269
+\LT@rows=\count270
+\c@LT@tables=\count271
+\c@LT@chunks=\count272
+\LT@p@ftn=\toks24
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen150
+\lightrulewidth=\dimen151
+\cmidrulewidth=\dimen152
+\belowrulesep=\dimen153
+\belowbottomsep=\dimen154
+\aboverulesep=\dimen155
+\abovetopsep=\dimen156
+\cmidrulesep=\dimen157
+\cmidrulekern=\dimen158
+\defaultaddspace=\dimen159
+\@cmidla=\count273
+\@cmidlb=\count274
+\@aboverulesep=\dimen160
+\@belowrulesep=\dimen161
+\@thisruleclass=\count275
+\@lastruleclass=\count276
+\@thisrulewidth=\dimen162
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/tools/array.sty
+Package: array 2019/08/31 v2.4l Tabular extension package (FMi)
+\col@sep=\dimen163
+\ar@mcellbox=\box51
+\extrarowheight=\dimen164
+\NC@list=\toks25
+\extratabsurround=\skip58
+\backup@length=\skip59
+\ar@cellbox=\box52
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count277
+\calc@Bcount=\count278
+\calc@Adimen=\dimen165
+\calc@Bdimen=\dimen166
+\calc@Askip=\skip60
+\calc@Bskip=\skip61
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count279
+\calc@Cskip=\skip62
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/footnotehyper/footnotehyper.sty
+Package: footnotehyper 2019/11/07 v1.1a hyperref aware footnote.sty (JFB)
+\FNH@notes=\box53
+\FNH@width=\dimen167
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2019/11/30 v1.2a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2019/11/30 v1.4a Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 105.
+)
+\Gin@req@height=\dimen168
+\Gin@req@width=\dimen169
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amscls/amsthm.sty
+Package: amsthm 2017/10/31 v2.20.4
+\thm@style=\toks26
+\thm@bodyfont=\toks27
+\thm@headfont=\toks28
+\thm@notefont=\toks29
+\thm@headpunct=\toks30
+\thm@preskip=\skip63
+\thm@postskip=\skip64
+\thm@headsep=\skip65
+\dth@everypar=\toks31
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/bera/bera.sty
+Package: bera 2004/01/31 (WaS)
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/bera/beraserif.sty
+Package: beraserif 2004/01/30 (WaS)
+LaTeX Font Info:    Trying to load font information for T1+fve on input line 30
+.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/bera/t1fve.fd
+File: t1fve.fd 2004/09/07 scalable font definitions for T1/fve.
+)
+LaTeX Font Info:    Font shape `T1/fve/m/n' will be
+(Font)              scaled to size 8.99994pt on input line 30.
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/bera/berasans.sty
+Package: berasans 2004/01/30 (WaS)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/bera/beramono.sty
+Package: beramono 2004/01/31 (WaS)
+))
+(/usr/local/texlive/2020/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
+Package: tcolorbox 2019/11/15 version 4.22 text color boxes
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/local/texlive/2020/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
+x
+\pgfutil@everybye=\toks32
+\pgfutil@tempdima=\dimen170
+\pgfutil@tempdimb=\dimen171
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/utilities/pgfutil-common-li
+sts.tex))
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box54
+(/usr/local/texlive/2020/texmf-dist/tex/latex/ms/everyshi.sty
+Package: everyshi 2001/05/15 v3.00 EveryShipout Package (MS)
+))
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2020/01/08 v3.1.5b (3.1.5b)
+))
+Package: pgf 2020/01/08 v3.1.5b (3.1.5b)
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/local/texlive/2020/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2020/01/08 v3.1.5b (3.1.5b)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks33
+\pgfkeys@temptoks=\toks34
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/utilities/pgfkeysfiltered.c
+ode.tex
+\pgfkeys@tmptoks=\toks35
+))
+\pgf@x=\dimen172
+\pgf@y=\dimen173
+\pgf@xa=\dimen174
+\pgf@ya=\dimen175
+\pgf@xb=\dimen176
+\pgf@yb=\dimen177
+\pgf@xc=\dimen178
+\pgf@yc=\dimen179
+\pgf@xd=\dimen180
+\pgf@yd=\dimen181
+\w@pgf@writea=\write3
+\r@pgf@reada=\read2
+\c@pgf@counta=\count280
+\c@pgf@countb=\count281
+\c@pgf@countc=\count282
+\c@pgf@countd=\count283
+\t@pgf@toka=\toks36
+\t@pgf@tokb=\toks37
+\t@pgf@tokc=\toks38
+\pgf@sys@id@count=\count284
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2020/01/08 v3.1.5b (3.1.5b)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.d
+ef
+File: pgfsys-pdftex.def 2020/01/08 v3.1.5b (3.1.5b)
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
+df.def
+File: pgfsys-common-pdf.def 2020/01/08 v3.1.5b (3.1.5b)
+)))
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
+code.tex
+File: pgfsyssoftpath.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfsyssoftpath@smallbuffer@items=\count285
+\pgfsyssoftpath@bigbuffer@items=\count286
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
+code.tex
+File: pgfsysprotocol.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+))
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2020/01/08 v3.1.5b (3.1.5b)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen182
+\pgfmath@count=\count287
+\pgfmath@box=\box55
+\pgfmath@toks=\toks39
+\pgfmath@stack@operand=\toks40
+\pgfmath@stack@operation=\toks41
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
+tex
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic
+.code.tex)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigo
+nometric.code.tex)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rando
+m.code.tex)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compa
+rison.code.tex)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.
+code.tex)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round
+.code.tex)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.
+code.tex)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
+erarithmetics.code.tex)))
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count288
+)) (/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
+de.tex
+File: pgfcorepoints.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@picminx=\dimen183
+\pgf@picmaxx=\dimen184
+\pgf@picminy=\dimen185
+\pgf@picmaxy=\dimen186
+\pgf@pathminx=\dimen187
+\pgf@pathmaxx=\dimen188
+\pgf@pathminy=\dimen189
+\pgf@pathmaxy=\dimen190
+\pgf@xx=\dimen191
+\pgf@xy=\dimen192
+\pgf@yx=\dimen193
+\pgf@yy=\dimen194
+\pgf@zx=\dimen195
+\pgf@zy=\dimen196
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
+ruct.code.tex
+File: pgfcorepathconstruct.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@path@lastx=\dimen197
+\pgf@path@lasty=\dimen198
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
+.code.tex
+File: pgfcorepathusage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@shorten@end@additional=\dimen199
+\pgf@shorten@start@additional=\dimen256
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
+de.tex
+File: pgfcorescopes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfpic=\box56
+\pgf@hbox=\box57
+\pgf@layerbox@main=\box58
+\pgf@picture@serial@count=\count289
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
+ate.code.tex
+File: pgfcoregraphicstate.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgflinewidth=\dimen257
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
+ations.code.tex
+File: pgfcoretransformations.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@pt@x=\dimen258
+\pgf@pt@y=\dimen259
+\pgf@pt@temp=\dimen260
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
+e.tex
+File: pgfcorequick.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
+ode.tex
+File: pgfcoreobjects.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
+ssing.code.tex
+File: pgfcorepathprocessing.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
+de.tex
+File: pgfcorearrows.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfarrowsep=\dimen261
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
+e.tex
+File: pgfcoreshade.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@max=\dimen262
+\pgf@sys@shading@range@num=\count290
+\pgf@shadingcount=\count291
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
+e.tex
+File: pgfcoreimage.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
+code.tex
+File: pgfcoreexternal.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfexternal@startupbox=\box59
+))
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
+de.tex
+File: pgfcorelayers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
+ncy.code.tex
+File: pgfcoretransparency.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
+code.tex
+File: pgfcorepatterns.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.
+tex
+File: pgfcorerdf.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)))
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
+e.tex
+File: pgfmoduleshapes.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+\pgfnodeparttextbox=\box60
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
+tex
+File: pgfmoduleplot.code.tex 2020/01/08 v3.1.5b (3.1.5b)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-0-65.sty
+Package: pgfcomp-version-0-65 2020/01/08 v3.1.5b (3.1.5b)
+\pgf@nodesepstart=\dimen263
+\pgf@nodesepend=\dimen264
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-1-18.sty
+Package: pgfcomp-version-1-18 2020/01/08 v3.1.5b (3.1.5b)
+)) (/usr/local/texlive/2020/texmf-dist/tex/latex/tools/verbatim.sty
+Package: verbatim 2019/11/10 v1.5r LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks42
+\verbatim@line=\toks43
+\verbatim@in@stream=\read3
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/environ/environ.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+))
+\tcb@titlebox=\box61
+\tcb@upperbox=\box62
+\tcb@lowerbox=\box63
+\tcb@phantombox=\box64
+\c@tcbbreakpart=\count292
+\c@tcblayer=\count293
+\tcolorbox@number=\count294
+\tcb@temp=\box65
+\tcb@temp=\box66
+\tcb@temp=\box67
+\tcb@temp=\box68
+\tcb@out=\write4
+\tcb@record@out=\write5
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2019/05/31 v2.5 Span multiple rows of a table
+\multirow@colwidth=\skip66
+\multirow@cntb=\count295
+\multirow@dima=\skip67
+\bigstrutjot=\dimen265
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+\wrapoverhang=\dimen266
+\WF@size=\dimen267
+\c@WF@wrappedlines=\count296
+\WF@box=\box69
+\WF@everypar=\toks44
+Package: wrapfig 2003/01/31  v 3.6
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count297
+\float@exts=\toks45
+\float@box=\box70
+\@float@everytoks=\toks46
+\@floatcapt=\box71
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
+\everycr=\toks47
+\minrowclearance=\skip68
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+)
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/tabu/tabu.sty
+Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box72
+\sift@deathcycles=\count298
+\@vwid@loff=\dimen268
+\@vwid@roff=\dimen269
+)
+\c@taburow=\count299
+\tabu@nbcols=\count300
+\tabu@cnt=\count301
+\tabu@Xcol=\count302
+\tabu@alloc=\count303
+\tabu@nested=\count304
+\tabu@target=\dimen270
+\tabu@spreadtarget=\dimen271
+\tabu@naturalX=\dimen272
+\tabucolX=\dimen273
+\tabu@Xsum=\dimen274
+\extrarowdepth=\dimen275
+\abovetabulinesep=\dimen276
+\belowtabulinesep=\dimen277
+\tabustrutrule=\dimen278
+\tabu@thebody=\toks48
+\tabu@footnotes=\toks49
+\tabu@box=\box73
+\tabu@arstrutbox=\box74
+\tabu@hleads=\box75
+\tabu@vleads=\box76
+\tabu@cellskip=\skip69
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/threeparttable/threeparttable.sty
+Package: threeparttable 2003/06/13  v 3.0
+\@tempboxb=\box77
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/threeparttablex/threeparttablex.s
+ty
+Package: threeparttablex 2013/07/23 v0.3 by daleif
+\TPTL@width=\skip70
+) (/usr/local/texlive/2020/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box78
+\UL@hyphenbox=\box79
+\UL@skip=\skip71
+\UL@hook=\toks50
+\UL@height=\dimen279
+\UL@pe=\count305
+\UL@pixel=\dimen280
+\ULC@box=\box80
+Package: ulem 2019/11/18
+\ULdepth=\dimen281
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/makecell/makecell.sty
+Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
+\rotheadsize=\dimen282
+\c@nlinenum=\count306
+\TeXr@lab=\toks51
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/biblatex.sty
+Package: biblatex 2019/12/01 v3.14 programmable bibliographies (PK/MW)
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/logreq/logreq.sty
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count307
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/logreq/logreq.def
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
+))
+(/usr/local/texlive/2020/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@tabx@nest=\count308
+\c@listtotal=\count309
+\c@listcount=\count310
+\c@liststart=\count311
+\c@liststop=\count312
+\c@citecount=\count313
+\c@citetotal=\count314
+\c@multicitecount=\count315
+\c@multicitetotal=\count316
+\c@instcount=\count317
+\c@maxnames=\count318
+\c@minnames=\count319
+\c@maxitems=\count320
+\c@minitems=\count321
+\c@citecounter=\count322
+\c@maxcitecounter=\count323
+\c@savedcitecounter=\count324
+\c@uniquelist=\count325
+\c@uniquename=\count326
+\c@refsection=\count327
+\c@refsegment=\count328
+\c@maxextratitle=\count329
+\c@maxextratitleyear=\count330
+\c@maxextraname=\count331
+\c@maxextradate=\count332
+\c@maxextraalpha=\count333
+\c@abbrvpenalty=\count334
+\c@highnamepenalty=\count335
+\c@lownamepenalty=\count336
+\c@maxparens=\count337
+\c@parenlevel=\count338
+\blx@tempcnta=\count339
+\blx@tempcntb=\count340
+\blx@tempcntc=\count341
+\blx@maxsection=\count342
+\blx@maxsegment@0=\count343
+\blx@notetype=\count344
+\blx@parenlevel@text=\count345
+\blx@parenlevel@foot=\count346
+\blx@sectionciteorder@0=\count347
+\blx@entrysetcounter=\count348
+\labelnumberwidth=\skip72
+\labelalphawidth=\skip73
+\biblabelsep=\skip74
+\bibitemsep=\skip75
+\bibnamesep=\skip76
+\bibinitsep=\skip77
+\bibparsep=\skip78
+\bibhang=\skip79
+\blx@bcfin=\read4
+\blx@bcfout=\write6
+\blx@langwohyphens=\language86
+\c@mincomprange=\count349
+\c@maxcomprange=\count350
+\c@mincompwidth=\count351
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/blx-dm.def
+File: blx-dm.def 2019/12/01 v3.14 biblatex localization (PK/MW)
+)
+Package biblatex Info: Trying to load biblatex style data model...
+Package biblatex Info: ... file 'authoryear.dbx' not found.
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count352
+\c@savedafterword=\count353
+\c@annotator=\count354
+\c@savedannotator=\count355
+\c@author=\count356
+\c@savedauthor=\count357
+\c@bookauthor=\count358
+\c@savedbookauthor=\count359
+\c@commentator=\count360
+\c@savedcommentator=\count361
+\c@editor=\count362
+\c@savededitor=\count363
+\c@editora=\count364
+\c@savededitora=\count365
+\c@editorb=\count366
+\c@savededitorb=\count367
+\c@editorc=\count368
+\c@savededitorc=\count369
+\c@foreword=\count370
+\c@savedforeword=\count371
+\c@holder=\count372
+\c@savedholder=\count373
+\c@introduction=\count374
+\c@savedintroduction=\count375
+\c@namea=\count376
+\c@savednamea=\count377
+\c@nameb=\count378
+\c@savednameb=\count379
+\c@namec=\count380
+\c@savednamec=\count381
+\c@translator=\count382
+\c@savedtranslator=\count383
+\c@shortauthor=\count384
+\c@savedshortauthor=\count385
+\c@shorteditor=\count386
+\c@savedshorteditor=\count387
+\c@labelname=\count388
+\c@savedlabelname=\count389
+\c@institution=\count390
+\c@savedinstitution=\count391
+\c@lista=\count392
+\c@savedlista=\count393
+\c@listb=\count394
+\c@savedlistb=\count395
+\c@listc=\count396
+\c@savedlistc=\count397
+\c@listd=\count398
+\c@savedlistd=\count399
+\c@liste=\count400
+\c@savedliste=\count401
+\c@listf=\count402
+\c@savedlistf=\count403
+\c@location=\count404
+\c@savedlocation=\count405
+\c@organization=\count406
+\c@savedorganization=\count407
+\c@origlocation=\count408
+\c@savedoriglocation=\count409
+\c@origpublisher=\count410
+\c@savedorigpublisher=\count411
+\c@publisher=\count412
+\c@savedpublisher=\count413
+\c@language=\count414
+\c@savedlanguage=\count415
+\c@origlanguage=\count416
+\c@savedoriglanguage=\count417
+\c@pageref=\count418
+\c@savedpageref=\count419
+\shorthandwidth=\skip80
+\shortjournalwidth=\skip81
+\shortserieswidth=\skip82
+\shorttitlewidth=\skip83
+\shortauthorwidth=\skip84
+\shorteditorwidth=\skip85
+\locallabelnumberwidth=\skip86
+\locallabelalphawidth=\skip87
+\localshorthandwidth=\skip88
+\localshortjournalwidth=\skip89
+\localshortserieswidth=\skip90
+\localshorttitlewidth=\skip91
+\localshortauthorwidth=\skip92
+\localshorteditorwidth=\skip93
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/blx-compat.def
+File: blx-compat.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/biblatex.def
+File: biblatex.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
+\c@textcitecount=\count420
+\c@textcitetotal=\count421
+\c@textcitemaxnames=\count422
+\c@biburlbigbreakpenalty=\count423
+\c@biburlbreakpenalty=\count424
+\c@biburlnumpenalty=\count425
+\c@biburlucpenalty=\count426
+\c@biburllcpenalty=\count427
+\biburlbigskip=\muskip18
+\biburlnumskip=\muskip19
+\biburlucskip=\muskip20
+\biburllcskip=\muskip21
+\c@smartand=\count428
+)
+Package biblatex Info: Trying to load bibliography style 'authoryear'...
+Package biblatex Info: ... file 'authoryear.bbx' found.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/bbx/authoryear.bbx
+File: authoryear.bbx 2019/12/01 v3.14 biblatex bibliography style (PK/MW)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
+File: standard.bbx 2019/12/01 v3.14 biblatex bibliography style (PK/MW)
+\c@bbx:relatedcount=\count429
+\c@bbx:relatedtotal=\count430
+))
+Package biblatex Info: Trying to load citation style 'authoryear'...
+Package biblatex Info: ... file 'authoryear.cbx' found.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/cbx/authoryear.cbx
+File: authoryear.cbx 2019/12/01 v3.14 biblatex citation style (PK/MW)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/biblatex.cfg
+File: biblatex.cfg 
+))
+\@quotelevel=\count431
+\@quotereset=\count432
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
+File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
+\l__kernel_color_stack_int=\count433
+\l__pdf_internal_box=\box81
+)
+No file ETC5543-Yiwen-Zhang.aux.
+\openout1 = `ETC5543-Yiwen-Zhang.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Info: Redefining \microtypecontext on input line 109.
+Package microtype Info: Generating PDF output.
+Package microtype Info: Character protrusion enabled (level 2).
+Package microtype Info: Using protrusion set `basicmath'.
+Package microtype Info: Automatic font expansion enabled (level 2),
+(microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
+Package microtype Info: Using default expansion set `basictext'.
+LaTeX Info: Redefining \showhyphens on input line 109.
+Package microtype Info: No adjustment of tracking.
+Package microtype Info: No adjustment of interword spacing.
+Package microtype Info: No adjustment of character kerning.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `fve' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+(/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count434
+\scratchdimen=\dimen283
+\scratchbox=\box82
+\nofMPsegments=\count435
+\nofMParguments=\count436
+\everyMPshowfont=\toks52
+\MPscratchCnt=\count437
+\MPscratchDim=\dimen284
+\MPnumerator=\count438
+\makeMPintoPDFobject=\count439
+\everyMPtoPDFconversion=\toks53
+) (/usr/local/texlive/2020/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/grfext/grfext.sty
+Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 504.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+\AtBeginShipoutBox=\box83
+Package hyperref Info: Link coloring OFF on input line 109.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/usr/local/texlive/2020/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count440
+)
+LaTeX Info: Redefining \ref on input line 109.
+LaTeX Info: Redefining \pageref on input line 109.
+LaTeX Info: Redefining \nameref on input line 109.
+ ABD: EveryShipout initializing macros
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/lbx/english.lbx
+File: english.lbx 2019/12/01 v3.14 biblatex localization (PK/MW)
+)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+\openout6 = `ETC5543-Yiwen-Zhang.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'ETC5543-Yiwen-Zhang.bbl' found.
+
+(./ETC5543-Yiwen-Zhang.bbl)
+Package biblatex Info: Reference section=0 on input line 109.
+Package biblatex Info: Reference segment=0 on input line 109.
+LaTeX Font Info:    Font shape `T1/fve/m/n' will be
+(Font)              scaled to size 15.55188pt on input line 111.
+LaTeX Font Info:    Font shape `T1/fve/m/n' will be
+(Font)              scaled to size 10.79993pt on input line 111.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
+11.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ot1lmr.fd
+File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-cmr.cfg
+File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
+(RS)
+)
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
+11.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
+111.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
+111.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 111.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 111.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <6> on input line 111.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 111
+.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 111
+.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
+) [1
+
+
+{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Font shape `T1/fve/m/sl' will be
+(Font)              scaled to size 8.99994pt on input line 114.
+ [2
+
+]
+LaTeX Font Info:    Font shape `T1/fve/m/n' will be
+(Font)              scaled to size 22.39185pt on input line 114.
+LaTeX Font Info:    Font shape `T1/fve/b/n' will be
+(Font)              scaled to size 22.39185pt on input line 114.
+
+
+Package hyperref Warning: old toc file detected, not used; run LaTeX again.
+
+\tf@toc=\write7
+\openout7 = `ETC5543-Yiwen-Zhang.toc'.
+
+[3] [4
+
+] [5] [6
+
+]
+Chapter 1.
+LaTeX Font Info:    Font shape `T1/fve/m/n' will be
+(Font)              scaled to size 18.66588pt on input line 129.
+LaTeX Font Info:    Font shape `T1/fve/b/n' will be
+(Font)              scaled to size 18.66588pt on input line 129.
+[7] [8]
+Chapter 2.
+
+LaTeX Warning: Citation 'R-base' on page 9 undefined on input line 140.
+
+LaTeX Font Info:    Font shape `T1/fve/b/n' will be
+(Font)              scaled to size 8.99994pt on input line 140.
+
+LaTeX Warning: Citation 'gnu' on page 9 undefined on input line 142.
+
+
+LaTeX Warning: Citation 'tiobe' on page 9 undefined on input line 142.
+
+
+LaTeX Warning: Citation 'Ikaha1998' on page 9 undefined on input line 144.
+
+[9
+
+]
+
+LaTeX Warning: Citation 'CRAN' on page 10 undefined on input line 146.
+
+LaTeX Font Info:    Trying to load font information for T1+fvm on input line 14
+8.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/bera/t1fvm.fd
+File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
+)
+LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
+(Font)              scaled to size 8.99994pt on input line 148.
+
+
+LaTeX Warning: Citation 'adjustedcranlogs' on page 10 undefined on input line 1
+48.
+
+
+LaTeX Warning: Citation 'packageRank' on page 10 undefined on input line 148.
+
+
+LaTeX Warning: Citation 'pkgsearch' on page 10 undefined on input line 148.
+
+
+LaTeX Warning: Citation 'VisualizeCRANDownloads' on page 10 undefined on input 
+line 148.
+
+
+LaTeX Warning: Citation 'adjustedcranlogs' on page 10 undefined on input line 1
+50.
+
+LaTeX Font Info:    Trying to load font information for TS1+fve on input line 1
+56.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/bera/ts1fve.fd
+File: ts1fve.fd 2004/09/07 scalable font definitions for TS1/fve.
+)
+LaTeX Font Info:    Font shape `TS1/fve/m/n' will be
+(Font)              scaled to size 8.99994pt on input line 156.
+
+
+LaTeX Warning: Citation 'cranmirror' on page 10 undefined on input line 156.
+
+
+LaTeX Warning: Citation 'crantaskviews' on page 10 undefined on input line 158.
+
+
+LaTeX Font Info:    Font shape `T1/fve/m/n' will be
+(Font)              scaled to size 12.9599pt on input line 162.
+LaTeX Font Info:    Font shape `T1/fve/b/n' will be
+(Font)              scaled to size 12.9599pt on input line 162.
+
+LaTeX Warning: Citation 'adjustedcranlogs' on page 10 undefined on input line 1
+64.
+
+[10] [11] [12
+
+]
+Chapter 3.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 169.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 169.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 169.
+
+LaTeX Warning: Citation 'rhub' on page 13 undefined on input line 197.
+
+[13] [14]
+Chapter 4.
+
+LaTeX Warning: Citation 'rhub' on page 15 undefined on input line 202.
+
+[15
+
+] [16]
+Chapter 5.
+
+LaTeX Warning: Citation 'cranlogs' on page 17 undefined on input line 236.
+
+
+LaTeX Warning: Reference `fig:unusual-spikes' on page 17 undefined on input lin
+e 236.
+
+<figures/unusual-spikes-1.png, id=96, 1349.04pt x 963.6pt>
+File: figures/unusual-spikes-1.png Graphic file (type png)
+<use figures/unusual-spikes-1.png>
+Package pdftex.def Info: figures/unusual-spikes-1.png  used on input line 242.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+LaTeX Warning: Reference `tab:spike14count' on page 17 undefined on input line 
+249.
+
+
+LaTeX Warning: Reference `tab:spike14country' on page 17 undefined on input lin
+e 282.
+
+
+LaTeX Warning: Reference `tab:spike14ip' on page 17 undefined on input line 315
+.
+
+
+LaTeX Warning: Reference `tab:spike18count' on page 17 undefined on input line 
+348.
+
+[17
+
+] [18pdfTeX warning (ext4): destination with the same identifier (name{figure.5
+.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.379 \end{table}
+                 pdfTeX warning (ext4): destination with the same identifier (n
+ame{table.5.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.379 \end{table}
+                  <./figures/unusual-spikes-1.png>] [19pdfTeX warning (ext4): d
+estination with the same identifier (name{table.5.2}) has been already used, du
+plicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.379 \end{table}
+                 pdfTeX warning (ext4): destination with the same identifier (n
+ame{table.5.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.379 \end{table}
+                 ]
+
+LaTeX Warning: Reference `tab:spike18country' on page 20 undefined on input lin
+e 381.
+
+
+LaTeX Warning: Reference `tab:spike18ip' on page 20 undefined on input line 414
+.
+
+[20pdfTeX warning (ext4): destination with the same identifier (name{table.5.4}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.448 
+      pdfTeX warning (ext4): destination with the same identifier (name{table.5
+.5}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.448 
+      ]
+
+LaTeX Warning: Reference `fig:download-over-time' on page 21 undefined on input
+ line 454.
+
+<figures/download-over-time-1.png, id=125, 1349.04pt x 963.6pt>
+File: figures/download-over-time-1.png Graphic file (type png)
+<use figures/download-over-time-1.png>
+Package pdftex.def Info: figures/download-over-time-1.png  used on input line 4
+60.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+LaTeX Warning: Reference `fig:total-trend' on page 21 undefined on input line 4
+71.
+
+[21pdfTeX warning (ext4): destination with the same identifier (name{table.5.6}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.474 
+      ] [22pdfTeX warning (ext4): destination with the same identifier (name{fi
+gure.5.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.474 
+       <./figures/download-over-time-1.png>]
+<figures/total-trend-1.png, id=137, 1349.04pt x 2312.64pt>
+File: figures/total-trend-1.png Graphic file (type png)
+<use figures/total-trend-1.png>
+Package pdftex.def Info: figures/total-trend-1.png  used on input line 479.
+(pdftex.def)             Requested size: 320.83261pt x 549.99876pt.
+
+
+LaTeX Warning: Float too large for page by 37.25981pt on input line 484.
+
+
+LaTeX Warning: Citation 'stl' on page 23 undefined on input line 486.
+
+
+LaTeX Warning: Reference `fig:pkg-stl' on page 23 undefined on input line 486.
+
+<figures/pkg-stl-1.png, id=138, 1349.04pt x 963.6pt>
+File: figures/pkg-stl-1.png Graphic file (type png)
+<use figures/pkg-stl-1.png>
+Package pdftex.def Info: figures/pkg-stl-1.png  used on input line 492.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+LaTeX Warning: Reference `fig:weekend-vs-weekday' on page 23 undefined on input
+ line 499.
+
+<figures/weekend-vs-weekday-1.png, id=139, 1349.04pt x 1349.04pt>
+File: figures/weekend-vs-weekday-1.png Graphic file (type png)
+<use figures/weekend-vs-weekday-1.png>
+Package pdftex.def Info: figures/weekend-vs-weekday-1.png  used on input line 5
+05.
+(pdftex.def)             Requested size: 344.99901pt x 344.99901pt.
+
+LaTeX Warning: Citation 'lorenz' on page 23 undefined on input line 517.
+
+[23] [24pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.5.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.519 F
+       igure \ref{fig:lorenz-all} shows cumulative download counts against e...
+ <./figures/total-trend-1.png>]
+
+LaTeX Warning: Reference `fig:lorenz-all' on page 25 undefined on input line 51
+9.
+
+<figures/lorenz-all-1.png, id=151, 1349.04pt x 963.6pt>
+File: figures/lorenz-all-1.png Graphic file (type png)
+<use figures/lorenz-all-1.png>
+Package pdftex.def Info: figures/lorenz-all-1.png  used on input line 525.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+LaTeX Warning: Reference `tab:top10' on page 25 undefined on input line 532.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [25pdfTeX warning (ext4): destination with the same identifier (name{figure.5.
+4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.565 \textbackslash
+                     end\{table\} <./figures/pkg-stl-1.png>] [26pdfTeX warning 
+(ext4): destination with the same identifier (name{figure.5.5}) has been alread
+y used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.565 \textbackslash
+                     end\{table\} <./figures/weekend-vs-weekday-1.png>]
+[27pdfTeX warning (ext4): destination with the same identifier (name{figure.5.6
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.565 \textbackslash
+                     end\{table\} <./figures/lorenz-all-1.png>]
+
+LaTeX Warning: Citation 'cranlogs' on page 28 undefined on input line 570.
+
+
+LaTeX Warning: Reference `fig:R-download-trend' on page 28 undefined on input l
+ine 577.
+
+<figures/R-download-trend-1.png, id=171, 1349.04pt x 963.6pt>
+File: figures/R-download-trend-1.png Graphic file (type png)
+<use figures/R-download-trend-1.png>
+Package pdftex.def Info: figures/R-download-trend-1.png  used on input line 583
+.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+LaTeX Warning: Reference `fig:R-download-trend-os' on page 28 undefined on inpu
+t line 595.
+
+
+LaTeX Warning: Citation 'warren2017' on page 28 undefined on input line 595.
+
+<figures/R-download-trend-os-1.png, id=172, 1349.04pt x 963.6pt>
+File: figures/R-download-trend-os-1.png Graphic file (type png)
+<use figures/R-download-trend-os-1.png>
+Package pdftex.def Info: figures/R-download-trend-os-1.png  used on input line 
+601.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+LaTeX Warning: Reference `tab:R-download-trend-version' on page 28 undefined on
+ input line 612.
+
+[28] [29pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.5.7}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.613 
+       <./figures/R-download-trend-1.png>] [30pdfTeX warning (ext4): destinatio
+n with the same identifier (name{figure.5.8}) has been already used, duplicate 
+ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.613 
+       <./figures/R-download-trend-os-1.png>]
+
+LaTeX Warning: Citation 'revolutions' on page 31 undefined on input line 652.
+
+[31pdfTeX warning (ext4): destination with the same identifier (name{table.5.7}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.654 H
+       owever, the existence of those packages can cause the results of user...
+]
+
+LaTeX Warning: Citation 'revolutions' on page 32 undefined on input line 667.
+
+
+LaTeX Warning: Reference `fig:lorenz-filter' on page 32 undefined on input line
+ 670.
+
+<figures/lorenz-filter-1.png, id=200, 1349.04pt x 963.6pt>
+File: figures/lorenz-filter-1.png Graphic file (type png)
+<use figures/lorenz-filter-1.png>
+Package pdftex.def Info: figures/lorenz-filter-1.png  used on input line 676.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+LaTeX Warning: Reference `tab:changed-top15pkg' on page 32 undefined on input l
+ine 688.
+
+
+Overfull \hbox (369.87201pt too wide) in paragraph at lines 714--745
+ [][] 
+ []
+
+[32] [33pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.5.9}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.752 T
+       able \ref{tab:unchanged-top15pkg} shows the R-packages that remain un...
+pdfTeX warning (ext4): destination with the same identifier (name{table.5.8}) h
+as been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.752 T
+       able \ref{tab:unchanged-top15pkg} shows the R-packages that remain un...
+ <./figures/lorenz-filter-1.png>]
+
+LaTeX Warning: Reference `tab:unchanged-top15pkg' on page 34 undefined on input
+ line 752.
+
+
+Overfull \hbox (336.43724pt too wide) in paragraph at lines 760--785
+ [][] 
+ []
+
+
+LaTeX Warning: Citation 'r-hub' on page 34 undefined on input line 787.
+
+
+LaTeX Warning: Reference `tab:trending-count' on page 34 undefined on input lin
+e 793.
+
+[34pdfTeX warning (ext4): destination with the same identifier (name{table.5.9}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.827 
+      ]
+
+LaTeX Warning: Citation 'crantaskviews' on page 35 undefined on input line 840.
+
+
+
+Overfull \hbox (34.02351pt too wide) has occurred while \output is active
+\T1/fve/m/sl/10 5.4.  COMPARE LAST YEAR'S DOWNLOADS WITH THE INITIAL RELEASE DA
+TE \T1/fve/m/n/10 35
+ []
+
+[35pdfTeX warning (ext4): destination with the same identifier (name{table.5.10
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.841 
+      ]
+
+LaTeX Warning: Citation 'timeseries' on page 36 undefined on input line 848.
+
+
+LaTeX Warning: Citation 'bayesian' on page 36 undefined on input line 856.
+
+
+LaTeX Warning: Citation 'econometrics' on page 36 undefined on input line 864.
+
+
+LaTeX Warning: Reference `fig:release-downloads' on page 36 undefined on input 
+line 866.
+
+<figures/release-downloads-1.png, id=224, 1349.04pt x 2312.64pt>
+File: figures/release-downloads-1.png Graphic file (type png)
+<use figures/release-downloads-1.png>
+Package pdftex.def Info: figures/release-downloads-1.png  used on input line 87
+2.
+(pdftex.def)             Requested size: 320.83261pt x 549.99876pt.
+
+LaTeX Warning: Float too large for page by 24.65977pt on input line 877.
+
+[36]
+Overfull \hbox (34.02351pt too wide) has occurred while \output is active
+\T1/fve/m/sl/10 5.4.  COMPARE LAST YEAR'S DOWNLOADS WITH THE INITIAL RELEASE DA
+TE \T1/fve/m/n/10 37
+ []
+
+[37pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1
+0}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.892 A
+       s stated in the previous section, the earlier an R-package is release...
+ <./figures/release-downloads-1.png>]
+
+LaTeX Warning: Reference `fig:daily-fbl' on page 38 undefined on input line 894
+.
+
+
+LaTeX Warning: Reference `fig:daily-fcst' on page 38 undefined on input line 89
+4.
+
+<figures/daily-fbl-1.png, id=237, 1349.04pt x 963.6pt>
+File: figures/daily-fbl-1.png Graphic file (type png)
+<use figures/daily-fbl-1.png>
+Package pdftex.def Info: figures/daily-fbl-1.png  used on input line 900.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+<figures/daily-fcst-1.png, id=238, 1349.04pt x 963.6pt>
+File: figures/daily-fcst-1.png Graphic file (type png)
+<use figures/daily-fcst-1.png>
+Package pdftex.def Info: figures/daily-fcst-1.png  used on input line 911.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+LaTeX Warning: Citation 'movingaverage' on page 38 undefined on input line 918.
+
+
+[38pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1
+1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.919 
+       <./figures/daily-fbl-1.png>]
+LaTeX Font Info:    Font shape `T1/fve/m/it' in size <10> not available
+(Font)              Font shape `T1/fve/m/sl' tried instead on input line 926.
+LaTeX Font Info:    Font shape `T1/fve/m/sl' will be
+(Font)              scaled to size 8.99994pt on input line 926.
+
+
+LaTeX Warning: Reference `fig:ff-ma' on page 39 undefined on input line 928.
+
+
+Overfull \hbox (6.86249pt too wide) has occurred while \output is active
+\T1/fve/m/sl/10 5.5.  COMPARE MOVING AVERAGE TRENDS FOR FABLE AND FORECAST \T1/
+fve/m/n/10 39
+ []
+
+[39pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1
+2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.929 
+       <./figures/daily-fcst-1.png>]
+<figures/ff-ma-1.png, id=257, 1349.04pt x 963.6pt>
+File: figures/ff-ma-1.png Graphic file (type png)
+<use figures/ff-ma-1.png>
+Package pdftex.def Info: figures/ff-ma-1.png  used on input line 934.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [40pdfTeX warning (ext4): destination with the same identifier (name{figure.5.
+13}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.947 
+       <./figures/ff-ma-1.png>]
+
+LaTeX Warning: Citation 'githubapi' on page 41 undefined on input line 960.
+
+LaTeX Font Info:    Font shape `T1/fve/m/it' in size <7> not available
+(Font)              Font shape `T1/fve/m/sl' tried instead on input line 960.
+LaTeX Font Info:    Font shape `T1/fve/m/sl' will be
+(Font)              scaled to size 6.29996pt on input line 960.
+LaTeX Font Info:    Font shape `T1/fve/m/it' in size <5> not available
+(Font)              Font shape `T1/fve/m/sl' tried instead on input line 960.
+LaTeX Font Info:    Font shape `T1/fve/m/sl' will be
+(Font)              scaled to size 4.49997pt on input line 960.
+
+LaTeX Warning: Reference `tab:userrepo-tbl' on page 41 undefined on input line 
+962.
+
+
+LaTeX Warning: Citation 'githubapi' on page 41 undefined on input line 964.
+
+
+Overfull \hbox (33.5903pt too wide) in paragraph at lines 971--986
+ [][] 
+ []
+
+
+Overfull \hbox (112.87958pt too wide) has occurred while \output is active
+\T1/fve/m/sl/10 5.6.  COMPARE DOWNLOAD COUNTS WITH THE NUMBER OF COMMITS ON MAS
+TER BRANCH \T1/fve/m/n/10 41
+ []
+
+[41]
+
+LaTeX Warning: Reference `tab:commits-tbl' on page 42 undefined on input line 9
+89.
+
+
+LaTeX Warning: Reference `fig:commits-pattern' on page 42 undefined on input li
+ne 1012.
+
+<figures/commits-pattern-1.png, id=274, 1349.04pt x 963.6pt>
+File: figures/commits-pattern-1.png Graphic file (type png)
+<use figures/commits-pattern-1.png>
+Package pdftex.def Info: figures/commits-pattern-1.png  used on input line 1018
+.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+LaTeX Warning: Reference `tab:quantileall' on page 42 undefined on input line 1
+027.
+
+
+LaTeX Warning: Reference `fig:pkg-low' on page 42 undefined on input line 1029.
+
+
+[42pdfTeX warning (ext4): destination with the same identifier (name{table.5.11
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1030 
+       ]
+Overfull \hbox (112.87958pt too wide) has occurred while \output is active
+\T1/fve/m/sl/10 5.6.  COMPARE DOWNLOAD COUNTS WITH THE NUMBER OF COMMITS ON MAS
+TER BRANCH \T1/fve/m/n/10 43
+ []
+
+[43pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1
+4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1030 
+        <./figures/commits-pattern-1.png>]
+<figures/pkg-low-1.png, id=287, 1349.04pt x 963.6pt>
+File: figures/pkg-low-1.png Graphic file (type png)
+<use figures/pkg-low-1.png>
+Package pdftex.def Info: figures/pkg-low-1.png  used on input line 1066.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+
+LaTeX Warning: Reference `fig:all-updates' on page 44 undefined on input line 1
+087.
+
+<figures/all-updates-1.png, id=288, 1349.04pt x 963.6pt>
+File: figures/all-updates-1.png Graphic file (type png)
+<use figures/all-updates-1.png>
+Package pdftex.def Info: figures/all-updates-1.png  used on input line 1093.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+LaTeX Warning: Reference `tab:pct-lowupdates' on page 44 undefined on input lin
+e 1105.
+
+[44pdfTeX warning (ext4): destination with the same identifier (name{table.5.12
+}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1106 
+       ]
+Overfull \hbox (10.7144pt too wide) has occurred while \output is active
+\T1/fve/m/sl/10 5.7.  COMPARE DOWNLOAD COUNTS WITH THE NUMBERS OF UPDATES \T1/f
+ve/m/n/10 45
+ []
+
+[45pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1
+5}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1106 
+        <./figures/pkg-low-1.png>]
+Overfull \hbox (42.51102pt too wide) in paragraph at lines 1111--1118
+ [][] 
+ []
+
+
+LaTeX Warning: Reference `fig:latestpublish' on page 46 undefined on input line
+ 1125.
+
+<figures/latestpublish-1.png, id=303, 1349.04pt x 963.6pt>
+File: figures/latestpublish-1.png Graphic file (type png)
+<use figures/latestpublish-1.png>
+Package pdftex.def Info: figures/latestpublish-1.png  used on input line 1131.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+LaTeX Warning: Reference `fig:updates-perday' on page 46 undefined on input lin
+e 1143.
+
+[46pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1
+6}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1144 
+       pdfTeX warning (ext4): destination with the same identifier (name{table.
+5.13}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1144 
+        <./figures/all-updates-1.png>]
+Overfull \hbox (10.7144pt too wide) has occurred while \output is active
+\T1/fve/m/sl/10 5.7.  COMPARE DOWNLOAD COUNTS WITH THE NUMBERS OF UPDATES \T1/f
+ve/m/n/10 47
+ []
+
+[47pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1
+7}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1144 
+        <./figures/latestpublish-1.png>]
+<figures/updates-perday-1.png, id=317, 1349.04pt x 963.6pt>
+File: figures/updates-perday-1.png Graphic file (type png)
+<use figures/updates-perday-1.png>
+Package pdftex.def Info: figures/updates-perday-1.png  used on input line 1149.
+
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+Underfull \vbox (badness 2698) has occurred while \output is active []
+
+ [48pdfTeX warning (ext4): destination with the same identifier (name{figure.5.
+18}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1168 W
+        e could see from Figure \ref{fig:namelength-plot} that, the influenc...
+ <./figures/updates-perday-1.png>]
+
+LaTeX Warning: Reference `fig:namelength-plot' on page 49 undefined on input li
+ne 1168.
+
+<figures/namelength-plot-1.png, id=326, 1349.04pt x 963.6pt>
+File: figures/namelength-plot-1.png Graphic file (type png)
+<use figures/namelength-plot-1.png>
+Package pdftex.def Info: figures/namelength-plot-1.png  used on input line 1174
+.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+LaTeX Warning: Reference `tab:pct-lngname' on page 49 undefined on input line 1
+187.
+
+
+Overfull \hbox (40.5921pt too wide) in paragraph at lines 1193--1200
+ [][] 
+ []
+
+
+Overfull \hbox (23.6923pt too wide) has occurred while \output is active
+\T1/fve/m/sl/10 5.8.  COMPARE THE PACKAGE NAME LENGTHS WITH DOWNLOAD COUNTS \T1
+/fve/m/n/10 49
+ []
+
+[49pdfTeX warning (ext4): destination with the same identifier (name{figure.5.1
+9}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1200 \end{table}
+                   <./figures/namelength-plot-1.png>]
+
+LaTeX Warning: Citation 'crantaskviews' on page 50 undefined on input line 1209
+.
+
+
+LaTeX Warning: Reference `fig:namelth-taskview' on page 50 undefined on input l
+ine 1209.
+
+<figures/namelth-taskview-1.png, id=334, 1349.04pt x 1927.2pt>
+File: figures/namelth-taskview-1.png Graphic file (type png)
+<use figures/namelth-taskview-1.png>
+Package pdftex.def Info: figures/namelth-taskview-1.png  used on input line 121
+5.
+(pdftex.def)             Requested size: 344.99901pt x 492.85573pt.
+
+LaTeX Warning: Reference `fig:avgnamelth-year' on page 50 undefined on input li
+ne 1229.
+
+<figures/avgnamelth-year-1.png, id=335, 1349.04pt x 963.6pt>
+File: figures/avgnamelth-year-1.png Graphic file (type png)
+<use figures/avgnamelth-year-1.png>
+Package pdftex.def Info: figures/avgnamelth-year-1.png  used on input line 1235
+.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+LaTeX Warning: Citation 'cranpkgsname' on page 50 undefined on input line 1245.
+
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [50pdfTeX warning (ext4): destination with the same identifier (name{table.5.1
+4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1246 
+       ]
+Overfull \hbox (23.6923pt too wide) has occurred while \output is active
+\T1/fve/m/sl/10 5.8.  COMPARE THE PACKAGE NAME LENGTHS WITH DOWNLOAD COUNTS \T1
+/fve/m/n/10 51
+ []
+
+[51pdfTeX warning (ext4): destination with the same identifier (name{figure.5.2
+0}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1246 
+        <./figures/namelth-taskview-1.png>] [52pdfTeX warning (ext4): destinati
+on with the same identifier (name{figure.5.21}) has been already used, duplicat
+e ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1246 
+        <./figures/avgnamelth-year-1.png>]
+
+LaTeX Warning: Reference `fig:ahlpha-downloads' on page 53 undefined on input l
+ine 1254.
+
+<figures/ahlpha-downloads-1.png, id=354, 1734.48pt x 963.6pt>
+File: figures/ahlpha-downloads-1.png Graphic file (type png)
+<use figures/ahlpha-downloads-1.png>
+Package pdftex.def Info: figures/ahlpha-downloads-1.png  used on input line 126
+0.
+(pdftex.def)             Requested size: 344.9843pt x 191.65794pt.
+
+Overfull \hbox (39.91022pt too wide) has occurred while \output is active
+\T1/fve/m/sl/10 5.9.  COMPARE DOWNLOAD COUNTS WITH ALPHABETICAL ORDER OF NAMES 
+\T1/fve/m/n/10 53
+ []
+
+[53pdfTeX warning (ext4): destination with the same identifier (name{figure.5.2
+2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1273 T
+        hen, we took a look at how the variance varies across groups. Figure...
+ <./figures/ahlpha-downloads-1.png>]
+
+LaTeX Warning: Reference `fig:all-boxplot' on page 54 undefined on input line 1
+273.
+
+<figures/all-boxplot-1.png, id=362, 1349.04pt x 963.6pt>
+File: figures/all-boxplot-1.png Graphic file (type png)
+<use figures/all-boxplot-1.png>
+Package pdftex.def Info: figures/all-boxplot-1.png  used on input line 1279.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+
+LaTeX Warning: Reference `fig:lowdownload-boxplot' on page 54 undefined on inpu
+t line 1287.
+
+<figures/lowdownload-boxplot-1.png, id=363, 1349.04pt x 963.6pt>
+File: figures/lowdownload-boxplot-1.png Graphic file (type png)
+<use figures/lowdownload-boxplot-1.png>
+Package pdftex.def Info: figures/lowdownload-boxplot-1.png  used on input line 
+1293.
+(pdftex.def)             Requested size: 344.99901pt x 246.42786pt.
+[54pdfTeX warning (ext4): destination with the same identifier (name{figure.5.2
+3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1301 
+        <./figures/all-boxplot-1.png>]
+Overfull \hbox (39.91022pt too wide) has occurred while \output is active
+\T1/fve/m/sl/10 5.9.  COMPARE DOWNLOAD COUNTS WITH ALPHABETICAL ORDER OF NAMES 
+\T1/fve/m/n/10 55
+ []
+
+[55pdfTeX warning (ext4): destination with the same identifier (name{figure.5.2
+4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.1301 
+        <./figures/lowdownload-boxplot-1.png>] [56]
+Chapter 6.
+
+LaTeX Warning: Citation 'rhub' on page 57 undefined on input line 1305.
+
+
+LaTeX Warning: Citation 'revolutions' on page 57 undefined on input line 1318.
+
+
+LaTeX Warning: Citation 'tiobe' on page 57 undefined on input line 1321.
+
+[57
+
+]
+
+LaTeX Warning: Citation 'githubapi' on page 58 undefined on input line 1327.
+
+[58]
+Chapter 7.
+
+LaTeX Warning: Empty bibliography on input line 1336.
+
+[59
+
+]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1338.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1338.
+ (./ETC5543-Yiwen-Zhang.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1338.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1338.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                ETC5543-Yiwen-Zhang
+(biblatex)                and rerun LaTeX afterwards.
+
+Package logreq Info: Writing requests to 'ETC5543-Yiwen-Zhang.run.xml'.
+\openout1 = `ETC5543-Yiwen-Zhang.run.xml'.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 30451 strings out of 480608
+ 549000 string characters out of 5903630
+ 1186816 words of memory out of 5000000
+ 45503 multiletter control sequences out of 15000+600000
+ 609186 words of font info for 170 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 59i,9n,75p,1482b,1621s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/lo
+cal/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/20
+20/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2020/texmf-d
+ist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2020/texmf-dist/fonts/type1
+/public/bera/fveb8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/
+bera/fver8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/bera/fve
+r8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/bera/fvmr8a.pfb>
+</usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/loca
+l/texlive/2020/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/2
+020/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2020/texmf-d
+ist/fonts/type1/public/lm/lmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts/ty
+pe1/public/lm/lmsy7.pfb>
+Output written on ETC5543-Yiwen-Zhang.pdf (59 pages, 3105120 bytes).
+PDF statistics:
+ 518 PDF objects out of 1000 (max. 8388607)
+ 396 compressed objects within 4 object streams
+ 135 named destinations out of 1000 (max. 500000)
+ 14613 words of extra memory for PDF output out of 17280 (max. 10000000)
+

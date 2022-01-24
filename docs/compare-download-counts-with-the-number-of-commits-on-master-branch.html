@@ -24,7 +24,7 @@
 <meta name="author" content="Yiwen Zhang" />
 
 
-<meta name="date" content="2021-06-14" />
+<meta name="date" content="2022-01-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -118,7 +118,6 @@ div.csl-indent {
 <li class="chapter" data-level="5.9" data-path="compare-download-counts-with-alphabetical-order-of-names.html"><a href="compare-download-counts-with-alphabetical-order-of-names.html"><i class="fa fa-check"></i><b>5.9</b> Compare download counts with alphabetical order of names</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>6</b> Summary</a></li>
-<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -414,6 +413,132 @@ download_count
 <img src="figures/pkg-low-1.png" alt="The commits on master branch of Github repositories, against the total download counts over the most recent 6 month period, for last 1% downloaded R-packages on CRAN." width="672" />
 <p class="caption">
 Figure 5.15: The commits on master branch of Github repositories, against the total download counts over the most recent 6 month period, for last 1% downloaded R-packages on CRAN.
+</p>
+</div>
+<p><em>correlation test</em></p>
+<p>First, we should verify the test assumption—the distribution of the variables—before selecting an appropriate correlation test. The Shapiro-Wilk test results in Table <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#tab:normal-test">5.15</a> indicate that the p-values for both <code>commits</code> and <code>total</code> are less than 0.05, indicating that their distributions are all non-normal. Additionally, the QQ-plot <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#fig:qqplot">5.16</a> confirms that those variables deviate significantly from the normal distribution. As a result, the Spearman or Kendall correlation test should be used.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:normal-test">Table 5.15: </span>Shapiro-Wilk Normal Distribution Test
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+W.value
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+commits on github
+</td>
+<td style="text-align:right;">
+0.4312253
+</td>
+<td style="text-align:right;">
+3.155336e-82
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+total downloads
+</td>
+<td style="text-align:right;">
+0.1487795
+</td>
+<td style="text-align:right;">
+4.933290e-92
+</td>
+</tr>
+</tbody>
+</table>
+<div class="figure" style="text-align: center"><span id="fig:qqplot"></span>
+<img src="figures/qqplot-1.png" alt="QQ-plot for the number of commits on master branch in Github and the total downloads." width="768" />
+<p class="caption">
+Figure 5.16: QQ-plot for the number of commits on master branch in Github and the total downloads.
+</p>
+</div>
+<p>The Kendall rank correlation and Spearman’s correlation for the number of commits on Github’s master(main) branch and total downloads, respectively, can be seen in Tables <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#tab:corr-kendall">5.16</a> and <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#tab:corr-spearman">5.17</a>. We can see that the p-values are rounding to 0 and 0, which are both less than 0.05, revealing that the relationship between <code>commits</code> and <code>downloads</code> is statistically significant at a 5% confidence level. The estimate coefficients are 0.24 and 0.35, indicating that those two variables have a weak positive correlation. Consequently, we could conclude that the cumulative download count increases between 0.24 and 0.35, as the number of commits on Github’s master(main) branch increases per unit.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:corr-kendall">Table 5.16: </span>Kendall Correlation Test
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Z.score
+</th>
+<th style="text-align:left;">
+tau
+</th>
+<th style="text-align:left;">
+P.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+26.48
+</td>
+<td style="text-align:left;">
+0.24
+</td>
+<td style="text-align:left;">
+1.50516755781972e-154
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:corr-spearman">Table 5.17: </span>Spearman’s Correlation Test
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+S.score
+</th>
+<th style="text-align:left;">
+rho
+</th>
+<th style="text-align:left;">
+P.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+18754296134.1
+</td>
+<td style="text-align:left;">
+0.35
+</td>
+<td style="text-align:left;">
+2.52355299752742e-161
+</td>
+</tr>
+</tbody>
+</table>
+<p>Figure <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#fig:kendall-vis">5.17</a> and Figure <a href="compare-download-counts-with-the-number-of-commits-on-master-branch.html#fig:spearman-vis">5.18</a> shows the scatterplots, together with correlation estimate coefficients, respectively.</p>
+<div class="figure" style="text-align: center"><span id="fig:kendall-vis"></span>
+<img src="figures/kendall-vis-1.png" alt="There is an weak potive relationship between the number of commits on master branch in Github and the cumulative download count, significantly at a 5% confidence level." width="672" />
+<p class="caption">
+Figure 5.17: There is an weak potive relationship between the number of commits on master branch in Github and the cumulative download count, significantly at a 5% confidence level.
+</p>
+</div>
+<div class="figure" style="text-align: center"><span id="fig:spearman-vis"></span>
+<img src="figures/spearman-vis-1.png" alt="There is an weak potive relationship between the number of commits on master branch in Github and the cumulative download count, significantly at a 5% confidence level." width="672" />
+<p class="caption">
+Figure 5.18: There is an weak potive relationship between the number of commits on master branch in Github and the cumulative download count, significantly at a 5% confidence level.
 </p>
 </div>
 </div>

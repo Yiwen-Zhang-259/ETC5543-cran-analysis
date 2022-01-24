@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.4.11)  14 JUN 2021 11:55
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020) (preloaded format=xelatex 2020.4.11)  14 JUN 2021 12:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -793,255 +793,50 @@ Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \rotheadsize=\dimen285
 \c@nlinenum=\count326
 \TeXr@lab=\toks49
-) (/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/biblatex.sty
-Package: biblatex 2019/12/01 v3.14 programmable bibliographies (PK/MW)
-(/usr/local/texlive/2020/texmf-dist/tex/latex/logreq/logreq.sty
-Package: logreq 2010/08/04 v1.0 xml request logger
-\lrq@indent=\count327
-(/usr/local/texlive/2020/texmf-dist/tex/latex/logreq/logreq.def
-File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
-)) (/usr/local/texlive/2020/texmf-dist/tex/latex/base/ifthen.sty
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+) (/usr/local/texlive/2020/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip71
+\bibsep=\skip72
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count327
 )
-\c@tabx@nest=\count328
-\c@listtotal=\count329
-\c@listcount=\count330
-\c@liststart=\count331
-\c@liststop=\count332
-\c@citecount=\count333
-\c@citetotal=\count334
-\c@multicitecount=\count335
-\c@multicitetotal=\count336
-\c@instcount=\count337
-\c@maxnames=\count338
-\c@minnames=\count339
-\c@maxitems=\count340
-\c@minitems=\count341
-\c@citecounter=\count342
-\c@maxcitecounter=\count343
-\c@savedcitecounter=\count344
-\c@uniquelist=\count345
-\c@uniquename=\count346
-\c@refsection=\count347
-\c@refsegment=\count348
-\c@maxextratitle=\count349
-\c@maxextratitleyear=\count350
-\c@maxextraname=\count351
-\c@maxextradate=\count352
-\c@maxextraalpha=\count353
-\c@abbrvpenalty=\count354
-\c@highnamepenalty=\count355
-\c@lownamepenalty=\count356
-\c@maxparens=\count357
-\c@parenlevel=\count358
-\blx@tempcnta=\count359
-\blx@tempcntb=\count360
-\blx@tempcntc=\count361
-\blx@maxsection=\count362
-\blx@maxsegment@0=\count363
-\blx@notetype=\count364
-\blx@parenlevel@text=\count365
-\blx@parenlevel@foot=\count366
-\blx@sectionciteorder@0=\count367
-\blx@entrysetcounter=\count368
-\labelnumberwidth=\skip71
-\labelalphawidth=\skip72
-\biblabelsep=\skip73
-\bibitemsep=\skip74
-\bibnamesep=\skip75
-\bibinitsep=\skip76
-\bibparsep=\skip77
-\bibhang=\skip78
-\blx@bcfin=\read4
-\blx@bcfout=\write6
-\blx@langwohyphens=\language86
-\c@mincomprange=\count369
-\c@maxcomprange=\count370
-\c@mincompwidth=\count371
-Package biblatex Info: Trying to load biblatex default data model...
-Package biblatex Info: ... file 'blx-dm.def' found.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/blx-dm.def
-File: blx-dm.def 2019/12/01 v3.14 biblatex localization (PK/MW)
-)
-Package biblatex Info: Trying to load biblatex style data model...
-Package biblatex Info: ... file 'authoryear.dbx' not found.
-Package biblatex Info: Trying to load biblatex custom data model...
-Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
-\c@afterword=\count372
-\c@savedafterword=\count373
-\c@annotator=\count374
-\c@savedannotator=\count375
-\c@author=\count376
-\c@savedauthor=\count377
-\c@bookauthor=\count378
-\c@savedbookauthor=\count379
-\c@commentator=\count380
-\c@savedcommentator=\count381
-\c@editor=\count382
-\c@savededitor=\count383
-\c@editora=\count384
-\c@savededitora=\count385
-\c@editorb=\count386
-\c@savededitorb=\count387
-\c@editorc=\count388
-\c@savededitorc=\count389
-\c@foreword=\count390
-\c@savedforeword=\count391
-\c@holder=\count392
-\c@savedholder=\count393
-\c@introduction=\count394
-\c@savedintroduction=\count395
-\c@namea=\count396
-\c@savednamea=\count397
-\c@nameb=\count398
-\c@savednameb=\count399
-\c@namec=\count400
-\c@savednamec=\count401
-\c@translator=\count402
-\c@savedtranslator=\count403
-\c@shortauthor=\count404
-\c@savedshortauthor=\count405
-\c@shorteditor=\count406
-\c@savedshorteditor=\count407
-\c@labelname=\count408
-\c@savedlabelname=\count409
-\c@institution=\count410
-\c@savedinstitution=\count411
-\c@lista=\count412
-\c@savedlista=\count413
-\c@listb=\count414
-\c@savedlistb=\count415
-\c@listc=\count416
-\c@savedlistc=\count417
-\c@listd=\count418
-\c@savedlistd=\count419
-\c@liste=\count420
-\c@savedliste=\count421
-\c@listf=\count422
-\c@savedlistf=\count423
-\c@location=\count424
-\c@savedlocation=\count425
-\c@organization=\count426
-\c@savedorganization=\count427
-\c@origlocation=\count428
-\c@savedoriglocation=\count429
-\c@origpublisher=\count430
-\c@savedorigpublisher=\count431
-\c@publisher=\count432
-\c@savedpublisher=\count433
-\c@language=\count434
-\c@savedlanguage=\count435
-\c@origlanguage=\count436
-\c@savedoriglanguage=\count437
-\c@pageref=\count438
-\c@savedpageref=\count439
-\shorthandwidth=\skip79
-\shortjournalwidth=\skip80
-\shortserieswidth=\skip81
-\shorttitlewidth=\skip82
-\shortauthorwidth=\skip83
-\shorteditorwidth=\skip84
-\locallabelnumberwidth=\skip85
-\locallabelalphawidth=\skip86
-\localshorthandwidth=\skip87
-\localshortjournalwidth=\skip88
-\localshortserieswidth=\skip89
-\localshorttitlewidth=\skip90
-\localshortauthorwidth=\skip91
-\localshorteditorwidth=\skip92
-Package biblatex Info: Trying to load enhanced support for Unicode engines...
-Package biblatex Info: ... file 'blx-unicode.def' found.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/blx-unicode.def)
-Package biblatex Info: Trying to load compatibility code...
-Package biblatex Info: ... file 'blx-compat.def' found.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/blx-compat.def
-File: blx-compat.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
-)
-Package biblatex Info: Trying to load generic definitions...
-Package biblatex Info: ... file 'biblatex.def' found.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/biblatex.def
-File: biblatex.def 2019/12/01 v3.14 biblatex compatibility (PK/MW)
-\c@textcitecount=\count440
-\c@textcitetotal=\count441
-\c@textcitemaxnames=\count442
-\c@biburlbigbreakpenalty=\count443
-\c@biburlbreakpenalty=\count444
-\c@biburlnumpenalty=\count445
-\c@biburlucpenalty=\count446
-\c@biburllcpenalty=\count447
-\biburlbigskip=\muskip19
-\biburlnumskip=\muskip20
-\biburlucskip=\muskip21
-\biburllcskip=\muskip22
-\c@smartand=\count448
-)
-Package biblatex Info: Trying to load bibliography style 'authoryear'...
-Package biblatex Info: ... file 'authoryear.bbx' found.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/bbx/authoryear.bbx
-File: authoryear.bbx 2019/12/01 v3.14 biblatex bibliography style (PK/MW)
-Package biblatex Info: Trying to load bibliography style 'standard'...
-Package biblatex Info: ... file 'standard.bbx' found.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
-File: standard.bbx 2019/12/01 v3.14 biblatex bibliography style (PK/MW)
-\c@bbx:relatedcount=\count449
-\c@bbx:relatedtotal=\count450
-))
-Package biblatex Info: Trying to load citation style 'authoryear'...
-Package biblatex Info: ... file 'authoryear.cbx' found.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/cbx/authoryear.cbx
-File: authoryear.cbx 2019/12/01 v3.14 biblatex citation style (PK/MW)
-Package biblatex Info: Redefining '\cite'.
-Package biblatex Info: Redefining '\parencite'.
-Package biblatex Info: Redefining '\footcite'.
-Package biblatex Info: Redefining '\footcitetext'.
-Package biblatex Info: Redefining '\smartcite'.
-Package biblatex Info: Redefining '\textcite'.
-Package biblatex Info: Redefining '\textcites'.
-)
-Package biblatex Info: Trying to load configuration file...
-Package biblatex Info: ... file 'biblatex.cfg' found.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/biblatex.cfg
-File: biblatex.cfg 
-))
-\@quotelevel=\count451
-\@quotereset=\count452
-(./ETC5543-Yiwen-Zhang.aux)
+No file ETC5543-Yiwen-Zhang.aux.
 \openout1 = `ETC5543-Yiwen-Zhang.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 109.
-LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/lmr/m/n --> TU/fve/m/n on input line 109.
+(Font)                  OT1/lmr/m/n --> TU/fve/m/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> TU/fve/m/it on input line 109.
+(Font)                  OT1/lmr/m/it --> TU/fve/m/it on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/lmr/bx/n --> TU/fve/b/n on input line 109.
+(Font)                  OT1/lmr/bx/n --> TU/fve/b/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> TU/fvs/m/n on input line 109.
+(Font)                  OT1/lmss/m/n --> TU/fvs/m/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> TU/fvs/b/n on input line 109.
+(Font)                  OT1/lmss/bx/n --> TU/fvs/b/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> TU/fvm/m/n on input line 109.
+(Font)                  OT1/lmtt/m/n --> TU/fvm/m/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> TU/fvm/b/n on input line 109.
+(Font)                  OT1/lmtt/m/n --> TU/fvm/b/n on input line 108.
 
 Package fontspec Info: latinmodern-math scale = 1.083746074679336.
 
@@ -1070,11 +865,11 @@ t=math;language=dflt;"
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Trying to load font information for T1+latinmodern-math.otf
-(0) on input line 109.
-LaTeX Font Info:    No file T1latinmodern-math.otf(0).fd. on input line 109.
+(0) on input line 108.
+LaTeX Font Info:    No file T1latinmodern-math.otf(0).fd. on input line 108.
 
 LaTeX Font Warning: Font shape `T1/latinmodern-math.otf(0)/m/n' undefined
-(Font)              using `T1/cmr/m/n' instead on input line 109.
+(Font)              using `T1/cmr/m/n' instead on input line 108.
 
 
 Package unicode-math Warning: The first font loaded by unicode-math must be an
@@ -1122,24 +917,24 @@ t=math;language=dflt;"
 (fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
 
 LaTeX Font Info:    Trying to load font information for T1+latinmodern-math.otf
-(1) on input line 109.
-LaTeX Font Info:    No file T1latinmodern-math.otf(1).fd. on input line 109.
+(1) on input line 108.
+LaTeX Font Info:    No file T1latinmodern-math.otf(1).fd. on input line 108.
 
 LaTeX Font Warning: Font shape `T1/latinmodern-math.otf(1)/m/n' undefined
-(Font)              using `T1/cmr/m/n' instead on input line 109.
+(Font)              using `T1/cmr/m/n' instead on input line 108.
 
 LaTeX Font Info:    Encoding `OT1' has changed to `T1' for symbol font
-(Font)              `operators' in the math version `normal' on input line 109.
+(Font)              `operators' in the math version `normal' on input line 108.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/lmr/m/n --> T1/latinmodern-math.otf(1)/m/n on input
- line 109.
+ line 108.
 LaTeX Font Info:    Encoding `OT1' has changed to `T1' for symbol font
-(Font)              `operators' in the math version `bold' on input line 109.
+(Font)              `operators' in the math version `bold' on input line 108.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
 (Font)                  OT1/lmr/bx/n --> T1/latinmodern-math.otf(1)/b/n on inpu
-t line 109.
-LaTeX Info: Redefining \microtypecontext on input line 109.
+t line 108.
+LaTeX Info: Redefining \microtypecontext on input line 108.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: No adjustment of tracking.
@@ -1150,7 +945,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 \AtBeginShipoutBox=\box83
-Package hyperref Info: Link coloring OFF on input line 109.
+Package hyperref Info: Link coloring OFF on input line 108.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
 (/usr/local/texlive/2020/texmf-dist/tex/latex/refcount/refcount.sty
@@ -1160,61 +955,48 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count453
+\c@section@level=\count328
 )
-LaTeX Info: Redefining \ref on input line 109.
-LaTeX Info: Redefining \pageref on input line 109.
-LaTeX Info: Redefining \nameref on input line 109.
-ABD: EveryShipout initializing macros
-Package biblatex Info: Trying to load language 'english'...
-Package biblatex Info: ... file 'english.lbx' found.
-(/usr/local/texlive/2020/texmf-dist/tex/latex/biblatex/lbx/english.lbx
-File: english.lbx 2019/12/01 v3.14 biblatex localization (PK/MW)
-)
-Package biblatex Info: XeTeX detected.
-(biblatex)             Assuming input encoding 'utf8'.
-Package biblatex Info: Automatic encoding selection.
-(biblatex)             Assuming data encoding 'utf8'.
-\openout6 = `ETC5543-Yiwen-Zhang.bcf'.
+LaTeX Info: Redefining \ref on input line 108.
+LaTeX Info: Redefining \pageref on input line 108.
+LaTeX Info: Redefining \nameref on input line 108.
 
-Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'ETC5543-Yiwen-Zhang.bbl' found.
-(./ETC5543-Yiwen-Zhang.bbl)
-Package biblatex Info: Reference section=0 on input line 109.
-Package biblatex Info: Reference segment=0 on input line 109.
+Package hyperref Warning: Rerun to get /PageLabels entry.
+
+ABD: EveryShipout initializing macros
 LaTeX Font Info:    Font shape `T1/fve/m/n' will be
-(Font)              scaled to size 15.55188pt on input line 111.
+(Font)              scaled to size 15.55188pt on input line 110.
 LaTeX Font Info:    Font shape `T1/fve/m/n' will be
-(Font)              scaled to size 10.79993pt on input line 111.
+(Font)              scaled to size 10.79993pt on input line 110.
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-11.
+10.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-111.
+110.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-111.
+110.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 111.
+(Font)              <12> on input line 110.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 111.
+(Font)              <8> on input line 110.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 111.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 111
+(Font)              <6> on input line 110.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 110
 .
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 111
+LaTeX Font Info:    Trying to load font information for U+msb on input line 110
 .
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1225,26 +1007,16 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 
 ]
 LaTeX Font Info:    Font shape `T1/fve/m/sl' will be
-(Font)              scaled to size 8.99994pt on input line 114.
+(Font)              scaled to size 8.99994pt on input line 113.
 [2
 
 ]
 LaTeX Font Info:    Font shape `T1/fve/m/n' will be
-(Font)              scaled to size 22.39185pt on input line 114.
+(Font)              scaled to size 22.39185pt on input line 113.
 LaTeX Font Info:    Font shape `T1/fve/b/n' will be
-(Font)              scaled to size 22.39185pt on input line 114.
-(./ETC5543-Yiwen-Zhang.toc
-LaTeX Font Info:    Font shape `T1/fve/b/n' will be
-(Font)              scaled to size 8.99994pt on input line 3.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 9.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 9.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 9.
-)
-\tf@toc=\write7
-\openout7 = `ETC5543-Yiwen-Zhang.toc'.
+(Font)              scaled to size 22.39185pt on input line 113.
+\tf@toc=\write6
+\openout6 = `ETC5543-Yiwen-Zhang.toc'.
 
 [3] [4
 
@@ -1253,100 +1025,301 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 ]
 Chapter 1.
 LaTeX Font Info:    Font shape `T1/fve/m/n' will be
-(Font)              scaled to size 18.66588pt on input line 129.
+(Font)              scaled to size 18.66588pt on input line 128.
 LaTeX Font Info:    Font shape `T1/fve/b/n' will be
-(Font)              scaled to size 18.66588pt on input line 129.
+(Font)              scaled to size 18.66588pt on input line 128.
 [7] [8]
 Chapter 2.
-LaTeX Font Info:    Font shape `T1/fve/m/it' in size <10> not available
-(Font)              Font shape `T1/fve/m/sl' tried instead on input line 142.
-LaTeX Font Info:    Font shape `T1/fve/m/sl' will be
-(Font)              scaled to size 8.99994pt on input line 142.
+LaTeX Font Info:    Font shape `T1/fve/b/n' will be
+(Font)              scaled to size 8.99994pt on input line 139.
+
+Package natbib Warning: Citation `R-base' on page 9 undefined on input line 139
+.
+
+
+Package natbib Warning: Citation `gnu' on page 9 undefined on input line 141.
+
+
+Package natbib Warning: Citation `tiobe' on page 9 undefined on input line 141.
+
+
+
+Package natbib Warning: Citation `Ikaha1998' on page 9 undefined on input line 
+143.
+
 [9
 
 ]
+
+Package natbib Warning: Citation `CRAN' on page 10 undefined on input line 145.
+
+
 LaTeX Font Info:    Trying to load font information for T1+fvm on input line 14
-8.
+7.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/bera/t1fvm.fd
 File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
 )
 LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
-(Font)              scaled to size 8.99994pt on input line 148.
+(Font)              scaled to size 8.99994pt on input line 147.
+
+Package natbib Warning: Citation `adjustedcranlogs' on page 10 undefined on inp
+ut line 147.
+
+
+Package natbib Warning: Citation `packageRank' on page 10 undefined on input li
+ne 147.
+
+
+Package natbib Warning: Citation `pkgsearch' on page 10 undefined on input line
+ 147.
+
+
+Package natbib Warning: Citation `VisualizeCRANDownloads' on page 10 undefined 
+on input line 147.
+
+
+Package natbib Warning: Citation `adjustedcranlogs' on page 10 undefined on inp
+ut line 149.
+
 LaTeX Font Info:    Trying to load font information for TS1+fve on input line 1
-56.
+55.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/bera/ts1fve.fd
 File: ts1fve.fd 2004/09/07 scalable font definitions for TS1/fve.
 )
 LaTeX Font Info:    Font shape `TS1/fve/m/n' will be
-(Font)              scaled to size 8.99994pt on input line 156.
-[10]
+(Font)              scaled to size 8.99994pt on input line 155.
+
+Package natbib Warning: Citation `cranmirror' on page 10 undefined on input lin
+e 155.
+
+
+Package natbib Warning: Citation `crantaskviews' on page 10 undefined on input 
+line 157.
+
 LaTeX Font Info:    Font shape `T1/fve/m/n' will be
-(Font)              scaled to size 12.9599pt on input line 162.
+(Font)              scaled to size 12.9599pt on input line 161.
 LaTeX Font Info:    Font shape `T1/fve/b/n' will be
-(Font)              scaled to size 12.9599pt on input line 162.
-[11] [12
+(Font)              scaled to size 12.9599pt on input line 161.
+
+Package natbib Warning: Citation `adjustedcranlogs' on page 10 undefined on inp
+ut line 163.
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[10] [11] [12
 
 ]
 Chapter 3.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 168.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 168.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 168.
+
+Package natbib Warning: Citation `rhub' on page 13 undefined on input line 196.
+
+
 [13] [14]
 Chapter 4.
+
+Package natbib Warning: Citation `rhub' on page 15 undefined on input line 201.
+
+
 [15
 
 ] [16]
 Chapter 5.
+
+Package natbib Warning: Citation `cranlogs' on page 17 undefined on input line 
+235.
+
+
+LaTeX Warning: Reference `fig:unusual-spikes' on page 17 undefined on input lin
+e 235.
+
 File: figures/unusual-spikes-1.pdf Graphic file (type pdf)
 <use figures/unusual-spikes-1.pdf>
+
+LaTeX Warning: Reference `tab:spike14count' on page 17 undefined on input line 
+248.
+
+
+LaTeX Warning: Reference `tab:spike14country' on page 17 undefined on input lin
+e 281.
+
+
+LaTeX Warning: Reference `tab:spike14ip' on page 17 undefined on input line 314
+.
+
+
+LaTeX Warning: Reference `tab:spike18count' on page 17 undefined on input line 
+347.
+
 [17
 
-] [18] [19] [20]
+] [18] [19]
+
+LaTeX Warning: Reference `tab:spike18country' on page 20 undefined on input lin
+e 380.
+
+
+LaTeX Warning: Reference `tab:spike18ip' on page 20 undefined on input line 413
+.
+
+[20]
+
+LaTeX Warning: Reference `fig:download-over-time' on page 21 undefined on input
+ line 453.
+
 File: figures/download-over-time-1.pdf Graphic file (type pdf)
 <use figures/download-over-time-1.pdf>
+
+LaTeX Warning: Reference `fig:total-trend' on page 21 undefined on input line 4
+70.
+
 [21]
 File: figures/total-trend-1.pdf Graphic file (type pdf)
 <use figures/total-trend-1.pdf>
 
-LaTeX Warning: Float too large for page by 37.25908pt on input line 484.
+LaTeX Warning: Float too large for page by 37.25908pt on input line 483.
+
+
+Package natbib Warning: Citation `stl' on page 22 undefined on input line 485.
+
+
+LaTeX Warning: Reference `fig:pkg-stl' on page 22 undefined on input line 485.
 
 File: figures/pkg-stl-1.pdf Graphic file (type pdf)
 <use figures/pkg-stl-1.pdf>
+
+LaTeX Warning: Reference `fig:weekend-vs-weekday' on page 22 undefined on input
+ line 498.
+
 [22] [23]
 File: figures/weekend-vs-weekday-1.pdf Graphic file (type pdf)
 <use figures/weekend-vs-weekday-1.pdf>
+
+Package natbib Warning: Citation `lorenz' on page 24 undefined on input line 51
+6.
+
 [24] [25]
+
+LaTeX Warning: Reference `fig:lorenz-all' on page 26 undefined on input line 51
+8.
+
 File: figures/lorenz-all-1.pdf Graphic file (type pdf)
 <use figures/lorenz-all-1.pdf>
+
+LaTeX Warning: Reference `tab:top10' on page 26 undefined on input line 531.
+
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [26]
+
+Package natbib Warning: Citation `cranlogs' on page 27 undefined on input line 
+569.
+
+
+LaTeX Warning: Reference `fig:R-download-trend' on page 27 undefined on input l
+ine 576.
+
 File: figures/R-download-trend-1.pdf Graphic file (type pdf)
 <use figures/R-download-trend-1.pdf>
+
+LaTeX Warning: Reference `fig:R-download-trend-os' on page 27 undefined on inpu
+t line 594.
+
+
+Package natbib Warning: Citation `warren2017' on page 27 undefined on input lin
+e 594.
+
 File: figures/R-download-trend-os-1.pdf Graphic file (type pdf)
 <use figures/R-download-trend-os-1.pdf>
-[27] [28] [29]
+
+LaTeX Warning: Reference `tab:R-download-trend-version' on page 27 undefined on
+ input line 611.
+
+[27] [28]
+
+Package natbib Warning: Citation `revolutions' on page 29 undefined on input li
+ne 651.
+
+[29]
+
+Package natbib Warning: Citation `revolutions' on page 30 undefined on input li
+ne 666.
+
+
+LaTeX Warning: Reference `fig:lorenz-filter' on page 30 undefined on input line
+ 669.
+
 File: figures/lorenz-filter-1.pdf Graphic file (type pdf)
 <use figures/lorenz-filter-1.pdf>
 
-Overfull \hbox (369.87201pt too wide) in paragraph at lines 714--745
+LaTeX Warning: Reference `tab:changed-top15pkg' on page 30 undefined on input l
+ine 687.
+
+
+Overfull \hbox (369.87201pt too wide) in paragraph at lines 713--744
  [][] 
  []
 
 [30] [31]
-Overfull \hbox (336.43724pt too wide) in paragraph at lines 760--785
+
+LaTeX Warning: Reference `tab:unchanged-top15pkg' on page 32 undefined on input
+ line 751.
+
+
+Overfull \hbox (336.43724pt too wide) in paragraph at lines 759--784
  [][] 
  []
 
+
+Package natbib Warning: Citation `r-hub' on page 32 undefined on input line 786
+.
+
+
+LaTeX Warning: Reference `tab:trending-count' on page 32 undefined on input lin
+e 792.
+
 [32]
+
+Package natbib Warning: Citation `crantaskviews' on page 33 undefined on input 
+line 839.
+
+
 Overfull \hbox (34.02351pt too wide) has occurred while \output is active
 \T1/fve/m/sl/10 5.4.  COMPARE LAST YEAR'S DOWNLOADS WITH THE INITIAL RELEASE DA
 TE \T1/fve/m/n/10 33
  []
 
 [33]
+
+Package natbib Warning: Citation `timeseries' on page 34 undefined on input lin
+e 847.
+
+
+Package natbib Warning: Citation `bayesian' on page 34 undefined on input line 
+855.
+
+
+Package natbib Warning: Citation `econometrics' on page 34 undefined on input l
+ine 863.
+
+
+LaTeX Warning: Reference `fig:release-downloads' on page 34 undefined on input 
+line 865.
+
 File: figures/release-downloads-1.pdf Graphic file (type pdf)
 <use figures/release-downloads-1.pdf>
 
-LaTeX Warning: Float too large for page by 24.6644pt on input line 877.
+LaTeX Warning: Float too large for page by 24.6644pt on input line 876.
+
+
+Underfull \vbox (badness 1558) has occurred while \output is active []
 
 [34]
 Overfull \hbox (34.02351pt too wide) has occurred while \output is active
@@ -1355,13 +1328,32 @@ TE \T1/fve/m/n/10 35
  []
 
 [35]
+
+LaTeX Warning: Reference `fig:daily-fbl' on page 36 undefined on input line 893
+.
+
+
+LaTeX Warning: Reference `fig:daily-fcst' on page 36 undefined on input line 89
+3.
+
 File: figures/daily-fbl-1.pdf Graphic file (type pdf)
 <use figures/daily-fbl-1.pdf>
 File: figures/daily-fcst-1.pdf Graphic file (type pdf)
 <use figures/daily-fcst-1.pdf>
+
+Package natbib Warning: Citation `movingaverage' on page 36 undefined on input 
+line 917.
+
 [36]
 Missing character: There is no 𝛴 in font ecrm1000!
 Missing character: There is no − in font ecrm0700!
+LaTeX Font Info:    Font shape `T1/fve/m/it' in size <10> not available
+(Font)              Font shape `T1/fve/m/sl' tried instead on input line 925.
+LaTeX Font Info:    Font shape `T1/fve/m/sl' will be
+(Font)              scaled to size 8.99994pt on input line 925.
+
+LaTeX Warning: Reference `fig:ff-ma' on page 37 undefined on input line 927.
+
 
 Overfull \hbox (6.86249pt too wide) has occurred while \output is active
 \T1/fve/m/sl/10 5.5.  COMPARE MOVING AVERAGE TRENDS FOR FABLE AND FORECAST \T1/
@@ -1372,16 +1364,28 @@ fve/m/n/10 37
 File: figures/ff-ma-1.pdf Graphic file (type pdf)
 <use figures/ff-ma-1.pdf>
 [38]
-LaTeX Font Info:    Font shape `T1/fve/m/it' in size <7> not available
-(Font)              Font shape `T1/fve/m/sl' tried instead on input line 960.
-LaTeX Font Info:    Font shape `T1/fve/m/sl' will be
-(Font)              scaled to size 6.29996pt on input line 960.
-LaTeX Font Info:    Font shape `T1/fve/m/it' in size <5> not available
-(Font)              Font shape `T1/fve/m/sl' tried instead on input line 960.
-LaTeX Font Info:    Font shape `T1/fve/m/sl' will be
-(Font)              scaled to size 4.49997pt on input line 960.
 
-Overfull \hbox (33.5903pt too wide) in paragraph at lines 971--986
+Package natbib Warning: Citation `githubapi' on page 39 undefined on input line
+ 959.
+
+LaTeX Font Info:    Font shape `T1/fve/m/it' in size <7> not available
+(Font)              Font shape `T1/fve/m/sl' tried instead on input line 959.
+LaTeX Font Info:    Font shape `T1/fve/m/sl' will be
+(Font)              scaled to size 6.29996pt on input line 959.
+LaTeX Font Info:    Font shape `T1/fve/m/it' in size <5> not available
+(Font)              Font shape `T1/fve/m/sl' tried instead on input line 959.
+LaTeX Font Info:    Font shape `T1/fve/m/sl' will be
+(Font)              scaled to size 4.49997pt on input line 959.
+
+LaTeX Warning: Reference `tab:userrepo-tbl' on page 39 undefined on input line 
+961.
+
+
+Package natbib Warning: Citation `githubapi' on page 39 undefined on input line
+ 963.
+
+
+Overfull \hbox (33.5903pt too wide) in paragraph at lines 970--985
  [][] 
  []
 
@@ -1395,11 +1399,31 @@ TER BRANCH \T1/fve/m/n/10 39
  []
 
 [39]
+
+LaTeX Warning: Reference `tab:commits-tbl' on page 40 undefined on input line 9
+88.
+
+
+LaTeX Warning: Reference `fig:commits-pattern' on page 40 undefined on input li
+ne 1011.
+
 File: figures/commits-pattern-1.pdf Graphic file (type pdf)
 <use figures/commits-pattern-1.pdf>
+
+LaTeX Warning: Reference `tab:quantileall' on page 40 undefined on input line 1
+026.
+
+
+LaTeX Warning: Reference `fig:pkg-low' on page 40 undefined on input line 1028.
+
+
 [40]
 File: figures/pkg-low-1.pdf Graphic file (type pdf)
 <use figures/pkg-low-1.pdf>
+
+LaTeX Warning: Reference `fig:all-updates' on page 41 undefined on input line 1
+086.
+
 
 Overfull \hbox (10.7144pt too wide) has occurred while \output is active
 \T1/fve/m/sl/10 5.7.  COMPARE DOWNLOAD COUNTS WITH THE NUMBERS OF UPDATES \T1/f
@@ -1410,9 +1434,17 @@ ve/m/n/10 41
 File: figures/all-updates-1.pdf Graphic file (type pdf)
 <use figures/all-updates-1.pdf>
 
-Overfull \hbox (42.51102pt too wide) in paragraph at lines 1111--1118
+LaTeX Warning: Reference `tab:pct-lowupdates' on page 43 undefined on input lin
+e 1104.
+
+
+Overfull \hbox (42.51102pt too wide) in paragraph at lines 1110--1117
  [][] 
  []
+
+
+LaTeX Warning: Reference `fig:latestpublish' on page 43 undefined on input line
+ 1124.
 
 
 Overfull \hbox (10.7144pt too wide) has occurred while \output is active
@@ -1423,6 +1455,10 @@ ve/m/n/10 43
 [43]
 File: figures/latestpublish-1.pdf Graphic file (type pdf)
 <use figures/latestpublish-1.pdf>
+
+LaTeX Warning: Reference `fig:updates-perday' on page 44 undefined on input lin
+e 1142.
+
 File: figures/updates-perday-1.pdf Graphic file (type pdf)
 <use figures/updates-perday-1.pdf>
 
@@ -1435,20 +1471,41 @@ ve/m/n/10 45
  []
 
 [45]
+
+LaTeX Warning: Reference `fig:namelength-plot' on page 46 undefined on input li
+ne 1167.
+
 File: figures/namelength-plot-1.pdf Graphic file (type pdf)
 <use figures/namelength-plot-1.pdf>
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [46]
-Overfull \hbox (40.5921pt too wide) in paragraph at lines 1193--1200
+
+LaTeX Warning: Reference `tab:pct-lngname' on page 47 undefined on input line 1
+186.
+
+
+Overfull \hbox (40.5921pt too wide) in paragraph at lines 1192--1199
  [][] 
  []
+
+
+Package natbib Warning: Citation `crantaskviews' on page 47 undefined on input 
+line 1208.
+
+
+LaTeX Warning: Reference `fig:namelth-taskview' on page 47 undefined on input l
+ine 1208.
 
 File: figures/namelth-taskview-1.pdf Graphic file (type pdf)
 <use figures/namelth-taskview-1.pdf>
 
-LaTeX Warning: Float too large for page by 26.54402pt on input line 1220.
+LaTeX Warning: Float too large for page by 26.54402pt on input line 1219.
+
+
+LaTeX Warning: Reference `fig:avgnamelth-year' on page 47 undefined on input li
+ne 1228.
 
 
 Overfull \hbox (23.6923pt too wide) has occurred while \output is active
@@ -1460,6 +1517,10 @@ Overfull \hbox (23.6923pt too wide) has occurred while \output is active
 File: figures/avgnamelth-year-1.pdf Graphic file (type pdf)
 <use figures/avgnamelth-year-1.pdf>
 
+Package natbib Warning: Citation `cranpkgsname' on page 49 undefined on input l
+ine 1244.
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1469,10 +1530,22 @@ Overfull \hbox (39.91022pt too wide) has occurred while \output is active
  []
 
 [49]
+
+LaTeX Warning: Reference `fig:ahlpha-downloads' on page 50 undefined on input l
+ine 1253.
+
 File: figures/ahlpha-downloads-1.pdf Graphic file (type pdf)
 <use figures/ahlpha-downloads-1.pdf>
+
+LaTeX Warning: Reference `fig:all-boxplot' on page 50 undefined on input line 1
+272.
+
 File: figures/all-boxplot-1.pdf Graphic file (type pdf)
 <use figures/all-boxplot-1.pdf>
+
+LaTeX Warning: Reference `fig:lowdownload-boxplot' on page 50 undefined on inpu
+t line 1286.
+
 [50]
 File: figures/lowdownload-boxplot-1.pdf Graphic file (type pdf)
 <use figures/lowdownload-boxplot-1.pdf>
@@ -1484,36 +1557,56 @@ Overfull \hbox (39.91022pt too wide) has occurred while \output is active
 
 [51] [52]
 Chapter 6.
+
+Package natbib Warning: Citation `rhub' on page 53 undefined on input line 1304
+.
+
+
+Package natbib Warning: Citation `revolutions' on page 53 undefined on input li
+ne 1317.
+
+
+Package natbib Warning: Citation `tiobe' on page 53 undefined on input line 132
+0.
+
 [53
 
-] [54]
+]
+
+Package natbib Warning: Citation `githubapi' on page 54 undefined on input line
+ 1326.
+
+[54]
 Chapter 7.
+No file ETC5543-Yiwen-Zhang.bbl.
+
+Package natbib Warning: There were undefined citations.
+
 [55
 
-] [56
-
 ]
-Missing character: There is no ’ in font fvero8t!
-[57] [58]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1338.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1338.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1337.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1337.
 (./ETC5543-Yiwen-Zhang.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1338.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1338.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1337.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 1337.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package logreq Info: Writing requests to 'ETC5543-Yiwen-Zhang.run.xml'.
-\openout1 = `ETC5543-Yiwen-Zhang.run.xml'.
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 35774 strings out of 479418
- 684212 string characters out of 5884585
- 1421135 words of memory out of 5000000
- 52699 multiletter control sequences out of 15000+600000
+ 29300 strings out of 479418
+ 553439 string characters out of 5884585
+ 893604 words of memory out of 5000000
+ 46275 multiletter control sequences out of 15000+600000
  572688 words of font info for 78 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 59i,9n,116p,1482b,5202s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 59i,9n,116p,1482b,471s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ETC5543-Yiwen-Zhang.pdf (58 pages).
+Output written on ETC5543-Yiwen-Zhang.pdf (55 pages).

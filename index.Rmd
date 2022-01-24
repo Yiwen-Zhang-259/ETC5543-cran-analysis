@@ -24,7 +24,7 @@ I hope you enjoy your reading.
 ```{r, include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
-  .packages(), 'bookdown', 'knitr', 'rmarkdown','tidyverse','cranlogs','glue','grid','pkgsearch','ctv','lubridate','jsonlite','htmltools','httpuv','httr','kableExtra','packageRank','fpp3','slider','rvest','rlist','available','xml2','stats','gglorenz'
+  .packages(), 'bookdown', 'knitr', 'rmarkdown','tidyverse','cranlogs','glue','grid','pkgsearch','ctv','lubridate','jsonlite','htmltools','httpuv','httr','kableExtra','packageRank','fpp3','slider','rvest','rlist','available','xml2','stats','gglorenz','ggpubr','gridExtra','stringr'
 ), 'packages.bib')
 ```
 

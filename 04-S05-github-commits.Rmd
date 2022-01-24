@@ -246,28 +246,104 @@ pkg_commits_low  %>%
 
 *correlation test*
 
+First, we should verify the test assumption—the distribution of the variables—before selecting an appropriate correlation test. The Shapiro-Wilk test results in Table \@ref(tab:normal-test) indicate that the p-values for both `commits` and `total` are less than 0.05, indicating that their distributions are all non-normal. Additionally, the QQ-plot \@ref(fig:qqplot) confirms that those variables deviate significantly from the normal distribution. As a result, the Spearman or Kendall correlation test should be used.
+
 ```{r corr}
+#the capable size of shapiro.test() function is 5000
 pkg_commits_all1 <- pkg_commits_all %>%
   mutate(commits = as.numeric(commits)) %>%
   head(5000)
-
 #test the correlation assumption
 ##both the number of commits and download count are not from a normal distribution, which violates the assumption of Pearson correlation test. Hence, we should apply the Kendall or Spearman correlation test.
-shapiro.test(pkg_commits_all1$commits)
-ggqqplot(pkg_commits_all$commits, ylab = "The number of commits")
-shapiro.test(pkg_commits_all1$total)
-ggqqplot(pkg_commits_all$total, ylab = "The number of downloads")
+a <- shapiro.test(pkg_commits_all1$commits)
+b <-shapiro.test(pkg_commits_all1$total)
+```
 
-cor.test(as.numeric(pkg_commits_all$commits),pkg_commits_all$total, method = "kendall")
-cor.test(as.numeric(pkg_commits_all$commits),pkg_commits_all$total, method = "spearman")
+```{r normal-test}
+data.frame(Variable = c("commits on github","total downloads"),`W value` = c(a$statistic,b$statistic), `p value` = c(a$p.value,b$p.value)) %>%
+  kable(caption = "Shapiro-Wilk Normal Distribution Test",digits = 100) %>%
+  kable_styling(full_width = FALSE,latex_options = "hold_position")
+```
 
+```{r qqplot, fig.cap="QQ-plot for the number of commits on master branch in Github and the total downloads.",fig.width=8}
+library(grid)
+library(gridExtra)
+library(ggpubr)
+pkg_commits_all <- pkg_commits_all %>%
+  mutate(commits = as.numeric(commits)) 
+  
+p1 <- ggqqplot(pkg_commits_all$commits) +
+  ylab("The number of commits")
+p2 <- ggqqplot(pkg_commits_all$total) +
+  ylab("The number of total downloads")
+
+grid.arrange(p1,p2,ncol = 2)
+```
+
+```{r corr1}
+library(tibble)
+library(tidyverse)
+k <- cor.test(as.numeric(pkg_commits_all$commits),pkg_commits_all$total, method = "kendall")
+s <- cor.test(as.numeric(pkg_commits_all$commits),pkg_commits_all$total, method = "spearman")
+```
+
+The Kendall rank correlation and Spearman's correlation for the number of commits on Github's master(main) branch and total downloads, respectively, can be seen in Tables \@ref(tab:corr-kendall) and \@ref(tab:corr-spearman). We can see that the p-values are rounding to `r round(k$p.value,2)` and `r round(s$p.value,2)`, which are both less than 0.05, revealing that the relationship between `commits` and `downloads` is statistically significant at a 5% confidence level. The estimate coefficients are `r round(k$estimate,2)` and `r round(s$estimate,2)`, indicating that those two variables have a weak positive correlation. Consequently, we could conclude that the cumulative download count increases between `r round(k$estimate,2)` and `r round(s$estimate,2)`, as the number of commits on Github's master(main) branch increases per unit.
+
+```{r corr-kendall}
+table(`Z score` = round(as.numeric(str_sub(k$statistic,1)),2),`tau` = round(k$estimate,2),`P value` = k$p.value) %>%
+  as.data.frame() %>%
+  select(-Freq) %>%
+  kable(caption = "Kendall Correlation Test",digits = 100) %>%
+  kable_styling(full_width = FALSE,latex_options = "hold_position")
+```
+
+```{r corr-spearman}
+table(`S score` = round(as.numeric(str_sub(s$statistic,1)),2),`rho` = round(s$estimate,2),`P value` = s$p.value) %>%
+  as.data.frame() %>%
+  select(-Freq) %>%
+  kable(caption = "Spearman's Correlation Test",digits = 100) %>%
+  kable_styling(full_width = FALSE,latex_options = "hold_position")
+```
+
+Figure \@ref(fig:kendall-vis) and Figure \@ref(fig:spearman-vis) shows the scatterplots, together with correlation estimate coefficients, respectively. 
+
+```{r kendall-vis, fig.cap="There is an weak potive relationship between the number of commits on master branch in Github and the cumulative download count, significantly at a 5% confidence level."}
 ##visualize
 ggscatter(pkg_commits_all,x = "commits", y = "total", 
           add = "reg.line", conf.int = TRUE, 
-          cor.coef = TRUE, cor.method = "kendall")
+          cor.coef = TRUE, cor.method = "kendall") +
+  labs(
+    x = "Commits count",
+    y = "Download count",
+    title = "Scattor plot of 'commits' and 'downloads'",
+    subtitle = "with Kendall Rank Correlation"
+  )+
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5)
+  )
 
+```
+
+```{r spearman-vis, fig.cap="There is an weak potive relationship between the number of commits on master branch in Github and the cumulative download count, significantly at a 5% confidence level."}
 ggscatter(pkg_commits_all,x = "commits", y = "total", 
           add = "reg.line", conf.int = TRUE, 
-          cor.coef = TRUE, cor.method = "spearman")
+          cor.coef = TRUE, cor.method = "spearman")+
+  labs(
+    x = "Commits count",
+    y = "Download count",
+    title = "Scattor plot of 'commits' and 'downloads'",
+    subtitle = "with Spearman's Correlation"
+  )+
+  theme(panel.grid.major = element_blank()) +
+  theme(
+  axis.text=element_text(size=10),
+  axis.title=element_text(size=12,face="bold"),
+  plot.title = element_text(h = 0.5),
+  plot.subtitle = element_text(h = 0.5)
+  )
 ```
 
